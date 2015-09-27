@@ -1,0 +1,24 @@
+## Interface: 11200
+## Author: modernist
+## Title: mod ui
+## Notes: ui mods.
+modglobals\bag.lua
+modglobals\string.lua
+modchat\chat.lua
+moddark\dark.lua
+modmaps\mini.lua
+modmaps\world.lua
+modsb\smooth.lua
+modskin\method\method.lua
+modskin\button\action.lua
+modskin\button\aura.lua
+modskin\button\bag.lua
+modskin\button\chat.lua
+modskin\button\loot.lua
+modskin\button\pd.lua
+modskin\frame\tip.lua
+modskin\balloon.lua
+modskin\skin.lua
+modtip\tip.lua
+moduf\unit.lua
+modplate\nameplates.lua
