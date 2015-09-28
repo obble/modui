@@ -19,7 +19,6 @@
         for i = 1, f:GetNumRegions() do                               -- FISH
         	local a, b, c, d, e, f, g, h = f:GetRegions()
             for i,v in pairs ({a,b,c,d,e,f,g,h}) do
-                print(v)
             	local pn = {v:GetPoint()}
             	if  v:GetObjectType() == 'Texture' then
                	 	v:SetDrawLayer'OVERLAY'

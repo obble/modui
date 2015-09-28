@@ -4,94 +4,44 @@
     local type, gsub, time, floor,  _ = type, _G.string.gsub, time, math.floor, _
     local tostring = tostring
     local _AddMessage = ChatFrame1.AddMessage
-    local buttons = {"UpButton", "DownButton", "BottomButton"}
-    local dummy = function() end
-    local ts = "|cffffffff%s|||r %s"
+    local blacklist = {[ChatFrame2] = true,}
 
-    ChatFontNormal:SetFont(STANDARD_TEXT_FONT, 14)
+    ChatFontNormal:SetFont(STANDARD_TEXT_FONT, 14)      -- DEFAULT FONT
     ChatFontNormal:SetShadowOffset(1, -1)
     ChatFontNormal:SetShadowColor(0, 0, 0, 1)
 
-    SLASH_RELOADUI1 = '/rl'
+
+    SLASH_RELOADUI1 = '/rl'                             -- DEVTOOLS
     SlashCmdList.RELOADUI = ReloadUI
 
-        -- more font sizes
-    CHAT_FONT_HEIGHTS = {
+
+    CHAT_FONT_HEIGHTS = {                               -- MORE MENU FONT SIZES
         [1] = 8, [2] = 9, [3] = 10, [4] = 11, [5] = 12, [6] = 13,
         [7] = 14, [8] = 15, [9] = 16, [10] = 17, [11] = 18, [12] = 19, [13] = 20, }
 
-     local TL, TC, TR = 'TOPLEFT', 'TOP', 'TOPRIGHT'
-     local ML, MC, MR = 'LEFT', 'CENTER', 'RIGHT'
-     local BL, BC, BR = 'BOTTOMLEFT', 'BOTTOM', 'BOTTOMRIGHT'
 
-     local hooks = {}
-     local replaces = {
-     	['Guild'] = 'G',
-     	['Party'] = 'P',
-     	['Raid'] = 'R',
-     	['Raid Leader'] = 'RL',
-     	['Raid Warning'] = 'RW',
-     	['Officer'] = 'O',
-     	['Battleground'] = 'B',
-     	['Battleground Leader'] = 'BL',
-     	['(%d )%. .-'] = '%1',
-     }
+                                                        -- STRING SUBS
+     CHAT_GUILD_GET = '|Hchannel:Guild|hg|h %s:\32'                        -- GUILD          'g'
+     CHAT_OFFICER_GET = '|Hchannel:o|ho|h %s:\32'                          -- OFFICER        'o'
+     CHAT_RAID_GET = '|Hchannel:raid|hr|h %s:\32'                          -- RAID           'r'
+     CHAT_RAID_WARNING_GET = 'rw %s:\32'                                   -- RAID W         'rw'
+     CHAT_RAID_LEADER_GET = '|Hchannel:raid|hrl|h %s:\32'                  -- RAID L         'rl'
+     CHAT_BATTLEGROUND_GET = '|Hchannel:Battleground|hbg|h %s:\32'         -- BG             'bg'
+     CHAT_BATTLEGROUND_LEADER_GET = '|Hchannel:Battleground|hbl|h %s:\32'  -- BG L           'bl'
+     CHAT_PARTY_GET = '|Hchannel:party|hp|h %s:\32'                        -- PARTY          'p'
+     CHAT_PARTY_GUIDE_GET = '|Hchannel:party|hdg|h %s:\32'                 -- DUNGEONGUIDE   'dg'
+     CHAT_MONSTER_PARTY_GET = '|Hchannel:raid|hr|h %s:\32'                 -- RAID           'r'
 
-     local function showFrameForever (f)
-     	f:SetScript('OnShow', nil)
-     	f:Show()
-     end
+    local AddMessage = function(f, t, r, g, b, id)
+        t = gsub(t, '%[(%d+)%. .+%].+(|Hplayer.+)', '%1 %2')               -- WORLD CHANNELS '1'
+        t = gsub(t, '|H(.-)|h%[(.-)%]|h', '|H%1|h%2|h')                    -- STRIP BRACKETS
+        -- t = string.format('%s %s', date'%X', t)                         -- TIMESTAMP
+        return _AddMessage(f, t, r, g, b, id)
+    end
 
-     local function hideFrameForever (f)
-     	f:SetScript('OnShow', function() f:Hide() end)
-     	f:Hide()
-     end
 
-     --[[local function AddMessage(frame, text, red, green, blue, id)
-     	text = tostring(text) or ''
-
-     	-- channels
-     	for k,v in pairs(replaces) do
-     		text = text:gsub('|h%['..k..'%]|h', '|h'..v..'|h')
-     	end
-
-     	-- players
-     	text = text:gsub('(|Hplayer.-|h)%[(.-)%]|h', '%1%2|h')
-
-    	-- normal messages
-    	text = text:gsub(' says:', ':')
-
-    	-- whispers
-    	text = text:gsub(' whispers:', ' <')
-    	text = text:gsub('To (|Hplayer.+|h):', '%1 >')
-
-    	-- achievements
-    	text = text:gsub('(|Hplayer.+|h) has earned the achievement (.+)!', '%1 ! %2')
-
-     	-- timestamp
-     	text = '|cff999999' .. date('%H%M') .. '|r ' .. text
-
-     	return hooks[frame](frame, text, red, green, blue, id)
-    end ]]
-
-     local function scrollChat(frame, delta)
-     	if arg2 > 0 then
-     		if IsShiftKeyDown() then
-     			frame:ScrollToTop()
-     		else
-     			frame:ScrollUp()
-     		end
-     	elseif arg2 < 0 then
-     		if IsShiftKeyDown() then
-     			frame:ScrollToBottom()
-     		else
-     			frame:ScrollDown()
-     		end
-     	end
-     end
-
-     local modScroll = function()
-         if not arg1 then print'nope' return end
+     local modScroll = function()                       -- MOUSESCROLL CHAT
+         if not arg1 then return end
          local f = this:GetParent()
          if arg1 > 0 then
              if IsShiftKeyDown() then f:ScrollToTop()
@@ -103,50 +53,45 @@
      end
 
 
-      for i = 1, 7 do
-      	local chat = _G['ChatFrame'..i]
+     local hideFrameForever = function (f)                -- HIDE JUNK
+         f:SetScript('OnShow', function() f:Hide() end) f:Hide()
+     end
 
-      	-- buttons
-      	hideFrameForever(_G['ChatFrame'..i..'UpButton'])
-      	hideFrameForever(_G['ChatFrame'..i..'DownButton'])
-      	hideFrameForever(_G['ChatFrame'..i..'BottomButton'])
 
-        local f = CreateFrame('Frame', nil, chat)
-        f:EnableMouse(false)
-        f:SetPoint('TOPLEFT', chat)
-        f:SetPoint('BOTTOMRIGHT', chat)
-        f:EnableMouseWheel(true)
-        f:SetScript('OnMouseWheel', modScroll)
+     for i = 1, 7 do                                   -- INIT STYLE, SUBS etc
+         local chat = _G['ChatFrame'..i]
+
+         hideFrameForever(_G['ChatFrame'..i..'UpButton'])
+         hideFrameForever(_G['ChatFrame'..i..'DownButton'])
+         hideFrameForever(_G['ChatFrame'..i..'BottomButton'])
+
+         local f = CreateFrame('Frame', nil, chat)
+         f:EnableMouse(false)
+         f:SetPoint('TOPLEFT', chat)
+         f:SetPoint('BOTTOMRIGHT', chat)
+         f:EnableMouseWheel(true)
+         f:SetScript('OnMouseWheel', modScroll)
 
          _G['ChatFrame'..i..'UpButton']:GetNormalTexture():SetVertexColor(.5, .5, .5)
          _G['ChatFrame'..i..'DownButton']:GetNormalTexture():SetVertexColor(.5, .5, .5)
          _G['ChatFrame'..i..'BottomButton']:GetNormalTexture():SetVertexColor(.5, .5, .5)
 
-      	-- text subs
-      	hooks[chat] = chat.AddMessage
-      	chat.AddMessage = AddMessage
-      end
+         if not blacklist[chat] then chat.AddMessage = AddMessage end
+     end
 
-     -- buttons
-    ChatFrameMenuButton:GetNormalTexture():SetVertexColor(.5, .5, .5)
-    ChatFrameMenuButton:ClearAllPoints() ChatFrameMenuButton:SetPoint('BOTTOMRIGHT', ChatFrame1, 'BOTTOMLEFT', -3, -10)
+     ChatFrameMenuButton:GetNormalTexture():SetVertexColor(.5, .5, .5)
+     ChatFrameMenuButton:ClearAllPoints() ChatFrameMenuButton:SetPoint('BOTTOMRIGHT', ChatFrame1, 'BOTTOMLEFT', -3, -10)
+     ChatMenu:ClearAllPoints() ChatMenu:SetPoint('BOTTOM', UIParent, 0, 100)
 
-     -- editbox background
      local x = ({ChatFrameEditBox:GetRegions()})
-     x[6]:SetAlpha(0)
-     x[7]:SetAlpha(0)
-     x[8]:SetAlpha(0)
-
-     -- editbox position
+     x[6]:SetAlpha(0) x[7]:SetAlpha(0) x[8]:SetAlpha(0)
      ChatFrameEditBox:ClearAllPoints()
-     ChatFrameEditBox:SetPoint(BL, _G.ChatFrame1, TL, -5, 0)
-     ChatFrameEditBox:SetPoint(BR, _G.ChatFrame1, TR,  5, 0)
-
-     -- editbox noalt
+     ChatFrameEditBox:SetPoint('BOTTOMLEFT', ChatFrame1, 'TOPLEFT', -5, 0)
+     ChatFrameEditBox:SetPoint('BOTTOMRIGHT', ChatFrame1, 'TOPRIGHT',  5, 0)
      ChatFrameEditBox:SetAltArrowKeyMode(nil)
 
-     -- sticky channels
-     ChatTypeInfo.SAY.sticky = 1
+
+     ChatTypeInfo.SAY.sticky = 1                        -- STICKY CHANNELS
      ChatTypeInfo.EMOTE.sticky = 1
      ChatTypeInfo.YELL.sticky = 1
      ChatTypeInfo.PARTY.sticky = 1
