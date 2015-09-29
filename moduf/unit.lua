@@ -61,14 +61,39 @@
                         string:SetText(percent..'%')
                     end
                     string:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
-                    string:ClearAllPoints()
-                    string:SetPoint((textStatusBar:GetName() == 'PlayerFrameManaBar') and 'BOTTOMLEFT' or 'BOTTOMRIGHT',
+                    if GetCVar'modStatus'  == '1' then
+                        string:ClearAllPoints()
+                        string:SetPoint((textStatusBar:GetName() == 'PlayerFrameManaBar') and 'BOTTOMLEFT' or 'BOTTOMRIGHT',
                                     'PlayerFrameManaBar',
                                     (textStatusBar:GetName() == 'PlayerFrameManaBar') and 28 or -12,
                                     8)
+                    end
     			end
             end
     	end
     end
+
+    RegisterCVar('modStatus', 1, true)
+    MODSTATUS_BAR_TEXT = 'modui: Side-by-Side Status Text'
+    UIOptionsFrameCheckButtons['MODSTATUS_BAR_TEXT'] = { index = 70, cvar = 'modStatus'}
+    UIOptionsFrameCheckButton70 = CreateFrame('CheckButton', 'UIOptionsFrameCheckButton70', UIOptionsFrameCheckButton2, 'UIOptionsCheckButtonTemplate')
+    UIOptionsFrameCheckButton70:SetHeight(20) UIOptionsFrameCheckButton70:SetWidth(20)
+    UIOptionsFrameCheckButton70:SetPoint('LEFT', UIOptionsFrameCheckButton2, 'RIGHT', 100, 0)
+
+    local w = UIOptionsFrameCheckButton70:CreateFontString(nil, 'OVERLAY')
+    w:SetFontObject(GameFontNormalSmall)
+    w:SetText'Will reload ui!'
+    w:SetTextColor(1, .2, 0)
+    w:SetPoint('TOPLEFT', UIOptionsFrameCheckButton70, 'BOTTOMRIGHT')
+
+    local cv = GetCVar'modStatus'
+    local f = CreateFrame'Frame'
+    f:RegisterEvent'CVAR_UPDATE'
+    f:SetScript('OnEvent', function()
+        if arg1 == 'MODSTATUS_BAR_TEXT' and arg2 ~= cv then
+            TextStatusBar_UpdateTextString() ReloadUI()
+        end
+    end)
+
 
     --

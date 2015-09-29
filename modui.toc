@@ -2,6 +2,7 @@
 ## Author: modernist
 ## Title: mod ui
 ## Notes: ui mods.
+## SavedVariables: modStatus
 modglobals\bag.lua
 modglobals\string.lua
 modchat\chat.lua
