@@ -4,7 +4,7 @@
     local f = CreateFrame'Frame'
     local TEXTURE = [[Interface\AddOns\modui\modsb\texture\sb.tga]]
     local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],}
-
+    local enabled = true
 
         -- STYLE
     local function SkinNamePlates(self, namePlate)
@@ -44,3 +44,8 @@
             end
         end
     end)
+
+    f:RegisterEvent'PLAYER_ENTERING_WORLD'
+    f:SetScript('OnEvent', function() if enabled then ShowNameplates() end end)
+
+    --

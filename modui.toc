@@ -4,6 +4,7 @@
 ## Notes: ui mods.
 ## SavedVariables: modStatus
 modglobals\bag.lua
+modglobals\colour.lua
 modglobals\string.lua
 modchat\chat.lua
 moddark\dark.lua
