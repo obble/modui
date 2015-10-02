@@ -13,10 +13,10 @@
                                         insets = {left = -1, right = -1, top = -1, bottom = -1} })
     GameTooltipStatusBar:SetBackdropColor(0, 0, 0, 1)
 
-    GameTooltipHeaderText:SetFont(STANDARD_TEXT_FONT, 12)
+    GameTooltipHeaderText:SetFont(STANDARD_TEXT_FONT, 13)
     GameTooltipHeaderText:SetShadowOffset(.7, -.7)
     GameTooltipHeaderText:SetShadowColor(0, 0, 0, 1)
-    GameTooltipText:SetFont(STANDARD_TEXT_FONT, 11)
+    GameTooltipText:SetFont(STANDARD_TEXT_FONT, 12)
     GameTooltipText:SetShadowOffset(.7, -.7)
     GameTooltipText:SetShadowColor(0, 0, 0,1)
 
@@ -43,11 +43,11 @@
                         LanguageMenu, }
 
     local modTipOnShow = function()
-        GameTooltip:SetBackdropColor(0, 0, 0, .4)
+        GameTooltip:SetBackdropColor(0, 0, 0, .7)
         GameTooltip:SetBackdropBorderColor(.1, .1, .1, 1)
         if AttachToMainbar then
             GameTooltip:ClearAllPoints()
-            GameTooltip:SetPoint('BOTTOMRIGHT', MainMenuBar, -32, CONTAINER_OFFSET_Y)
+            GameTooltip:SetPoint('BOTTOMRIGHT', MainMenuBar, -32, CONTAINER_OFFSET_Y + 10)
         end
     end
 

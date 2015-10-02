@@ -21,5 +21,6 @@
                 LanguageMenu, }
     for i, v in pairs (f) do
         modSkin(v, 18)
+        modSkinPadding(v, -1)
         modSkinColor(v, .15, .15, .15)
     end
