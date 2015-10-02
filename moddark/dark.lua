@@ -82,6 +82,8 @@
 		MainMenuXPBarTextureLeftCap,
 		MainMenuXPBarTextureRightCap,
 		MainMenuXPBarTextureMid,
+        BonusActionBarTexture0,
+        BonusActionBarTexture1,
 		ReputationWatchBarTexture0,
 		ReputationWatchBarTexture1,
 		ReputationWatchBarTexture2,
@@ -95,14 +97,14 @@
 	for i,v in pairs({
 		MainMenuBarLeftEndCap,
 		MainMenuBarRightEndCap,
-		StanceBarLeft,
-		StanceBarMiddle,
-		StanceBarRight,
 		ExhaustionTick:GetNormalTexture(),
 	}) do v:SetVertexColor(.3, .3, .3) v:SetDrawLayer('OVERLAY', 7) end
 
 	for i = 0, 3 do _G['MainMenuXPBarTexture'..i]:SetTexture'' end
 	for i = 0, 3 do _G['ReputationWatchBarTexture'..i]:SetTexture'' end
+    for i, v in pairs({ ShapeshiftBarLeft,
+                        ShapeshiftBarMiddle,
+                        ShapeshiftBarRight, }) do v:SetTexture'' end
 
 	MainMenuExpBar:SetHeight(5)
 	MainMenuExpBar:ClearAllPoints() MainMenuExpBar:SetPoint('TOP', MainMenuBar, 0, -4)
@@ -220,7 +222,7 @@
         v.Material:SetPoint('TOPLEFT', v, 24, -82)
         v.Material:SetVertexColor(.7, .7, .7)
 
-        if v == (GossipFrameGreetingPanel or QuestFrameGreetingPanel) then
+        if v == GossipFrameGreetingPanel or v == QuestFrameGreetingPanel then
             v.Corner = v:CreateTexture(nil, 'OVERLAY', nil, 7)
             v.Corner:SetTexture[[Interface\QuestFrame\UI-Quest-BotLeftPatch]]
             v.Corner:SetWidth(132)
