@@ -11,7 +11,7 @@
             _G['MultiBarBottomRightButton'..i],
             _G['BonusActionButton'..i],}) do
             modSkin(v, 18)
-            modSkinPadding(v, 2, 2, 2, 2, 2, 2, 2, 2)
+            modSkinPadding(v, 2)
             modSkinColor(v, .2, .2, .2)
         end
 
@@ -35,7 +35,7 @@
     for i = 1, 10 do
         local bu = _G['ShapeshiftButton'..i]
         modSkin(bu, 18)
-        modSkinPadding(bu, 2, 2, 2, 2, 2, 2, 2, 2)
+        modSkinPadding(bu, 2)
         modSkinColor(bu, .2, .2, .2)
         bu:GetNormalTexture():SetTexture''
     end

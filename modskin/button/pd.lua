@@ -3,15 +3,15 @@
     local _G = getfenv(0)
 
     local items = {                     -- PAPERDOLL
-	[0] = 'Ammo', 'Head', 'Neck', 'Shoulder',
-	'Shirt', 'Chest', 'Waist', 'Legs', 'Feet',
-	'Wrist', 'Hands', 'Finger0', 'Finger1',
-	'Trinket0', 'Trinket1',
-	'Back', 'MainHand', 'SecondaryHand', 'Ranged', 'Tabard',}
+    	[0] = 'Ammo', 'Head', 'Neck', 'Shoulder',
+    	'Shirt', 'Chest', 'Waist', 'Legs', 'Feet',
+    	'Wrist', 'Hands', 'Finger0', 'Finger1',
+    	'Trinket0', 'Trinket1',
+    	'Back', 'MainHand', 'SecondaryHand', 'Ranged', 'Tabard',}
     for i,v in pairs(items) do
         local bu =  _G['Character'..v..'Slot']
         modSkin(bu, 18)
-        modSkinPadding(bu, 2, 2, 2, 2, 2, 2, 2, 2)
+        modSkinPadding(bu, 2)
         modSkinColor(bu, .2, .2, .2)
         bu:SetNormalTexture''
     end
@@ -36,4 +36,3 @@
     pD:RegisterEvent'UNIT_INVENTORY_CHANGED'
 
     --
-    

@@ -7,7 +7,7 @@
         for k = 1, MAX_CONTAINER_ITEMS do
             local bu = _G['ContainerFrame'..i..'Item'..k]
             modSkin(bu, 22)
-            modSkinPadding(bu, 2, 2, 2, 2, 2, 2, 2, 2)
+            modSkinPadding(bu, 2)
             modSkinColor(bu, .2, .2, .2)
         end
     end

@@ -7,7 +7,7 @@
         if p then
             print'true'
             modSkin(p, 18)
-            modSkinPadding(p, 2, 2, 2, 2, 2, 2, 2, 2)
+            modSkinPadding(p, 2)
             modSkinColor(p, .2, .2, .2)
         end
     end
@@ -16,21 +16,21 @@
     local skF = CreateFrame('Frame', nil, sk)
     skF:SetAllPoints(sk.Icon)
     modSkin(skF, 18)
-    modSkinPadding(skF, 2, 2, 2, 2, 2, 2, 2, 2)
+    modSkinPadding(skF, 2)
     modSkinColor(skF, .2, .2, .2)
 
     local sp = _G['QuestInfoRewardSpell']       -- SPELL POINT
 	local spF = CreateFrame('Frame', nil, sp)
 	spF:SetAllPoints(sp.Icon)
     modSkin(spF, 18)
-    modSkinPadding(spF, 2, 2, 2, 2, 2, 2, 2, 2)
+    modSkinPadding(spF, 2)
     modSkinColor(spF, .2, .2, .2)
 
     local t = _G['QuestInfoTalentFrame']       -- TALENT POINT
     local tF = CreateFrame('Frame', nil, t)
     tF:SetAllPoints(t.Icon)
     modSkin(tF, 18)
-    modSkinPadding(tF, 2, 2, 2, 2, 2, 2, 2, 2)
+    modSkinPadding(tF, 2)
     modSkinColor(tF, .2, .2, .2)
 
     for i = 1, GetNumQuestWatches() do
