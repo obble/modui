@@ -3,13 +3,13 @@
 ## Title: mod ui
 ## Notes: ui mods.
 ## SavedVariables: modStatus
-modglobals\bag.lua
 modglobals\colour.lua
 modglobals\string.lua
 modskin\method\method.lua
 modskin\button\action.lua
 modskin\button\aura.lua
 modskin\button\bag.lua
+modskin\button\bank.lua
 modskin\button\chat.lua
 modskin\button\loot.lua
 modskin\button\pd.lua

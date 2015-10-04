@@ -125,6 +125,10 @@
         for i,v in pairs({a,b,c,d}) do v:SetVertexColor(.2, .2, .2) end
     end
 
+    local _, a = BankFrame:GetRegions()
+    for i,v in pairs({a}) do v:SetVertexColor(.2, .2, .2) end
+
+
 
 	    -- PAPERDOLL
     local a, b, c, d, _, e = PaperDollFrame:GetRegions()

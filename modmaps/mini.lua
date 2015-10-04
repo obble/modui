@@ -29,3 +29,5 @@
     GameTimeFrame:SetScale(.7)
     GameTimeFrame:SetFrameStrata'MEDIUM'
     GameTimeFrame:ClearAllPoints() GameTimeFrame:SetPoint('BOTTOM', 12, 10)
+
+    --

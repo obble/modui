@@ -28,7 +28,7 @@
             _G['MultiBarBottomLeftButton'..i..'NormalTexture'],
             _G['MultiBarBottomRightButton'..i..'NormalTexture'],
             _G['BonusActionButton'..i..'NormalTexture'],}) do
-            v:Hide()
+            v:SetAlpha(0)
         end
     end
 
