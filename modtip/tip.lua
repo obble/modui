@@ -47,12 +47,12 @@
         GameTooltip:SetBackdropBorderColor(.1, .1, .1, 1)
         if AttachToMainbar then
             GameTooltip:ClearAllPoints()
-            GameTooltip:SetPoint('BOTTOMRIGHT', MainMenuBar, -32, CONTAINER_OFFSET_Y + 10)
+            GameTooltip:SetPoint('BOTTOMRIGHT', MainMenuBar, -6, CONTAINER_OFFSET_Y + 12)
         end
     end
 
-    GameTooltip:SetScript('OnShow', modTipOnShow)
-
+    local t = CreateFrame('Frame', nil, GameTooltip) t:SetAllPoints()
+    t:SetScript('OnShow', modTipOnShow)
 
     for i, v in ipairs(menus) do v:SetScript('OnShow', function()
             this:SetBackdropColor(0, 0, 0, .4)
@@ -63,6 +63,12 @@
 
     for i = 1, 6 do                             -- QUEST PROGRESS TOOLTIP
         local p = _G['QuestProgressItem'..i]
+        p:SetScript('OnEnter', function()
+            if GameTooltip then
+                GameTooltip:SetOwner(p, 'ANCHOR_RIGHT')
+                if GetNumQuestItems() > 0 then GameTooltip:SetQuestItem(p.type, p:GetID()) end
+            end
+        end)
     end
 
     --

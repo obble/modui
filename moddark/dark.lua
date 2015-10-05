@@ -236,6 +236,13 @@
         end
     end
 
+    for i = 1, 4 do
+    	local f = _G['StaticPopup'..i]
+        f:SetBackdropBorderColor(.3, .3, .3)
+    end
+
+
+
 
         -- MIRRORBAR
     for i = 1, MIRRORTIMER_NUMTIMERS do
