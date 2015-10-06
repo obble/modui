@@ -1,11 +1,11 @@
 
 
     local AttachToMainbar = true -- reparents tooltip to mainmenubar. true/false
-
-  	local _G = getfenv(0)
-  	local sb = [[Interface\AddOns\modui\modsb\texture\sb.tga]]
+    local _G = getfenv(0)
+    local sb = [[Interface\AddOns\modui\modsb\texture\sb.tga]]
     local GameTooltip = GameTooltip
     local GameTooltipStatusBar = GameTooltipStatusBar
+    local orig = {}
 
     GameTooltipStatusBar:SetHeight(4)
     GameTooltipStatusBar:SetStatusBarTexture(sb)
@@ -25,14 +25,14 @@
                         ItemRefTooltip,
                         ItemRefShoppingTooltip1,
                      	ItemRefShoppingTooltip2,
-	                    ItemRefShoppingTooltip3,
+                        ItemRefShoppingTooltip3,
                         ShoppingTooltip1,
                         ShoppingTooltip2,
                         ShoppingTooltip3,
                         WorldMapTooltip,
                         WorldMapCompareTooltip1,
-	                    WorldMapCompareTooltip2,
-	                    WorldMapCompareTooltip3,
+                        WorldMapCompareTooltip2,
+                        WorldMapCompareTooltip3,
                         FriendsTooltip, }
 
     local menus =    {  DropDownList1MenuBackdrop,
@@ -43,17 +43,17 @@
                         LanguageMenu, }
 
     local modTipOnShow = function()
+        local type = GameTooltip:GetAnchorType()
         GameTooltip:SetBackdropColor(0, 0, 0, .7)
         GameTooltip:SetBackdropBorderColor(.1, .1, .1, 1)
-        if AttachToMainbar then
+        if AttachToMainbar and type == 'ANCHOR_NONE' then
             GameTooltip:ClearAllPoints()
-            GameTooltip:SetPoint('BOTTOMRIGHT', MainMenuBar, -6, CONTAINER_OFFSET_Y + 12)
+            GameTooltip:SetPoint('BOTTOMRIGHT', MainMenuBar, -6, CONTAINER_OFFSET_Y + 16)
         end
     end
 
     local t = CreateFrame('Frame', nil, GameTooltip) t:SetAllPoints()
     t:SetScript('OnShow', modTipOnShow)
-
     for i, v in ipairs(menus) do v:SetScript('OnShow', function()
             this:SetBackdropColor(0, 0, 0, .4)
             this:SetBackdropBorderColor(.1, .1, .1, 1)
@@ -61,7 +61,7 @@
     end
 
 
-    for i = 1, 6 do                             -- QUEST PROGRESS TOOLTIP
+    for i = 1, 6 do     -- QUEST PROGRESS TOOLTIP
         local p = _G['QuestProgressItem'..i]
         p:SetScript('OnEnter', function()
             if GameTooltip then

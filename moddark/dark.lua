@@ -1,27 +1,23 @@
 
 
-
-  	local _G = getfenv(0)
-	local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
+    local _G = getfenv(0)
+    local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
 					insets = {left = -1, right = -1, top = -1, bottom = -1}}
 
+
+        -- COLOUR APPLIED TO TEXTURES (RGB value)
+    local colour = {r = .2, g = .2, b = .2}
+
+
         -- MINIMAP CLUSTER
-	for i,v in pairs({
-		MinimapBorder,
-		MiniMapMailBorder,
-		MiniMapTrackingBorder,
-		MiniMapMeetingStoneBorder,
-		MiniMapMailBorder,
-		MiniMapBattlefieldBorder,
-    }) do v:SetVertexColor(.15, .15, .15) end
-
-	for i,v in pairs({
-		MinimapZoomIn:GetNormalTexture(), MinimapZoomOut:GetNormalTexture()
-	}) do v:SetVertexColor(.25, .25, .25) end
-
-	for i,v in pairs({
-		MinimapZoomIn:GetDisabledTexture(), MinimapZoomOut:GetDisabledTexture()
-	}) do v:SetVertexColor(.1, .1, .1) end
+    for i, v in pairs({
+        MinimapBorder,
+        MiniMapMailBorder,
+        MiniMapTrackingBorder,
+        MiniMapMeetingStoneBorder,
+        MiniMapMailBorder,
+        MiniMapBattlefieldBorder,
+    }) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
 	MinimapBorderTop:Hide()
 	MinimapToggleButton:Hide()
@@ -30,35 +26,33 @@
 	b:SetPoint('TOPLEFT', GameTimeFrame)
 	b:SetPoint('BOTTOMRIGHT', GameTimeFrame, 33, -33)
 	b:SetTexture[[Interface\Minimap\MiniMap-TrackingBorder]]
-	b:SetVertexColor(.2, .2, .2)
+	b:SetVertexColor(colour.r, colour.g, colour.b)
 
 
         -- UNIT & CASTBAR
-	for i,v in pairs({
-		PlayerFrameTexture,
-  		TargetFrameTexture,
-  		PetFrameTexture,
-		PartyMemberFrame1Texture,
-		PartyMemberFrame2Texture,
-		PartyMemberFrame3Texture,
-		PartyMemberFrame4Texture,
-		PartyMemberFrame1PetFrameTexture,
-		PartyMemberFrame2PetFrameTexture,
-		PartyMemberFrame3PetFrameTexture,
-		PartyMemberFrame4PetFrameTexture,
-   		TargetofTargetTexture,
-		CastingBarBorder,
-	}) do v:SetVertexColor(.15, .15, .15) end
+	for i, v in pairs({
+        PlayerFrameTexture,
+        TargetFrameTexture,
+        PetFrameTexture,
+        PartyMemberFrame1Texture,
+        PartyMemberFrame2Texture,
+        PartyMemberFrame3Texture,
+        PartyMemberFrame4Texture,
+        PartyMemberFrame1PetFrameTexture,
+        PartyMemberFrame2PetFrameTexture,
+        PartyMemberFrame3PetFrameTexture,
+        PartyMemberFrame4PetFrameTexture,
+        TargetofTargetTexture,
+        CastingBarBorder,
+	}) do v:SetVertexColor(colour.r*.9, colour.g*.9, colour.b*.9) end
 
-	for i,v in pairs({
-		PlayerPVPIcon,
-		TargetFrameTextureFramePVPIcon,
-		FocusFrameTextureFramePVPIcon,
+	for i, v in pairs({
+        PlayerPVPIcon,
+        TargetFrameTextureFramePVPIcon,
+        FocusFrameTextureFramePVPIcon,
 	}) do v:SetAlpha(0) end
 
-	for i = 1,4 do
-		_G["PartyMemberFrame"..i.."PVPIcon"]:SetAlpha(0)
-	end
+	for i = 1, 4 do _G['PartyMemberFrame'..i..'PVPIcon']:SetAlpha(0) end
 
 	PlayerFrameGroupIndicator:SetAlpha(0)
 	PlayerHitIndicator:SetText(nil)
@@ -68,37 +62,37 @@
 
 
         -- MAIN MENU BAR
-	for i,v in pairs({
-		SlidingActionBarTexture0,
-		SlidingActionBarTexture1,
-		MainMenuBarTexture0,
-		MainMenuBarTexture1,
-		MainMenuBarTexture2,
-		MainMenuBarTexture3,
+	for i, v in pairs({
+        SlidingActionBarTexture0,
+        SlidingActionBarTexture1,
+        MainMenuBarTexture0,
+        MainMenuBarTexture1,
+        MainMenuBarTexture2,
+        MainMenuBarTexture3,
         MainMenuMaxLevelBar0,
         MainMenuMaxLevelBar1,
-		MainMenuMaxLevelBar2,
-		MainMenuMaxLevelBar3,
-		MainMenuXPBarTextureLeftCap,
-		MainMenuXPBarTextureRightCap,
-		MainMenuXPBarTextureMid,
+        MainMenuMaxLevelBar2,
+        MainMenuMaxLevelBar3,
+        MainMenuXPBarTextureLeftCap,
+        MainMenuXPBarTextureRightCap,
+        MainMenuXPBarTextureMid,
         BonusActionBarTexture0,
         BonusActionBarTexture1,
-		ReputationWatchBarTexture0,
-		ReputationWatchBarTexture1,
-		ReputationWatchBarTexture2,
-		ReputationWatchBarTexture3,
-		ReputationXPBarTexture0,
-		ReputationXPBarTexture1,
-		ReputationXPBarTexture2,
-		ReputationXPBarTexture3,
-	}) do v:SetVertexColor(.25, .25, .25) end
+        ReputationWatchBarTexture0,
+        ReputationWatchBarTexture1,
+        ReputationWatchBarTexture2,
+        ReputationWatchBarTexture3,
+        ReputationXPBarTexture0,
+        ReputationXPBarTexture1,
+        ReputationXPBarTexture2,
+        ReputationXPBarTexture3,
+	}) do v:SetVertexColor(colour.r*1.1, colour.g*1.1, colour.b*1.1) end
 
 	for i,v in pairs({
-		MainMenuBarLeftEndCap,
-		MainMenuBarRightEndCap,
-		ExhaustionTick:GetNormalTexture(),
-	}) do v:SetVertexColor(.3, .3, .3) v:SetDrawLayer('OVERLAY', 7) end
+        MainMenuBarLeftEndCap,
+        MainMenuBarRightEndCap,
+        ExhaustionTick:GetNormalTexture(),
+	}) do v:SetVertexColor(colour.r*1.2, colour.g*1.2, colour.b*1.2) v:SetDrawLayer('OVERLAY', 7) end
 
 	for i = 0, 3 do _G['MainMenuXPBarTexture'..i]:SetTexture'' end
 	for i = 0, 3 do _G['ReputationWatchBarTexture'..i]:SetTexture'' end
@@ -122,64 +116,64 @@
     for i = 1, 12 do
         local bagName = 'ContainerFrame'..i
         local _, a, b, _, c, _, d = _G[bagName]:GetRegions()
-        for i,v in pairs({a,b,c,d}) do v:SetVertexColor(.2, .2, .2) end
+        for i,v in pairs({a,b,c,d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
         if i > 5 then   -- BANK BAGS
-            for i,v in pairs({a,b,c,d}) do v:SetVertexColor(.4, .4, .4) end
+            for i,v in pairs({a,b,c,d}) do v:SetVertexColor(colour.r*1.3, colour.g*1.3, colour.b*1.3) end
         end
     end
 
     local _, a = BankFrame:GetRegions()
-    for i,v in pairs({a}) do v:SetVertexColor(.2, .2, .2) end
+    for i,v in pairs({a}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
 
 	    -- PAPERDOLL
     local a, b, c, d, _, e = PaperDollFrame:GetRegions()
-    for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(.3, .3, .3) end
+    for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(colour.r*1.1, colour.g*1.1, colour.b*1.1) end
 
 
         -- WORLDMAP
     local _, a, b, c, d, e, _, _, f, g, h, j, k = WorldMapFrame:GetRegions()
-    for i,v in pairs({a, b, c, d, e, f, g, h, j, k}) do v:SetVertexColor(.3, .3, .3) end
+    for i,v in pairs({a, b, c, d, e, f, g, h, j, k}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
 
         -- LOOT
     local _, a = LootFrame:GetRegions()
-    a:SetVertexColor(.3, .3, .3)
+    a:SetVertexColor(colour.r, colour.g, colour.b)
 
 
         -- TAXI
     local _, a, b, c, d = TaxiFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.3, .3, .3) end
+    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
 
         -- MERCHANT
     local _, a, b, c, d, _, _, _, e, f, g, h, j, k = MerchantFrame:GetRegions()
-    for i,v in pairs({a, b, c ,d, e, f, g, h, j, k}) do v:SetVertexColor(.3, .3, .3) end
-    MerchantBuyBackItemNameFrame:SetVertexColor(.4, .4, .4)
+    for i,v in pairs({a, b, c ,d, e, f, g, h, j, k}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    MerchantBuyBackItemNameFrame:SetVertexColor(colour.r*1.3, colour.g*1.3, colour.b*1.3)
 
 
         -- SKILL
     local a, b, c, d = SkillFrame:GetRegions()
-    for i,v in pairs({a, b, c ,d}) do v:SetVertexColor(.3, .3, .3) end
+    for i,v in pairs({a, b, c ,d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
 
         -- REPUTATION
     local a, b, c, d = ReputationFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.3, .3, .3) end
+    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
     for i = 1, 15 do
         local a, b = _G['ReputationBar'..i]:GetRegions()
-        for k,v in pairs({a, b}) do v:SetVertexColor(.4, .4, .4) end
+        for k,v in pairs({a, b}) do v:SetVertexColor(colour.r*1.2, colour.g*1.2, colour.b*1.2) end
     end
 
 
         -- HONOR
     local a, b, c, d = HonorFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.3, .3, .3) end
+    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
 
         -- SPELLBOOK
     local _, a, b, c, d = SpellBookFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.3, .3, .3) end
+    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
     SpellBookFrame.Material = SpellBookFrame:CreateTexture(nil, 'OVERLAY', nil, 7)
     SpellBookFrame.Material:SetTexture[[Interface\AddOns\modui\moddark\quest\QuestBG.tga]]
     SpellBookFrame.Material:SetWidth(525)
@@ -190,7 +184,7 @@
 
         -- LOG
     local _, _, a, b, c, d = QuestLogFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.3, .3, .3) end
+    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
     QuestLogFrame.Material = QuestLogFrame:CreateTexture(nil, 'OVERLAY', nil, 7)
     QuestLogFrame.Material:SetTexture[[Interface\AddOns\modui\moddark\quest\QuestBG.tga]]
     QuestLogFrame.Material:SetWidth(510)
@@ -201,21 +195,21 @@
 
         -- SOCIAL
     local _, a, b, c, d = FriendsFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.3, .3, .3) end
+    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
         -- MAIL
     local _, a, b, c, d = OpenMailFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.3, .3, .3) end
+    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
 
         -- MENU
-    GameMenuFrame:SetBackdropBorderColor(.3, .3, .3)
-    GameMenuFrameHeader:SetVertexColor(.3, .3, .3)
+    GameMenuFrame:SetBackdropBorderColor(colour.r, colour.g, colour.b)
+    GameMenuFrameHeader:SetVertexColor(colour.r, colour.g, colour.b)
 
 
         -- HELP
     local a, b, c, d, e, f, g = HelpFrame:GetRegions()
-    for i,v in pairs({a, b, c, d, e, f, g}) do v:SetVertexColor(.3, .3, .3) end
+    for i,v in pairs({a, b, c, d, e, f, g}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
 
         -- QUEST
@@ -226,7 +220,7 @@
         QuestFrameRewardPanel,
         GossipFrameGreetingPanel}) do
         local a, b, c, d = v:GetRegions()
-        for k,j in pairs({a, b, c, d}) do j:SetVertexColor(.35, .35, .35) end
+        for k,j in pairs({a, b, c, d}) do j:SetVertexColor(colour.r, colour.g, colour.b) end
 
         v.Material = v:CreateTexture(nil, 'OVERLAY', nil, 7)
         v.Material:SetTexture[[Interface\AddOns\modui\moddark\quest\QuestBG.tga]]
@@ -241,7 +235,7 @@
             v.Corner:SetWidth(132)
             v.Corner:SetHeight(64)
             v.Corner:SetPoint('BOTTOMLEFT', v, 21, 68)
-            v.Corner:SetVertexColor(.35, .35, .35)
+            v.Corner:SetVertexColor(colour.r, colour.g, colour.b)
         end
     end
 
@@ -249,7 +243,7 @@
         -- POPUP
     for i = 1, 4 do
     	local f = _G['StaticPopup'..i]
-        f:SetBackdropBorderColor(.3, .3, .3)
+        f:SetBackdropBorderColor(colour.r, colour.g, colour.b)
     end
 
 
@@ -257,7 +251,7 @@
     for i = 1, MIRRORTIMER_NUMTIMERS do
         local m = _G['MirrorTimer'..i]
         local _, _, a = m:GetRegions()
-        a:SetVertexColor(.15, .15, .15)
+        a:SetVertexColor(colour.r*.9, colour.g*.9, colour.b*.9)
     end
 
 
@@ -267,25 +261,29 @@
     f:SetScript('OnEvent', function()
         if     arg1 == 'Blizzard_AuctionUI'    then -- AUCTION
             local _, a, b, c, d, e, f = AuctionFrame:GetRegions()
-            for i,v in pairs({a,b,c,d,e,f}) do v:SetVertexColor(.35, .35, .35) end
+            for i,v in pairs({a,b,c,d,e,f}) do v:SetVertexColor(colour.r*1.4, colour.g*1.4, colour.b*1.4) end
             for i = 1, 15 do
                 local a = _G['AuctionFilterButton'..i]:GetNormalTexture()
                 a:SetVertexColor(.4, .4, .4)
             end
         elseif arg1 == 'Blizzard_CraftUI'      then -- CRAFT
             local _, a, b, c, d = CraftFrame:GetRegions()
-            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.2, .2, .2) end
+            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+        elseif arg1 == 'Blizzard_InspectUI'    then -- INSPECT
+            local a, b, c, d = InspectPaperDollFrame:GetRegions()
+            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
         elseif arg1 == 'Blizzard_MacroUI'      then -- MACRO
             local _, a, b, c, d = MacroFrame:GetRegions()
-            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.2, .2, .2) end
+            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
         elseif arg1 == 'Blizzard_TalentUI'     then -- TALENTS
             local _, a, b, c, d = TalentFrame:GetRegions()
-            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.2, .2, .2) end
+            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
         elseif arg1 == 'Blizzard_TradeSkillUI' then -- TRADESKILL
             local _, a, b, c, d = TradeSkillFrame:GetRegions()
+            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
         elseif arg1 == 'Blizzard_TrainerUI'    then -- TRAINER
             local _, a, b, c, d = ClassTrainerFrame:GetRegions()
-            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.2, .2, .2) end
+            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
         end
     end)
 

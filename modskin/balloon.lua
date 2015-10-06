@@ -15,8 +15,8 @@
 
     local function styleBubble(f)
         for i = 1, f:GetNumRegions() do                               -- FISH
-        	local a, b, c, d, e, f, g, h, j, k = f:GetRegions()
-            for i,v in pairs ({a,b,c,d,e,f,g,h,j,k}) do
+        	local a, b, c, d, e, f, g, h = f:GetRegions()
+            for i,v in pairs ({a,b,c,d,e,f,g,h}) do
             	local pn = {v:GetPoint()}
             	if  v:GetObjectType() == 'Texture' then
                	 	v:SetDrawLayer'OVERLAY'
@@ -57,8 +57,8 @@
             local newNumKids = WorldFrame:GetNumChildren()
             if newNumKids ~= numKids then
                 for i = numKids + 1, newNumKids do
-                    local a, b, c ,d, e, f, g = WorldFrame:GetChildren()
-                    for k,v in pairs({a, b, c, d, e, f, g}) do
+                    local a, b, c ,d, e, f, g, h, j = WorldFrame:GetChildren()
+                    for k,v in pairs({a, b, c, d, e, f, g, h, j}) do
                         if isChatBubble(v) then styleBubble(v) end
                     end
                 end
