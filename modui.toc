@@ -22,5 +22,6 @@ modmaps\mini.lua
 modmaps\world.lua
 modsb\smooth.lua
 modtip\tip.lua
+moduf\move.lua
 moduf\unit.lua
 modplate\nameplates.lua

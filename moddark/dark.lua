@@ -203,6 +203,10 @@
     local _, a, b, c, d = FriendsFrame:GetRegions()
     for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.3, .3, .3) end
 
+        -- MAIL
+    local _, a, b, c, d = OpenMailFrame:GetRegions()
+    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.3, .3, .3) end
+
 
         -- MENU
     GameMenuFrame:SetBackdropBorderColor(.3, .3, .3)

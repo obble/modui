@@ -1,0 +1,37 @@
+
+
+    local orig = {}
+
+    for _, v in pairs({ PlayerFrame, TargetFrame, PartyMemberFrame1 }) do
+        v:SetUserPlaced(true) v:SetMovable(true) v:EnableMouse(true)
+        v:SetScript('OnDragStart', function() if IsShiftKeyDown() then this:StartMoving() end end)
+        v:SetScript('OnDragStop',  function() this:StopMovingOrSizing() end)
+        v:RegisterForDrag'LeftButton'
+    end
+
+    SLASH_RESETUF1 = '/reset'
+    SlashCmdList['RESETUF'] = function(arg)
+        for _, v in pairs({ PlayerFrame, TargetFrame, PartyFrame1 }) do
+            v:SetUserPlaced(false)
+            v:ClearAllPoints()
+        end
+        PlayerFrame:SetPoint('TOPLEFT', -19, -4)
+        TargetFrame:SetPoint('TOPLEFT', 250, -4)
+        PartyMemberFrame1:SetPoint('TOPLEFT', 10, -128)
+    end
+
+    orig.UnitFrame_OnEnter = UnitFrame_OnEnter
+    function UnitFrame_OnEnter()
+        orig.UnitFrame_OnEnter()
+        local name = this:GetName()
+        if SHOW_NEWBIE_TIPS == '1'
+        and name ~= 'PartyMemberFrame2'
+        and name ~= 'PartyMemberFrame3'
+        and name ~= 'PartyMemberFrame4'
+        and name ~= 'TargetofTargetFrame' then
+            GameTooltip:AddLine('Shift + Drag to move '..name..'.', .3, 1, .6)
+            GameTooltip:Show()
+        end
+    end
+
+    --
