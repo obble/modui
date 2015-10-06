@@ -251,39 +251,38 @@
 
         -- MIRRORBAR
     for i = 1, MIRRORTIMER_NUMTIMERS do
-		local m = _G['MirrorTimer'..i]
-		local _, _, a = m:GetRegions()
-		a:SetVertexColor(.15, .15, .15)
-	end
+        local m = _G['MirrorTimer'..i]
+        local _, _, a = m:GetRegions()
+        a:SetVertexColor(.15, .15, .15)
+    end
 
 
         -- ADDONS
     local f = CreateFrame'Frame'
     f:RegisterEvent'ADDON_LOADED'
     f:SetScript('OnEvent', function()
-        if      arg1 == 'Blizzard_AuctionUI'   then
+        if     arg1 == 'Blizzard_AuctionUI'    then -- AUCTION
             local _, a, b, c, d, e, f = AuctionFrame:GetRegions()
             for i,v in pairs({a,b,c,d,e,f}) do v:SetVertexColor(.35, .35, .35) end
             for i = 1, 15 do
                 local a = _G['AuctionFilterButton'..i]:GetNormalTexture()
                 a:SetVertexColor(.4, .4, .4)
             end
-        elseif arg1 == 'Blizzard_CraftUI'      then
+        elseif arg1 == 'Blizzard_CraftUI'      then -- CRAFT
             local _, a, b, c, d = CraftFrame:GetRegions()
             for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.2, .2, .2) end
-        elseif arg1 == 'Blizzard_MacroUI'      then
+        elseif arg1 == 'Blizzard_MacroUI'      then -- MACRO
             local _, a, b, c, d = MacroFrame:GetRegions()
             for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.2, .2, .2) end
-        elseif arg1 == 'Blizzard_TalentUI'     then
+        elseif arg1 == 'Blizzard_TalentUI'     then -- TALENTS
             local _, a, b, c, d = TalentFrame:GetRegions()
             for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.2, .2, .2) end
-        elseif arg1 == 'Blizzard_TradeSkillUI' then
+        elseif arg1 == 'Blizzard_TradeSkillUI' then -- TRADESKILL
             local _, a, b, c, d = TradeSkillFrame:GetRegions()
-        elseif arg1 == 'Blizzard_TrainerUI'    then
+        elseif arg1 == 'Blizzard_TrainerUI'    then -- TRAINER
             local _, a, b, c, d = ClassTrainerFrame:GetRegions()
             for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.2, .2, .2) end
         end
     end)
-
 
     --
