@@ -8,8 +8,6 @@
                         CHAT_MSG_YELL = 'chatBubbles',
                         CHAT_MSG_PARTY = 'chatBubblesParty',
                         CHAT_MSG_PARTY_LEADER = 'chatBubblesParty',
-                        -- CHAT_MSG_INSTANCE_CHAT = 'chatBubbles',
-                        -- CHAT_MSG_INSTANCE_CHAT_LEADER = 'chatBubblesParty',
                         CHAT_MSG_MONSTER_SAY = 'chatBubbles',
                         CHAT_MSG_MONSTER_YELL = 'chatBubbles',
                         CHAT_MSG_MONSTER_PARTY = 'chatBubblesParty',}
@@ -17,8 +15,8 @@
 
     local function styleBubble(f)
         for i = 1, f:GetNumRegions() do                               -- FISH
-        	local a, b, c, d, e, f, g, h = f:GetRegions()
-            for i,v in pairs ({a,b,c,d,e,f,g,h}) do
+        	local a, b, c, d, e, f, g, h, j, k = f:GetRegions()
+            for i,v in pairs ({a,b,c,d,e,f,g,h,j,k}) do
             	local pn = {v:GetPoint()}
             	if  v:GetObjectType() == 'Texture' then
                	 	v:SetDrawLayer'OVERLAY'

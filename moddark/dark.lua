@@ -119,15 +119,17 @@
 
 
         -- BAGS
-    for i = 0, NUM_BAG_FRAMES do
-        local bagName = 'ContainerFrame'..i + 1
+    for i = 1, 12 do
+        local bagName = 'ContainerFrame'..i
         local _, a, b, _, c, _, d = _G[bagName]:GetRegions()
         for i,v in pairs({a,b,c,d}) do v:SetVertexColor(.2, .2, .2) end
+        if i > 5 then   -- BANK BAGS
+            for i,v in pairs({a,b,c,d}) do v:SetVertexColor(.4, .4, .4) end
+        end
     end
 
     local _, a = BankFrame:GetRegions()
     for i,v in pairs({a}) do v:SetVertexColor(.2, .2, .2) end
-
 
 
 	    -- PAPERDOLL
@@ -201,13 +203,16 @@
     local _, a, b, c, d = FriendsFrame:GetRegions()
     for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.3, .3, .3) end
 
-        -- HONOR
+
+        -- MENU
     GameMenuFrame:SetBackdropBorderColor(.3, .3, .3)
     GameMenuFrameHeader:SetVertexColor(.3, .3, .3)
+
 
         -- HELP
     local a, b, c, d, e, f, g = HelpFrame:GetRegions()
     for i,v in pairs({a, b, c, d, e, f, g}) do v:SetVertexColor(.3, .3, .3) end
+
 
         -- QUEST
     for i,v in pairs({
@@ -236,12 +241,12 @@
         end
     end
 
+
+        -- POPUP
     for i = 1, 4 do
     	local f = _G['StaticPopup'..i]
         f:SetBackdropBorderColor(.3, .3, .3)
     end
-
-
 
 
         -- MIRRORBAR
@@ -250,6 +255,33 @@
 		local _, _, a = m:GetRegions()
 		a:SetVertexColor(.15, .15, .15)
 	end
+
+    local f = CreateFrame'Frame'
+    f:RegisterEvent'ADDON_LOADED'
+    f:SetScript('OnEvent', function()
+        if arg1 == 'Blizzard_AuctionUI' then
+            local _, a, b, c, d, e, f = AuctionFrame:GetRegions()
+            for i,v in pairs({a, b, c, d, e, f}) do v:SetVertexColor(.35, .35, .35) end
+            for i = 1, 15 do
+                local a = _G['AuctionFilterButton'..i]:GetNormalTexture()
+                a:SetVertexColor(.4, .4, .4)
+            end
+        elseif arg1 == 'Blizzard_CraftUI'   then
+            local _, a, b, c, d = CraftFrame:GetRegions()
+            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.2, .2, .2) end
+        elseif arg1 == 'Blizzard_MacroUI' then
+            local _, a, b, c, d = MacroFrame:GetRegions()
+            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.2, .2, .2) end
+        elseif arg1 == 'Blizzard_TalentUI'  then
+            local _, a, b, c, d = TalentFrame:GetRegions()
+            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.2, .2, .2) end
+        elseif arg1 == 'Blizzard_TradeSkillUI'  then
+            local _, a, b, c, d = TradeSkillFrame:GetRegions()
+        elseif arg1 == 'Blizzard_TrainerUI' then
+            local _, a, b, c, d = ClassTrainerFrame:GetRegions()
+            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(.2, .2, .2) end
+        end
+    end)
 
 
     --

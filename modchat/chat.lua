@@ -2,7 +2,6 @@
 
     local _G = getfenv(0)
     local type, gsub, time, floor,  _ = type, _G.string.gsub, time, math.floor, _
-    local tostring = tostring
     local _AddMessage = ChatFrame1.AddMessage
     local blacklist = {[ChatFrame2] = true,}
 
