@@ -5,7 +5,6 @@
     local sb = [[Interface\AddOns\modui\modsb\texture\sb.tga]]
     local GameTooltip = GameTooltip
     local GameTooltipStatusBar = GameTooltipStatusBar
-    local orig = {}
 
     GameTooltipStatusBar:SetHeight(4)
     GameTooltipStatusBar:SetStatusBarTexture(sb)

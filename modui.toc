@@ -11,6 +11,7 @@ modskin\button\aura.lua
 modskin\button\bag.lua
 modskin\button\bank.lua
 modskin\button\chat.lua
+modskin\button\inspect.lua
 modskin\button\loot.lua
 modskin\button\pd.lua
 modskin\frame\tip.lua

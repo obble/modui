@@ -1,8 +1,8 @@
 
 
     local _G = getfenv(0)
-    local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
-					insets = {left = -1, right = -1, top = -1, bottom = -1}}
+    local BACKDROP = {  bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
+                        insets = {left = -1, right = -1, top = -1, bottom = -1}}
 
 
         -- COLOUR APPLIED TO TEXTURES (RGB value)
@@ -19,18 +19,18 @@
         MiniMapBattlefieldBorder,
     }) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
-	MinimapBorderTop:Hide()
-	MinimapToggleButton:Hide()
+    MinimapBorderTop:Hide()
+    MinimapToggleButton:Hide()
 
-	local b = GameTimeFrame:CreateTexture(nil, 'OVERLAY')
-	b:SetPoint('TOPLEFT', GameTimeFrame)
-	b:SetPoint('BOTTOMRIGHT', GameTimeFrame, 33, -33)
-	b:SetTexture[[Interface\Minimap\MiniMap-TrackingBorder]]
-	b:SetVertexColor(colour.r, colour.g, colour.b)
+    local b = GameTimeFrame:CreateTexture(nil, 'OVERLAY')
+    b:SetPoint('TOPLEFT', GameTimeFrame)
+    b:SetPoint('BOTTOMRIGHT', GameTimeFrame, 33, -33)
+    b:SetTexture[[Interface\Minimap\MiniMap-TrackingBorder]]
+    b:SetVertexColor(colour.r, colour.g, colour.b)
 
 
         -- UNIT & CASTBAR
-	for i, v in pairs({
+    for i, v in pairs({
         PlayerFrameTexture,
         TargetFrameTexture,
         PetFrameTexture,
@@ -44,25 +44,25 @@
         PartyMemberFrame4PetFrameTexture,
         TargetofTargetTexture,
         CastingBarBorder,
-	}) do v:SetVertexColor(colour.r*.9, colour.g*.9, colour.b*.9) end
+    }) do v:SetVertexColor(colour.r*.9, colour.g*.9, colour.b*.9) end
 
-	for i, v in pairs({
+    for i, v in pairs({
         PlayerPVPIcon,
         TargetFrameTextureFramePVPIcon,
         FocusFrameTextureFramePVPIcon,
-	}) do v:SetAlpha(0) end
+    }) do v:SetAlpha(0) end
 
-	for i = 1, 4 do _G['PartyMemberFrame'..i..'PVPIcon']:SetAlpha(0) end
+    for i = 1, 4 do _G['PartyMemberFrame'..i..'PVPIcon']:SetAlpha(0) end
 
-	PlayerFrameGroupIndicator:SetAlpha(0)
-	PlayerHitIndicator:SetText(nil)
-	PlayerHitIndicator.SetText = function() end
-	PetHitIndicator:SetText(nil)
-	PetHitIndicator.SetText = function() end
+    PlayerFrameGroupIndicator:SetAlpha(0)
+    PlayerHitIndicator:SetText(nil)
+    PlayerHitIndicator.SetText = function() end
+    PetHitIndicator:SetText(nil)
+    PetHitIndicator.SetText = function() end
 
 
         -- MAIN MENU BAR
-	for i, v in pairs({
+    for i, v in pairs({
         SlidingActionBarTexture0,
         SlidingActionBarTexture1,
         MainMenuBarTexture0,
@@ -86,30 +86,30 @@
         ReputationXPBarTexture1,
         ReputationXPBarTexture2,
         ReputationXPBarTexture3,
-	}) do v:SetVertexColor(colour.r*1.1, colour.g*1.1, colour.b*1.1) end
+    }) do v:SetVertexColor(colour.r*1.1, colour.g*1.1, colour.b*1.1) end
 
-	for i,v in pairs({
+    for i,v in pairs({
         MainMenuBarLeftEndCap,
         MainMenuBarRightEndCap,
         ExhaustionTick:GetNormalTexture(),
-	}) do v:SetVertexColor(colour.r*1.2, colour.g*1.2, colour.b*1.2) v:SetDrawLayer('OVERLAY', 7) end
+    }) do v:SetVertexColor(colour.r*1.2, colour.g*1.2, colour.b*1.2) v:SetDrawLayer('OVERLAY', 7) end
 
-	for i = 0, 3 do _G['MainMenuXPBarTexture'..i]:SetTexture'' end
-	for i = 0, 3 do _G['ReputationWatchBarTexture'..i]:SetTexture'' end
+    for i = 0, 3 do _G['MainMenuXPBarTexture'..i]:SetTexture'' end
+    for i = 0, 3 do _G['ReputationWatchBarTexture'..i]:SetTexture'' end
     for i, v in pairs({ ShapeshiftBarLeft,
                         ShapeshiftBarMiddle,
                         ShapeshiftBarRight, }) do v:SetTexture'' end
 
-	MainMenuExpBar:SetHeight(5)
-	MainMenuExpBar:ClearAllPoints() MainMenuExpBar:SetPoint('TOP', MainMenuBar, 0, -4)
-	MainMenuExpBar:SetBackdrop(BACKDROP)
+    MainMenuExpBar:SetHeight(5)
+    MainMenuExpBar:ClearAllPoints() MainMenuExpBar:SetPoint('TOP', MainMenuBar, 0, -4)
+    MainMenuExpBar:SetBackdrop(BACKDROP)
     MainMenuExpBar:SetBackdropColor(0, 0, 0, 1)
 
-	ReputationWatchBar:SetFrameStrata'LOW'
-	ReputationWatchBar:SetHeight(4)
-	ReputationWatchStatusBar:SetHeight(4)
-	ReputationWatchStatusBar:SetBackdrop(BACKDROP)
-	ReputationWatchStatusBar:SetBackdropColor(0, 0, 0, 1)
+    ReputationWatchBar:SetFrameStrata'LOW'
+    ReputationWatchBar:SetHeight(4)
+    ReputationWatchStatusBar:SetHeight(4)
+    ReputationWatchStatusBar:SetBackdrop(BACKDROP)
+    ReputationWatchStatusBar:SetBackdropColor(0, 0, 0, 1)
 
 
         -- BAGS
