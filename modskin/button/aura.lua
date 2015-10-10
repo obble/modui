@@ -17,7 +17,6 @@
         local d = _G[name..'Border']
         if d then
             local r, g, b = d:GetVertexColor()
-            local type = GetPlayerBuffDispelType(GetPlayerBuff(this:GetID(), 'HARMFUL'))
-            if type then modSkinColor(this, r, g, b) end
+            modSkinColor(this, r*.7, g*.7, b*.7)
         end
     end
