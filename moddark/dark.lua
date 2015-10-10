@@ -155,6 +155,9 @@
         -- SKILL
     local a, b, c, d = SkillFrame:GetRegions()
     for i,v in pairs({a, b, c ,d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for i,v in pairs({ ReputationDetailCorner,
+                       ReputationDetailDivider }) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    ReputationDetailFrame:SetBackdropBorderColor(colour.r, colour.g, colour.b)
 
 
         -- REPUTATION
@@ -196,10 +199,17 @@
         -- SOCIAL
     local _, a, b, c, d = FriendsFrame:GetRegions()
     for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    GuildMemberDetailFrame:SetBackdropBorderColor(colour.r, colour.g, colour.b)
+    GuildMemberDetailCorner:SetVertexColor(colour.r, colour.g, colour.b)
 
         -- MAIL
     local _, a, b, c, d = OpenMailFrame:GetRegions()
     for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+
+
+        -- TRADE
+    local _, _, a, b, c, d = TradeFrame:GetRegions()
+    for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
 
         -- MENU
@@ -237,6 +247,13 @@
             v.Corner:SetPoint('BOTTOMLEFT', v, 21, 68)
             v.Corner:SetVertexColor(colour.r, colour.g, colour.b)
         end
+    end
+
+
+        -- GROUPLOOT
+    for i = 1, NUM_GROUP_LOOT_FRAMES do
+        local f = _G['GroupLootFrame'..i]
+        f:SetBackdropBorderColor(.2, .2, .2)
     end
 
 

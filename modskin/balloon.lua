@@ -56,11 +56,9 @@
             if math.ceil(GetTime()) == time + 1 then bubbleHook:SetScript('OnUpdate', nil) end
             local newNumKids = WorldFrame:GetNumChildren()
             if newNumKids ~= numKids then
-                for i = numKids + 1, newNumKids do
-                    local a, b, c ,d, e, f, g, h, j = WorldFrame:GetChildren()
-                    for k,v in pairs({a, b, c, d, e, f, g, h, j}) do
-                        if isChatBubble(v) then styleBubble(v) end
-                    end
+                local a, b, c ,d, e, f, g, h, j, l = WorldFrame:GetChildren()
+                for k,v in pairs({a, b, c, d, e, f, g, h, j, l}) do
+                    if isChatBubble(v) then styleBubble(v) end
                 end
                 numKids = newNumKids
             end

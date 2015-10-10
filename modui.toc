@@ -14,10 +14,12 @@ modskin\button\chat.lua
 modskin\button\inspect.lua
 modskin\button\loot.lua
 modskin\button\pd.lua
+modskin\button\trade.lua
 modskin\frame\tip.lua
 modskin\balloon.lua
 modskin\skin.lua
 modchat\chat.lua
+modchat\event.lua
 moddark\dark.lua
 modmaps\mini.lua
 modmaps\world.lua
