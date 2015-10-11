@@ -1,15 +1,13 @@
 
 
-    local r, g, b = 103/255, 103/255, 103/255
-    local f = CreateFrame'Frame'
     local TEXTURE = [[Interface\AddOns\modui\modsb\texture\sb.tga]]
     local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],}
-    local enabled = true
+    local enabled = true -- TOGGLE NAMEPLATES VISIBILITY DEFAULT
 
         -- STYLE
-    local function SkinNamePlates(self, namePlate)
-        local health = namePlate:GetChildren()
-        local border, glow, name, level, _, raidicon = namePlate:GetRegions()
+    local modPlate = function(plate)
+        local health = plate:GetChildren()
+        local border, glow, name, level, _, raidicon = plate:GetRegions()
 
         border:SetVertexColor(.4, .4, .4)
 
@@ -19,15 +17,14 @@
 
         name:SetFont(STANDARD_TEXT_FONT, 12)
         name:ClearAllPoints()
-        name:SetPoint('BOTTOMRIGHT', namePlate, 'TOPRIGHT', -4, -16)
+        name:SetPoint('BOTTOMRIGHT', plate, 'TOPRIGHT', -4, -16)
         name:SetJustifyH'RIGHT'
 
-        namePlate.skinned = true
+        plate.skinned = true
     end
 
-
         -- GO FISH
-    local function IsNamePlateFrame(frame)
+    local isPlate = function(frame)
         local overlayRegion = frame:GetRegions()
         if not overlayRegion or overlayRegion:GetObjectType() ~= 'Texture'
         or overlayRegion:GetTexture() ~= [[Interface\Tooltips\Nameplate-Border]] then
@@ -36,15 +33,17 @@
         return true
     end
 
+    local f = CreateFrame'Frame'
     f:SetScript('OnUpdate', function()
         local frames = {WorldFrame:GetChildren()}
-	    for _, namePlate in ipairs(frames) do
-            if IsNamePlateFrame(namePlate) and namePlate:IsVisible() and not namePlate.skinned then
-                SkinNamePlates(f, namePlate)
+	    for _, plate in ipairs(frames) do
+            if isPlate(plate) and plate:IsVisible() and not plate.skinned then
+                modPlate(plate)
             end
         end
     end)
 
+        -- FORCE ON
     f:RegisterEvent'PLAYER_ENTERING_WORLD'
     f:SetScript('OnEvent', function() if enabled then ShowNameplates() end end)
 

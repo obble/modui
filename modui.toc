@@ -23,6 +23,7 @@ modchat\event.lua
 moddark\dark.lua
 modmaps\mini.lua
 modmaps\world.lua
+modpvp\rank.lua
 modsb\smooth.lua
 modtip\tip.lua
 moduf\move.lua

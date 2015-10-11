@@ -11,17 +11,6 @@
         end
     end
 
-    local colourI = function(bu, link)
-        modSkinColor(bu, .2, .2, .2)
-        if link then
-            local _, _, q = GetItemInfo(link)
-            if q and q > 1 then
-                local r, g, b = GetItemQualityColor(q)
-                modSkinColor(bu, r, g, b)
-            end
-        end
-    end
-
     local f = CreateFrame'Frame'
     f:SetScript('OnEvent', function()
         for i = 1, 7 do
