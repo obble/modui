@@ -199,6 +199,8 @@
         -- SOCIAL
     local _, a, b, c, d = FriendsFrame:GetRegions()
     for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    local _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, a = GuildMemberDetailFrame:GetRegions()
+    a:SetVertexColor(colour.r, colour.g, colour.b)
     GuildMemberDetailFrame:SetBackdropBorderColor(colour.r, colour.g, colour.b)
     GuildMemberDetailCorner:SetVertexColor(colour.r, colour.g, colour.b)
 
