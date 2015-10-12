@@ -1,12 +1,11 @@
 
 
-    local r = UnitPVPRank'player'
     local p = function() local x = (math.floor(GetPVPRankProgress(target)*10000))/100 return x end
-    local c = function() local x = (r - 6)*5000 + 5000*p()/100 return x end
-    local n = function() local x = (r - 5)*5000 - c()*.8 return x end
+    local c = function() local x = (UnitPVPRank'player' - 6)*5000 + 5000*p()/100 return x end
+    local n = function() local x = (UnitPVPRank'player' - 5)*5000 - c()*.8 return x end
 
     local modprint = function()
-        SendChatMessage('— PvP Rank: ['..(r - 4)..'] '..'Progress: ['..p()..'%] '..'Current RP: ['..c()..'] RP to next rank: ['..n()..'].', 'emote')
+        SendChatMessage('— PvP Rank: ['..(UnitPVPRank'player' - 4)..'] '..'Progress: ['..p()..'%] '..'Current RP: ['..c()..'] RP to next rank: ['..n()..'].', 'emote')
     end
 
     local modtip = function()
@@ -32,4 +31,4 @@
     f:SetScript('OnEnter', modtip)
     f:SetScript('OnLeave', function() GameTooltip:Hide() end)
 
-     --
+    --
