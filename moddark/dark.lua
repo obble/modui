@@ -214,6 +214,11 @@
     for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
 
+        -- TABARD
+    local _, a, b, c, d = TabardFrame:GetRegions()
+    for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+
+
         -- MENU
     GameMenuFrame:SetBackdropBorderColor(colour.r, colour.g, colour.b)
     GameMenuFrameHeader:SetVertexColor(colour.r, colour.g, colour.b)

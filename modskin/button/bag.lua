@@ -3,7 +3,18 @@
     local _G = getfenv(0)
     local orig = {}
 
-    for i = 1, 12 do                    -- BAG
+    modSkin(MainMenuBarBackpackButton, 22)
+    modSkinPadding(MainMenuBarBackpackButton, 2)
+    modSkinColor(MainMenuBarBackpackButton, .2, .2, .2)
+
+    for i = 0, 3 do
+        local bu = _G['CharacterBag'..i..'Slot']
+        modSkin(bu, 22)
+        modSkinPadding(bu, 2)
+        modSkinColor(bu, .2, .2, .2)
+    end
+
+    for i = 1,12 do                    -- BAG
         for k = 1, MAX_CONTAINER_ITEMS do
             local bu = _G['ContainerFrame'..i..'Item'..k]
             modSkin(bu, 22)

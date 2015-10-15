@@ -108,4 +108,3 @@
     for i = 1,40 do modUnit(string.format('WorldMapRaid%d', i), true) end
 
     --
-    
