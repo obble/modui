@@ -7,11 +7,15 @@
 
         -- shorten some chat events
     local chatevents = {
-        CHAT_MSG_AFK = {
-            -- empty tables like this mean messages will not fire
-            -- useful for spammy/pointless chat messages
+        CHAT_MSG_BG_SYSTEM_ALLIANCE = {
+            ['The Alliance Flag was picked up by (.+)!'] = '+ Alliance Flag — |cffff7d00%1|r.',
+            ['The Alliance Flag was dropped by (.+)!'] = '- Alliance Flag — |cffff7d00%1|r.',
+            ['The Alliance Flag was returned to its base by (.+)!'] = '%1 returned Alliance Flag.'
         },
-        CHAT_MSG_CHANNEL_JOIN = {
+        CHAT_MSG_BG_SYSTEM_HORDE = {
+            ['The Horde flag was picked up by (.+)!'] = '+ Horde Flag — |cffff7d00%1|r.',
+            ['The Horde flag was dropped by (.+)!'] = '- Horde Flag — |cffff7d00%1|r.',
+            ['The Horde flag was returned to its base by (.+)!'] = '%1 returned Horde Flag.'
         },
         CHAT_MSG_COMBAT_FACTION_CHANGE = {
             ['Reputation with (.+) increased by (.+).'] = '+ %2 %1 rep.',
@@ -25,12 +29,6 @@
         CHAT_MSG_CURRENCY = {
             ['You receive currency: (.+)%.'] = '+ %1.',
             ['You\'ve lost (.+)%.'] = '- %1.',
-        },
-        CHAT_MSG_GUILD_ACHIEVEMENT = {
-            ['(.+) has earned the achievement (.+)!'] = '%1 achieved %2.',
-        },
-        CHAT_MSG_ACHIEVEMENT = {
-            ['(.+) has earned the achievement (.+)!'] = '%1 achieved %2.',
         },
         CHAT_MSG_LOOT = {
             ['You receive item: (.+)%.'] = '+ %1.',

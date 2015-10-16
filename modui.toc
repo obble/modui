@@ -24,6 +24,7 @@ modchat\event.lua
 moddark\dark.lua
 modmaps\mini.lua
 modmaps\world.lua
+modpvp\objective.lua
 modpvp\rank.lua
 modsb\gradient.lua
 modsb\smooth.lua
