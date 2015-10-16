@@ -14,6 +14,7 @@ modskin\button\chat.lua
 modskin\button\inspect.lua
 modskin\button\loot.lua
 modskin\button\pd.lua
+modskin\button\target.lua
 modskin\button\trade.lua
 modskin\frame\tip.lua
 modskin\balloon.lua
@@ -24,6 +25,7 @@ moddark\dark.lua
 modmaps\mini.lua
 modmaps\world.lua
 modpvp\rank.lua
+modsb\gradient.lua
 modsb\smooth.lua
 modtip\tip.lua
 moduf\move.lua
