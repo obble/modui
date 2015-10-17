@@ -1,7 +1,5 @@
 
 
-    local _G = getfenv(0)
-
     for i = 1, 12 do
         for k, v in pairs({
             _G['ActionButton'..i],

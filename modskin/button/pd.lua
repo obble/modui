@@ -1,7 +1,5 @@
 
 
-    local _G = getfenv(0)
-
     local items = {                     -- PAPERDOLL
     	[0] = 'Ammo', 'Head', 'Neck', 'Shoulder',
     	'Shirt', 'Chest', 'Waist', 'Legs', 'Feet',

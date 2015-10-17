@@ -19,7 +19,7 @@
         f:SetStatusBarColor(r, g, b)
     end
 
-    function HealthBar_OnValueChanged(v)
+    function HealthBar_OnValueChanged(v, smooth)
         if not v then return end
         local r, g, b
         local min, max = this:GetMinMaxValues()

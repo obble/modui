@@ -1,7 +1,5 @@
 
 
-    local _G = getfenv(0)
-
     UIPanelWindows['WorldMapFrame'] = {area = 'center', pushable = 9}
 
     WorldMapFrame:SetScript('OnShow', function()
@@ -15,22 +13,22 @@
         -- COORDINATES
     local coord = CreateFrame('Frame', nil, WorldMapButton)
 
-    local Player = coord:CreateFontString(nil, 'OVERLAY')
-    Player:SetFont(STANDARD_TEXT_FONT, 18, 'OUTLINE')
-    Player:SetShadowOffset(0, -0)
-    Player:SetJustifyH'LEFT'
-    Player:SetPoint('BOTTOMRIGHT', WorldMapButton, 'BOTTOM', -12, 12)
-    Player:SetTextColor(1, 1, 1)
+    local player = coord:CreateFontString(nil, 'OVERLAY')
+    player:SetFont(STANDARD_TEXT_FONT, 18, 'OUTLINE')
+    player:SetShadowOffset(0, -0)
+    player:SetJustifyH'LEFT'
+    player:SetPoint('BOTTOMRIGHT', WorldMapButton, 'BOTTOM', -12, 12)
+    player:SetTextColor(1, 1, 1)
 
-    local Cursor = coord:CreateFontString(nil, 'OVERLAY')
-    Cursor:SetFont(STANDARD_TEXT_FONT, 18, 'OUTLINE')
-    Cursor:SetShadowOffset(0, -0)
-    Cursor:SetJustifyH'LEFT'
-    Cursor:SetPoint('LEFT', Player, 'RIGHT', 3, 0)
-    Cursor:SetTextColor(1, 1, 1)
+    local cursor = coord:CreateFontString(nil, 'OVERLAY')
+    cursor:SetFont(STANDARD_TEXT_FONT, 18, 'OUTLINE')
+    cursor:SetShadowOffset(0, -0)
+    cursor:SetJustifyH'LEFT'
+    cursor:SetPoint('LEFT', player, 'RIGHT', 3, 0)
+    cursor:SetTextColor(1, 1, 1)
 
     coord:SetScript('OnUpdate', function(self, elapsed)
-        local width = WorldMapDetailFrame:GetWidth()
+        local width  = WorldMapDetailFrame:GetWidth()
         local height = WorldMapDetailFrame:GetHeight()
         local mx, my = WorldMapDetailFrame:GetCenter()
         local px, py = GetPlayerMapPosition'player'
@@ -40,15 +38,15 @@
         my = ((my + height/2) - (cy/WorldMapDetailFrame:GetEffectiveScale()))/height
 
         if mx >= 0 and my >= 0 and mx <= 1 and my <= 1 then
-            Cursor:SetText('•  Mouse'..format(': %.0f / %.0f', mx*100, my*100))
+            cursor:SetText('•  Mouse'..format(': %.0f / %.0f', mx*100, my*100))
         else
-            Cursor:SetText''
+            cursor:SetText''
         end
 
         if px ~= 0 and py ~= 0 then
-            Player:SetText(PLAYER..format(': %.0f / %.0f', px*100, py*100))
+            player:SetText(PLAYER..format(': %.0f / %.0f', px*100, py*100))
         else
-            Player:SetText'X / X'
+            player:SetText'X / X'
         end
     end)
 

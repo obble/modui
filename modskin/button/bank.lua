@@ -1,6 +1,5 @@
 
 
-    local _G = getfenv(0)
     local orig = {}
 
     for i = 1, 28 do                    -- BANK

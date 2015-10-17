@@ -1,6 +1,4 @@
 
-    local _G = getfenv(0)
-
     local hi = _G['AlwaysUpFrame1DynamicIconButtonIcon']
     local ai = _G['AlwaysUpFrame2DynamicIconButtonIcon']
 

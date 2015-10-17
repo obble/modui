@@ -1,6 +1,6 @@
 
 
-    local TEXTURE = [[Interface\AddOns\modui\modsb\texture\sb.tga]]
+    local TEXTURE  = [[Interface\AddOns\modui\modsb\texture\sb.tga]]
     local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],}
     local class = UnitClass'player'
     local enabled = true                -- TOGGLE NAMEPLATES VISIBILITY DEFAULT
@@ -23,7 +23,7 @@
         if class == 'Rogue' or class == 'Druid' then
             plate.cp = plate:CreateFontString(nil, 'OVERLAY')
             plate.cp:SetFont(STANDARD_TEXT_FONT, 18, 'OUTLINE')
-            plate.cp:SetPoint('TOPLEFT', health)
+            plate.cp:SetPoint('LEFT', health)
             plate.cp:SetTextColor(0, .8, .4)
             plate.cp:Hide()
         end

@@ -1,6 +1,5 @@
 
 
-    local _G = getfenv(0)
     local _AddMessage = ChatFrame1.AddMessage
     local gsub = string.gsub
     local blacklist = {[ChatFrame2] = true,}

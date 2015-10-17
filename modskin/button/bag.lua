@@ -1,6 +1,5 @@
 
 
-    local _G = getfenv(0)
     local orig = {}
 
     modSkin(MainMenuBarBackpackButton, 22)

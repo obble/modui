@@ -1,7 +1,6 @@
 
 
     local AttachToMainbar = true -- reparents tooltip to mainmenubar. true/false
-    local _G = getfenv(0)
     local sb = [[Interface\AddOns\modui\modsb\texture\sb.tga]]
     local GameTooltip = GameTooltip
     local GameTooltipStatusBar = GameTooltipStatusBar

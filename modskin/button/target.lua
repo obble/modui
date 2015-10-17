@@ -1,6 +1,5 @@
 
 
-    local _G = getfenv(0)
     local orig = {}
 
     for i = 1, 5 do
@@ -15,15 +14,6 @@
         modSkin(bu, 16)
         modSkinPadding(bu, 2)
         modSkinColor(bu, 1, 0, 0)
-    end
-
-    for i = 1, 4 do
-		local bu = _G['TargetFrameToTDebuff'..i]
-        if bu then
-            modSkin(bu, 16)
-            modSkinPadding(bu, 2)
-            modSkinColor(bu, 1, 0, 0)
-        end
     end
 
     orig.TargetDebuffButton_Update = TargetDebuffButton_Update

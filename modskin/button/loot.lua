@@ -1,7 +1,5 @@
 
 
-    local _G = getfenv(0)
-
     for i = 1, 4 do                     -- LOOT
         local bu = _G['LootButton'..i]
         modSkin(bu, 18)

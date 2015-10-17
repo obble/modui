@@ -1,7 +1,5 @@
 
 
-    local _G = getfenv(0)
-
     for i = 1, 6 do                             -- QUEST PROGRESS
         local p = _G['QuestProgressItem'..i]
         if p then

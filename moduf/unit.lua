@@ -1,6 +1,5 @@
 
 
-    local _G = getfenv(0)
     local BG = [[Interface\AddOns\modui\modsb\texture\sb.tga]]
     local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]]}
     local _, class = UnitClass'player'

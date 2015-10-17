@@ -1,6 +1,6 @@
 
 
-    local _G = getfenv(0)
+    _G = getfenv(0)
 
     print = function(m) DEFAULT_CHAT_FRAME:AddMessage(m) end
 
@@ -15,5 +15,5 @@
     _G.COPPER_AMOUNT =  '|cffffffff%d|r|TInterface\\MONEYFRAME\\UI-CopperIcon:14:14:2:0|t'
 
     GROUP = 'g'
-    
+
     --

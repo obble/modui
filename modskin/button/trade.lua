@@ -1,7 +1,5 @@
 
 
-    local _G = getfenv(0)
-
     local modI = function(bu)
         if not bu.skinned then
             modSkin(bu, 18)

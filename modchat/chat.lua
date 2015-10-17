@@ -1,7 +1,5 @@
 
 
-    local _G = getfenv(0)
-
     ChatFontNormal:SetFont(STANDARD_TEXT_FONT, 14)      -- DEFAULT FONT
     ChatFontNormal:SetShadowOffset(1, -1)
     ChatFontNormal:SetShadowColor(0, 0, 0, 1)
@@ -34,7 +32,7 @@
      end
 
 
-     for i = 1, 7 do                                   -- INIT STYLE, SUBS etc
+     for i = 1, 7 do                                     -- INIT STYLE, SUBS etc
          local chat = _G['ChatFrame'..i]
 
          hideFrameForever(_G['ChatFrame'..i..'UpButton'])
