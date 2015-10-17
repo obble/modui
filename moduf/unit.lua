@@ -28,6 +28,9 @@
     TargetFrameManaBar:SetBackdrop(BACKDROP)
     TargetFrameManaBar:SetBackdropColor(0, 0, 0, .6)
 
+    function TargetFrame_OnShow() end   -- REMOVE TARGETING SOUND
+    function TargetFrame_OnHide() CloseDropDownMenus() end
+
     t = CreateFrame'Frame'
     t:RegisterEvent'PLAYER_TARGET_CHANGED' t:RegisterEvent'UNIT_FACTION' t:RegisterEvent'PARTY_MEMBERS_CHANGED'
     t:SetScript('OnEvent', function()

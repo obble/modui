@@ -218,6 +218,17 @@
     for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
 
+        -- BOOK
+    local _, a, b, c, d = ItemTextFrame:GetRegions()
+    for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    ItemTextFrame.Material = ItemTextFrame:CreateTexture(nil, 'OVERLAY', nil, 7)
+    ItemTextFrame.Material:SetTexture[[Interface\AddOns\modui\moddark\quest\QuestBG.tga]]
+    ItemTextFrame.Material:SetWidth(510)
+    ItemTextFrame.Material:SetHeight(525)
+    ItemTextFrame.Material:SetPoint('TOPLEFT', ItemTextFrame, 26, -80)
+    ItemTextFrame.Material:SetVertexColor(.7, .7, .7)
+
+
         -- MENU
     GameMenuFrame:SetBackdropBorderColor(colour.r, colour.g, colour.b)
     GameMenuFrameHeader:SetVertexColor(colour.r, colour.g, colour.b)
