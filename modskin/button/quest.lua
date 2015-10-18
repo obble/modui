@@ -1,39 +1,57 @@
 
 
     for i = 1, 6 do                             -- QUEST PROGRESS
-        local p = _G['QuestProgressItem'..i]
-        if p then
-            print'true'
-            modSkin(p, 18)
-            modSkinPadding(p, 2)
-            modSkinColor(p, .2, .2, .2)
+        local bu = _G['QuestProgressItem'..i]
+        local ic = _G['QuestProgressItem'..i..'IconTexture']
+        if bu then
+            local f = CreateFrame('Frame', nil, bu)
+            f:SetAllPoints(ic)
+            modSkin(f, 18)
+            modSkinPadding(f, 2)
+            modSkinColor(f, .2, .2, .2)
         end
     end
 
-    local sk = _G['QuestInfoSkillPointFrame']   -- SKILL POINT
-    local skF = CreateFrame('Frame', nil, sk)
-    skF:SetAllPoints(sk.Icon)
-    modSkin(skF, 18)
-    modSkinPadding(skF, 2)
-    modSkinColor(skF, .2, .2, .2)
-
-    local sp = _G['QuestInfoRewardSpell']       -- SPELL POINT
-	local spF = CreateFrame('Frame', nil, sp)
-	spF:SetAllPoints(sp.Icon)
-    modSkin(spF, 18)
-    modSkinPadding(spF, 2)
-    modSkinColor(spF, .2, .2, .2)
-
-    local t = _G['QuestInfoTalentFrame']       -- TALENT POINT
-    local tF = CreateFrame('Frame', nil, t)
-    tF:SetAllPoints(t.Icon)
-    modSkin(tF, 18)
-    modSkinPadding(tF, 2)
-    modSkinColor(tF, .2, .2, .2)
-
-    for i = 1, GetNumQuestWatches() do
-        -- QuestWatchFrame
+    for i = 1, 6 do                             -- QUEST PROGRESS
+        local bu = _G['QuestRewardItem'..i]
+        local ic = _G['QuestRewardItem'..i..'IconTexture']
+        if bu then
+            local f = CreateFrame('Frame', nil, bu)
+            f:SetAllPoints(ic)
+            modSkin(f, 18)
+            modSkinPadding(f, 2)
+            modSkinColor(f, .2, .2, .2)
+        end
     end
 
+    local sk  = _G['QuestInfoSkillPointFrame']  -- SKILL POINT
+    local ski = _G['QuestInfoSkillPointFrameIconTexture']
+    if sk then
+        local f = CreateFrame('Frame', nil, sk)
+        f:SetAllPoints(_G['QuestInfoSkillPointFrameIconTexture'])
+        modSkin(f, 18)
+        modSkinPadding(f, 2)
+        modSkinColor(f, .2, .2, .2)
+    end
+
+    local sp  = _G['QuestInfoRewardSpell']     -- SPELL POINT
+    local spi = _G['QuestInfoRewardSpellIconTexture']
+    if sp then
+    	local f = CreateFrame('Frame', nil, sp)
+    	f:SetAllPoints(spi)
+        modSkin(f, 18)
+        modSkinPadding(f, 2)
+        modSkinColor(f, .2, .2, .2)
+    end
+
+    local t  = _G['QuestInfoTalentFrame']      -- TALENT POINT
+    local ti = _G['QuestInfoTalentFrameIconTexture']
+    if t then
+        local f = CreateFrame('Frame', nil, t)
+        f:SetAllPoints(ti)
+        modSkin(f, 18)
+        modSkinPadding(f, 2)
+        modSkinColor(f, .2, .2, .2)
+    end
 
     --

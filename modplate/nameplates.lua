@@ -72,7 +72,7 @@
         end
     end
 
-    local addCP = function(plate)   -- COMOBPOINT
+    local addCP = function(plate)   -- COMBOPOINT
         if plate.cp then
             local health = plate:GetChildren()
             local _, _, name = plate:GetRegions()

@@ -306,6 +306,8 @@
         elseif arg1 == 'Blizzard_InspectUI'    then -- INSPECT
             local a, b, c, d = InspectPaperDollFrame:GetRegions()
             for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+            local a, b, c, d = InspectHonorFrame:GetRegions()
+            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
         elseif arg1 == 'Blizzard_MacroUI'      then -- MACRO
             local _, a, b, c, d = MacroFrame:GetRegions()
             for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
