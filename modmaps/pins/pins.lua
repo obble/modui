@@ -27,8 +27,10 @@
             p:SetScript('OnLeave', function() GameTooltip:Hide() end)
             tinsert(pins, p)
 
+            local path = UnitFactionGroup'player' == 'Alliance' and [[Interface\WorldStateFrame\AllianceFlag]]
+                         or [[Interface\WorldStateFrame\HordeFlag]]
             local t = p:CreateTexture(nil, 'OVERLAY')
-            t:SetTexture[[Interface\WorldStateFrame\AllianceFlag]]
+            t:SetTexture(path)
             t:SetAllPoints()
         end
     end
