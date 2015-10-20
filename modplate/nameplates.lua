@@ -23,9 +23,8 @@
 
         if class == 'Rogue' or class == 'Druid' then
             plate.cp = plate:CreateFontString(nil, 'OVERLAY')
-            plate.cp:SetFont(STANDARD_TEXT_FONT, 18, 'OUTLINE')
+            plate.cp:SetFont(STANDARD_TEXT_FONT, 20, 'OUTLINE')
             plate.cp:SetPoint('LEFT', health)
-            plate.cp:SetTextColor(0, .8, .4)
             plate.cp:Hide()
         end
 
@@ -83,6 +82,7 @@
             if target == text and health:GetAlpha() == 1 and cp > 0 then
                 plate.cp:Show()
                 plate.cp:SetText(cp)
+                plate.cp:SetTextColor(.5*(cp - 1), 2/(cp - 1), .5/(cp - 1))
             end
         end
     end

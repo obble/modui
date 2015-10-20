@@ -28,6 +28,19 @@
     TargetFrameManaBar:SetBackdrop(BACKDROP)
     TargetFrameManaBar:SetBackdropColor(0, 0, 0, .6)
 
+    local colourParty = function()      -- PARTY CLASS COLOUR
+        for i = 1, MAX_PARTY_MEMBERS do
+            local name = _G['PartyMemberFrame'..i..'Name']
+            if UnitIsPlayer('party'..i) then
+                local _, class = UnitClass('party'..i)
+                local colour = RAID_CLASS_COLORS[class]
+                if colour then name:SetTextColor(colour.r, colour.g, colour.b) end
+            else
+                name:SetTextColor(1, .8, 0)
+            end
+        end
+    end
+
     function TargetFrame_OnShow() end   -- REMOVE TARGETING SOUND
     function TargetFrame_OnHide() CloseDropDownMenus() end
 
@@ -37,9 +50,15 @@
         local _, class = UnitClass'target'
         local colour = RAID_CLASS_COLORS[class]
         if UnitIsPlayer'target' then TargetFrameNameBackground:SetVertexColor(colour.r, colour.g, colour.b, 1) end
+        if arg1 == 'PARTY_MEMBERS_CHANGED' then colourParty() end
     end)
 
+    orig.ShowPartyFrame = ShowPartyFrame
     orig.TextStatusBar_UpdateTextString = TextStatusBar_UpdateTextString
+
+    function ShowPartyFrame()
+        orig.ShowPartyFrame() colourParty()
+    end
 
     function TextStatusBar_UpdateTextString(textStatusBar)
         if not textStatusBar then textStatusBar = this end

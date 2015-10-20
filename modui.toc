@@ -13,11 +13,13 @@ modskin\button\bank.lua
 modskin\button\chat.lua
 modskin\button\inspect.lua
 modskin\button\loot.lua
+modskin\button\party.lua
 modskin\button\pd.lua
 modskin\button\quest.lua
 modskin\button\target.lua
 modskin\button\trade.lua
 modskin\frame\tip.lua
+modskin\frame\tutorial.lua
 modskin\balloon.lua
 modskin\skin.lua
 modchat\chat.lua
@@ -25,6 +27,7 @@ modchat\event.lua
 moddark\dark.lua
 modmaps\mini.lua
 modmaps\world.lua
+modmaps\pins\pins.lua
 modpvp\objective.lua
 modpvp\rank.lua
 modsb\gradient.lua

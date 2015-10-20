@@ -3,8 +3,8 @@
     local colour   = RAID_CLASS_COLORS[class]
     local orig     = {}
 
-    local link = function(j, w, qi)
-        local click = CreateFrame('Button', 'modQClick', QuestWatchFrame)
+    local link = function(i, w, qi)
+        local click = CreateFrame('Button', 'modq'..i, QuestWatchFrame)
         click:SetAllPoints(w)
         local r, g, b = w:GetTextColor()
         click:SetScript('OnEnter', function() w:SetTextColor(colour.r, colour.g, colour.b) end)
@@ -24,7 +24,7 @@
             if qi then
                 for j = 1, MAX_QUESTWATCH_LINES do
                     local w = _G['QuestWatchLine'..j]
-                    if w:GetText() == GetQuestLogTitle(qi) then link(j, w, qi) end
+                    if w:GetText() == GetQuestLogTitle(qi) then link(i, w, qi) end
                 end
             end
         end

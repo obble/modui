@@ -9,6 +9,14 @@
         modSkinColor(bu, .2, .2, .2)
     end
 
+    for i = 1, 2 do
+        local bu = _G['TempEnchant'..i]
+        _G['TempEnchant'..i]:SetAlpha(0)
+        modSkin(bu, 16)
+        modSkinPadding(bu, 2)
+        modSkinColor(bu, 1, 0, 1)
+    end
+
     orig.BuffButton_Update = BuffButton_Update
     function BuffButton_Update()
         orig.BuffButton_Update()
