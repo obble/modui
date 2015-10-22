@@ -51,6 +51,7 @@ modtip\tip.lua
 
 modtracker\click.lua
 
+moduf\energy.lua
 moduf\move.lua
 moduf\unit.lua
 
