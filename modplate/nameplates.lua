@@ -40,7 +40,7 @@
         return true
     end
 
-    local isPlayer = function(n) -- CLASS COLOUR
+    local isPlayer = function(n)    -- UNIT TYPE
         if not t[n] then
             TargetByName(n, true)
             table.insert(t, n)
@@ -53,7 +53,7 @@
         end
     end
 
-    local addClass = function(plate)
+    local addClass = function(plate) -- CLASS COLOUR
         local health = plate:GetChildren()
         local _, _, name = plate:GetRegions()
         local n = name:GetText()

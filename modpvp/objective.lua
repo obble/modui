@@ -15,21 +15,22 @@
     local f = CreateFrame'Frame'
     f:RegisterEvent'CHAT_MSG_BG_SYSTEM_ALLIANCE' f:RegisterEvent'CHAT_MSG_BG_SYSTEM_HORDE'
     f:SetScript('OnEvent', function()
-        if string.find(arg1, 'The Alliance Flag was picked up')
-        or string.find(arg1, '+ Alliance Flag') then
-            local t = gsub(arg1, 'The Alliance Flag was picked up by (.+)!', '%1')
+        local s = arg1
+        if string.find(s, 'The Alliance Flag was picked up')
+        or string.find(s, '+ Alliance Flag') then
+            local t = gsub(s, 'The Alliance Flag was picked up by (.+)!', '%1')
             a:SetText(t)
             a:Show()
-        elseif string.find(arg1, 'The Alliance Flag was dropped')
-        or string.find(arg1, 'captured the Alliance flag!') then
+        elseif string.find(s, 'The Alliance Flag was dropped')
+        or string.find(s, 'captured the Alliance flag!') then
             a:Hide()
-        elseif string.find(arg1, 'The Horde flag was picked up')
-        or string.find(arg1, '+ Horde Flag') then
-            local t = gsub(arg1, 'The Horde flag was picked up by (.+)!', '%1')
+        elseif string.find(s, 'The Horde flag was picked up')
+        or string.find(s, '+ Horde Flag') then
+            local t = gsub(s, 'The Horde flag was picked up by (.+)!', '%1')
             h:SetText(t)
             h:Show()
-        elseif  string.find(arg1, 'The Horde flag was dropped')
-        or string.find(arg1, 'captured the Horde flag!') then
+        elseif  string.find(s, 'The Horde flag was dropped')
+        or string.find(s, 'captured the Horde flag!') then
             h:Hide()
         end
     end)

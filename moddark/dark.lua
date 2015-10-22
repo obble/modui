@@ -217,6 +217,10 @@
     local _, a, b, c, d = TabardFrame:GetRegions()
     for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
+        -- WARDROBE
+    local _, a, b, c, d = DressUpFrame:GetRegions()
+    for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+
 
         -- BOOK
     local _, a, b, c, d = ItemTextFrame:GetRegions()

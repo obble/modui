@@ -4,7 +4,7 @@
     local barstosmooth = {    -- SMOOTH ANIM ON PLAYER, TARGET, XP STATUSBARS
         PlayerFrameHealthBar, PlayerFrameManaBar,
         TargetFrameHealthBar, TargetFrameManaBar,
-        MainMenuExpBar,}
+        MainMenuExpBar, ReputationWatchStatusBar,}
 
 	local smoothframe = CreateFrame'Frame'
 	smoothing = {}
@@ -24,7 +24,7 @@
 			end
 		end
 	end
-    
+
 	smoothframe:SetScript('OnUpdate', AnimationTick)
 
 	local function SmoothSetValue(self, value)
