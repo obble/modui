@@ -145,6 +145,7 @@
 		end,
 	}
 
+    local URL_LINK = '|Hurl:%s|h' .. URL .. '|h'
     local modURL = function(url, tld)
         if tld then
     		return TLDS[strupper(tld)] and string.format(URL_LINK, url, url) or url
