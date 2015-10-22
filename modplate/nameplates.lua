@@ -5,10 +5,53 @@
     local class = UnitClass'player'
     local p = {} local t = {}
     local enabled = true                -- TOGGLE NAMEPLATES VISIBILITY DEFAULT
+    local showpet = false               -- TOGGLE NON_COMBAT PET VISIBILITY
+
+    local pets = {'Orange Tabby', 'Silver Tabby', 'Bombay', 'Cornish Rex',
+        'Hawk Owl', 'Great Horned Owl', 'Cockatiel', 'Senegal', 'Green Wing Macaw', 'Hyacinth Macaw',
+        'Black Kingsnake', 'Brown Snake', 'Crimson Snake',
+        'Prairie Dog',
+        'Cockroach',
+        'Ancona Chicken',
+        'Worg Pup',
+        'Smolderweb Hatchling',
+        'Mechanical Chicken',
+        'Sprite Darter', 'Tiny Black Whelpling', 'Tiny Emerald Whelpling', 'Tiny Crimson Whelpling', 'Siamese',
+        'Unconscious Dig Rat', 'Mechanical Squirrel', 'Pet Bombling', 'Lil\' Smokey', 'Lifelike Mechanical Toad'}
+
+    local isPlate = function(frame)     -- GO FISH
+        local overlayRegion = frame:GetRegions()
+        if not overlayRegion or overlayRegion:GetObjectType() ~= 'Texture'
+        or overlayRegion:GetTexture() ~= [[Interface\Tooltips\Nameplate-Border]] then
+            return false
+        end
+        return true
+    end
+
+    local isPet = function(name)
+        for _, pname in pairs(pets) do
+            if name == pname then return true end
+        end
+        return false
+    end
+
+    local isPlayer = function(n)
+        if not t[n] then
+            TargetByName(n, true)
+            table.insert(t, n)
+            t[n] = 'ok'
+            if UnitIsPlayer'target' then
+                local class = UnitClass'target'
+                table.insert(p, n)
+                p[n] = {['class'] = string.upper(class)}
+            end
+        end
+    end
 
     local modPlate = function(plate)    -- STYLE
         local health = plate:GetChildren()
         local border, glow, name, level, _, raidicon = plate:GetRegions()
+        local n = name:GetText()
 
         border:SetVertexColor(.4, .4, .4)
 
@@ -28,32 +71,14 @@
             plate.cp:Hide()
         end
 
+        if not showpet then
+			if isPet(n) then plate:Hide() end
+		end
+
         plate.skinned = true
     end
 
-    local isPlate = function(frame) -- GO FISH
-        local overlayRegion = frame:GetRegions()
-        if not overlayRegion or overlayRegion:GetObjectType() ~= 'Texture'
-        or overlayRegion:GetTexture() ~= [[Interface\Tooltips\Nameplate-Border]] then
-            return false
-        end
-        return true
-    end
-
-    local isPlayer = function(n)    -- UNIT TYPE
-        if not t[n] then
-            TargetByName(n, true)
-            table.insert(t, n)
-            t[n] = 'ok'
-            if UnitIsPlayer'target' then
-                local class = UnitClass'target'
-                table.insert(p, n)
-                p[n] = {['class'] = string.upper(class)}
-            end
-        end
-    end
-
-    local addClass = function(plate) -- CLASS COLOUR
+    local addClass = function(plate)    -- CLASS COLOUR
         local health = plate:GetChildren()
         local _, _, name = plate:GetRegions()
         local n = name:GetText()
@@ -71,7 +96,7 @@
         end
     end
 
-    local addCP = function(plate)   -- COMBOPOINT
+    local addCP = function(plate)       -- COMBOPOINT
         if plate.cp then
             local health = plate:GetChildren()
             local _, _, name = plate:GetRegions()
