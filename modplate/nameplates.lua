@@ -54,7 +54,7 @@
         local border, glow, name, level, _, raidicon = plate:GetRegions()
         local n = name:GetText()
 
-        border:SetVertexColor(.4, .4, .4)
+        border:SetVertexColor(.2, .2, .2)
 
         name:SetFont(STANDARD_TEXT_FONT, 12)
         name:ClearAllPoints()

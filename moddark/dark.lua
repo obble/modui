@@ -16,7 +16,7 @@
         MiniMapMeetingStoneBorder,
         MiniMapMailBorder,
         MiniMapBattlefieldBorder,
-    }) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    }) do v:SetVertexColor(colour.r*.5, colour.g*.5, colour.b*.5) end
 
     MinimapBorderTop:Hide()
     MinimapToggleButton:Hide()
