@@ -4,6 +4,12 @@
 
     print = function(m) DEFAULT_CHAT_FRAME:AddMessage(m) end
 
+    tlength = function(t)
+        local count = 0
+        for _ in pairs(t) do count = count + 1 end
+        return count
+    end
+
     CHAT_FLAG_AFK = 'AFK — '
     CHAT_FLAG_DND = 'DND — '
     CHAT_FLAG_GM =  'GM — '
