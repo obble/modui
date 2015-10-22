@@ -72,9 +72,7 @@
             plate.cp:Hide()
         end
 
-        if not showpet then
-			if isPet(n) then plate:Hide() end
-		end
+        if not showpet then if isPet(n) then plate:Hide() end end
 
         plate.skinned = true
     end
