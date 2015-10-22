@@ -7,7 +7,8 @@
     local enabled = true                -- TOGGLE NAMEPLATES VISIBILITY DEFAULT
     local showpet = false               -- TOGGLE NON_COMBAT PET VISIBILITY
 
-    local pets = {'Orange Tabby', 'Silver Tabby', 'Bombay', 'Cornish Rex',
+    local pets = {
+        'Orange Tabby', 'Silver Tabby', 'Bombay', 'Cornish Rex', 'Siamese',
         'Hawk Owl', 'Great Horned Owl', 'Cockatiel', 'Senegal', 'Green Wing Macaw', 'Hyacinth Macaw',
         'Black Kingsnake', 'Brown Snake', 'Crimson Snake',
         'Prairie Dog',
@@ -15,9 +16,9 @@
         'Ancona Chicken',
         'Worg Pup',
         'Smolderweb Hatchling',
-        'Mechanical Chicken',
-        'Sprite Darter', 'Tiny Black Whelpling', 'Tiny Emerald Whelpling', 'Tiny Crimson Whelpling', 'Siamese',
-        'Unconscious Dig Rat', 'Mechanical Squirrel', 'Pet Bombling', 'Lil\' Smokey', 'Lifelike Mechanical Toad'}
+        'Mechanical Chicken', 'Mechanical Squirrel', 'Lifelike Mechanical Toad', 'Pet Bombling', 'Lil\' Smokey',
+        'Sprite Darter', 'Tiny Black Whelpling', 'Tiny Emerald Whelpling', 'Tiny Crimson Whelpling',
+        'Unconscious Dig Rat', }
 
     local isPlate = function(frame)     -- GO FISH
         local overlayRegion = frame:GetRegions()
