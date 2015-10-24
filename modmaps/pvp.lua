@@ -32,7 +32,7 @@
         or string.find(s, '+ Horde Flag') then
             local t   = gsub(s, 'was picked up by (.+)!', '%1')
             local sub = gsub(s, 'Flag — (.+)', '%1')
-            if name and string.find(name, (t or sub)) then
+            if name and (string.find(name, t) or string.find(name, sub)) then
                 return 1
             end
         elseif string.find(s, 'The Horde flag was dropped')
@@ -60,7 +60,6 @@
                 local colour = class and RAID_CLASS_COLORS[string.upper(class)] or {r = 1, g = .8, b = 0}
                 if s ~= nil then
                     local fc = logic(name, s)
-                    print(fc)
                     if fc == 1 then
                         local path = faction == 'Alliance' and [[Interface\WorldStateFrame\AllianceFlag]]
                                                             or [[Interface\WorldStateFrame\HordeFlag]]

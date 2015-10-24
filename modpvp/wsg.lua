@@ -1,16 +1,14 @@
 
-    local hi = _G['AlwaysUpFrame1DynamicIconButtonIcon']
-    local ai = _G['AlwaysUpFrame2DynamicIconButtonIcon']
 
     local h = WorldStateAlwaysUpFrame:CreateFontString(nil, 'OVERLAY')
     h:SetFontObject(GameFontNormalSmall)
     h:SetTextColor(0, .8, .5)
-    h:SetPoint('TOP', UIParent, 100, -50)
+    h:SetPoint('TOP', UIParent, 60, -32)
 
     local a = WorldStateAlwaysUpFrame:CreateFontString(nil, 'OVERLAY')
     a:SetFontObject(GameFontNormalSmall)
     a:SetTextColor(1, 0, 0)
-    a:SetPoint('TOP', UIParent, 100, -75)
+    a:SetPoint('TOP', UIParent, 60, -55)
 
     local f = CreateFrame'Frame'
     f:RegisterEvent'CHAT_MSG_BG_SYSTEM_ALLIANCE' f:RegisterEvent'CHAT_MSG_BG_SYSTEM_HORDE'
