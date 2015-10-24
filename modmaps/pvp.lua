@@ -42,14 +42,13 @@
             or string.find(s, 'captured the Horde flag')
             or string.find(s, 'captured the Alliance Flag') then
             local d   = gsub(s, 'The (.+) was dropped by (.+)!', '%2')
-            local ca  = gsub(s, '(.+) captured the (.+)!', '%1')
+            local c   = gsub(s, '(.+) captured the (.+)!', '%1')
             local sub = gsub(s, '- (.+) Flag — (.+)', '%2')
-            if name and (string.find(name, d) or string.find(name, ca) or string.find(name, sub)) then
+            if name and (string.find(name, d) or string.find(name, c) or string.find(name, sub)) then
                 return 0
             end
         end
     end
-
 
     local blips = function(s)
         for i = 1, 40 do

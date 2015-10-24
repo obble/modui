@@ -24,6 +24,7 @@
 
     local f = CreateFrame'Frame'
     f:RegisterEvent'CHAT_MSG_BG_SYSTEM_ALLIANCE' f:RegisterEvent'CHAT_MSG_BG_SYSTEM_HORDE'
+    f:RegisterEvent'CHAT_MSG_BG_SYSTEM_NEUTRAL'
     f:SetScript('OnEvent', function()
         local s = arg1
         local faction, t
@@ -39,11 +40,11 @@
             local text = _G['modnode'..i..'text']
 
             if node.name
-            and (string.find(s, 'has taken the (.+)') or string.find(s, 'has defended the (.+)')) then
+            and (string.find(s, 'has taken the (.+)') or string.find(s, 'has defended the (.+)') or string.find(s, 'The (.+) wins')) then
                 local defend = gsub(s, '(.+) has defended the (.+)', '%2')
                 local taken  = gsub(s, '(.+) has taken the (.+)', '%2')
                 local name   = node.name
-                if string.find(name, defend) or string.find(name, taken) then
+                if string.find(name, defend) or string.find(name, taken) or string.find(s, 'The (.+) wins') then
                     node:Hide() text:SetText''
                     node:SetScript('OnUpdate', nil)
                     node.name = false

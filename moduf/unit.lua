@@ -28,7 +28,20 @@
     TargetFrameManaBar:SetBackdrop(BACKDROP)
     TargetFrameManaBar:SetBackdropColor(0, 0, 0, .6)
 
-    local colourParty = function()      -- PARTY CLASS COLOUR
+    PlayerFrameGroupIndicator:SetAlpha(0)
+    PlayerHitIndicator:SetText(nil)
+    PlayerHitIndicator.SetText = function() end
+    PetHitIndicator:SetText(nil)
+    PetHitIndicator.SetText = function() end
+
+    TargetLevelText:SetJustifyH'LEFT'
+    TargetLevelText:SetPoint('LEFT', TargetFrameTextureFrame, 'CENTER', 56, -16)
+
+    local classification = TargetFrameTextureFrame:CreateFontString(nil, 'OVERLAY')
+    classification:SetFontObject(GameFontNormalSmall)
+
+
+    local colourParty = function()              -- PARTY CLASS COLOUR
         for i = 1, MAX_PARTY_MEMBERS do
             local name = _G['PartyMemberFrame'..i..'Name']
             if UnitIsPlayer('party'..i) then
@@ -41,12 +54,14 @@
         end
     end
 
-    function TargetFrame_OnShow() end   -- REMOVE TARGETING SOUND
+
+    function TargetFrame_OnShow() end           -- REMOVE TARGETING SOUND
     function TargetFrame_OnHide() CloseDropDownMenus() end
+
 
     t = CreateFrame'Frame'
     t:RegisterEvent'PLAYER_TARGET_CHANGED' t:RegisterEvent'UNIT_FACTION' t:RegisterEvent'PARTY_MEMBERS_CHANGED'
-    t:SetScript('OnEvent', function()
+    t:SetScript('OnEvent', function()           -- COLOUR UNIT
         local _, class = UnitClass'target'
         local colour = RAID_CLASS_COLORS[class]
         if UnitIsPlayer'target' then TargetFrameNameBackground:SetVertexColor(colour.r, colour.g, colour.b, 1) end
@@ -54,12 +69,26 @@
     end)
 
     orig.ShowPartyFrame = ShowPartyFrame
+    orig.TargetFrame_CheckClassification = TargetFrame_CheckClassification
     orig.TextStatusBar_UpdateTextString = TextStatusBar_UpdateTextString
 
     function ShowPartyFrame()
         orig.ShowPartyFrame() colourParty()
     end
 
+    function TargetFrame_CheckClassification()  -- BOSS/ELITE/RARE TAGS
+        orig.TargetFrame_CheckClassification()
+        local c = UnitClassification'target'
+        if c == 'worldboss' or c == 'rareelite'
+        or c == 'elite' or c == 'rare' then
+            classification:SetPoint('LEFT', c == 'worldboss' and TargetHighLevelTexture or TargetLevelText, 'RIGHT')
+            classification:SetText(' — |cffef9552'..c..'|r')
+        else
+            classification:SetText''
+        end
+    end
+
+                                                -- STATUS TEXT [to-do: true values]
     function TextStatusBar_UpdateTextString(textStatusBar)
         if not textStatusBar then textStatusBar = this end
         orig.TextStatusBar_UpdateTextString(textStatusBar)
@@ -94,7 +123,7 @@
     	end
     end
 
-    RegisterCVar('modStatus', 1, true)
+    RegisterCVar('modStatus', 1, true)          -- TOGGLE HORIZONTAL VALUES
     MODSTATUS_BAR_TEXT = 'modui: Side-by-Side Status Text'
     UIOptionsFrameCheckButtons['MODSTATUS_BAR_TEXT'] = { index = 70, cvar = 'modStatus'}
     UIOptionsFrameCheckButton70 = CreateFrame('CheckButton', 'UIOptionsFrameCheckButton70', UIOptionsFrameCheckButton2, 'UIOptionsCheckButtonTemplate')

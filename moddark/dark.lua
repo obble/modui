@@ -43,7 +43,7 @@
         PartyMemberFrame4PetFrameTexture,
         TargetofTargetTexture,
         CastingBarBorder,
-    }) do v:SetVertexColor(colour.r*.9, colour.g*.9, colour.b*.9) end
+    }) do v:SetVertexColor(colour.r*.8, colour.g*.8, colour.b*.8) end
 
     for i, v in pairs({
         PlayerPVPIcon,
@@ -52,12 +52,6 @@
     }) do v:SetAlpha(0) end
 
     for i = 1, 4 do _G['PartyMemberFrame'..i..'PVPIcon']:SetAlpha(0) end
-
-    PlayerFrameGroupIndicator:SetAlpha(0)
-    PlayerHitIndicator:SetText(nil)
-    PlayerHitIndicator.SetText = function() end
-    PetHitIndicator:SetText(nil)
-    PetHitIndicator.SetText = function() end
 
 
         -- MAIN MENU BAR
