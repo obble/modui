@@ -30,17 +30,23 @@
         or string.find(s, '+ Alliance Flag')
         or string.find(s, 'The Horde flag was picked up')
         or string.find(s, '+ Horde Flag') then
-            local t   = gsub(s, 'was picked up by (.+)!', '%1')
+            local t  = gsub(s, 'The (.+) was picked up by (.+)!', '%2')
             local sub = gsub(s, '+ (.+) Flag — (.+)', '%2')
             if name and (string.find(name, t) or string.find(name, sub)) then
-                print('logic passed')
                 return 1
             end
         elseif string.find(s, 'The Horde flag was dropped')
             or string.find(s, '- Horde Flag')
             or string.find(s, 'The Alliance Flag was dropped')
-            or string.find(s, '- Alliance Flag') then
-            return 0 -- boolean to prevent conflicting false returns in handler
+            or string.find(s, '- Alliance Flag')
+            or string.find(s, 'captured the Horde flag')
+            or string.find(s, 'captured the Alliance Flag') then
+            local d   = gsub(s, 'The (.+) was dropped by (.+)!', '%2')
+            local ca  = gsub(s, '(.+) captured the (.+)!', '%1')
+            local sub = gsub(s, '- (.+) Flag — (.+)', '%2')
+            if name and (string.find(name, d) or string.find(name, ca) or string.find(name, sub)) then
+                return 0
+            end
         end
     end
 
@@ -62,8 +68,8 @@
                 if s ~= nil then
                     local fc = logic(name, s)
                     if fc == 1 then
-                        local path = faction == 'Alliance' and [[Interface\WorldStateFrame\AllianceFlag]]
-                                                            or [[Interface\WorldStateFrame\HordeFlag]]
+                        local path = faction == 'Alliance' and [[Interface\WorldStateFrame\HordeFlag]]
+                                                            or [[Interface\WorldStateFrame\AllianceFlag]]
                         icon:SetTexture(path)
                         icon:SetVertexColor(1, 1, 1)
                     elseif fc == 0 then
