@@ -31,8 +31,9 @@
         or string.find(s, 'The Horde flag was picked up')
         or string.find(s, '+ Horde Flag') then
             local t   = gsub(s, 'was picked up by (.+)!', '%1')
-            local sub = gsub(s, 'Flag — (.+)', '%1')
+            local sub = gsub(s, '+ (.+) Flag — (.+)', '%2')
             if name and (string.find(name, t) or string.find(name, sub)) then
+                print('logic passed')
                 return 1
             end
         elseif string.find(s, 'The Horde flag was dropped')
