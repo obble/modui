@@ -4,6 +4,7 @@
     bu:SetPoint('TOPLEFT', MerchantFrame, 180, -42)
     bu:SetWidth(24) bu:SetHeight(24)
     bu:SetPushedTexture[[Interface\Buttons\UI-Quickslot-Depress]]
+    bu:SetNormalTexture''
 
     local t = bu:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
     t:SetPoint('RIGHT', bu, 'LEFT', -4, 0)
@@ -17,10 +18,10 @@
         for bag = 0, 4 do
             for slot = 0, GetContainerNumSlots(bag) do
                 local link = GetContainerItemLink(bag, slot)
-                local _, _, info = link and GetItemInfo(link)
-                if link and info == 0 then
-                    ShowMerchantSellCursor(1)
-                    UseContainerItem(bag, slot)
+                if link then
+                    local _, _, istring = string.find(link, '|H(.+)|h')
+                    local _, _, q = GetItemInfo(istring)
+                    if q == 0 then UseContainerItem(bag, slot) end
                 end
             end
         end

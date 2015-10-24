@@ -1,6 +1,6 @@
 
 
-    local AttachToMainbar = true -- reparents tooltip to mainmenubar. true/false
+    local AttachToMainbar = true    -- REPARENT TIP TO MAINMENUBAR. true/false
     local sb = [[Interface\AddOns\modui\modsb\texture\sb.tga]]
     local GameTooltip = GameTooltip
     local GameTooltipStatusBar = GameTooltipStatusBar
@@ -59,7 +59,7 @@
     end
 
 
-    for i = 1, 6 do     -- QUEST PROGRESS TOOLTIP
+    for i = 1, 6 do                 -- QUEST PROGRESS TOOLTIP
         local p = _G['QuestProgressItem'..i]
         p:SetScript('OnEnter', function()
             if GameTooltip then
@@ -68,5 +68,12 @@
             end
         end)
     end
+
+    local f = CreateFrame'Frame'    -- GUILD TAG
+    f:RegisterEvent'UPDATE_MOUSEOVER_UNIT'
+    f:SetScript('OnEvent', function()
+        local g = GetGuildInfo'mouseover'
+        if g then GameTooltip:AddLine('<'..g..'>', 0, 1, .5) GameTooltip:Show() end
+    end)
 
     --

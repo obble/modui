@@ -17,6 +17,7 @@
             for i = 1, MAX_TRADE_SKILL_REAGENTS do
                 local r  = _G['TradeSkillReagent'..i]
 	            local ri = _G['TradeSkillReagent'..i..'IconTexture']
+                local rc = _G['TradeSkillReagent'..i..'Count']
 
                 if r then
                     if not ri.f then -- new frame for us to reparent to
@@ -34,6 +35,8 @@
                     ri:SetPoint('TOPLEFT', r, 1, -1)
                     ri:SetPoint('BOTTOMRIGHT', r, -107, 1)
                     ri:SetDrawLayer'ARTWORK'
+
+                    rc:SetParent(ri.f)
                 end
             end
         end

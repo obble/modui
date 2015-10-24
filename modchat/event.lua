@@ -165,6 +165,7 @@
     end
 
    local AddMessage = function(f, t, r, g, b, id)
+       if t == nil then return _AddMessage(f, t, r, g, b, id) end
        t = gsub(t, '%[(%d+)%. .+%].+(|Hplayer.+)', '%1 %2')               -- WORLD CHANNELS '1'
        t = gsub(t, '|H(.-)|h%[(.-)%]|h', '|H%1|h%2|h')                    -- STRIP BRACKETS
        t = gsub(t, 'Guild Message of the Day:', 'GMOTD —')                -- MOTD

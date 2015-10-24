@@ -50,7 +50,7 @@
          _G['ChatFrame'..i..'DownButton']:GetNormalTexture():SetVertexColor(.5, .5, .5)
          _G['ChatFrame'..i..'BottomButton']:GetNormalTexture():SetVertexColor(.5, .5, .5)
      end
-
+     
      ChatFrameMenuButton:GetNormalTexture():SetVertexColor(.5, .5, .5)
      ChatFrameMenuButton:ClearAllPoints() ChatFrameMenuButton:SetPoint('BOTTOMRIGHT', ChatFrame1, 'BOTTOMLEFT', -3, -10)
      ChatMenu:ClearAllPoints() ChatMenu:SetPoint('BOTTOM', UIParent, 0, 100)

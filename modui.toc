@@ -35,14 +35,21 @@ modskin\skin.lua
 modchat\chat.lua
 modchat\event.lua
 
+modct\ct.lua
+
 moddark\dark.lua
 
 modmaps\mini.lua
+modmaps\pvp.lua
 modmaps\world.lua
 modmaps\pins\pins.lua
 
-modpvp\objective.lua
+modpvp\ab.lua
+modpvp\wsg.lua
 modpvp\rank.lua
+
+modraid\spawn.lua
+modraid\unit.lua
 
 modsb\gradient.lua
 modsb\smooth.lua
