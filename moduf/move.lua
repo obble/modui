@@ -24,11 +24,11 @@
     function UnitFrame_OnEnter()
         orig.UnitFrame_OnEnter()
         local name = this:GetName()
-        if SHOW_NEWBIE_TIPS == '1'
-        and name ~= 'PartyMemberFrame2'
-        and name ~= 'PartyMemberFrame3'
-        and name ~= 'PartyMemberFrame4'
-        and name ~= 'TargetofTargetFrame' then
+        local unit = this.unit
+
+        if SHOW_NEWBIE_TIPS == '1'  -- MOVE HINT
+        and name ~= 'PartyMemberFrame2' and name ~= 'PartyMemberFrame3'
+        and name ~= 'PartyMemberFrame4' and name ~= 'TargetofTargetFrame' then
             GameTooltip:AddLine('Shift + Drag to move '..name..'.', .3, 1, .6)
             GameTooltip:Show()
         end

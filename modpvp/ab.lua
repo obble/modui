@@ -40,11 +40,14 @@
             local text = _G['modnode'..i..'text']
 
             if node.name
-            and (string.find(s, 'has taken the (.+)') or string.find(s, 'has defended the (.+)') or string.find(s, 'The (.+) wins')) then
+            and (string.find(s, 'has taken the (.+)') or string.find(s, 'has defended the (.+)')
+             or  string.find(s, 'The (.+) wins') or string.find(s, 'claims the (.+)')) then
                 local defend = gsub(s, '(.+) has defended the (.+)', '%2')
                 local taken  = gsub(s, '(.+) has taken the (.+)', '%2')
+                local claim  = gsub(s, '(.+) claims the (.+)', '%2')
                 local name   = node.name
-                if string.find(name, defend) or string.find(name, taken) or string.find(s, 'The (.+) wins') then
+                if string.find(name, defend) or string.find(name, taken)
+                or string.find(name, claim)  or string.find(s, 'The (.+) wins') then
                     node:Hide() text:SetText''
                     node:SetScript('OnUpdate', nil)
                     node.name = false

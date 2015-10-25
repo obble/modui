@@ -79,9 +79,8 @@
     function TargetFrame_CheckClassification()  -- BOSS/ELITE/RARE TAGS
         orig.TargetFrame_CheckClassification()
         local c = UnitClassification'target'
-        if c == 'worldboss' or c == 'rareelite'
-        or c == 'elite' or c == 'rare' then
-            classification:SetPoint('LEFT', c == 'worldboss' and TargetHighLevelTexture or TargetLevelText, 'RIGHT')
+        if c ~= 'normal' then
+            classification:SetPoint('LEFT', TargetHighLevelTexture:IsShown() and TargetHighLevelTexture or TargetLevelText, 'RIGHT')
             classification:SetText(' — |cffef9552'..c..'|r')
         else
             classification:SetText''
