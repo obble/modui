@@ -4,8 +4,9 @@
     tip:SetOwner(UIParent, 'ANCHOR_NONE')
 
     local dismount = function()
-        for i = 1, 16 do
-            local j, uc = GetPlayerBuff(i, 'HELPFUL')
+        for i = -1, 16 do
+            local j = GetPlayerBuff(i)
+            tip:ClearLines()
             tip:SetPlayerBuff(j)
             local t = _G['modmountTextLeft2']:GetText()
             if t then
@@ -23,10 +24,8 @@
                 dismount()
             end
         else
-            local _, g1, _, g2, _, g3, _, g4 ,_, g5 = GetGossipOptions()
-            for _, v in pairs ({g1, g2, g3, g4, g4}) do
-                if v == 'taxi' then dismount() end
-            end
+            local _, g1 = GetGossipOptions()
+            if g1 == 'taxi' then dismount() end
         end
     end)
 

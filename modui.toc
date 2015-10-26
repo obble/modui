@@ -7,6 +7,7 @@
 modglobals\colour.lua
 modglobals\string.lua
 
+modify\auction.lua
 modify\math.lua
 modify\mount.lua
 modify\shit.lua
