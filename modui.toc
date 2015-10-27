@@ -2,7 +2,7 @@
 ## Author: modernist
 ## Title: mod ui
 ## Notes: ui mods.
-## SavedVariables: modStatus
+## SavedVariables: modStatus, modValue
 
 modglobals\colour.lua
 modglobals\string.lua

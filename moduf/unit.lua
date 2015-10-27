@@ -87,35 +87,46 @@
         end
     end
 
+    local true_format = function(v)
+        if v > 1E7 then return (math.floor(v/1E6))..'m'
+        elseif v > 1E6 then return (math.floor((v/1E6)*10)/10)..'m'
+        elseif v > 1E4 then return (math.floor(v/1E3))..'k'
+        elseif v > 1E3 then return (math.floor((v/1E3)*10)/10)..'k'
+        else return v end
+    end
+
                                                 -- STATUS TEXT [to-do: true values]
-    function TextStatusBar_UpdateTextString(textStatusBar)
-        if not textStatusBar then textStatusBar = this end
-        orig.TextStatusBar_UpdateTextString(textStatusBar)
-    	local string = textStatusBar.TextString
-    	if string and textStatusBar:GetName() ~= 'MainMenuExpBar' then
-    		local value = math.ceil(textStatusBar:GetValue())
-    		local min, max = textStatusBar:GetMinMaxValues()
-            local pp     = UnitPowerType'player'
+    function TextStatusBar_UpdateTextString(sb)
+        if not sb then sb = this end
+        orig.TextStatusBar_UpdateTextString(sb)
+    	local string = sb.TextString
+    	if string and sb:GetName() ~= 'MainMenuExpBar' then
+            local pp = UnitPowerType'player'
+    		local v  = math.ceil(sb:GetValue())
+    		local min, max = sb:GetMinMaxValues()
 
     		if max > 0 then
-    			textStatusBar:Show()
-    			if value == 0 and textStatusBar.zeroText then
+    			sb:Show()
+    			if v == 0 and sb.zeroText then
     				string:SetText''
     			else
-                    if textStatusBar:GetName() == 'PlayerFrameManaBar' and
-                        (pp == 1 or pp == 2 or pp == 3) then
-                        string:SetText(value)
+                    if sb:GetName() == 'PlayerFrameManaBar'
+                    and (pp == 1 or pp == 2 or pp == 3) then
+                        string:SetText(v)
+                    elseif GetCVar'modValue'  == '1'  then
+                        string:SetText(true_format(v))
                     else
-                        local percent = math.ceil(value/max*100)
+                        local percent = math.ceil(v/max*100)
                         string:SetText(percent..'%')
                     end
                     string:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
                     if GetCVar'modStatus'  == '1' then
                         string:ClearAllPoints()
-                        string:SetPoint((textStatusBar:GetName() == 'PlayerFrameManaBar') and 'BOTTOMLEFT' or 'BOTTOMRIGHT',
-                                    'PlayerFrameManaBar',
-                                    (textStatusBar:GetName() == 'PlayerFrameManaBar') and 28 or -12,
-                                    8)
+                        string:SetJustifyV'MIDDLE'
+                        string:SetPoint('CENTER',
+                                    PlayerFrame,
+                                    (sb:GetName() == 'PlayerFrameManaBar') and 30 or 80,
+                                    -2)
                     end
     			end
             end
@@ -135,11 +146,25 @@
     w:SetTextColor(1, .2, 0)
     w:SetPoint('TOPLEFT', UIOptionsFrameCheckButton70, 'BOTTOMRIGHT')
 
-    local cv = GetCVar'modStatus'
+    RegisterCVar('modValue', 1, true)           -- TOGGLE PERCENT VALUES
+    MODSTATUS_BAR_VALUE = 'modui: \% or True Value Text on Statusbars'
+    UIOptionsFrameCheckButtons['MODSTATUS_BAR_VALUE'] = { index = 71, cvar = 'modValue'}
+    UIOptionsFrameCheckButton71 = CreateFrame('CheckButton', 'UIOptionsFrameCheckButton71', UIOptionsFrameCheckButton2, 'UIOptionsCheckButtonTemplate')
+    UIOptionsFrameCheckButton71:SetHeight(20) UIOptionsFrameCheckButton71:SetWidth(20)
+    UIOptionsFrameCheckButton71:SetPoint('LEFT', UIOptionsFrameCheckButton2, 'RIGHT', 100, -30)
+
+    local x = UIOptionsFrameCheckButton71:CreateFontString(nil, 'OVERLAY')
+    x:SetFontObject(GameFontNormalSmall)
+    x:SetText'Will reload ui!'
+    x:SetTextColor(1, .2, 0)
+    x:SetPoint('TOPLEFT', UIOptionsFrameCheckButton71, 'BOTTOMRIGHT')
+
+    local cv = GetCVar'modStatus' local cv2 = GetCVar'modValue'
     local f = CreateFrame'Frame'
     f:RegisterEvent'CVAR_UPDATE'
     f:SetScript('OnEvent', function()
-        if arg1 == 'MODSTATUS_BAR_TEXT' and arg2 ~= cv then
+        if (arg1 == 'MODSTATUS_BAR_TEXT' and arg2 ~= cv)
+        or (arg1 == 'MODSTATUS_BAR_VALUE' and arg2 ~= cv2) then
             TextStatusBar_UpdateTextString() ReloadUI()
         end
     end)
