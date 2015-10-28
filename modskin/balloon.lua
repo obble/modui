@@ -13,7 +13,7 @@
                         CHAT_MSG_MONSTER_PARTY = 'chatBubblesParty',}
 
 
-    local function styleBubble(f)              -- FISH
+    local function styleBubble(f)              -- STYLE
         local r = {f:GetRegions()}
         for _, v in pairs(r) do
             if  v:GetObjectType() == 'Texture' then
@@ -35,7 +35,7 @@
         end
     end
 
-    local function isChatBubble(f)                                   -- FIND
+    local function isChatBubble(f)             -- FIND
         if f:GetName() then return end
         if not f:GetRegions() then return end
         return f:GetRegions():GetTexture() == [[Interface\Tooltips\ChatBubble-Background]]
@@ -44,7 +44,8 @@
 
     local bubbleHook = CreateFrame'Frame'
     for event, cvar in pairs(events) do bubbleHook:RegisterEvent(event) end
-    bubbleHook:SetScript('OnEvent', function()                      -- FISH & GO
+    
+    bubbleHook:SetScript('OnEvent', function() -- FISH & GO
         local numKids = 0
         local time = math.ceil(GetTime())
         bubbleHook:SetScript('OnUpdate', function(self)
