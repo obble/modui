@@ -16,21 +16,21 @@
     local function styleBubble(f)              -- FISH
         local r = {f:GetRegions()}
         for _, v in pairs(r) do
-        	local pn = {v:GetPoint()}
-        	if  v:GetObjectType() == 'Texture' then
-           	 	v:SetDrawLayer'OVERLAY'
-                if v:GetTexture() == [[Interface\Tooltips\ChatBubble-Background]]
-                or v:GetTexture() == [[Interface\Tooltips\ChatBubble-Backdrop]] then v:SetTexture'' end
-        	elseif v:GetObjectType() == 'FontString' then
-            	f.textstring = v
-        	end
+            if  v:GetObjectType() == 'Texture' then
+                v:SetDrawLayer'OVERLAY'
+                if  v:GetTexture() == [[Interface\Tooltips\ChatBubble-Background]]
+                or  v:GetTexture() == [[Interface\Tooltips\ChatBubble-Backdrop]] then
+                    v:SetTexture''
+                end
+            elseif  v:GetObjectType() == 'FontString' then
+                f.textstring = v
+            end
         end
         if not f.skinned then
             modSkin(f, 18)
             modSkinColor(f, .2, .2, .2)
             f:SetBackdrop(BACKDROP)
             f:SetBackdropColor(0, 0, 0, .8)
-            f:SetScale(.95)
             f.skinned = true
         end
     end
