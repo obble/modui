@@ -131,21 +131,21 @@
         timeout = 0,
         hasEditBox = 1, maxLetters = 1024, editBoxWidth = 350,
         whileDead = true, hideOnEscape = true,
-		OnShow = function()
-			(this.icon or _G[this:GetName()..'AlertIcon']):Hide()
-			local editBox = this.editBox or _G[this:GetName()..'EditBox']
-			editBox:SetText(currentURL)
-			editBox:SetFocus()
-			editBox:HighlightText(0)
-			local button2 = this.button2 or _G[this:GetName()..'Button2']
-			button2:ClearAllPoints()
-			button2:SetPoint('TOP', editBox, 'BOTTOM', 0, -6)
-			button2:SetWidth(150)
-			currentURL = nil
-		end,
-	}
+        OnShow = function()
+            (this.icon or _G[this:GetName()..'AlertIcon']):Hide()
+            local editBox = this.editBox or _G[this:GetName()..'EditBox']
+            editBox:SetText(currentURL)
+            editBox:SetFocus()
+            editBox:HighlightText(0)
+            local button2 = this.button2 or _G[this:GetName()..'Button2']
+            button2:ClearAllPoints()
+            button2:SetPoint('TOP', editBox, 'BOTTOM', 0, -6)
+            button2:SetWidth(150)
+            currentURL = nil
+        end,
+    }
 
-    local URL_LINK = '|Hurl:%s|h' .. URL .. '|h'
+    local URL_LINK = '|Hurl:%s|h'..URL..'|h'
     local modURL = function(url, tld)
         if tld then
     		return TLDS[strupper(tld)] and string.format(URL_LINK, url, url) or url

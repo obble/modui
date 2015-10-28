@@ -13,23 +13,18 @@
                         CHAT_MSG_MONSTER_PARTY = 'chatBubblesParty',}
 
 
-    local function styleBubble(f)
-        for i = 1, f:GetNumRegions() do                               -- FISH
-        	local a, b, c, d, e, f, g, h = f:GetRegions()
-            for i,v in pairs ({a,b,c,d,e,f,g,h}) do
-            	local pn = {v:GetPoint()}
-            	if  v:GetObjectType() == 'Texture' then
-               	 	v:SetDrawLayer'OVERLAY'
-                	v:ClearAllPoints()                                -- FIX BALLOON & TAIL GAP
-                	v:SetPoint(pn[1], pn[2], pn[3], pn[4], pn[5] + 2) -- BY NUDGING UP Y.
-            	elseif v:GetObjectType() == 'FontString' then
-                	f.textstring = v
-            	end
+    local function styleBubble(f)              -- FISH
+        local r = {f:GetRegions()}
+        for _, v in pairs(r) do
+        	local pn = {v:GetPoint()}
+        	if  v:GetObjectType() == 'Texture' then
+           	 	v:SetDrawLayer'OVERLAY'
                 if v:GetTexture() == [[Interface\Tooltips\ChatBubble-Background]]
                 or v:GetTexture() == [[Interface\Tooltips\ChatBubble-Backdrop]] then v:SetTexture'' end
-            end
-    	end
-
+        	elseif v:GetObjectType() == 'FontString' then
+            	f.textstring = v
+        	end
+        end
         if not f.skinned then
             modSkin(f, 18)
             modSkinColor(f, .2, .2, .2)
@@ -56,8 +51,8 @@
             if math.ceil(GetTime()) == time + 1 then bubbleHook:SetScript('OnUpdate', nil) end
             local newNumKids = WorldFrame:GetNumChildren()
             if newNumKids ~= numKids then
-                local a, b, c ,d, e, f, g, h, j, l = WorldFrame:GetChildren()
-                for k,v in pairs({a, b, c, d, e, f, g, h, j, l}) do
+                local f = {WorldFrame:GetChildren()}
+                for _, v in pairs(f) do
                     if isChatBubble(v) then styleBubble(v) end
                 end
                 numKids = newNumKids
