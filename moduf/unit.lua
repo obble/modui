@@ -13,6 +13,12 @@
     PlayerFrameBackground.bg:SetTexture(BG)
     PlayerFrameBackground.bg:SetTexCoord(1, 0, 0, 1)
 
+    PlayerFrame.status = PlayerFrameTexture:GetParent():CreateFontString(nil, 'OVERLAY')
+    PlayerFrame.status:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
+    PlayerFrame.status:SetShadowOffset(0, 0)
+    PlayerFrame.status:SetTextColor(1, 0, 0)
+    PlayerFrame.status:SetPoint('CENTER', PlayerFrameHealthBar, 0, -5)
+
     PlayerFrameHealthBar:SetBackdrop(BACKDROP)
     PlayerFrameHealthBar:SetBackdropColor(0, 0, 0, .6)
 
@@ -107,9 +113,17 @@
 
     		if max > 0 then
     			sb:Show()
-    			if v == 0 and sb.zeroText then
-    				string:SetText''
+                if UnitIsDead'player' then
+                    PlayerFrame.status:SetText'Dead'
+                    string:SetText''
+                elseif UnitIsGhost'player' then
+                    PlayerFrame.status:SetText'Ghost'
+                    string:SetText''
+    			elseif v == 0 and sb.zeroText then
+                    PlayerFrame.status:SetText''
+                    string:SetText''
     			else
+                    PlayerFrame.status:SetText''
                     if sb:GetName() == 'PlayerFrameManaBar'
                     and (pp == 1 or pp == 2 or pp == 3) then
                         string:SetText(v)

@@ -7,6 +7,7 @@
 modglobals\colour.lua
 modglobals\string.lua
 
+modify\arrange.lua
 modify\auction.lua
 modify\math.lua
 modify\mount.lua
@@ -42,6 +43,9 @@ modskin\frame\tip.lua
 modskin\frame\tutorial.lua
 modskin\balloon.lua
 modskin\skin.lua
+
+modbar\bar.lua
+modbar\stats.lua
 
 modchat\chat.lua
 modchat\event.lua
