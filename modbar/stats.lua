@@ -13,7 +13,7 @@
     end
 
     local stats = function()
-        GameTooltip:SetOwner(this, 'ANCHOR_TOPRIGHT', 100, 0)
+        GameTooltip:SetOwner(this, 'ANCHOR_NONE')
 
             -- HEADER
         GameTooltip:AddDoubleLine('modui stats', '—', colour.r, colour.g, colour.b)
