@@ -69,6 +69,7 @@
         end)
     end
 
+
     local f = CreateFrame'Frame'    -- GUILD TAG
     f:RegisterEvent'UPDATE_MOUSEOVER_UNIT'
     f:SetScript('OnEvent', function()

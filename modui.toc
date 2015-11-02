@@ -13,8 +13,17 @@ modify\mount.lua
 modify\shit.lua
 modify\string.lua
 
+modlibs\healcomm\libs\AceLibrary\AceLibrary.lua
+modlibs\healcomm\libs\AceOO-2.0\AceOO-2.0.lua
+modlibs\healcomm\libs\AceEvent-2.0\AceEvent-2.0.lua
+modlibs\healcomm\libs\AceAddon-2.0\AceAddon-2.0.lua
+modlibs\healcomm\libs\RosterLib-2.0\RosterLib-2.0.lua
+modlibs\healcomm\libs\HealComm-1.0\HealComm-1.0.lua
+modlibs\healcomm\HealComm.lua
+
 modskin\method\method.lua
 modskin\button\action.lua
+modskin\button\addon.lua
 modskin\button\aura.lua
 modskin\button\bag.lua
 modskin\button\bank.lua
@@ -46,6 +55,8 @@ modmaps\pvp.lua
 modmaps\world.lua
 modmaps\pins\pins.lua
 
+modplate\nameplates.lua
+
 modpvp\ab.lua
 modpvp\wsg.lua
 modpvp\rank.lua
@@ -63,5 +74,3 @@ modtracker\click.lua
 moduf\energy.lua
 moduf\move.lua
 moduf\unit.lua
-
-modplate\nameplates.lua
