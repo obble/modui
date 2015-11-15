@@ -14,6 +14,7 @@
     GameTooltipHeaderText:SetFont(STANDARD_TEXT_FONT, 13)
     GameTooltipHeaderText:SetShadowOffset(.7, -.7)
     GameTooltipHeaderText:SetShadowColor(0, 0, 0, 1)
+    
     GameTooltipText:SetFont(STANDARD_TEXT_FONT, 12)
     GameTooltipText:SetShadowOffset(.7, -.7)
     GameTooltipText:SetShadowColor(0, 0, 0,1)
@@ -31,7 +32,8 @@
                         WorldMapCompareTooltip1,
                         WorldMapCompareTooltip2,
                         WorldMapCompareTooltip3,
-                        FriendsTooltip, }
+                        FriendsTooltip,
+                        QuestTip, }
 
     local menus =    {  DropDownList1MenuBackdrop,
                         DropDownList2MenuBackdrop,
@@ -40,18 +42,7 @@
                         EmoteMenu,
                         LanguageMenu, }
 
-    local modTipOnShow = function()
-        local type = GameTooltip:GetAnchorType()
-        GameTooltip:SetBackdropColor(0, 0, 0, .7)
-        GameTooltip:SetBackdropBorderColor(.1, .1, .1, 1)
-        if AttachToMainbar and type == 'ANCHOR_NONE' then
-            GameTooltip:ClearAllPoints()
-            GameTooltip:SetPoint('BOTTOMRIGHT', MainMenuBar, -6, CONTAINER_OFFSET_Y + 16)
-        end
-    end
 
-    local t = CreateFrame('Frame', nil, GameTooltip) t:SetAllPoints()
-    t:SetScript('OnShow', modTipOnShow)
     for i, v in ipairs(menus) do v:SetScript('OnShow', function()
             this:SetBackdropColor(0, 0, 0, .4)
             this:SetBackdropBorderColor(.1, .1, .1, 1)

@@ -24,7 +24,7 @@
             if qi then
                 for j = 1, MAX_QUESTWATCH_LINES do
                     local w = _G['QuestWatchLine'..j]
-                    if w:GetText() == GetQuestLogTitle(qi) then link(i, w, qi) end
+                    if w and w:GetText() == GetQuestLogTitle(qi) then link(i, w, qi) end
                 end
             end
         end

@@ -74,9 +74,10 @@
         if arg1 == 'PARTY_MEMBERS_CHANGED' then colourParty() end
     end)
 
-    orig.ShowPartyFrame = ShowPartyFrame
-    orig.TargetFrame_CheckClassification = TargetFrame_CheckClassification
-    orig.TextStatusBar_UpdateTextString = TextStatusBar_UpdateTextString
+    orig.ShowPartyFrame                    = ShowPartyFrame
+    orig.TargetFrame_CheckClassification   = TargetFrame_CheckClassification
+    orig.TextStatusBar_UpdateTextString    = TextStatusBar_UpdateTextString
+    orig.UIOptionsFrame_UpdateDependencies = UIOptionsFrame_UpdateDependencies
 
     function ShowPartyFrame()
         orig.ShowPartyFrame() colourParty()
@@ -116,25 +117,32 @@
                 if UnitIsDead'player' then
                     PlayerFrame.status:SetText'Dead'
                     string:SetText''
+                    return
                 elseif UnitIsGhost'player' then
                     PlayerFrame.status:SetText'Ghost'
                     string:SetText''
+                    return
     			elseif v == 0 and sb.zeroText then
                     PlayerFrame.status:SetText''
                     string:SetText''
+                    return
     			else
                     PlayerFrame.status:SetText''
                     if sb:GetName() == 'PlayerFrameManaBar'
                     and (pp == 1 or pp == 2 or pp == 3) then
                         string:SetText(v)
-                    elseif GetCVar'modValue'  == '1'  then
-                        string:SetText(true_format(v))
                     else
                         local percent = math.ceil(v/max*100)
-                        string:SetText(percent..'%')
+                        if GetCVar'modBoth' == '1' then
+                            string:SetText(true_format(v)..' — '..percent..'%')
+                        elseif GetCVar'modValue'  == '1' and GetCVar'modBoth' == '0' then
+                            string:SetText(true_format(v))
+                        else
+                            string:SetText(percent..'%')
+                        end
                     end
                     string:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
-                    if GetCVar'modStatus'  == '1' then
+                    if GetCVar'modStatus'  == '1' and GetCVar'modBoth' == '0' then
                         string:ClearAllPoints()
                         string:SetJustifyV'MIDDLE'
                         string:SetPoint('CENTER',
@@ -173,15 +181,40 @@
     x:SetTextColor(1, .2, 0)
     x:SetPoint('TOPLEFT', UIOptionsFrameCheckButton71, 'BOTTOMRIGHT')
 
-    local cv = GetCVar'modStatus' local cv2 = GetCVar'modValue'
+    RegisterCVar('modBoth', 1, true)            -- CONSOLIDATED VALUE DISPLAY (TRUE + %)
+    MODSTATUS_BAR_CONSOLIDATE = 'modui: True & % Values on Statusbars'
+    UIOptionsFrameCheckButtons['MODSTATUS_BAR_CONSOLIDATE'] = { index = 72, cvar = 'modBoth'}
+    UIOptionsFrameCheckButton72 = CreateFrame('CheckButton', 'UIOptionsFrameCheckButton72', UIOptionsFrameCheckButton2, 'UIOptionsCheckButtonTemplate')
+    UIOptionsFrameCheckButton72:SetHeight(20) UIOptionsFrameCheckButton72:SetWidth(20)
+    UIOptionsFrameCheckButton72:SetPoint('LEFT', UIOptionsFrameCheckButton2, 'RIGHT', 100, -70)
+
+    local z = UIOptionsFrameCheckButton72:CreateFontString(nil, 'OVERLAY')
+    z:SetFontObject(GameFontNormalSmall)
+    z:SetText'Will reload ui!'
+    z:SetTextColor(1, .2, 0)
+    z:SetPoint('TOPLEFT', UIOptionsFrameCheckButton72, 'BOTTOMRIGHT')
+
+    local cv = GetCVar'modStatus' local cv2 = GetCVar'modValue' local cv3 = GetCVar'ModBoth'
     local f = CreateFrame'Frame'
     f:RegisterEvent'CVAR_UPDATE'
     f:SetScript('OnEvent', function()
         if (arg1 == 'MODSTATUS_BAR_TEXT' and arg2 ~= cv)
-        or (arg1 == 'MODSTATUS_BAR_VALUE' and arg2 ~= cv2) then
+        or (arg1 == 'MODSTATUS_BAR_VALUE' and arg2 ~= cv2)
+        or (arg1 == 'MODSTATUS_BAR_CONSOLIDATE' and arg2 ~= cv3) then
             TextStatusBar_UpdateTextString() ReloadUI()
         end
     end)
+
+    function UIOptionsFrame_UpdateDependencies()
+        if not UIOptionsFrameCheckButton72:GetChecked() then
+            OptionsFrame_EnableCheckBox(UIOptionsFrameCheckButton70)
+            OptionsFrame_EnableCheckBox(UIOptionsFrameCheckButton71)
+        else
+            OptionsFrame_DisableCheckBox(UIOptionsFrameCheckButton70)
+            OptionsFrame_DisableCheckBox(UIOptionsFrameCheckButton71)
+        end
+        orig.UIOptionsFrame_UpdateDependencies()
+    end
 
 
     --

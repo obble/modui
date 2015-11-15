@@ -3,12 +3,14 @@
     local h = WorldStateAlwaysUpFrame:CreateFontString(nil, 'OVERLAY')
     h:SetFontObject(GameFontNormalSmall)
     h:SetTextColor(0, .8, .5)
-    h:SetPoint('TOP', UIParent, 60, -32)
+    h:SetJustifyH'LEFT'
+    h:SetPoint('TOPLEFT', UIParent, 'TOP', 40, -32)
 
     local a = WorldStateAlwaysUpFrame:CreateFontString(nil, 'OVERLAY')
     a:SetFontObject(GameFontNormalSmall)
     a:SetTextColor(1, 0, 0)
-    a:SetPoint('TOP', UIParent, 60, -55)
+    a:SetJustifyH'LEFT'
+    a:SetPoint('TOPLEFT', UIParent, 'TOP', 40, -55)
 
     local f = CreateFrame'Frame'
     f:RegisterEvent'CHAT_MSG_BG_SYSTEM_ALLIANCE' f:RegisterEvent'CHAT_MSG_BG_SYSTEM_HORDE'
