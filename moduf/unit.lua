@@ -134,7 +134,8 @@
                     else
                         local percent = math.ceil(v/max*100)
                         if GetCVar'modBoth' == '1' then
-                            string:SetText(true_format(v)..' — '..percent..'%')
+                            string:SetText(true_format(v)..'/'..true_format(max)..' — '..percent..'%')
+                            string:SetPoint('RIGHT', -8, 0)
                         elseif GetCVar'modValue'  == '1' and GetCVar'modBoth' == '0' then
                             string:SetText(true_format(v))
                         else

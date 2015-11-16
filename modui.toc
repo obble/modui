@@ -4,14 +4,18 @@
 ## Notes: ui mods.
 ## SavedVariables: modStatus, modValue, modBoth
 
-modglobals\arrange.lua
 modglobals\auction.lua
 modglobals\colour.lua
 modglobals\font.lua
-modglobald\math.lua
+modglobals\math.lua
 modglobals\mount.lua
 modglobals\shit.lua
 modglobals\string.lua
+
+modbar\bar.lua
+modbar\stats.lua
+
+modglobals\arrange.lua
 
 modlibs\healcomm\libs\AceLibrary\AceLibrary.lua
 modlibs\healcomm\libs\AceOO-2.0\AceOO-2.0.lua
@@ -42,9 +46,6 @@ modskin\frame\tip.lua
 modskin\frame\tutorial.lua
 modskin\balloon.lua
 modskin\skin.lua
-
-modbar\bar.lua
-modbar\stats.lua
 
 modchat\chat.lua
 modchat\event.lua
