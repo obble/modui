@@ -8,7 +8,7 @@
 
     local movebars = function()          -- ACTIONBARS
         for _, v in pairs({ _G['ShapeshiftButton1'],
-                            _G['PetButton1'],
+                            _G['PetActionButton1'],
                             _G['StanceButton1'] }) do
             if SHOW_MULTI_ACTIONBAR_3 then
                 v:SetPoint('BOTTOMLEFT', MultiBarRightButton1, 'TOPLEFT', 24, 8)
@@ -73,6 +73,10 @@
         orig.UIParent_ManageFramePositions()
         movebars()
         moveCB()
+        for _, v in pairs({ SlidingActionBarTexture0, SlidingActionBarTexture1,
+                            ShapeshiftBarLeft, ShapeshiftBarMiddle, ShapeshiftBarRight, }) do
+            if v then v:Hide() end
+        end
     end
 
     for _, v in pairs({                     -- UNHOOK

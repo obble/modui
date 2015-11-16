@@ -1,6 +1,6 @@
 
 
-    for i = 1, 5 do
+for i = 1, 5 do
         local node = CreateFrame('Button', 'modnode'..i, WorldStateAlwaysUpFrame)
         node:SetWidth(10) node:SetHeight(10)
         node:SetPoint('TOPLEFT',

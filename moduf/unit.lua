@@ -102,14 +102,13 @@
         else return v end
     end
 
-                                                -- STATUS TEXT [to-do: true values]
-    function TextStatusBar_UpdateTextString(sb)
+    function TextStatusBar_UpdateTextString(sb)  -- STATUS TEXT
         if not sb then sb = this end
         orig.TextStatusBar_UpdateTextString(sb)
     	local string = sb.TextString
     	if string and sb:GetName() ~= 'MainMenuExpBar' then
             local pp = UnitPowerType'player'
-    		local v  = math.ceil(sb:GetValue())
+    		local v  = math.floor(sb:GetValue())
     		local min, max = sb:GetMinMaxValues()
 
     		if max > 0 then
@@ -126,6 +125,9 @@
                     PlayerFrame.status:SetText''
                     string:SetText''
                     return
+                elseif sb:GetName() == 'PetFrameManaBar' then
+                    string:SetText''
+                    return 
     			else
                     PlayerFrame.status:SetText''
                     if sb:GetName() == 'PlayerFrameManaBar'
@@ -147,7 +149,8 @@
                         string:ClearAllPoints()
                         string:SetJustifyV'MIDDLE'
                         string:SetPoint('CENTER',
-                                    PlayerFrame,
+                                    (sb:GetName() == ('PetFrameHealthBar' or 'PetFrameManaBar')) and PetFrame or PlayerFrame,
+                                    (sb:GetName() == ('PetFrameHealthBar' or 'PetFrameManaBar')) and 18 or
                                     (sb:GetName() == 'PlayerFrameManaBar') and 30 or 80,
                                     -2)
                     end

@@ -27,6 +27,7 @@
         local unit = this.unit
 
         if SHOW_NEWBIE_TIPS == '1'  -- MOVE HINT
+        and name ~= 'PetFrame'
         and name ~= 'PartyMemberFrame2' and name ~= 'PartyMemberFrame3'
         and name ~= 'PartyMemberFrame4' and name ~= 'TargetofTargetFrame' then
             GameTooltip:AddLine('Shift + Drag to move '..name..'.', .3, 1, .6)

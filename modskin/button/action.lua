@@ -33,9 +33,21 @@
     for i = 1, 10 do
         local bu = _G['ShapeshiftButton'..i]
         modSkin(bu, 18)
-        modSkinPadding(bu, 2)
+        modSkinPadding(bu, 3)
         modSkinColor(bu, .2, .2, .2)
         bu:GetNormalTexture():SetTexture''
+
+        local bu = _G['PetActionButton'..i]
+        modSkin(bu, 18)
+        modSkinPadding(bu, 3)
+        modSkinColor(bu, .2, .2, .2)
+        bu:GetNormalTexture():SetTexture''
+
+        local a = _G['PetActionButton'..i..'AutoCast']
+        a:SetScale(1) a:SetFrameLevel(3)
+
+        local a = _G['PetActionButton'..i..'AutoCastable']
+        a:SetWidth(50) a:SetHeight(50)
     end
 
     --

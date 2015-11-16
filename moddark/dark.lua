@@ -48,7 +48,8 @@
     for i, v in pairs({
         PlayerPVPIcon,
         TargetFrameTextureFramePVPIcon,
-        FocusFrameTextureFramePVPIcon,
+        PetActionBarFrameSlidingActionBarTexture0,
+        PetActionBarFrameSlidingActionBarTexture1,
     }) do v:SetAlpha(0) end
 
     for i = 1, 4 do _G['PartyMemberFrame'..i..'PVPIcon']:SetAlpha(0) end
