@@ -110,9 +110,9 @@
     for i = 1, 12 do
         local bagName = 'ContainerFrame'..i
         local _, a, b, _, c, _, d = _G[bagName]:GetRegions()
-        for i,v in pairs({a,b,c,d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
-        if i > 5 then   -- BANK BAGS
-            for i,v in pairs({a,b,c,d}) do v:SetVertexColor(colour.r*1.3, colour.g*1.3, colour.b*1.3) end
+        for _, v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+        if i  > 5 then   -- BANK BAGS
+            for _, v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r*1.3, colour.g*1.3, colour.b*1.3) end
         end
     end
 
@@ -127,7 +127,7 @@
 
         -- WORLDMAP
     local _, a, b, c, d, e, _, _, f, g, h, j, k = WorldMapFrame:GetRegions()
-    for i,v in pairs({a, b, c, d, e, f, g, h, j, k}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d, e, f, g, h, j, k}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
 
 
         -- LOOT

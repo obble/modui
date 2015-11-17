@@ -17,13 +17,16 @@ modbar\stats.lua
 
 modglobals\arrange.lua
 
-modlibs\healcomm\libs\AceLibrary\AceLibrary.lua
-modlibs\healcomm\libs\AceOO-2.0\AceOO-2.0.lua
-modlibs\healcomm\libs\AceEvent-2.0\AceEvent-2.0.lua
-modlibs\healcomm\libs\AceAddon-2.0\AceAddon-2.0.lua
-modlibs\healcomm\libs\RosterLib-2.0\RosterLib-2.0.lua
-modlibs\healcomm\libs\HealComm-1.0\HealComm-1.0.lua
+modlibs\libs\AceLibrary\AceLibrary.lua
+modlibs\libs\AceOO-2.0\AceOO-2.0.lua
+modlibs\libs\AceEvent-2.0\AceEvent-2.0.lua
+modlibs\libs\AceAddon-2.0\AceAddon-2.0.lua
+modlibs\libs\AceConsole-2.0\AceConsole-2.0.lua
+modlibs\libs\RosterLib-2.0\RosterLib-2.0.lua
+modlibs\libs\HealComm-1.0\HealComm-1.0.lua
 modlibs\healcomm\HealComm.lua
+modlibs\mobhealth\MobHealth3.lua
+modlibs\mobhealth\MH3_Blizzard.lua
 
 modskin\method\method.lua
 modskin\button\action.lua
@@ -81,3 +84,4 @@ modtracker\click.lua
 moduf\energy.lua
 moduf\move.lua
 moduf\unit.lua
+moduf\mobhealth.lua
