@@ -70,4 +70,20 @@
         end
     end
 
+    local f = CreateFrame'Frame'
+    f:RegisterEvent'CVAR_UPDATE' f:RegisterEvent'PLAYER_ENTERING_WORLD'
+    f:SetScript('OnEvent', function()
+        if arg1 == 'STATUS_BAR_TEXT' or event == 'PLAYER_ENTERING_WORLD' then
+            if GetCVar'statusBarText' == '0' then
+                MobHealth3BlizzardHealthText:Hide() MobHealth3BlizzardPowerText:Hide()
+                TargetFrameHealthBar:SetScript('OnEnter', function() MobHealth3BlizzardHealthText:Show() end)
+                TargetFrameHealthBar:SetScript('OnLeave', function() MobHealth3BlizzardHealthText:Hide() end)
+                TargetFrameManaBar:SetScript('OnEnter', function() MobHealth3BlizzardPowerText:Show() end)
+                TargetFrameManaBar:SetScript('OnLeave', function() MobHealth3BlizzardPowerText:Hide() end)
+            else
+                MobHealth3BlizzardHealthText:Show() MobHealth3BlizzardPowerText:Show()
+            end
+        end
+    end)
+
     --
