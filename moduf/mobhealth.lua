@@ -51,7 +51,7 @@
         local string  = MobHealth3BlizzardPowerText
         move()
 
-        if max == 0 then string:SetText() return end
+        if max == 0 or cur == 0 or percent == 0 then string:SetText() return end
         if MH3BlizzConfig.powerAbs then v = math.floor(v) end
 
         if GetCVar'modBoth' == '1' then

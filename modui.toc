@@ -13,6 +13,7 @@ modglobals\shit.lua
 modglobals\string.lua
 
 modbar\bar.lua
+modbar\keypress.lua
 modbar\stats.lua
 
 modglobals\arrange.lua

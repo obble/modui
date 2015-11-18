@@ -1,8 +1,8 @@
 
 
     local p = function() local x = (math.floor(GetPVPRankProgress(target)*10000))/100 return x end
-    local c = function() local x = (UnitPVPRank'player' - 6)*5000 + 5000*p()/100 return x end
-    local n = function() local x = (UnitPVPRank'player' - 5)*5000 - c()*.8 return x end
+    local c = function() local x = (UnitPVPRank'player' - 6)*5000 + 5000*p()/100 if x == -30000 then x = 0 end return x end
+    local n = function() local x = (UnitPVPRank'player' - 5)*5000 - c()*.8 if x == -25000 then x = '15 HK' end return x end
 
     local modprint = function()
         SendChatMessage('— PvP Rank: ['..(UnitPVPRank'player' - 4)..'] '..'Progress: ['..p()..'%] '..'Current RP: ['..c()..'] RP to next rank: ['..n()..'].', 'emote')
