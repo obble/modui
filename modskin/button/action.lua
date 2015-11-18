@@ -12,6 +12,7 @@
             modSkinPadding(v, 2)
             modSkinColor(v, .2, .2, .2)
             v:GetPushedTexture():SetTexture''
+            v:GetCheckedTexture():SetTexture''
         end
 
         for k, v in pairs({
@@ -38,6 +39,7 @@
         modSkinColor(bu, .2, .2, .2)
         bu:GetNormalTexture():SetTexture''
         bu:GetPushedTexture():SetTexture''
+        bu:GetCheckedTexture():SetTexture''
 
         local bu = _G['PetActionButton'..i]
         modSkin(bu, 18)
@@ -45,6 +47,7 @@
         modSkinColor(bu, .2, .2, .2)
         bu:GetNormalTexture():SetTexture''
         bu:GetPushedTexture():SetTexture''
+        bu:GetCheckedTexture():SetTexture''
 
         local a = _G['PetActionButton'..i..'AutoCast']
         a:SetScale(1) a:SetFrameLevel(3)
