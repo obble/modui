@@ -6,7 +6,7 @@
 		local nutime = GetTime()
 		if modSkinned(this) then
 			local i = nutime - time
-			modSkinColor(this, .025/i, .075/i, .05/i)
+			modSkinColor(this, .075/i, .05/i, .025/i)
 		end
 		if nutime > (time + .4) then
 			modSkinColor(this, .2, .2, .2)

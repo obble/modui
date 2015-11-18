@@ -1,7 +1,7 @@
 
 
     for i = 1, 12 do
-        for k, v in pairs({
+        for _, v in pairs({
             _G['ActionButton'..i],
             _G['MultiBarRightButton'..i],
             _G['MultiBarLeftButton'..i],
@@ -15,13 +15,13 @@
             v:GetCheckedTexture():SetTexture''
         end
 
-        for k, v in pairs({
+        for _, v in pairs({
             _G['MultiBarBottomLeftButton1'],
             _G['MultiBarBottomRightButton12'] }) do
             v:SetFrameStrata'LOW'
         end
 
-        for k, v in pairs({
+        for _, v in pairs({
             _G['ActionButton'..i..'NormalTexture'],
             _G['MultiBarLeftButton'..i..'NormalTexture'],
             _G['MultiBarRightButton'..i..'NormalTexture'],
@@ -29,6 +29,16 @@
             _G['MultiBarBottomRightButton'..i..'NormalTexture'],
             _G['BonusActionButton'..i..'NormalTexture'],}) do
             v:SetAlpha(0)
+        end
+
+        for _, v in pairs({
+            _G['ActionButton'..i..'Cooldown'],
+            _G['MultiBarLeftButton'..i..'Cooldown'],
+            _G['MultiBarRightButton'..i..'Cooldown'],
+            _G['MultiBarBottomLeftButton'..i..'Cooldown'],
+            _G['MultiBarBottomRightButton'..i..'Cooldown'],
+            _G['BonusActionButton'..i..'Cooldown'],}) do
+        }) do v:SetFrameLevel(4)
         end
     end
 
