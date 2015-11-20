@@ -22,16 +22,26 @@
 
     local movetip = function()             -- TOOLTIP
         local type = GameTooltip:GetAnchorType()
+        local i    = 1
         GameTooltip:SetBackdropColor(0, 0, 0, .7)
         GameTooltip:SetBackdropBorderColor(.1, .1, .1, 1)
         if type == 'ANCHOR_NONE' then
             GameTooltip:ClearAllPoints()
             if SHOW_MULTI_ACTIONBAR_4 then
-                GameTooltip:SetPoint('BOTTOMRIGHT', MultiBarLeftButton12, 'TOPRIGHT', 0, 14)
+                GameTooltip:SetPoint('BOTTOMRIGHT', MultiBarLeftButton12, 'TOPRIGHT', 3, 14)
             elseif SHOW_MULTI_ACTIONBAR_2 and not SHOW_MULTI_ACTIONBAR_4 then
-                GameTooltip:SetPoint('BOTTOMRIGHT', MultiBarBottomRightButton12, 'TOPRIGHT', 0, 14)
+                GameTooltip:SetPoint('BOTTOMRIGHT', MultiBarBottomRightButton12, 'TOPRIGHT', 3, 14)
             else
-                GameTooltip:SetPoint('BOTTOMRIGHT', MainMenuBarBackpackButton, 'TOPRIGHT', 0, 18)
+                GameTooltip:SetPoint('BOTTOMRIGHT', MainMenuBarBackpackButton, 'TOPRIGHT', 3, 18)
+            end
+            while ContainerFrame1.bags[i] do
+                local f  = _G[ContainerFrame1.bags[i]]
+                GameTooltip:SetPoint('BOTTOMRIGHT', f, 'TOPRIGHT', -3, CONTAINER_OFFSET_Y/5)
+                local b = GameTooltip:GetBottom()
+                if math.floor(b + .5) > 600 then
+                    GameTooltip:SetPoint('BOTTOMRIGHT', f, 'BOTTOMLEFT', -15, f:GetHeight()/3)
+                end
+                i = i + 1
             end
         end
     end

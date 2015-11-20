@@ -1,16 +1,21 @@
 
 
 	local bongos = IsAddOnLoaded'Bongos_ActionBar'
+	local orig 	 = {}
+	local time   = nil
 
-	local update = function(time)
+	orig.ActionButton_OnUpdate = ActionButton_OnUpdate
+
+	function ActionButton_OnUpdate(elapsed)
+		orig.ActionButton_OnUpdate(elapsed)
 		local nutime = GetTime()
-		if modSkinned(this) then
-			local i = nutime - time
+		if this.keypress and modSkinned(this) then
+			local i = nutime - this.keypress
 			modSkinColor(this, .075/i, .05/i, .025/i)
 		end
-		if nutime > (time + .4) then
+		if this.keypress and nutime > (this.keypress + .4) then
 			modSkinColor(this, .2, .2, .2)
-			this:SetScript('OnUpdate', nil)
+			this.keypress = nil
 		end
 	end
 
@@ -22,7 +27,7 @@
 				if  bu:GetButtonState() == 'NORMAL' then
 					bu:SetButtonState'PUSHED'
 					UseAction(ActionButton_GetPagedID(bu), 0)
-					bu:SetScript('OnUpdate', function() update(time) end)
+					bu.keypress = time
 				end
 				return
 			end
@@ -30,14 +35,14 @@
 			if  bu:GetButtonState() == 'NORMAL' then
 				bu:SetButtonState'PUSHED'
 				UseAction(ActionButton_GetPagedID(bu), 0)
-				bu:SetScript('OnUpdate', function() update(time) end)
+				bu.keypress = time
 			end
 		else
 			local bu = _G['BActionButton'..i]
 			local id = BActionButton.GetPagedID(i)
 			if bu and bu:GetButtonState() == 'NORMAL' then bu:SetButtonState'PUSHED' end
 			UseAction(id, 0)
-			id:SetScript('OnUpdate', function() update(time) end)
+			bu.keypress = time
 		end
 	end
 
@@ -78,7 +83,7 @@
 		if  bu:GetButtonState() == 'NORMAL' then
 			bu:SetButtonState'PUSHED'
 			UseAction(ActionButton_GetPagedID(bu), 0)
-			bu:SetScript('OnUpdate', function() update(time) end)
+			bu.keypress = time
 		end
 	end
 

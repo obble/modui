@@ -37,8 +37,7 @@
             _G['MultiBarRightButton'..i..'Cooldown'],
             _G['MultiBarBottomLeftButton'..i..'Cooldown'],
             _G['MultiBarBottomRightButton'..i..'Cooldown'],
-            _G['BonusActionButton'..i..'Cooldown'],}) do
-        }) do v:SetFrameLevel(4)
+            _G['BonusActionButton'..i..'Cooldown'],}) do v:SetFrameLevel(4)
         end
     end
 
