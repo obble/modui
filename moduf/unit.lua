@@ -75,7 +75,7 @@
     end)
 
     orig.ShowPartyFrame                    = ShowPartyFrame
-    orig.TargetFrame_CheckClassification   = TargetFrame_CheckClassification
+    orig.TargetofTarget_Update             = TargetofTarget_Update
     orig.TextStatusBar_UpdateTextString    = TextStatusBar_UpdateTextString
     orig.UIOptionsFrame_UpdateDependencies = UIOptionsFrame_UpdateDependencies
 
@@ -83,14 +83,14 @@
         orig.ShowPartyFrame() colourParty()
     end
 
-    function TargetFrame_CheckClassification()  -- BOSS/ELITE/RARE TAGS
-        orig.TargetFrame_CheckClassification()
-        local c = UnitClassification'target'
-        if c ~= 'normal' then
-            classification:SetPoint('LEFT', TargetHighLevelTexture:IsShown() and TargetHighLevelTexture or TargetLevelText, 'RIGHT')
-            classification:SetText(' — |cffef9552'..c..'|r')
+    function TargetofTarget_Update()
+        orig.TargetofTarget_Update()
+        local _, class = UnitClass'targettarget'
+        local colour = RAID_CLASS_COLORS[class]
+        if UnitIsPlayer'targettarget' then
+            TargetofTargetName:SetTextColor(colour.r, colour.g, colour.b)
         else
-            classification:SetText''
+            TargetofTargetName:SetTextColor(1, .8, 0)
         end
     end
 

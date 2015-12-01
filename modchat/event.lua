@@ -49,7 +49,7 @@
             ['Received (.+), (.+).'] = '+ %1, %2.',
             ['Received (.+).'] = '+ %1.',
             ['Received (.+) of item: (.+).'] = '+ %2x%1.',
-            ['(.+) completed.'] = '- Quest |cfff86256%1|r.',
+            -- ['(.+) completed.'] = '- Quest |cfff86256%1|r.',
             ['Quest accepted: (.+)'] = '+ Quest |cfff86256%1|r.',
             ['Received item: (.+)%.'] = '+ %1.',
             ['Experience gained: (.+).'] = '+ %1 xp.',

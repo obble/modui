@@ -44,6 +44,8 @@ modskin\button\party.lua
 modskin\button\pd.lua
 modskin\button\quest.lua
 modskin\button\shit.lua
+modskin\button\spell.lua
+modskin\button\talent.lua
 modskin\button\target.lua
 modskin\button\trade.lua
 modskin\frame\tip.lua

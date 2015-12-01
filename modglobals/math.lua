@@ -2,7 +2,7 @@
 
     local orig = {}
 
-    function SecondsToTimeAbbrev(time)   -- AURA DURATION SUB
+    function SecondsToTimeAbbrev(time)  -- AURA DURATION SUB
         local h, m, s, text
         if time <= 0 then
             text = ''
@@ -19,6 +19,11 @@
             text = format('%dh', h)
         end
         return text
+     end
+
+     function decimal_round(n)          -- ROUND TO 1 DECIMAL PLACE
+         local shift = 10^1
+         return math.floor(n*shift + .5)/shift
      end
 
      function true_format(v)            -- STATUS TEXT FORMATTING ie 1.5k, 2.3m

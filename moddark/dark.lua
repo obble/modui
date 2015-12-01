@@ -2,10 +2,11 @@
 
     local BACKDROP = {  bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
                         insets = {left = -1, right = -1, top = -1, bottom = -1}}
+    local orig = {}
 
+    local colour = {r = .2, g = .2, b = .2} -- COLOUR APPLIED TO TEXTURES (RGB value)
 
-        -- COLOUR APPLIED TO TEXTURES (RGB value)
-    local colour = {r = .2, g = .2, b = .2}
+    orig.TargetFrame_CheckClassification   = TargetFrame_CheckClassification
 
 
         -- MINIMAP CLUSTER
@@ -321,5 +322,16 @@
             for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
         end
     end)
+
+        -- CLASSIFICATION
+    function TargetFrame_CheckClassification()  -- BOSS/ELITE/RARE TAGS
+        orig.TargetFrame_CheckClassification()
+        local c = UnitClassification'target'
+        if c ~= 'normal' then
+            TargetFrameTexture:SetVertexColor(colour.r*1.75, colour.g*1.75, colour.b*1.75)
+        else
+            TargetFrameTexture:SetVertexColor(colour.r*.8, colour.g*.8, colour.b*.8)
+        end
+    end
 
     --
