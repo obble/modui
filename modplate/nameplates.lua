@@ -2,11 +2,14 @@
 
     local TEXTURE  = [[Interface\AddOns\modui\modsb\texture\sb.tga]]
     local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],}
-    local class = UnitClass'player'
-    local p = {} local t = {} local Heal = {} local heals = {}
-    Heal.__index = Heal
-    local enabled = true                -- TOGGLE NAMEPLATES VISIBILITY DEFAULT
-    local showpet = false               -- TOGGLE NON_COMBAT PET VISIBILITY
+    local class    = UnitClass'player'
+    local p    = {} local t     = {}
+    local Cast = {} local casts = {}
+    local Heal = {} local heals = {}
+    Cast.__index   = cast
+    Heal.__index   = Heal
+    local enabled  = true               -- TOGGLE NAMEPLATES VISIBILITY DEFAULT
+    local showpet  = false              -- TOGGLE NON_COMBAT PET VISIBILITY
 
 
     local pets = {
@@ -51,6 +54,22 @@
         end
     end
 
+    local getTimerLeft = function(tEnd)
+        local t = tEnd - GetTime()
+        if t > 5 then return decimal_round(t, 0) else return decimal_round(t, 1) end
+    end
+
+    Cast.create = function(caster, spell, icon, dur, time)
+        local acnt = {}
+        setmetatable(acnt,cast)
+        acnt.caster    = caster
+        acnt.spell     = spell
+        acnt.icon      = icon
+        acnt.timeStart = time
+        acnt.timeEnd   = time + dur
+        return acnt
+    end
+
     Heal.create = function(n, no, crit, time)
        local acnt = {}
        setmetatable(acnt,Heal)
@@ -63,7 +82,26 @@
        return acnt
     end
 
-    local function newHeal(n, no, crit)
+    local removeDoubleCast = function(caster)
+    	local k = 1
+    	for i, j in casts do
+    		if j.caster == caster then table.remove(casts, k) end
+    		k = k + 1
+    	end
+    end
+
+    local newCast = function(caster, spell)
+    	local time = GetTime()
+    	local info = nil
+    	removeDoubleCast(caster)
+    	if MODUI_SPELLCASTS_TO_TRACK[spell] ~= nil then info = MODUI_SPELLCASTS_TO_TRACK[spell] end
+    	if info ~= nil then
+    		local n = Cast.create(caster, spell, info[1], info[2], time)
+    		table.insert(casts, n)
+    	end
+    end
+
+    local newHeal = function(n, no, crit)
         local time = GetTime()
         local h = Heal.create(n, no, crit, time)
         table.insert(heals, h)
@@ -83,7 +121,42 @@
 
         health:SetStatusBarTexture(TEXTURE)
         health:SetBackdrop(BACKDROP)
-        health:SetBackdropColor(0, 0, 0, .6)
+        health:SetBackdropColor(0, 0, 0)
+
+        plate.cast = CreateFrame('StatusBar', nil, plate)
+        plate.cast:SetStatusBarTexture(TEXTURE)
+        plate.cast:SetStatusBarColor(1, .4, 0)
+        plate.cast:SetBackdrop(BACKDROP)
+        plate.cast:SetBackdropColor(0, 0, 0)
+        plate.cast:SetHeight(8)
+        plate.cast:SetPoint('LEFT', plate, 26, 0)
+        plate.cast:SetPoint('RIGHT', plate, -4, 0)
+        plate.cast:SetPoint('TOP', health, 'BOTTOM', 0, -8)
+
+        plate.cast.text = plate.cast:CreateFontString(nil, 'OVERLAY')
+        plate.cast.text:SetTextColor(1, 1, 1)
+        plate.cast.text:SetFont(STANDARD_TEXT_FONT, 10)
+        plate.cast.text:SetShadowOffset(1, -1)
+        plate.cast.text:SetShadowColor(0, 0, 0)
+        plate.cast.text:SetPoint('TOPLEFT', plate.cast, 'BOTTOMLEFT', 0, -2)
+
+        plate.cast.timer = plate.cast:CreateFontString(nil, 'OVERLAY')
+        plate.cast.timer:SetTextColor(1, 1, 1)
+        plate.cast.timer:SetFont(STANDARD_TEXT_FONT, 9)
+        plate.cast.timer:SetPoint('RIGHT', plate.cast)
+
+        plate.cast.icon = plate.cast:CreateTexture(nil, 'OVERLAY', nil, 7)
+        plate.cast.icon:SetWidth(13) plate.cast.icon:SetHeight(13)
+        plate.cast.icon:SetPoint('RIGHT', plate.cast, 'LEFT', -9, 0)
+        plate.cast.icon:SetTexture[[Interface\Icons\Spell_nature_purge]]
+        plate.cast.icon:SetTexCoord(.1, .9, .1, .9)
+
+        plate.cast.border = plate.cast:CreateTexture(nil, 'ARTWORK')
+        plate.cast.border:SetTexture[[Interface\AddOns\modui\modplate\texture\Nameplate-Castbar.blp]]
+        plate.cast.border:SetHeight(32)
+        plate.cast.border:SetPoint('TOPLEFT', plate, 'BOTTOMLEFT', 0, 8)
+        plate.cast.border:SetPoint('TOPRIGHT', plate, 'BOTTOMRIGHT', 0, 8)
+        plate.cast.border:SetVertexColor(.2, .2, .2)
 
         plate.heal = plate:CreateFontString(nil, 'OVERLAY')
         plate.heal:SetTextColor(0, .6, 0, .6)
@@ -135,6 +208,29 @@
         end
     end
 
+    local addCast = function(plate)
+        if plate.cast then
+            local health = plate:GetChildren()
+            local _, _, name = plate:GetRegions()
+            local text = name:GetText()
+            local target = GetUnitName'target'
+            plate.cast:Hide()
+            -- if target == text then if health:GetAlpha() ~= 1 then return end end
+            for k, v in pairs(casts) do
+                if v.caster == text then
+                    if GetTime() < v.timeEnd then
+                        plate.cast:SetMinMaxValues(0, v.timeEnd - v.timeStart)
+                    	plate.cast:SetValue(mod((GetTime() - v.timeStart), v.timeEnd - v.timeStart))
+                    	plate.cast.text:SetText(v.spell)
+                    	plate.cast.timer:SetText(getTimerLeft(v.timeEnd)..'s')
+                    	plate.cast.icon:SetTexture(v.icon)
+                    	plate.cast:Show()
+                    end
+                end
+            end
+        end
+    end
+
     local addHeal = function(plate)
         local _, _, name = plate:GetRegions()
         local text = name:GetText()
@@ -165,6 +261,17 @@
         end
     end
 
+    local handleCast = function()
+    	local m = '(.+) begins to cast (.+).'
+        local a = '(.+) -> (.+).'
+    	if string.find(arg1, m) or string.find(arg1, a) then
+            local t = string.find(arg1, m) and m or a
+    		local c = gsub(arg1, t, '%1')
+    		local s = gsub(arg1, t, '%2')
+    		newCast(c, s)
+    	end
+    end
+
     local handleHeal = function()
         local h   = 'Your (.+) heals (.+) for (.+).'
         local c   = 'Your (.+) critically heals (.+) for (.+).'
@@ -185,10 +292,18 @@
         local frames = {WorldFrame:GetChildren()}
 	    for _, plate in ipairs(frames) do
             if isPlate(plate) and plate:IsVisible() then
+                local _, _, name = plate:GetRegions()
                 if not plate.skinned then modPlate(plate) end
-                addCP(plate) addHeal(plate) addClass(plate)
+                addClass(plate) addCP(plate) addCast(plate) addHeal(plate)
             end
         end
+    	local i = 1
+    	for k, v in pairs(casts) do
+    		if GetTime() > v.timeEnd then
+    			table.remove(casts, i)
+    		end
+    		i = i + 1
+    	end
     end)
 
     f:RegisterEvent'PLAYER_ENTERING_WORLD'
@@ -196,9 +311,18 @@
     f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_SELF_BUFFS'
     f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_PARTY_BUFFS'
     f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_FRIENDLYPLAYER_BUFFS'
+    f:RegisterEvent'CHAT_MSG_SPELL_FRIENDLYPLAYER_BUFF'
+    f:RegisterEvent'CHAT_MSG_SPELL_HOSTILEPLAYER_DAMAGE'
+    f:RegisterEvent'CHAT_MSG_SPELL_HOSTILEPLAYER_BUFF'
+    f:RegisterEvent'CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE'
     f:SetScript('OnEvent', function()
         if event == 'PLAYER_ENTERING_WORLD' then
              if enabled then ShowNameplates() end
+        elseif event == 'CHAT_MSG_SPELL_FRIENDLYPLAYER_BUFF'
+        or event == 'CHAT_MSG_SPELL_HOSTILEPLAYER_DAMAGE'
+        or event == 'CHAT_MSG_SPELL_HOSTILEPLAYER_BUFF'
+        or event == 'CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE' then
+             handleCast()
         else handleHeal()
         end
     end)

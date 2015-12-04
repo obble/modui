@@ -74,13 +74,14 @@
         if arg1 == 'PARTY_MEMBERS_CHANGED' then colourParty() end
     end)
 
-    orig.ShowPartyFrame                    = ShowPartyFrame
+    orig.PartyMemberFrame_UpdateMember     = PartyMemberFrame_UpdateMember
     orig.TargetofTarget_Update             = TargetofTarget_Update
     orig.TextStatusBar_UpdateTextString    = TextStatusBar_UpdateTextString
     orig.UIOptionsFrame_UpdateDependencies = UIOptionsFrame_UpdateDependencies
 
-    function ShowPartyFrame()
-        orig.ShowPartyFrame() colourParty()
+    function PartyMemberFrame_UpdateMember()
+        orig.PartyMemberFrame_UpdateMember()
+        colourParty()
     end
 
     function TargetofTarget_Update()

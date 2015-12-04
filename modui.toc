@@ -11,10 +11,12 @@ modglobals\math.lua
 modglobals\mount.lua
 modglobals\shit.lua
 modglobals\string.lua
+modglobals\table.lua
 
 modbar\bar.lua
 modbar\keypress.lua
 modbar\stats.lua
+modbar\xp.lua
 
 modglobals\arrange.lua
 
@@ -84,6 +86,7 @@ modtip\tip.lua
 
 modtracker\click.lua
 
+moduf\castbar.lua
 moduf\energy.lua
 moduf\move.lua
 moduf\unit.lua

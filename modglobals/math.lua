@@ -21,8 +21,8 @@
         return text
      end
 
-     function decimal_round(n)          -- ROUND TO 1 DECIMAL PLACE
-         local shift = 10^1
+     function decimal_round(n, dp)      -- ROUND TO 1 DECIMAL PLACE
+         local shift = 10^(dp or 0)
          return math.floor(n*shift + .5)/shift
      end
 

@@ -1,9 +1,6 @@
 
 
-    local BACKDROP = {  bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
-                        insets = {left = -1, right = -1, top = -1, bottom = -1}}
     local orig = {}
-
     local colour = {r = .2, g = .2, b = .2} -- COLOUR APPLIED TO TEXTURES (RGB value)
 
     orig.TargetFrame_CheckClassification   = TargetFrame_CheckClassification
@@ -94,17 +91,6 @@
     for i, v in pairs({ ShapeshiftBarLeft,
                         ShapeshiftBarMiddle,
                         ShapeshiftBarRight, }) do v:SetTexture'' end
-
-    MainMenuExpBar:SetHeight(5)
-    MainMenuExpBar:ClearAllPoints() MainMenuExpBar:SetPoint('TOP', MainMenuBar, 0, -4)
-    MainMenuExpBar:SetBackdrop(BACKDROP)
-    MainMenuExpBar:SetBackdropColor(0, 0, 0, 1)
-
-    ReputationWatchBar:SetFrameStrata'LOW'
-    ReputationWatchBar:SetHeight(4)
-    ReputationWatchStatusBar:SetHeight(4)
-    ReputationWatchStatusBar:SetBackdrop(BACKDROP)
-    ReputationWatchStatusBar:SetBackdropColor(0, 0, 0, 1)
 
 
         -- BAGS
