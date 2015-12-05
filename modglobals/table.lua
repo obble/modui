@@ -163,7 +163,7 @@
 
     MODUI_INTERRUPTS_TO_TRACK = {
         ['Bash'] = true, ['Blackout'] = true, ['Blind'] = true,
-        ['Charge Stun'] = true, ['Counterspell - Silenced'] = true,
+        ['Charge Stun'] = true, ['Concussion Blow'] = true, ['Counterspell - Silenced'] = true,
         ['Death Coil'] = true,
         ['Earth Shock'] = true,
         ['Fear'] = true, ['Freezing Trap Effect'] = true,
@@ -172,7 +172,7 @@
         ['Ice Block'] = true, ['Impact'] = true, ['Inferno Effect'] = true, ['Intercept Stun'] = true, ['Intimidating Shout'] = true, ['Intimidation'] = true,
         ['Kidney Shot'] = true, ['Kick'] = true, ['Kick - Silenced'] = true,
         ['Mace Stun Effect'] = true,
-        ['Pounce'] = true, ['Psychic Scream'] = true, ['Pummel'] = true,
+        ['Polymorph'] = true, ['Pounce'] = true, ['Psychic Scream'] = true, ['Pummel'] = true,
         ['Reckless Charge'] = true, ['Revenge Stun'] = true,
         ['Scatter Shot'] = true, ['Shield Bash'] = true, ['Shield Bash - Silenced'] = true, ['Silence'] = true, ['Spell Lock'] = true, ['Starfire Stun'] = true,
         ['Wyvern Sting'] = true,
