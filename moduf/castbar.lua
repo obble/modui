@@ -85,6 +85,42 @@
         TargetFrame.cast:Hide()
     end
 
+    local checkAuras = function()
+        local n = 0
+        for i = 1,  5 do
+            local b = UnitBuff('target', i)
+            if b then n = n + 1 end
+        end
+        for i = 1, 16 do
+            local d = UnitDebuff('target', i)
+            if d then n = n + 1 end
+        end
+        return n
+    end
+
+    local position = function()
+        local aura = checkAuras()
+        if TargetofTargetFrame:IsShown() then
+            if aura < 11 then
+                TargetFrame.cast:SetPoint('TOP', TargetFrame, 'BOTTOM', 0, -25)
+            elseif aura < 16 then
+                TargetFrame.cast:SetPoint('TOP', TargetFrame, 'BOTTOM', 0, -50)
+            else
+                TargetFrame.cast:SetPoint('TOP', TargetFrame, 'BOTTOM', 0, -75)
+            end
+        else
+            if aura < 7 then
+                TargetFrame.cast:SetPoint('TOP', TargetFrame, 'BOTTOM', 0, -2)
+            elseif aura < 13 then
+                TargetFrame.cast:SetPoint('TOP', TargetFrame, 'BOTTOM', 0, -25)
+            elseif aura < 19 then
+                TargetFrame.cast:SetPoint('TOP', TargetFrame, 'BOTTOM', 0, -50)
+            else
+                TargetFrame.cast:SetPoint('TOP', TargetFrame, 'BOTTOM', 0, -75)
+            end
+        end
+    end
+
     local showCast = function()
         local target = GetUnitName'target'
         TargetFrame.cast:Hide()
@@ -97,11 +133,7 @@
                 	TargetFrame.cast.timer:SetText(getTimerLeft(v.timeEnd)..'s')
                 	TargetFrame.cast.icon:SetTexture(v.icon)
                 	TargetFrame.cast:Show()
-                    if TargetofTargetFrame:IsShown() then
-                        TargetFrame.cast:SetPoint('TOP', TargetFrame, 'BOTTOM', 0, -25)
-                    else
-                        TargetFrame.cast:SetPoint('TOP', TargetFrame, 'BOTTOM', 0, -2)
-                    end
+                    position()
                 else removeCast()
                 end
             end
@@ -135,14 +167,14 @@
             local c = gsub(arg1, af, '%1')
     		local s = gsub(arg1, af, '%3')
         	for k, v in pairs(casts) do
-        		if MODUI_INTERRUPTS_TO_TRACK[v.spell] ~= nil and (time < v.timeEnd) and (v.caster == c) then
-                    v.timeEnd = time + 100000 -- force hide
+        		if MODUI_INTERRUPTS_TO_TRACK[s] ~= nil and (time < v.timeEnd) and (v.caster == c) then
+                    print'interrupt'
+                    v.timeEnd = time - 10000 -- force hide
         		end
         	end
     	end
     end
 
-    -- f:RegisterEvent'PLAYER_TARGET_CHANGED'
     f:RegisterEvent'CHAT_MSG_SPELL_FRIENDLYPLAYER_BUFF'
     f:RegisterEvent'CHAT_MSG_SPELL_HOSTILEPLAYER_DAMAGE'
     f:RegisterEvent'CHAT_MSG_SPELL_HOSTILEPLAYER_BUFF'

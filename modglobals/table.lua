@@ -162,11 +162,11 @@
     }
 
     MODUI_INTERRUPTS_TO_TRACK = {
-        ['Bash'] = true, ['Blackout'] = true, ['Blind'] = true, ['Blink'] = true,
+        ['Bash'] = true, ['Blackout'] = true, ['Blind'] = true,
         ['Charge Stun'] = true, ['Counterspell - Silenced'] = true,
-        ['Death Coil'] = true, ['Divine Protection'] = true, ['Divine Shield'] = true,
+        ['Death Coil'] = true,
         ['Earth Shock'] = true,
-        ['Freezing Trap Effect'] = true,
+        ['Fear'] = true, ['Freezing Trap Effect'] = true,
         ['Gouge'] = true,
         ['Hammer of Justice'] = true,
         ['Ice Block'] = true, ['Impact'] = true, ['Inferno Effect'] = true, ['Intercept Stun'] = true, ['Intimidating Shout'] = true, ['Intimidation'] = true,
