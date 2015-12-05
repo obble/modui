@@ -61,7 +61,7 @@
 
     Cast.create = function(caster, spell, icon, dur, time)
         local acnt = {}
-        setmetatable(acnt,cast)
+        setmetatable(acnt, modcast)
         acnt.caster    = caster
         acnt.spell     = spell
         acnt.icon      = icon
@@ -152,7 +152,7 @@
         plate.cast.icon:SetTexCoord(.1, .9, .1, .9)
 
         plate.cast.border = plate.cast:CreateTexture(nil, 'ARTWORK')
-        plate.cast.border:SetTexture[[Interface\AddOns\modui\modplate\texture\Nameplate-Castbar.blp]]
+        plate.cast.border:SetTexture[[Interface\AddOns\modui\modsb\texture\Nameplate-Castbar.blp]]
         plate.cast.border:SetHeight(32)
         plate.cast.border:SetPoint('TOPLEFT', plate, 'BOTTOMLEFT', 0, 8)
         plate.cast.border:SetPoint('TOPRIGHT', plate, 'BOTTOMRIGHT', 0, 8)

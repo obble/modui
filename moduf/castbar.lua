@@ -37,7 +37,6 @@
     TargetFrame.cast.icon = TargetFrame.cast:CreateTexture(nil, 'OVERLAY', nil, 7)
     TargetFrame.cast.icon:SetWidth(18) TargetFrame.cast.icon:SetHeight(18)
     TargetFrame.cast.icon:SetPoint('RIGHT', TargetFrame.cast, 'LEFT', -9, 0)
-    TargetFrame.cast.icon:SetTexture[[Interface\Icons\Spell_nature_purge]]
     TargetFrame.cast.icon:SetTexCoord(.1, .9, .1, .9)
 
     local ic = CreateFrame('Frame', nil, TargetFrame.cast)
@@ -58,7 +57,7 @@
 
     Cast.create = function(caster, spell, icon, dur, time)
         local acnt = {}
-        setmetatable(acnt, cast)
+        setmetatable(acnt, modtcast)
         acnt.caster    = caster
         acnt.spell     = spell
         acnt.icon      = icon
