@@ -4,7 +4,7 @@
     local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],}
     local f = CreateFrame'Frame'
     local Cast = {} local casts = {}
-    Cast.__index = cast
+    Cast.__index = modtcast
 
     TargetFrame.cast = CreateFrame('StatusBar', 'TargetFrame_modCastbar', TargetFrame)
     TargetFrame.cast:SetStatusBarTexture(TEXTURE)
@@ -166,6 +166,7 @@
         elseif string.find(arg1, af) then
             local c = gsub(arg1, af, '%1')
     		local s = gsub(arg1, af, '%3')
+            print(s)
         	for k, v in pairs(casts) do
         		if MODUI_INTERRUPTS_TO_TRACK[s] ~= nil and (time < v.timeEnd) and (v.caster == c) then
                     print'interrupt'

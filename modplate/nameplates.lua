@@ -6,7 +6,7 @@
     local p    = {} local t     = {}
     local Cast = {} local casts = {}
     local Heal = {} local heals = {}
-    Cast.__index   = cast
+    Cast.__index   = modcast
     Heal.__index   = Heal
     local enabled  = true               -- TOGGLE NAMEPLATES VISIBILITY DEFAULT
     local showpet  = false              -- TOGGLE NON_COMBAT PET VISIBILITY
