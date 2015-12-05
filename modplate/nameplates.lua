@@ -267,14 +267,16 @@
         local a    = '(.+) -> (.+).'
         local p    = '(.+) begins to perform (.+).'
         local af   = '(.+) is afflicted by (.+).'
+        local g    = '(.+) gains (.+).'
     	if string.find(arg1, m) or string.find(arg1, a) or string.find(arg1, p) then
             local t = string.find(arg1, m) and m or string.find(arg1, p) and p or a
     		local c = gsub(arg1, t, '%1')
     		local s = gsub(arg1, t, '%2')
     		newCast(c, s)
-        elseif string.find(arg1, af) then
-            local c = gsub(arg1, af, '%1')
-    		local s = gsub(arg1, af, '%2')
+        elseif string.find(arg1, af) or string.find(arg1, g) then
+            local t = string.find(arg1, af) and af or g
+            local c = gsub(arg1, t, '%1')
+    		local s = gsub(arg1, t, '%2')
         	for k, v in pairs(casts) do
         		if MODUI_INTERRUPTS_TO_TRACK[s] ~= nil and (time < v.timeEnd) and (v.caster == c) then
                     v.timeEnd = time - 10000 -- force hide

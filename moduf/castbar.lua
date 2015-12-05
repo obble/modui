@@ -101,7 +101,7 @@
         local aura = checkAuras()
         if TargetofTargetFrame:IsShown() then
             if aura < 11 then
-                TargetFrame.cast:SetPoint('TOP', TargetFrame, 'BOTTOM', 0, -25)
+                TargetFrame.cast:SetPoint('TOP', TargetFrame, 'BOTTOM', 0, -35)
             elseif aura < 16 then
                 TargetFrame.cast:SetPoint('TOP', TargetFrame, 'BOTTOM', 0, -50)
             else
@@ -156,43 +156,47 @@
     	local m    = '(.+) begins to cast (.+).'
         local a    = '(.+) -> (.+).'
         local p    = '(.+) begins to perform (.+).'
+        local g    = '(.+) gains (.+).'
         local af   = '(.+) is afflicted by (.+).'
+        local ac   = '(.+) (.+) hits (.+) for (.+)'
+        local cr   = '(.+) (.+) crits (.+) for (.+)'
     	if string.find(arg1, m) or string.find(arg1, a) or string.find(arg1, p) then
             local t = string.find(arg1, m) and m or string.find(arg1, p) and p or a
     		local c = gsub(arg1, t, '%1')
     		local s = gsub(arg1, t, '%2')
     		newCast(c, s)
-        elseif string.find(arg1, af) then
-            local c = gsub(arg1, af, '%1')
-    		local s = gsub(arg1, af, '%2')
-        	for k, v in pairs(casts) do
-        		if MODUI_INTERRUPTS_TO_TRACK[s] ~= nil and (time < v.timeEnd) and (v.caster == c) then
+        elseif string.find(arg1, g)  or string.find(arg1, af)
+            or string.find(arg1, ac) or string.find(arg1, cr) then
+            local t = string.find(arg1, g) and g or string.find(arg1, af) and af or ac
+            local c = gsub(arg1, t, (string.find(arg1, ac) or string.find(arg1, cr)) and '%3' or '%1')
+            local s = gsub(arg1, t, '%2')
+            for k, v in pairs(casts) do
+                if MODUI_INTERRUPTS_TO_TRACK[s] ~= nil and (time < v.timeEnd) and (v.caster == c) then
                     v.timeEnd = time - 10000 -- force hide
-        		end
+                end
         	end
     	end
     end
 
-    f:RegisterEvent'CHAT_MSG_SPELL_SELF_BUFF'
-    f:RegisterEvent'CHAT_MSG_SPELL_SELF_DAMAGE'
-    f:RegisterEvent'CHAT_MSG_SPELL_FRIENDLYPLAYER_DAMAGE'
-    f:RegisterEvent'CHAT_MSG_SPELL_FRIENDLYPLAYER_BUFF'
-    f:RegisterEvent'CHAT_MSG_SPELL_HOSTILEPLAYER_DAMAGE'
-    f:RegisterEvent'CHAT_MSG_SPELL_HOSTILEPLAYER_BUFF'
     f:RegisterEvent'CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE'
-    f:RegisterEvent'CHAT_MSG_SPELL_PARTY_DAMAGE'
+    f:RegisterEvent'CHAT_MSG_SPELL_FRIENDLYPLAYER_BUFF'
+    f:RegisterEvent'CHAT_MSG_SPELL_FRIENDLYPLAYER_DAMAGE'
+    f:RegisterEvent'CHAT_MSG_SPELL_HOSTILEPLAYER_BUFF'
+    f:RegisterEvent'CHAT_MSG_SPELL_HOSTILEPLAYER_DAMAGE'
     f:RegisterEvent'CHAT_MSG_SPELL_PARTY_BUFF'
+    f:RegisterEvent'CHAT_MSG_SPELL_PARTY_DAMAGE'
     f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_HOSTILEPLAYER_BUFFS'
-    f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_FRIENDLYPLAYER_BUFFS'
     f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_HOSTILEPLAYER_DAMAGE'
     f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_FRIENDLYPLAYER_BUFFS'
     f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_FRIENDLYPLAYER_DAMAGE'
     f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_SELF_BUFFS'
     f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE'
-    f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_PARTY_DAMAGE'
     f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_PARTY_BUFFS'
-    f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_CREATURE_DAMAGE'
+    f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_PARTY_DAMAGE'
     f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_CREATURE_BUFFS'
+    f:RegisterEvent'CHAT_MSG_SPELL_PERIODIC_CREATURE_DAMAGE'
+    f:RegisterEvent'CHAT_MSG_SPELL_SELF_BUFF'
+    f:RegisterEvent'CHAT_MSG_SPELL_SELF_DAMAGE'
     f:SetScript('OnEvent', handleCast)
 
     --
