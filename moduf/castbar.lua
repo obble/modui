@@ -166,10 +166,10 @@
         elseif string.find(arg1, af) then
             local c = gsub(arg1, af, '%1')
     		local s = gsub(arg1, af, '%3')
-            print(s)
+            -- print(s)
         	for k, v in pairs(casts) do
         		if MODUI_INTERRUPTS_TO_TRACK[s] ~= nil and (time < v.timeEnd) and (v.caster == c) then
-                    print'interrupt'
+                    -- print'interrupt'
                     v.timeEnd = time - 10000 -- force hide
         		end
         	end
