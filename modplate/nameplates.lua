@@ -129,7 +129,7 @@
         plate.cast:SetBackdrop(BACKDROP)
         plate.cast:SetBackdropColor(0, 0, 0)
         plate.cast:SetHeight(8)
-        plate.cast:SetPoint('LEFT', plate, 26, 0)
+        plate.cast:SetPoint('LEFT', plate, 24, 0)
         plate.cast:SetPoint('RIGHT', plate, -4, 0)
         plate.cast:SetPoint('TOP', health, 'BOTTOM', 0, -8)
 
@@ -151,7 +151,7 @@
         plate.cast.icon:SetTexture[[Interface\Icons\Spell_nature_purge]]
         plate.cast.icon:SetTexCoord(.1, .9, .1, .9)
 
-        plate.cast.border = plate.cast:CreateTexture(nil, 'ARTWORK')
+        plate.cast.border = plate.cast:CreateTexture(nil, 'OVERLAY')
         plate.cast.border:SetTexture[[Interface\AddOns\modui\modsb\texture\Nameplate-Castbar.blp]]
         plate.cast.border:SetHeight(32)
         plate.cast.border:SetPoint('TOPLEFT', plate, 'BOTTOMLEFT', 0, 8)
@@ -224,6 +224,7 @@
                     	plate.cast.text:SetText(v.spell)
                     	plate.cast.timer:SetText(getTimerLeft(v.timeEnd)..'s')
                     	plate.cast.icon:SetTexture(v.icon)
+                        plate.cast:SetAlpha(plate:GetAlpha())
                     	plate.cast:Show()
                     end
                 end

@@ -3,8 +3,11 @@
     local _AddMessage = ChatFrame1.AddMessage
     local gsub = string.gsub
     local blacklist = {[ChatFrame2] = true,}
+    local _, class = UnitClass'player'
     local currentURL
     local orig = {}
+
+    local ts = false    -- TOGGLE TIMESTAMPS ON/OFF w/ "true"/"false"
 
         -- EVENTS
     local chatevents = {
@@ -166,10 +169,12 @@
 
    local AddMessage = function(f, t, r, g, b, id)
        if t == nil then return _AddMessage(f, t, r, g, b, id) end
+       local colour = HEX_CLASS_COLORS[class]
+       local d = date'%H.%M'..string.lower(date('%p'))
        t = gsub(t, '%[(%d+)%. .+%].+(|Hplayer.+)', '%1 %2')               -- WORLD CHANNELS '1'
        t = gsub(t, '|H(.-)|h%[(.-)%]|h', '|H%1|h%2|h')                    -- STRIP BRACKETS
        t = gsub(t, 'Guild Message of the Day:', 'GMOTD —')                -- MOTD
-       -- t = string.format('%s %s', date'%X', t)                         -- TIMESTAMP
+       if ts then t = string.format('|cff'..colour..'%s|r %s', d, t) end  -- TIMESTAMP
        for i, v in pairs(chatevents) do                                   -- CHAT EVENTS
            for k, j in pairs(v) do
                if string.find(t, k)then

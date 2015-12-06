@@ -43,7 +43,7 @@
     ic:SetAllPoints(TargetFrame.cast.icon)
 
     modSkin(TargetFrame.cast, 12)
-    modSkinPadding(TargetFrame.cast, 2, 3, 2, 3, 2, 3, 2, 3)
+    modSkinPadding(TargetFrame.cast, 2, 2, 2, 2, 2, 3, 2, 3)
     modSkinColor(TargetFrame.cast, .2, .2, .2)
 
     modSkin(ic, 13.5)
