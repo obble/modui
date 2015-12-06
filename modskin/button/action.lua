@@ -46,6 +46,7 @@
         modSkin(bu, 18)
         modSkinPadding(bu, 3)
         modSkinColor(bu, .2, .2, .2)
+        bu:SetFrameStrata'LOW'
         bu:GetNormalTexture():SetTexture''
         bu:GetPushedTexture():SetTexture''
         bu:GetCheckedTexture():SetTexture''
@@ -54,6 +55,7 @@
         modSkin(bu, 18)
         modSkinPadding(bu, 3)
         modSkinColor(bu, .2, .2, .2)
+        bu:SetFrameStrata'LOW'
         bu:GetNormalTexture():SetTexture''
         bu:GetPushedTexture():SetTexture''
         bu:GetCheckedTexture():SetTexture''
