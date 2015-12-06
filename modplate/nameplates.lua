@@ -7,7 +7,7 @@
     local Cast = {} local casts = {}
     local Heal = {} local heals = {}
     Cast.__index   = modcast
-    Heal.__index   = Heal
+    Heal.__index   = modheal
     local enabled  = true               -- TOGGLE NAMEPLATES VISIBILITY DEFAULT
     local showpet  = false              -- TOGGLE NON_COMBAT PET VISIBILITY
 
@@ -72,7 +72,7 @@
 
     Heal.create = function(n, no, crit, time)
        local acnt = {}
-       setmetatable(acnt,Heal)
+       setmetatable(acnt, modheal)
        acnt.target    = n
        acnt.amount    = no
        acnt.crit      = crit
@@ -209,24 +209,22 @@
     end
 
     local addCast = function(plate)
-        if plate.cast then
-            local health = plate:GetChildren()
-            local _, _, name = plate:GetRegions()
-            local text = name:GetText()
-            local target = GetUnitName'target'
-            plate.cast:Hide()
-            -- if target == text then if health:GetAlpha() ~= 1 then return end end
-            for k, v in pairs(casts) do
-                if v.caster == text then
-                    if GetTime() < v.timeEnd then
-                        plate.cast:SetMinMaxValues(0, v.timeEnd - v.timeStart)
-                    	plate.cast:SetValue(mod((GetTime() - v.timeStart), v.timeEnd - v.timeStart))
-                    	plate.cast.text:SetText(v.spell)
-                    	plate.cast.timer:SetText(getTimerLeft(v.timeEnd)..'s')
-                    	plate.cast.icon:SetTexture(v.icon)
-                        plate.cast:SetAlpha(plate:GetAlpha())
-                    	plate.cast:Show()
-                    end
+        local health = plate:GetChildren()
+        local _, _, name = plate:GetRegions()
+        local text = name:GetText()
+        local target = GetUnitName'target'
+        plate.cast.text:SetText'' plate.cast.timer:SetText'' plate.cast.icon:SetTexture''
+        plate.cast:Hide()
+        for k, v in pairs(casts) do
+            if v.caster == text then
+                if GetTime() < v.timeEnd then
+                    plate.cast:SetMinMaxValues(0, v.timeEnd - v.timeStart)
+                	plate.cast:SetValue(mod((GetTime() - v.timeStart), v.timeEnd - v.timeStart))
+                	plate.cast.text:SetText(v.spell)
+                	plate.cast.timer:SetText(getTimerLeft(v.timeEnd)..'s')
+                	plate.cast.icon:SetTexture(v.icon)
+                    plate.cast:SetAlpha(plate:GetAlpha())
+                	plate.cast:Show()
                 end
             end
         end
@@ -235,6 +233,7 @@
     local addHeal = function(plate)
         local _, _, name = plate:GetRegions()
         local text = name:GetText()
+        plate.heal:Hide()
         for _, v in pairs(heals) do
             if v.target == text then
                 if GetTime() < v.timeEnd then
@@ -254,10 +253,7 @@
                     end
                     plate.heal:SetText('+'..v.amount)
                     plate.heal:Show()
-                else
-                    plate.heal:Hide()
                 end
-
             end
         end
     end
@@ -280,7 +276,7 @@
             local s = gsub(arg1, t, '%2')
             newCast(c, s)
         elseif fgain or fafflict or fhits or fcrits or fphits or fpcrits or ffear then
-            local t, c
+            local t, c, s
             if     fgain    then t = gain    c = '%1'
             elseif fafflict then t = afflict c = '%1'
             elseif fhits    then t = hits    c = '%3'
@@ -288,7 +284,8 @@
             elseif fphits   then t = phits   c = UnitName'player'
             elseif fpcrits  then t = pcrits  c = UnitName'player'
             elseif ffear    then t = fear    c = arg2 end
-            if not ffear then local s = gsub(arg1, t, '%2') end
+            if not ffear then s = gsub(arg1, t, '%2') end
+            if fphits or fpcrits then s = gsub(arg1, t, '%1') end
             for k, v in pairs(casts) do
                 if MODUI_INTERRUPTS_TO_TRACK[s] ~= nil or ffear then
                     if (time < v.timeEnd) and (v.caster == c) then
@@ -328,6 +325,13 @@
     	for k, v in pairs(casts) do
     		if GetTime() > v.timeEnd then
     			table.remove(casts, i)
+    		end
+    		i = i + 1
+    	end
+        i = 1
+        for k, v in pairs(heals) do
+    		if GetTime() > v.timeEnd then
+    			table.remove(heals, i)
     		end
     		i = i + 1
     	end

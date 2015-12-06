@@ -169,7 +169,7 @@
     		local s = gsub(arg1, t, '%2')
     		newCast(c, s)
         elseif fgain or fafflict or fhits or fcrits or fphits or fpcrits or ffear then
-            local t, c
+            local t, c, s
             if     fgain    then t = gain    c = '%1'
             elseif fafflict then t = afflict c = '%1'
             elseif fhits    then t = hits    c = '%3'
@@ -177,7 +177,8 @@
             elseif fphits   then t = phits   c = UnitName'player'
             elseif fpcrits  then t = pcrits  c = UnitName'player'
             elseif ffear    then t = fear    c = arg2 end
-            if not ffear then local s = gsub(arg1, t, '%2') end
+            if not ffear then s = gsub(arg1, t, '%2') end
+            if fphits or fpcrits then s = gsub(arg1, t, '%1') end
             for k, v in pairs(casts) do
                 if MODUI_INTERRUPTS_TO_TRACK[s] ~= nil or ffear then
                     if (time < v.timeEnd) and (v.caster == c) then
