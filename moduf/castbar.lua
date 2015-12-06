@@ -153,31 +153,42 @@
 
     local handleCast = function()
         local time = GetTime()
-    	local m    = '(.+) begins to cast (.+).'
-        local a    = '(.+) -> (.+).'
-        local p    = '(.+) begins to perform (.+).'
-        local g    = '(.+) gains (.+).'
-        local af   = '(.+) is afflicted by (.+).'
-        local ac   = '(.+) (.+) hits (.+) for (.+)'
-        local cr   = '(.+) (.+) crits (.+) for (.+)'
-    	if string.find(arg1, m) or string.find(arg1, a) or string.find(arg1, p) then
-            local t = string.find(arg1, m) and m or string.find(arg1, p) and p or a
+    	local cast    = '(.+) begins to cast (.+).'        local fcast    = string.find(arg1, cast)
+        local craft   = '(.+) -> (.+).'                    local fcraft   = string.find(arg1, craft)
+        local perform = '(.+) begins to perform (.+).'     local fperform = string.find(arg1, perform)
+        local gain    = '(.+) gains (.+).'                 local fgain    = string.find(arg1, gain)
+        local afflict = '(.+) is afflicted by (.+).'       local fafflict = string.find(arg1, afflict)
+        local hits    = '(.+)\'s (.+) hits (.+) for (.+)'  local fhits    = string.find(arg1, hits)
+        local crits   = '(.+)\'s (.+) crits (.+) for (.+)' local fcrits   = string.find(arg1, crits)
+        local phits   = 'Your (.+) hits (.+) for (.+)'     local fphits   = string.find(arg1, phits)
+        local pcrits  = 'Your (.+) crits (.+) for (.+)'    local fpcrits  = string.find(arg1, pcrits)
+        local fear  = '(.+) attempts to run away in fear!' local ffear    = string.find(arg1, fear)
+    	if fcast or fcraft or fperform then
+            local t = fcast and cast or fcraft and craft or perform
     		local c = gsub(arg1, t, '%1')
     		local s = gsub(arg1, t, '%2')
     		newCast(c, s)
-        elseif string.find(arg1, g)  or string.find(arg1, af)
-            or string.find(arg1, ac) or string.find(arg1, cr) then
-            local t = string.find(arg1, g) and g or string.find(arg1, af) and af or ac
-            local c = gsub(arg1, t, (string.find(arg1, ac) or string.find(arg1, cr)) and '%3' or '%1')
-            local s = gsub(arg1, t, '%2')
+        elseif fgain or fafflict or fhits or fcrits or fphits or fpcrits or ffear then
+            local t, c
+            if     fgain    then t = gain    c = '%1'
+            elseif fafflict then t = afflict c = '%1'
+            elseif fhits    then t = hits    c = '%3'
+            elseif fcrits   then t = crits   c = '%3'
+            elseif fphits   then t = phits   c = UnitName'player'
+            elseif fpcrits  then t = pcrits  c = UnitName'player'
+            elseif ffear    then t = fear    c = arg2 end
+            if not ffear then local s = gsub(arg1, t, '%2') end
             for k, v in pairs(casts) do
-                if MODUI_INTERRUPTS_TO_TRACK[s] ~= nil and (time < v.timeEnd) and (v.caster == c) then
-                    v.timeEnd = time - 10000 -- force hide
+                if MODUI_INTERRUPTS_TO_TRACK[s] ~= nil or ffear then
+                    if (time < v.timeEnd) and (v.caster == c) then
+                        v.timeEnd = time - 10000 -- force hide
+                    end
                 end
         	end
     	end
     end
 
+    f:RegisterEvent'CHAT_MSG_MONSTER_EMOTE'
     f:RegisterEvent'CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE'
     f:RegisterEvent'CHAT_MSG_SPELL_FRIENDLYPLAYER_BUFF'
     f:RegisterEvent'CHAT_MSG_SPELL_FRIENDLYPLAYER_DAMAGE'
