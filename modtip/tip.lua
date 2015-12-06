@@ -14,7 +14,7 @@
     GameTooltipHeaderText:SetFont(STANDARD_TEXT_FONT, 13)
     GameTooltipHeaderText:SetShadowOffset(.7, -.7)
     GameTooltipHeaderText:SetShadowColor(0, 0, 0, 1)
-    
+
     GameTooltipText:SetFont(STANDARD_TEXT_FONT, 12)
     GameTooltipText:SetShadowOffset(.7, -.7)
     GameTooltipText:SetShadowColor(0, 0, 0,1)
@@ -44,7 +44,7 @@
 
 
     for i, v in ipairs(menus) do v:SetScript('OnShow', function()
-            this:SetBackdropColor(0, 0, 0, .4)
+            this:SetBackdropColor(0, 0, 0)
             this:SetBackdropBorderColor(.1, .1, .1, 1)
         end)
     end
