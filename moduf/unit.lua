@@ -18,8 +18,7 @@
     PlayerFrame.status:SetShadowOffset(0, 0)
     PlayerFrame.status:SetTextColor(1, 0, 0)
     PlayerFrame.status:SetPoint('CENTER', PlayerFrameHealthBar, 0, -5)
-
-    PlayerFrameHealthBar:SetStatusBarColor(colour.r, colour.g, colour.b)
+    
     PlayerFrameHealthBar:SetBackdrop(BACKDROP)
     PlayerFrameHealthBar:SetBackdropColor(0, 0, 0, .6)
 
