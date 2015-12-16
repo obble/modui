@@ -1,93 +1,94 @@
 ## Interface: 11200
-## Author: modernist
-## Title: mod ui
-## Notes: ui mods.
-## SavedVariables: modStatus, modValue, modBoth
+## Author: ernist
+## Title:  ui
+## Notes: ui s.
+## SavedVariables: Status, Value, Both
 
-modglobals\auction.lua
-modglobals\colour.lua
-modglobals\font.lua
-modglobals\math.lua
-modglobals\mount.lua
-modglobals\shit.lua
-modglobals\string.lua
-modglobals\table.lua
+globals\auction.lua
+globals\colour.lua
+globals\font.lua
+globals\math.lua
+globals\mount.lua
+globals\shit.lua
+globals\string.lua
+globals\table.lua
 
-modbar\bar.lua
-modbar\keypress.lua
-modbar\stats.lua
-modbar\xp.lua
+actionbar\bar.lua
+actionbar\keypress.lua
+actionbar\stats.lua
+actionbar\xp.lua
 
-modglobals\arrange.lua
+globals\arrange.lua
 
-modlibs\libs\AceLibrary\AceLibrary.lua
-modlibs\libs\AceOO-2.0\AceOO-2.0.lua
-modlibs\libs\AceEvent-2.0\AceEvent-2.0.lua
-modlibs\libs\AceAddon-2.0\AceAddon-2.0.lua
-modlibs\libs\AceConsole-2.0\AceConsole-2.0.lua
-modlibs\libs\RosterLib-2.0\RosterLib-2.0.lua
-modlibs\libs\HealComm-1.0\HealComm-1.0.lua
-modlibs\healcomm\HealComm.lua
-modlibs\mobhealth\MobHealth3.lua
-modlibs\mobhealth\MH3_Blizzard.lua
+libs\libs\AceLibrary\AceLibrary.lua
+libs\libs\AceOO-2.0\AceOO-2.0.lua
+libs\libs\AceEvent-2.0\AceEvent-2.0.lua
+libs\libs\AceAddon-2.0\AceAddon-2.0.lua
+libs\libs\AceConsole-2.0\AceConsole-2.0.lua
+libs\libs\RosterLib-2.0\RosterLib-2.0.lua
+libs\libs\HealComm-1.0\HealComm-1.0.lua
+libs\healcomm\HealComm.lua
+libs\mobhealth\MobHealth3.lua
+libs\mobhealth\MH3_Blizzard.lua
 
-modskin\method\method.lua
-modskin\button\action.lua
-modskin\button\addon.lua
-modskin\button\aura.lua
-modskin\button\bag.lua
-modskin\button\bank.lua
-modskin\button\chat.lua
-modskin\button\craft.lua
-modskin\button\inspect.lua
-modskin\button\loot.lua
-modskin\button\merchant.lua
-modskin\button\party.lua
-modskin\button\pd.lua
-modskin\button\quest.lua
-modskin\button\shit.lua
-modskin\button\spell.lua
-modskin\button\talent.lua
-modskin\button\target.lua
-modskin\button\trade.lua
-modskin\frame\tip.lua
-modskin\frame\tutorial.lua
-modskin\balloon.lua
-modskin\skin.lua
+skin\method\method.lua
+skin\button\action.lua
+skin\button\addon.lua
+skin\button\aura.lua
+skin\button\bag.lua
+skin\button\bank.lua
+skin\button\chat.lua
+skin\button\craft.lua
+skin\button\inspect.lua
+skin\button\loot.lua
+skin\button\macro.lua
+skin\button\mail.lua
+skin\button\merchant.lua
+skin\button\party.lua
+skin\button\pd.lua
+skin\button\quest.lua
+skin\button\shit.lua
+skin\button\spell.lua
+skin\button\talent.lua
+skin\button\target.lua
+skin\button\trade.lua
+skin\frame\character.lua
+skin\frame\tip.lua
+skin\frame\tutorial.lua
+skin\balloon.lua
+skin\skin.lua
 
-modchat\chat.lua
-modchat\event.lua
-modchat\quest.lua
+bag\template.lua
+bag\bag.lua
 
-modct\ct.lua
+chat\chat.lua
+chat\event.lua
+chat\quest.lua
 
-moddark\dark.lua
+dark\dark.lua
 
-modmaps\mini.lua
-modmaps\pvp.lua
-modmaps\world.lua
-modmaps\pins\pins.lua
+map\mini.lua
+map\pvp.lua
+map\world.lua
+map\pins\pins.lua
 
-modplate\nameplates.lua
+nameplate\nameplates.lua
 
-modpvp\ab.lua
-modpvp\wsg.lua
-modpvp\rank.lua
+pvp\ab.lua
+pvp\wsg.lua
+pvp\rank.lua
 
-modraid\spawn.lua
-modraid\unit.lua
+statusbar\gradient.lua
+statusbar\smooth.lua
 
-modsb\gradient.lua
-modsb\smooth.lua
+stopwatch\stopwatch.lua
 
-modstopwatch\stopwatch.lua
+tip\tip.lua
 
-modtip\tip.lua
+tracker\click.lua
 
-modtracker\click.lua
-
-moduf\castbar.lua
-moduf\energy.lua
-moduf\move.lua
-moduf\unit.lua
-moduf\mobhealth.lua
+unitframe\castbar.lua
+unitframe\energy.lua
+unitframe\move.lua
+unitframe\unit.lua
+unitframe\mobhealth.lua
