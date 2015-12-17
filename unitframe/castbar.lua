@@ -174,8 +174,8 @@
             elseif fafflict then t = afflict c = gsub(arg1, t, '%1')
             elseif fhits    then t = hits    c = gsub(arg1, t, '%3')
             elseif fcrits   then t = crits   c = gsub(arg1, t, '%3')
-            elseif fphits   then t = phits   c = UnitName'player'
-            elseif fpcrits  then t = pcrits  c = UnitName'player'
+            elseif fphits   then t = phits   c = gsub(arg1, t, '%2')
+            elseif fpcrits  then t = pcrits  c = gsub(arg1, t, '%2')
             elseif ffear    then t = fear    c = arg2 end
             if not ffear then s = gsub(arg1, t, '%2') end
             if fphits or fpcrits then s = gsub(arg1, t, '%1') end

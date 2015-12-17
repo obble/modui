@@ -1,5 +1,5 @@
 ## Interface: 11200
-## Author: ernist
+## Author: modernist
 ## Title:  ui
 ## Notes: ui s.
 ## SavedVariables: Status, Value, Both
@@ -19,6 +19,8 @@ actionbar\stats.lua
 actionbar\xp.lua
 
 globals\arrange.lua
+
+menu\menu.lua
 
 libs\libs\AceLibrary\AceLibrary.lua
 libs\libs\AceOO-2.0\AceOO-2.0.lua
