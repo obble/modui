@@ -13,6 +13,7 @@ globals\shit.lua
 globals\string.lua
 globals\table.lua
 
+actionbar\bagbar.lua
 actionbar\bar.lua
 actionbar\keypress.lua
 actionbar\stats.lua

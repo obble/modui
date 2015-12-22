@@ -89,6 +89,7 @@
 
     for i = 0, 3 do _G['MainMenuXPBarTexture'..i]:SetTexture'' end
     for i = 0, 3 do _G['ReputationWatchBarTexture'..i]:SetTexture'' end
+    for i = 0, 3 do _G['ReputationXPBarTexture'..i]:SetTexture'' end
     for i, v in pairs({ ShapeshiftBarLeft,
                         ShapeshiftBarMiddle,
                         ShapeshiftBarRight, }) do v:SetTexture'' end

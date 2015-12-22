@@ -17,26 +17,37 @@
     MainMenuExpBar.spark:SetWidth(35) MainMenuExpBar.spark:SetHeight(35)
     MainMenuExpBar.spark:SetBlendMode'ADD'
 
-    ReputationWatchBar:SetFrameStrata'LOW'
-    ReputationWatchBar:SetHeight(4)
-
-    ReputationWatchStatusBar:SetHeight(4)
-    ReputationWatchStatusBar:SetBackdrop(BACKDROP)
-    ReputationWatchStatusBar:SetBackdropColor(0, 0, 0, 1)
-
-    ReputationWatchStatusBar.spark = ReputationWatchStatusBar:CreateTexture(nil, 'OVERLAY', nil, 7)
-    ReputationWatchStatusBar.spark:SetTexture[[Interface\CastingBar\UI-CastingBar-Spark]]
-    ReputationWatchStatusBar.spark:SetWidth(35) ReputationWatchStatusBar.spark:SetHeight(35)
-    ReputationWatchStatusBar.spark:SetBlendMode'ADD'
-    ReputationWatchStatusBar.spark:SetVertexColor(colour.r*1.3, colour.g*1.3, colour.b*1.3, .6)
-
     function ReputationWatchBar_Update(newLevel)
+        if not newLevel then newLevel = UnitLevel'player' end
         orig.ReputationWatchBar_Update(newLevel)
         local _, _, min, max, v = GetWatchedFactionInfo()
         local x
+
         if v > 0 then x = ((v - min)/(max - min))*ReputationWatchStatusBar:GetWidth() end
-        ReputationWatchStatusBar.spark:SetPoint('CENTER', ReputationWatchStatusBar, 'LEFT', x, -1)
+
+        ReputationWatchBar:SetFrameStrata'LOW'
+        ReputationWatchBar:SetHeight(newLevel < MAX_PLAYER_LEVEL and 4 or 5)
+
+        if newLevel == MAX_PLAYER_LEVEL then
+            ReputationWatchBar:ClearAllPoints()
+            ReputationWatchBar:SetPoint('TOP', MainMenuBar, 0, -4)
+            ReputationWatchStatusBarText:SetPoint('CENTER', ReputationWatchBarOverlayFrame, 0, 3)
+            MainMenuExpBar.spark:Hide()
+        else
+            MainMenuExpBar.spark:Show()
+        end
+
+        ReputationWatchStatusBar:SetHeight(newLevel < MAX_PLAYER_LEVEL and 4 or 5)
+        ReputationWatchStatusBar:SetBackdrop(BACKDROP)
+        ReputationWatchStatusBar:SetBackdropColor(0, 0, 0, 1)
         ReputationWatchStatusBar:SetStatusBarColor(colour.r, colour.g, colour.b, 1)
+
+        ReputationWatchStatusBar.spark = ReputationWatchStatusBar:CreateTexture(nil, 'OVERLAY', nil, 7)
+        ReputationWatchStatusBar.spark:SetTexture[[Interface\CastingBar\UI-CastingBar-Spark]]
+        ReputationWatchStatusBar.spark:SetWidth(35) ReputationWatchStatusBar.spark:SetHeight(35)
+        ReputationWatchStatusBar.spark:SetBlendMode'ADD'
+        ReputationWatchStatusBar.spark:SetVertexColor(colour.r*1.3, colour.g*1.3, colour.b*1.3, .6)
+        ReputationWatchStatusBar.spark:SetPoint('CENTER', ReputationWatchStatusBar, 'LEFT', x, -1)
     end
 
     local f = CreateFrame'Frame'

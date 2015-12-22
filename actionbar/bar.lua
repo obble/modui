@@ -11,7 +11,7 @@
     icon:SetFrameLevel(4)
     icon:Show()
 
-    local t = icon:CreateFontString(nil, 'ARTWORK')
+    local t = icon:CreateFontString(nil, 'ARTWORK') -- MENU OPTIONS ICON
     t:SetFont(STANDARD_TEXT_FONT, 14, 'OUTLINE')
     t:SetPoint('CENTER', icon, .5, .5)
     t:SetText'M'

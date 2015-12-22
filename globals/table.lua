@@ -18,8 +18,19 @@
         ['Shadow Flame']            = {[[Interface\Icons\Spell_fire_incinerate]], 2},
         ['Wing Buffet']             = {[[Interface\Icons\Inv_misc_monsterscales_14]], 1},
         ['Bellowing Roar']          = {[[Interface\Icons\Spell_fire_fire]], 1.75},
+            -- MOLTEN CORE
+        ['Dark Mending']            = {[[Interface\Icons\Spell_shadow_chilltouch]], 2},
+        ['Dominate Mind']           = {[[Interface\Icons\Spell_shadow_shadowworddominate]], 2},
+        ['Elemental Fire']          = {[[Interface\Icons\Spell_fire_fireball02]], .5},
+        ['Magma Blast']             = {[[Interface\Icons\Spell_fire_fireblast]], 1},
+        ['Summon Ragnaros']         = {[[Interface\Icons\Spell_fire_lavaspawn]], 10},
             -- ONYXIA
         ['Breath']                  = {[[Interface\Icons\Spell_fire_fire]], 8},
+            -- DIRE MAIL
+        ['Arcane Bolt']             = {[[Interface\Icons\Spell_arcane_starfire]], 1},
+            -- STRATHOLME
+        ['Banshee Wail']            = {[[Interface\Icons\Spell_shadow_shadowbolt]], 1.5},
+        ['Venom Spit']              = {[[Interface\Icons\Spell_nature_corrosivebreath]], 2.5},
             -- GLOBAL
         ['Dark Mending']            = {[[Interface\Icons\Spell_shadow_chilltouch]], 2},
         ['Hearthstone']             = {[[Interface\Icons\INV_Misc_Rune_01]], 10},
@@ -160,7 +171,7 @@
         ['Inferno']                 = {[[Interface\Icons\Spell_fire_incinerate]], 2},
         ['Ritual of Doom']          = {[[Interface\Icons\Spell_shadow_antimagicshell]], 10},
         ['Ritual of Summoning']     = {[[Interface\Icons\Spell_shadow_twilight]], 5},
-        ['Searing Pain']            = {[[Interface\Icons\File:Spell_fire_soulburn]], 1.5},
+        ['Searing Pain']            = {[[Interface\Icons\Spell_fire_soulburn]], 1.5},
         ['Seduction']               = {[[Interface\Icons\Spell_shadow_mindsteal]], 1.5},
         ['Shadow Bolt']             = {[[Interface\Icons\Spell_shadow_shadowbolt]], 2.5},
         ['Soul Fire']               = {[[Interface\Icons\Spell_fire_fireball02]], 4},

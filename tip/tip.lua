@@ -16,6 +16,7 @@
     GameTooltipStatusBar:SetPoint('LEFT', GameTooltipStatusBar:GetParent(), 10, 0)
     GameTooltipStatusBar:SetPoint('RIGHT', GameTooltipStatusBar:GetParent(), -10, 0)
     GameTooltipStatusBar:SetPoint('TOP', GameTooltipStatusBar:GetParent(), 'BOTTOM', 0, 17)
+    GameTooltipStatusBar:SetFrameLevel(GameTooltipStatusBar:GetFrameLevel() + 2)
 
     GameTooltipHeaderText:SetFont(STANDARD_TEXT_FONT, 13)
     GameTooltipHeaderText:SetShadowOffset(.7, -.7)
@@ -79,7 +80,11 @@
             local classification = c == 'elite' and '(Elite)' or c == 'rare' and '(Rare)' or c == 'rareelite' and '(Rare Elite)' or '(Boss)'
             GameTooltipTextLeft2:SetText('Level '..t..' '..classification)
         end
-        if GameTooltipStatusBar:IsShown() and GameTooltipStatusBar:GetValue() > 0 then
+        if GameTooltipStatusBar:IsShown() and GameTooltipStatusBar:GetValue() > 0
+        and (not string.find(GameTooltip:GetParent():GetName(), 'PlayerFrame')
+         or  not string.find(GameTooltip:GetParent():GetName(), 'TargetFrame')
+         or  not string.find(GameTooltip:GetParent():GetName(), 'PartyFrame')
+         or  not string.find(GameTooltip:GetParent():GetName(), 'RaidFrame')) then
             GameTooltip:AddLine' '
         else
             GameTooltipStatusBar:Hide()
