@@ -27,6 +27,12 @@
     ReputationWatchStatusBar.spark:SetBlendMode'ADD'
     ReputationWatchStatusBar.spark:SetVertexColor(colour.r*1.3, colour.g*1.3, colour.b*1.3, .6)
 
+    function MainMenuExpBar_Update()
+        local xp, next = UnitXP'player', UnitXPMax'player'
+        MainMenuExpBar:SetMinMaxValues(min(0, xp), next)
+        MainMenuExpBar:SetValue(math.floor(xp))
+    end
+
     function ReputationWatchBar_Update(newLevel)
         if not newLevel then newLevel = UnitLevel'player' end
         orig.ReputationWatchBar_Update(newLevel)

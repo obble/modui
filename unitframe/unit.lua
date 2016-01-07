@@ -105,10 +105,11 @@
         if not sb then sb = this end
         orig.TextStatusBar_UpdateTextString(sb)
     	local string = sb.TextString
-    	if string and sb:GetName() ~= 'MainMenuExpBar' then
+    	if string then
             local pp = UnitPowerType'player'
     		local v  = math.floor(sb:GetValue())
     		local min, max = sb:GetMinMaxValues()
+            local percent = math.floor(v/max*100)
 
     		if max > 0 then
     			sb:Show()
@@ -129,14 +130,19 @@
                     return
     			else
                     PlayerFrame.status:SetText''
-                    if sb:GetName() == 'PlayerFrameManaBar'
+                    if sb:GetName() == 'MainMenuExpBar' then
+                        string:SetPoint('CENTER', sb) string:SetJustifyH'CENTER'
+                        if GetCVar'modValue' == '1' then
+			                string:SetText(true_format(v)..' / '..true_format(max))
+                        else
+                            string:SetText(percent..'%')
+                        end
+                    elseif sb:GetName() == 'PlayerFrameManaBar'
                     and (pp == 1 or pp == 2 or pp == 3) then
                         string:SetText(v)
                     else
-                        local percent = math.floor(v/max*100)
                         if GetCVar'modBoth' == '1' then
                             string:SetText(true_format(v)..'/'..true_format(max)..' — '..percent..'%')
-                            string:SetPoint('RIGHT', -8, 0)
                         elseif GetCVar'modValue'  == '1' and GetCVar'modBoth' == '0' then
                             string:SetText(true_format(v))
                         else
@@ -144,7 +150,7 @@
                         end
                     end
                     string:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
-                    if GetCVar'modStatus'  == '0' and GetCVar'modBoth' == '0' then
+                    if GetCVar'modStatus'  == '0' and GetCVar'modBoth' == '0' and sb:GetName() ~= 'MainMenuExpBar' then
                         string:ClearAllPoints()
                         string:SetJustifyV'MIDDLE'
                         string:SetPoint('CENTER',

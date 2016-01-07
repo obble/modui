@@ -7,7 +7,25 @@
     local GameTooltipStatusBar = GameTooltipStatusBar
     local orig = {}
 
+    local statustext = function()
+        TextStatusBar_UpdateTextString()
+        ShowTextStatusBarText(this)
+		if this:GetParent() == TargetFrame then
+            GameTooltip_SetDefaultAnchor(GameTooltip, this)
+            if GameTooltip:SetUnit(TargetFrame.unit) then
+                TargetFrame.updateTooltip = TOOLTIP_UPDATE_TIME
+            else
+                TargetFrame.updateTooltip = nil
+            end
+            TargetFrame.r, TargetFrame.g, TargetFrame.b = GameTooltip_UnitColor(TargetFrame.unit)
+            GameTooltipTextLeft1:SetTextColor(TargetFrame.r, TargetFrame.g, TargetFrame.b)
+            GameTooltip:AddLine' '
+        end
+        GameTooltip:Show()
+    end
+
     orig.UnitFrame_OnEnter = UnitFrame_OnEnter
+    orig.GameTooltip_SetDefaultAnchor = GameTooltip_SetDefaultAnchor
 
     GameTooltipStatusBar:SetHeight(5)
     GameTooltipStatusBar:SetStatusBarTexture(sb)
@@ -98,6 +116,8 @@
         orig.UnitFrame_OnEnter()
         GameTooltipStatusBar:Hide()
     end
+
+    for _, v in pairs({TargetFrameHealthBar, TargetFrameManaBar}) do v:SetScript('OnEnter', statustext) end
 
     local r = CreateFrame'Frame'
     r:RegisterEvent'ADDON_LOADED'

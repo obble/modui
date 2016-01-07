@@ -1,6 +1,7 @@
 
 
     for i = 1, 12 do
+        _G['ActionButton'..i..'Cooldown']:SetFrameLevel(_G['ActionButton'..i]:GetFrameLevel() + 1)
         for _, v in pairs({
             _G['ActionButton'..i],
             _G['MultiBarRightButton'..i],
