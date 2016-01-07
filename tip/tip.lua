@@ -1,5 +1,7 @@
 
 
+    if tonumber(GetCVar'modTooltip') == 0 then return end
+
     local sb = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
     local GameTooltip = GameTooltip
     local GameTooltipStatusBar = GameTooltipStatusBar
@@ -75,7 +77,7 @@
         local n = GameTooltipTextLeft2:GetText()
         local c = UnitClassification'mouseover'
         if g then GameTooltip:AddLine('<'..g..'>', 0, 1, .5) end
-        if string.find(n, 'Level (.+)') and c ~= 'normal' and c ~= 'minus' then
+        if n and string.find(n, 'Level (.+)') and c ~= 'normal' and c ~= 'minus' then
             local t = gsub(n, 'Level (.+) ((.+))', '%1')
             local classification = c == 'elite' and '(Elite)' or c == 'rare' and '(Rare)' or c == 'rareelite' and '(Rare Elite)' or '(Boss)'
             GameTooltipTextLeft2:SetText('Level '..t..' '..classification)

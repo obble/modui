@@ -16,7 +16,7 @@
 
     local handler = function()
         local n = bagspace()
-        if n == 0 then slots:SetText'Full!' else slots:SetText(n) end
+        if n == 0 then slots:SetText'|cffff0000Full!|r' else slots:SetText(n) end
     end
 
     local f = CreateFrame'Frame'

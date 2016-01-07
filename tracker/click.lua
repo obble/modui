@@ -19,12 +19,14 @@
     orig.QuestWatch_Update = QuestWatch_Update
     function QuestWatch_Update()
         orig.QuestWatch_Update()
-        for i = 1, GetNumQuestWatches() do
-            local qi = GetQuestIndexForWatch(i)
-            if qi then
-                for j = 1, MAX_QUESTWATCH_LINES do
-                    local w = _G['QuestWatchLine'..j]
-                    if w and w:GetText() == GetQuestLogTitle(qi) then link(i, w, qi) end
+        if tonumber(GetCVar'modQuestWatch') == 1 then
+            for i = 1, GetNumQuestWatches() do
+                local qi = GetQuestIndexForWatch(i)
+                if qi then
+                    for j = 1, MAX_QUESTWATCH_LINES do
+                        local w = _G['QuestWatchLine'..j]
+                        if w and w:GetText() == GetQuestLogTitle(qi) then link(i, w, qi) end
+                    end
                 end
             end
         end

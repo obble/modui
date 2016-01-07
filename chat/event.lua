@@ -7,8 +7,6 @@
     local currentURL
     local orig = {}
 
-    local ts = false    -- TOGGLE TIMESTAMPS ON/OFF w/ "true"/"false"
-
         -- EVENTS
     local chatevents = {
         CHAT_MSG_BG_SYSTEM_ALLIANCE = {
@@ -78,17 +76,19 @@
     }
 
         -- CHANNELS
-    CHAT_GUILD_GET = '|Hchannel:Guild|hg|h %s:\32'                        -- GUILD          'g'
-    CHAT_OFFICER_GET = '|Hchannel:o|ho|h %s:\32'                          -- OFFICER        'o'
-    CHAT_RAID_GET = '|Hchannel:raid|hr|h %s:\32'                          -- RAID           'r'
-    CHAT_RAID_WARNING_GET = 'rw %s:\32'                                   -- RAID W         'rw'
-    CHAT_RAID_LEADER_GET = '|Hchannel:raid|hrl|h %s:\32'                  -- RAID L         'rl'
-    CHAT_BATTLEGROUND_GET = '|Hchannel:Battleground|hbg|h %s:\32'         -- BG             'bg'
-    CHAT_BATTLEGROUND_LEADER_GET = '|Hchannel:Battleground|hbl|h %s:\32'  -- BG L           'bl'
-    CHAT_PARTY_GET = '|Hchannel:party|hp|h %s:\32'                        -- PARTY          'p'
-    CHAT_PARTY_GUIDE_GET = '|Hchannel:party|hdg|h %s:\32'                 -- DUNGEONGUIDE   'dg'
-    CHAT_MONSTER_PARTY_GET = '|Hchannel:raid|hr|h %s:\32'                 -- RAID           'r'
-    local URL = '|cff0ce27b%s|r'                                          -- URLS
+    if tonumber(GetCVar'modChatFormat') == 1 then
+        CHAT_GUILD_GET = '|Hchannel:Guild|hg|h %s:\32'                        -- GUILD          'g'
+        CHAT_OFFICER_GET = '|Hchannel:o|ho|h %s:\32'                          -- OFFICER        'o'
+        CHAT_RAID_GET = '|Hchannel:raid|hr|h %s:\32'                          -- RAID           'r'
+        CHAT_RAID_WARNING_GET = 'rw %s:\32'                                   -- RAID W         'rw'
+        CHAT_RAID_LEADER_GET = '|Hchannel:raid|hrl|h %s:\32'                  -- RAID L         'rl'
+        CHAT_BATTLEGROUND_GET = '|Hchannel:Battleground|hbg|h %s:\32'         -- BG             'bg'
+        CHAT_BATTLEGROUND_LEADER_GET = '|Hchannel:Battleground|hbl|h %s:\32'  -- BG L           'bl'
+        CHAT_PARTY_GET = '|Hchannel:party|hp|h %s:\32'                        -- PARTY          'p'
+        CHAT_PARTY_GUIDE_GET = '|Hchannel:party|hdg|h %s:\32'                 -- DUNGEONGUIDE   'dg'
+        CHAT_MONSTER_PARTY_GET = '|Hchannel:raid|hr|h %s:\32'                 -- RAID           'r'
+    end
+    local URL = '|cff0ce27b%s|r'                                              -- URLS
 
         -- URL TYPES
     local URL_PATTERNS = {      -- pinched from PhanxChat, sorry phanx
@@ -170,16 +170,21 @@
    local AddMessage = function(f, t, r, g, b, id)
        if t == nil then return _AddMessage(f, t, r, g, b, id) end
        local colour = HEX_CLASS_COLORS[class]
-       local d = date'%H.%M'..string.lower(date('%p'))
-       t = gsub(t, '%[(%d+)%. .+%].+(|Hplayer.+)', '%1 %2')               -- WORLD CHANNELS '1'
-       t = gsub(t, '|H(.-)|h%[(.-)%]|h', '|H%1|h%2|h')                    -- STRIP BRACKETS
-       t = gsub(t, 'Guild Message of the Day:', 'GMOTD —')                -- MOTD
-       if ts then t = string.format('|cff'..colour..'%s|r %s', d, t) end  -- TIMESTAMP
-       for i, v in pairs(chatevents) do                                   -- CHAT EVENTS
-           for k, j in pairs(v) do
-               if string.find(t, k)then
-                   -- print(k, 'is a match.')
-                   t = gsub(t, k, j)
+       local ts = tonumber(GetCVar'modTimestamp')
+       local d = date'%H.%M'..string.lower(date'%p')
+       if tonumber(GetCVar'modItemLink') == 1 then
+           t = gsub(t, '|H(.-)|h%[(.-)%]|h', '|H%1|h%2|h')                -- STRIP BRACKETS
+       end
+       if tonumber(GetCVar'modChatFormat') == 1 then
+           t = gsub(t, '%[(%d+)%. .+%].+(|Hplayer.+)', '%1 %2')               -- WORLD CHANNELS '1'
+           t = gsub(t, 'Guild Message of the Day:', 'GMOTD —')                -- MOTD
+           if ts == 1 then t = string.format('|cff'..colour..'%s|r %s', d, t) end  -- TIMESTAMP
+           for i, v in pairs(chatevents) do                                   -- CHAT EVENTS
+               for k, j in pairs(v) do
+                   if string.find(t, k)then
+                       -- print(k, 'is a match.')
+                       t = gsub(t, k, j)
+                   end
                end
            end
        end

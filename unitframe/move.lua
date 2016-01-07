@@ -1,5 +1,7 @@
 
 
+    if tonumber(GetCVar'modUnitFrame') == 0 then return end
+    
     local orig = {}
 
     for _, v in pairs({ PlayerFrame, TargetFrame, PartyMemberFrame1 }) do

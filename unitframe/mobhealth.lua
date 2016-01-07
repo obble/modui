@@ -1,11 +1,13 @@
 
 
+    if tonumber(GetCVar'modUnitFrame') == 0 then return end
+
     local move = function()
         for _, v in pairs ({MobHealth3BlizzardHealthText, MobHealth3BlizzardPowerText}) do
             v:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
             v:SetShadowOffset(0, 0)
             v:SetJustifyV'MIDDLE'
-            if GetCVar'modStatus'  == '1' and GetCVar'modBoth' == '0' then
+            if GetCVar'modStatus'  == '0' and GetCVar'modBoth' == '0' then
                 v:ClearAllPoints()
                 v:SetPoint('CENTER',
                             TargetFrame,
@@ -46,6 +48,7 @@
     end
 
     function MH3Blizz:PowerUpdate()
+        local class   = UnitClass'target'
         local v, max  = UnitMana'target', UnitManaMax'target'
         local percent = math.floor(v/max*100)
         local string  = MobHealth3BlizzardPowerText
@@ -62,7 +65,7 @@
             end
             string:SetPoint('RIGHT', -8, 0)
         elseif GetCVar'modValue'  == '1' and GetCVar'modBoth' == '0' then
-            local logic = MH3BlizzConfig.powerPerc and v <= 100 and percent == v
+            local logic = MH3BlizzConfig.powerPerc and v <= 100 and percent == v and class ~= 'Rogue'
             local t = logic and true_format(v)..'%' or true_format(v)
             string:SetText(t)
         else

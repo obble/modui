@@ -2,7 +2,7 @@
 ## Author: modernist
 ## Title:  ui
 ## Notes: ui s.
-## SavedVariables: Status, Value, Both
+##SavedVariablesPerCharacter: modAction, modStatus, modValue, modBoth, modGryphon, modEndcap, modTimestamp, modAuraFormat, modOneBag, modChatFormat, modItemLink, modBattleMap, modDungeonMap, modNameplate, modQuestWatch, modTooltip, modUnitFrame, modPVPTimers, modPVPRank, modStopWatch, MODUI_COLOUR_FOR_UI
 
 globals\auction.lua
 globals\colour.lua
@@ -21,8 +21,6 @@ actionbar\xp.lua
 
 globals\arrange.lua
 
-menu\menu.lua
-
 libs\libs\AceLibrary\AceLibrary.lua
 libs\libs\AceOO-2.0\AceOO-2.0.lua
 libs\libs\AceEvent-2.0\AceEvent-2.0.lua
@@ -34,9 +32,23 @@ libs\healcomm\HealComm.lua
 libs\mobhealth\MobHealth3.lua
 libs\mobhealth\MH3_Blizzard.lua
 
+dark\dark.lua
+
+options\menu.lua
+options\options_display.lua
+options\options_status.lua
+options\options_elements.lua
+options\options_colour.lua
+options\options_actionbar.lua
+options\options_modraid.lua
+
+bag\template.lua
+bag\bag.lua
+
 skin\method\method.lua
 skin\button\action.lua
 skin\button\addon.lua
+skin\button\auctions.lua
 skin\button\aura.lua
 skin\button\bag.lua
 skin\button\bank.lua
@@ -56,19 +68,15 @@ skin\button\talent.lua
 skin\button\target.lua
 skin\button\trade.lua
 skin\frame\character.lua
+skin\frame\options.lua
 skin\frame\tip.lua
 skin\frame\tutorial.lua
 skin\balloon.lua
 skin\skin.lua
 
-bag\template.lua
-bag\bag.lua
-
 chat\chat.lua
 chat\event.lua
 chat\quest.lua
-
-dark\dark.lua
 
 map\mini.lua
 map\pvp.lua

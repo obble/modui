@@ -80,14 +80,16 @@
 	end
 
 	local sw_show = function()
-		if visible then
-			sw:Hide()
-			visible = false
-			t0 = nil
-		else
-			sw:Show()
-			t:SetText'0:0:0'
-			visible = true
+		if tonumber(GetCVar'modStopWatch') == 1 then
+			if visible then
+				sw:Hide()
+				visible = false
+				t0 = nil
+			else
+				sw:Show()
+				t:SetText'0:0:0'
+				visible = true
+			end
 		end
 	end
 
@@ -146,7 +148,7 @@
 				GameTooltip:SetText(format(TEXT(TIME_TWELVEHOURPM), h, m))
 			end
 		end
-		GameTooltip:AddLine'Click to Toggle Stopwatch.'
+		if tonumber(GetCVar'modStopWatch') == 1 then GameTooltip:AddLine'Click to Toggle Stopwatch.' end
 		GameTooltip:Show()
 	end
 
@@ -154,27 +156,29 @@
 	SLASH_STOPWATCH2 = '/sw'
 	SLASH_STOPWATCH3 = '/timer'
 	SlashCmdList['STOPWATCH'] = function(arg)
-		if arg == '' then sw_show()
-		else
-			local t = strlower(arg)
-			if string.find(t, 'play') or string.find(t, 'start') then
-				sw_start() return
-			end
-			if string.find(t, 'pause') then
-				sw_stop() return
-			end
-			if string.find(t, 'stop') or string.find(t, 'reset') or string.find(t, 'clear') then
-				sw_reset() return
-			end
-			local y, _, h, m, s = string.find(arg, '(%d+):(%d+):(%d+)')
-			if y then sw_countdown(tonumber(h), tonumber(m), tonumber(s))
+		if tonumber(GetCVar'modStopWatch') == 1 then
+			if arg == '' then sw_show()
 			else
-				local y, _, m, s = string.find(arg, '(%d+):(%d+)')
-				if y then sw_countdown(0, tonumber(m), tonumber(s))
+				local t = strlower(arg)
+				if string.find(t, 'play') or string.find(t, 'start') then
+					sw_start() return
+				end
+				if string.find(t, 'pause') then
+					sw_stop() return
+				end
+				if string.find(t, 'stop') or string.find(t, 'reset') or string.find(t, 'clear') then
+					sw_reset() return
+				end
+				local y, _, h, m, s = string.find(arg, '(%d+):(%d+):(%d+)')
+				if y then sw_countdown(tonumber(h), tonumber(m), tonumber(s))
 				else
-					local y, _, s = string.find(arg, '(%d+)')
-					if y then sw_countdown(0, 0, tonumber(s))
-					else sw_show()
+					local y, _, m, s = string.find(arg, '(%d+):(%d+)')
+					if y then sw_countdown(0, tonumber(m), tonumber(s))
+					else
+						local y, _, s = string.find(arg, '(%d+)')
+						if y then sw_countdown(0, 0, tonumber(s))
+						else sw_show()
+						end
 					end
 				end
 			end

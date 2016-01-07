@@ -164,13 +164,15 @@
             end
         end
         if arg1 == 'Blizzard_BattlefieldMinimap' then
-            local s = nil
-            enable() blips(s)
-            this:RegisterEvent'CHAT_MSG_BG_SYSTEM_ALLIANCE' this:RegisterEvent'CHAT_MSG_BG_SYSTEM_HORDE'
-            this:RegisterEvent'RAID_ROSTER_UPDATE' this:RegisterEvent'ZONE_CHANGED_NEW_AREA'
-            this:UnregisterEvent'ADDON_LOADED'
-            function BattlefieldMinimap_Toggle() toggle() end
-            f.loaded = true
+            if tonumber(GetCVar'modBattleMap') == 1 then
+                local s = nil
+                enable() blips(s)
+                this:RegisterEvent'CHAT_MSG_BG_SYSTEM_ALLIANCE' this:RegisterEvent'CHAT_MSG_BG_SYSTEM_HORDE'
+                this:RegisterEvent'RAID_ROSTER_UPDATE' this:RegisterEvent'ZONE_CHANGED_NEW_AREA'
+                this:UnregisterEvent'ADDON_LOADED'
+                function BattlefieldMinimap_Toggle() toggle() end
+                f.loaded = true
+            end
         end
     end)
 

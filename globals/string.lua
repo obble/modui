@@ -10,17 +10,24 @@
         return count
     end
 
+    MODUI_UICOLOR_DEFAULT = {r = .2, g = .2, b = .2}
+    MODUI_COLOUR_FOR_UI   = {}
+    MODUI_COLOURELEMENTS_FOR_UI          = {}
+    MODUI_COLOURELEMENTS_BORDER_FOR_UI   = {}
+
+    STANDARD_TEXT_FONT = [[Fonts\ARIALN.ttf]]
+
     CHAT_FLAG_AFK = 'AFK — '
     CHAT_FLAG_DND = 'DND — '
-    CHAT_FLAG_GM =  'GM — '
+    CHAT_FLAG_GM  = 'GM — '
 
     _G.FOREIGN_SERVER_LABEL = ' —'
 
-    _G.GOLD_AMOUNT =    '|cffffffff%d|r|TInterface\\MONEYFRAME\\UI-GoldIcon:14:14:2:0|t'
+    _G.GOLD_AMOUNT   =  '|cffffffff%d|r|TInterface\\MONEYFRAME\\UI-GoldIcon:14:14:2:0|t'
     _G.SILVER_AMOUNT =  '|cffffffff%d|r|TInterface\\MONEYFRAME\\UI-SilverIcon:14:14:2:0|t'
     _G.COPPER_AMOUNT =  '|cffffffff%d|r|TInterface\\MONEYFRAME\\UI-CopperIcon:14:14:2:0|t'
 
-    GROUP = 'g'
+    GROUP = 'group'
 
     RAID_CLASS_COLORS['SHAMAN'] = { r = 0, g = .44, b = .87, colorStr = 'ff0070de'}
 

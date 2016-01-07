@@ -7,7 +7,7 @@
 
     orig.ReputationWatchBar_Update = ReputationWatchBar_Update
 
-    MainMenuExpBar:SetHeight(5)
+    MainMenuExpBar:SetWidth(1021) MainMenuExpBar:SetHeight(5)
     MainMenuExpBar:ClearAllPoints() MainMenuExpBar:SetPoint('TOP', MainMenuBar, 0, -4)
     MainMenuExpBar:SetBackdrop(BACKDROP)
     MainMenuExpBar:SetBackdropColor(0, 0, 0, 1)
@@ -17,6 +17,7 @@
     MainMenuExpBar.spark:SetWidth(35) MainMenuExpBar.spark:SetHeight(35)
     MainMenuExpBar.spark:SetBlendMode'ADD'
 
+    ReputationWatchStatusBar:SetWidth(1021)
     ReputationWatchStatusBar:SetBackdrop(BACKDROP)
     ReputationWatchStatusBar:SetBackdropColor(0, 0, 0, 1)
 

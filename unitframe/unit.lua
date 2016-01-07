@@ -1,5 +1,7 @@
 
 
+    if tonumber(GetCVar'modUnitFrame') == 0 then return end
+
     local BG = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
     local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]]}
     local _, class = UnitClass'player'
@@ -18,7 +20,7 @@
     PlayerFrame.status:SetShadowOffset(0, 0)
     PlayerFrame.status:SetTextColor(1, 0, 0)
     PlayerFrame.status:SetPoint('CENTER', PlayerFrameHealthBar, 0, -5)
-    
+
     PlayerFrameHealthBar:SetBackdrop(BACKDROP)
     PlayerFrameHealthBar:SetBackdropColor(0, 0, 0, .6)
 
@@ -43,8 +45,11 @@
     TargetLevelText:SetJustifyH'LEFT'
     TargetLevelText:SetPoint('LEFT', TargetFrameTextureFrame, 'CENTER', 56, -16)
 
-    local classification = TargetFrameTextureFrame:CreateFontString(nil, 'OVERLAY')
-    classification:SetFontObject(GameFontNormalSmall)
+    for i = 1, 4 do
+        for _, v in pairs({_G['PartyMemberFrame'..i..'HealthBar'], _G['PartyMemberFrame'..i..'ManaBar']}) do
+            v:SetBackdrop(BACKDROP) v:SetBackdropColor(0, 0, 0, .6)
+        end
+    end
 
 
     local colourParty = function()              -- PARTY CLASS COLOUR
@@ -139,7 +144,7 @@
                         end
                     end
                     string:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
-                    if GetCVar'modStatus'  == '1' and GetCVar'modBoth' == '0' then
+                    if GetCVar'modStatus'  == '0' and GetCVar'modBoth' == '0' then
                         string:ClearAllPoints()
                         string:SetJustifyV'MIDDLE'
                         string:SetPoint('CENTER',
@@ -152,45 +157,6 @@
             end
     	end
     end
-
-    RegisterCVar('modStatus', 1, true)          -- TOGGLE HORIZONTAL VALUES
-    MODSTATUS_BAR_TEXT = 'modui: Side-by-Side Status Text'
-    UIOptionsFrameCheckButtons['MODSTATUS_BAR_TEXT'] = { index = 70, cvar = 'modStatus'}
-    UIOptionsFrameCheckButton70 = CreateFrame('CheckButton', 'UIOptionsFrameCheckButton70', UIOptionsFrameCheckButton2, 'UIOptionsCheckButtonTemplate')
-    UIOptionsFrameCheckButton70:SetHeight(20) UIOptionsFrameCheckButton70:SetWidth(20)
-    UIOptionsFrameCheckButton70:SetPoint('LEFT', UIOptionsFrameCheckButton2, 'RIGHT', 100, 0)
-
-    local w = UIOptionsFrameCheckButton70:CreateFontString(nil, 'OVERLAY')
-    w:SetFontObject(GameFontNormalSmall)
-    w:SetText'Will reload ui!'
-    w:SetTextColor(1, .2, 0)
-    w:SetPoint('TOPLEFT', UIOptionsFrameCheckButton70, 'BOTTOMRIGHT')
-
-    RegisterCVar('modValue', 1, true)           -- TOGGLE PERCENT VALUES
-    MODSTATUS_BAR_VALUE = 'modui: \% or True Value Text on Statusbars'
-    UIOptionsFrameCheckButtons['MODSTATUS_BAR_VALUE'] = { index = 71, cvar = 'modValue'}
-    UIOptionsFrameCheckButton71 = CreateFrame('CheckButton', 'UIOptionsFrameCheckButton71', UIOptionsFrameCheckButton2, 'UIOptionsCheckButtonTemplate')
-    UIOptionsFrameCheckButton71:SetHeight(20) UIOptionsFrameCheckButton71:SetWidth(20)
-    UIOptionsFrameCheckButton71:SetPoint('LEFT', UIOptionsFrameCheckButton2, 'RIGHT', 100, -30)
-
-    local x = UIOptionsFrameCheckButton71:CreateFontString(nil, 'OVERLAY')
-    x:SetFontObject(GameFontNormalSmall)
-    x:SetText'Will reload ui!'
-    x:SetTextColor(1, .2, 0)
-    x:SetPoint('TOPLEFT', UIOptionsFrameCheckButton71, 'BOTTOMRIGHT')
-
-    RegisterCVar('modBoth', 1, true)            -- CONSOLIDATED VALUE DISPLAY (TRUE + %)
-    MODSTATUS_BAR_CONSOLIDATE = 'modui: True & % Values on Statusbars'
-    UIOptionsFrameCheckButtons['MODSTATUS_BAR_CONSOLIDATE'] = { index = 72, cvar = 'modBoth'}
-    UIOptionsFrameCheckButton72 = CreateFrame('CheckButton', 'UIOptionsFrameCheckButton72', UIOptionsFrameCheckButton2, 'UIOptionsCheckButtonTemplate')
-    UIOptionsFrameCheckButton72:SetHeight(20) UIOptionsFrameCheckButton72:SetWidth(20)
-    UIOptionsFrameCheckButton72:SetPoint('LEFT', UIOptionsFrameCheckButton2, 'RIGHT', 100, -70)
-
-    local z = UIOptionsFrameCheckButton72:CreateFontString(nil, 'OVERLAY')
-    z:SetFontObject(GameFontNormalSmall)
-    z:SetText'Will reload ui!'
-    z:SetTextColor(1, .2, 0)
-    z:SetPoint('TOPLEFT', UIOptionsFrameCheckButton72, 'BOTTOMRIGHT')
 
     local cv = GetCVar'modStatus' local cv2 = GetCVar'modValue' local cv3 = GetCVar'ModBoth'
     local f = CreateFrame'Frame'

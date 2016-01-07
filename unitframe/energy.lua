@@ -1,5 +1,7 @@
 
 
+    if tonumber(GetCVar'modUnitFrame') == 0 then return end
+    
     local class = UnitClass'player'
     if not (class == 'Rogue' or class == 'Druid') then return end
 

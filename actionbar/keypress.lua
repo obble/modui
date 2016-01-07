@@ -9,9 +9,14 @@
 	function ActionButton_OnUpdate(elapsed)
 		orig.ActionButton_OnUpdate(elapsed)
 		local nutime = GetTime()
+		if this:GetChecked() then this.checked = true modSkinColor(this, 1, 175/255, 155/255) end
 		if this.keypress and modSkinned(this) then
 			local i = nutime - this.keypress
 			modSkinColor(this, .075/i, .05/i, .025/i)
+		end
+		if this.checked and not this:GetChecked() then
+			modSkinColor(this, .2, .2, .2)
+			this.checked = nil
 		end
 		if this.keypress and nutime > (this.keypress + .4) then
 			modSkinColor(this, .2, .2, .2)

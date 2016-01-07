@@ -4,8 +4,13 @@
     local colour = {r = .2, g = .2, b = .2} -- COLOUR APPLIED TO TEXTURES (RGB value)
 
     orig.TargetFrame_CheckClassification   = TargetFrame_CheckClassification
-    orig.GroupLootFrame_OnShow             = GroupLootFrame_OnShow
 
+    for _, v in pairs(MODUI_COLOURELEMENTS_FOR_UI) do
+         table.remove(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
+    for _, v in pairs(MODUI_COLOURELEMENTS_BORDER_FOR_UI) do
+         table.remove(MODUI_COLOURELEMENTS_BORDER_FOR_UI, v)
+    end
 
         -- MINIMAP CLUSTER
     for i, v in pairs({
@@ -15,7 +20,7 @@
         MiniMapMeetingStoneBorder,
         MiniMapMailBorder,
         MiniMapBattlefieldBorder,
-    }) do v:SetVertexColor(colour.r*.5, colour.g*.5, colour.b*.5) end
+    }) do table.insert(MODUI_COLOURELEMENTS_FOR_UI, v) end
 
     MinimapBorderTop:Hide()
     MinimapToggleButton:Hide()
@@ -24,7 +29,7 @@
     b:SetPoint('TOPLEFT', GameTimeFrame)
     b:SetPoint('BOTTOMRIGHT', GameTimeFrame, 33, -33)
     b:SetTexture[[Interface\Minimap\MiniMap-TrackingBorder]]
-    b:SetVertexColor(colour.r, colour.g, colour.b)
+    table.insert(MODUI_COLOURELEMENTS_FOR_UI, b)
 
 
         -- UNIT & CASTBAR
@@ -42,7 +47,7 @@
         PartyMemberFrame4PetFrameTexture,
         TargetofTargetTexture,
         CastingBarBorder,
-    }) do v:SetVertexColor(colour.r*.8, colour.g*.8, colour.b*.8) end
+    }) do table.insert(MODUI_COLOURELEMENTS_FOR_UI, v) end
 
     for i, v in pairs({
         PlayerPVPIcon,
@@ -79,13 +84,16 @@
         ReputationXPBarTexture1,
         ReputationXPBarTexture2,
         ReputationXPBarTexture3,
-    }) do v:SetVertexColor(colour.r*1.1, colour.g*1.1, colour.b*1.1) end
+    }) do table.insert(MODUI_COLOURELEMENTS_FOR_UI, v) end
 
     for i,v in pairs({
         MainMenuBarLeftEndCap,
         MainMenuBarRightEndCap,
         ExhaustionTick:GetNormalTexture(),
-    }) do v:SetVertexColor(colour.r*1.2, colour.g*1.2, colour.b*1.2) v:SetDrawLayer('OVERLAY', 7) end
+    }) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+        v:SetDrawLayer('OVERLAY', 7)
+    end
 
     for i = 0, 3 do _G['MainMenuXPBarTexture'..i]:SetTexture'' end
     for i = 0, 3 do _G['ReputationWatchBarTexture'..i]:SetTexture'' end
@@ -99,74 +107,58 @@
     for i = 1, 12 do
         local bagName = 'ContainerFrame'..i
         local _, a, b, _, c, _, d = _G[bagName]:GetRegions()
-        for _, v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+        for _, v in pairs({a, b, c, d}) do table.insert(MODUI_COLOURELEMENTS_FOR_UI, v) end
         if i  > 5 then   -- BANK BAGS
-            for _, v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r*1.3, colour.g*1.3, colour.b*1.3) end
+            for _, v in pairs({a, b, c, d}) do table.insert(MODUI_COLOURELEMENTS_FOR_UI, v) end
         end
     end
 
-        -- MODBAG
-    for _, v in pairs({
-        ButtonFrameTemplate.PortraitFrame.BG,
-        ButtonFrameTemplate.PortraitFrame.TitleBG,
-        ButtonFrameTemplate.PortraitFrame.PortraitFrame,
-        ButtonFrameTemplate.PortraitFrame.TopRightCorner,
-        ButtonFrameTemplate.PortraitFrame.TopBorder,
-        ButtonFrameTemplate.PortraitFrame.BotLeftCorner,
-        ButtonFrameTemplate.PortraitFrame.BotRightCorner,
-        ButtonFrameTemplate.PortraitFrame.BottomBorder,
-        ButtonFrameTemplate.PortraitFrame.LeftBorder,
-        ButtonFrameTemplate.PortraitFrame.RightBorder,
-        ButtonFrameTemplate.BtnCornerLeft,
-        ButtonFrameTemplate.BtnCornerRight,
-    }) do
-        if v then v:SetVertexColor(colour.r, colour.g, colour.b) end
-    end
-
-    ButtonFrameTemplate.PortraitFrame.TopTileStreaks:SetVertexColor(colour.r*.5, colour.b*.5, colour.b*.5)
-
-    for _, v in pairs ({
-        ButtonFrameTemplate.Inset.BG,
-        ButtonFrameTemplate.Inset.TopLeftCorner,
-        ButtonFrameTemplate.Inset.TopRightCorner,
-        ButtonFrameTemplate.Inset.BotLeftCorner,
-        ButtonFrameTemplate.Inset.BotRightCorner,
-    }) do
-        if v then v:SetVertexColor(colour.r*5, colour.g*5, colour.b*5) end
-    end
-
     local _, a = BankFrame:GetRegions()
-    for i,v in pairs({a}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
 
 
 	    -- PAPERDOLL
     local a, b, c, d, _, e = PaperDollFrame:GetRegions()
-    for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(colour.r*1.1, colour.g*1.1, colour.b*1.1) end
+    for _, v in pairs({a, b, c, d, e}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
 
 
         -- WORLDMAP
     local _, a, b, c, d, e, _, _, f, g, h, j, k = WorldMapFrame:GetRegions()
-    for _, v in pairs({a, b, c, d, e, f, g, h, j, k}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d, e, f, g, h, j, k}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
 
 
         -- LOOT
     local _, a = LootFrame:GetRegions()
-    a:SetVertexColor(colour.r, colour.g, colour.b)
+    table.insert(MODUI_COLOURELEMENTS_FOR_UI, a)
 
 
         -- TAXI
     local _, a, b, c, d = TaxiFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
 
 
         -- MERCHANT
     local _, a, b, c, d, _, _, _, e, f, g, h, j, k = MerchantFrame:GetRegions()
-    for i,v in pairs({a, b, c ,d, e, f, g, h, j, k}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
-    MerchantBuyBackItemNameFrame:SetVertexColor(colour.r*1.3, colour.g*1.3, colour.b*1.3)
+    for _, v in pairs({a, b, c ,d, e, f, g, h, j, k}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
+
+    table.insert(MODUI_COLOURELEMENTS_FOR_UI, MerchantBuyBackItemNameFrame)
 
         -- MAIL
     local _, a, b, c, d = MailFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
+
     MailFrame.Material = MailFrame:CreateTexture(nil, 'OVERLAY', nil, 7)
     MailFrame.Material:SetTexture[[Interface\AddOns\modui\dark\quest\QuestBG.tga]]
     MailFrame.Material:SetWidth(530) MailFrame.Material:SetHeight(540)
@@ -182,29 +174,49 @@
 
         -- SKILL
     local a, b, c, d = SkillFrame:GetRegions()
-    for i,v in pairs({a, b, c ,d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
-    for i,v in pairs({ ReputationDetailCorner,
-                       ReputationDetailDivider }) do v:SetVertexColor(colour.r, colour.g, colour.b) end
-    ReputationDetailFrame:SetBackdropBorderColor(colour.r, colour.g, colour.b)
+    for _, v in pairs({a, b, c ,d}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
+    for _, v in pairs({ ReputationDetailCorner, ReputationDetailDivider }) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
+
+    table.insert(MODUI_COLOURELEMENTS_BORDER_FOR_UI, ReputationDetailFrame)
 
 
         -- REPUTATION
     local a, b, c, d = ReputationFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
     for i = 1, 15 do
         local a, b = _G['ReputationBar'..i]:GetRegions()
-        for k,v in pairs({a, b}) do v:SetVertexColor(colour.r*1.2, colour.g*1.2, colour.b*1.2) end
+        for _, v in pairs({a, b}) do
+            table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+        end
     end
 
 
         -- HONOR
     local a, b, c, d = HonorFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
+
+
+        -- SCOREBOARD
+    local a, b, c, d, e, f, _, _, _, _, _, _, g = WorldStateScoreFrame:GetRegions()
+    for _, v in pairs({a, b, c, d, e, f, g, h, j, k}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
 
 
         -- SPELLBOOK
     local _, a, b, c, d = SpellBookFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
+
     SpellBookFrame.Material = SpellBookFrame:CreateTexture(nil, 'OVERLAY', nil, 7)
     SpellBookFrame.Material:SetTexture[[Interface\AddOns\modui\dark\quest\QuestBG.tga]]
     SpellBookFrame.Material:SetWidth(525)
@@ -215,7 +227,10 @@
 
         -- LOG
     local _, _, a, b, c, d = QuestLogFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
+
     QuestLogFrame.Material = QuestLogFrame:CreateTexture(nil, 'OVERLAY', nil, 7)
     QuestLogFrame.Material:SetTexture[[Interface\AddOns\modui\dark\quest\QuestBG.tga]]
     QuestLogFrame.Material:SetWidth(510)
@@ -224,40 +239,55 @@
     QuestLogFrame.Material:SetVertexColor(.7, .7, .7)
 
         -- QUEST TIMER
-    QuestTimerFrame:SetBackdropBorderColor(colour.r, colour.g, colour.b)
-    QuestTimerHeader:SetVertexColor(colour.r, colour.g, colour.b)
+    table.insert(MODUI_COLOURELEMENTS_BORDER_FOR_UI, QuestTimerFrame)
+    table.insert(MODUI_COLOURELEMENTS_FOR_UI, QuestTimerHeader)
 
 
         -- SOCIAL
     local _, a, b, c, d = FriendsFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
+
     local a = ({GuildMemberDetailFrame:GetRegions()})
-    a[20]:SetVertexColor(colour.r, colour.g, colour.b)
-    GuildMemberDetailFrame:SetBackdropBorderColor(colour.r, colour.g, colour.b)
-    GuildMemberDetailCorner:SetVertexColor(colour.r, colour.g, colour.b)
+    table.insert(MODUI_COLOURELEMENTS_FOR_UI, a[20])
+
+    table.insert(MODUI_COLOURELEMENTS_BORDER_FOR_UI, GuildMemberDetailFrame)
+    table.insert(MODUI_COLOURELEMENTS_FOR_UI, GuildMemberDetailCorner)
 
         -- MAIL
     local _, a, b, c, d = OpenMailFrame:GetRegions()
-    for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
 
 
         -- TRADE
     local _, _, a, b, c, d = TradeFrame:GetRegions()
-    for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d, e}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
 
 
         -- TABARD
     local _, a, b, c, d = TabardFrame:GetRegions()
-    for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d, e}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
 
         -- WARDROBE
     local _, a, b, c, d = DressUpFrame:GetRegions()
-    for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d, e}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
 
 
         -- BOOK
     local _, a, b, c, d = ItemTextFrame:GetRegions()
-    for i,v in pairs({a, b, c, d, e}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d, e}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
+
     ItemTextFrame.Material = ItemTextFrame:CreateTexture(nil, 'OVERLAY', nil, 7)
     ItemTextFrame.Material:SetTexture[[Interface\AddOns\modui\dark\quest\QuestBG.tga]]
     ItemTextFrame.Material:SetWidth(510)
@@ -266,25 +296,40 @@
     ItemTextFrame.Material:SetVertexColor(.7, .7, .7)
 
 
+        -- COLOURPICKER
+    table.insert(MODUI_COLOURELEMENTS_BORDER_FOR_UI, ColorPickerFrame)
+    table.insert(MODUI_COLOURELEMENTS_FOR_UI, ColorPickerFrameHeader)
+
+
         -- MENU
-    GameMenuFrame:SetBackdropBorderColor(colour.r, colour.g, colour.b)
-    GameMenuFrameHeader:SetVertexColor(colour.r, colour.g, colour.b)
+    table.insert(MODUI_COLOURELEMENTS_BORDER_FOR_UI, GameMenuFrame)
+    table.insert(MODUI_COLOURELEMENTS_FOR_UI, GameMenuFrameHeader)
+
+        -- SOUND MENU
+    table.insert(MODUI_COLOURELEMENTS_BORDER_FOR_UI, SoundOptionsFrame)
+    table.insert(MODUI_COLOURELEMENTS_FOR_UI, SoundOptionsFrameHeader)
+
+        -- GRAPHICS MENU
+    table.insert(MODUI_COLOURELEMENTS_BORDER_FOR_UI, OptionsFrame)
+    table.insert(MODUI_COLOURELEMENTS_FOR_UI, OptionsFrameHeader)
 
 
         -- HELP
     local a, b, c, d, e, f, g = HelpFrame:GetRegions()
-    for i,v in pairs({a, b, c, d, e, f, g}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+    for _, v in pairs({a, b, c, d, e, f, g}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
 
 
         -- QUEST
-    for i,v in pairs({
+    for _, v in pairs({
         QuestFrameGreetingPanel,
         QuestFrameDetailPanel,
         QuestFrameProgressPanel,
         QuestFrameRewardPanel,
         GossipFrameGreetingPanel}) do
         local a, b, c, d = v:GetRegions()
-        for k,j in pairs({a, b, c, d}) do j:SetVertexColor(colour.r, colour.g, colour.b) end
+        for _, j in pairs({a, b, c, d}) do table.insert(MODUI_COLOURELEMENTS_FOR_UI, j) end
 
         v.Material = v:CreateTexture(nil, 'OVERLAY', nil, 7)
         v.Material:SetTexture[[Interface\AddOns\modui\dark\quest\QuestBG.tga]]
@@ -299,24 +344,15 @@
             v.Corner:SetWidth(132)
             v.Corner:SetHeight(64)
             v.Corner:SetPoint('BOTTOMLEFT', v, 21, 68)
-            v.Corner:SetVertexColor(colour.r, colour.g, colour.b)
+            table.insert(MODUI_COLOURELEMENTS_FOR_UI, v.Corner)
         end
-    end
-
-
-        -- GROUPLOOT
-    function GroupLootFrame_OnShow()
-        orig.GroupLootFrame_OnShow()
-        _G[this:GetName()..'Corner']:SetVertexColor(.2, .2, .2)
-        _G[this:GetName()..'Decoration']:SetVertexColor(.2, .2, .2)
-        this:SetBackdropBorderColor(.2, .2, .2)
     end
 
 
         -- POPUP
     for i = 1, 4 do
     	local f = _G['StaticPopup'..i]
-        f:SetBackdropBorderColor(colour.r, colour.g, colour.b)
+        table.insert(MODUI_COLOURELEMENTS_BORDER_FOR_UI, f)
     end
 
 
@@ -324,43 +360,71 @@
     for i = 1, MIRRORTIMER_NUMTIMERS do
         local m = _G['MirrorTimer'..i]
         local _, _, a = m:GetRegions()
-        a:SetVertexColor(colour.r*.9, colour.g*.9, colour.b*.9)
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, a)
     end
-
 
         -- ADDONS
     local f = CreateFrame'Frame'
     f:RegisterEvent'ADDON_LOADED'
     f:SetScript('OnEvent', function()
-        if     arg1 == 'Blizzard_AuctionUI'    then -- AUCTION
+        if IsAddOnLoaded'Postal' then
+            PostalButton1:SetScript('OnShow', function()    -- POSTAL
+                if MailFrame.Material:IsShown() then MailFrame.Material:Hide() end
+            end)
+            PostalButton1:SetScript('OnHide', function()
+                if MailFrame:IsShown() then MailFrame.Material:Show() end
+            end)
+        end
+        if arg1 == 'Blizzard_AuctionUI' then        -- AUCTION
             local _, a, b, c, d, e, f = AuctionFrame:GetRegions()
-            for i,v in pairs({a,b,c,d,e,f}) do v:SetVertexColor(colour.r*1.4, colour.g*1.4, colour.b*1.4) end
+            for _, v in pairs({a, b, c, d, e, f}) do
+                table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+            end
+            local a, b = AuctionDressUpFrame:GetRegions()
+            local _, _, _, c = AuctionDressUpFrameCloseButton:GetRegions()
+            for _, v in pairs({a, b, c}) do table.insert(MODUI_COLOURELEMENTS_FOR_UI, v) end
             for i = 1, 15 do
                 local a = _G['AuctionFilterButton'..i]:GetNormalTexture()
-                a:SetVertexColor(.4, .4, .4)
+                table.insert(MODUI_COLOURELEMENTS_FOR_UI, a)
             end
         elseif arg1 == 'Blizzard_CraftUI'      then -- CRAFT
             local _, a, b, c, d = CraftFrame:GetRegions()
-            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+            for _, v in pairs({a, b, c, d}) do
+                table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+            end
         elseif arg1 == 'Blizzard_InspectUI'    then -- INSPECT
             local a, b, c, d = InspectPaperDollFrame:GetRegions()
-            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+            for _, v in pairs({a, b, c, d}) do
+                table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+            end
             local a, b, c, d = InspectHonorFrame:GetRegions()
-            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+            for _, v in pairs({a, b, c, d}) do
+                table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+            end
         elseif arg1 == 'Blizzard_MacroUI'      then -- MACRO
             local _, a, b, c, d = MacroFrame:GetRegions()
-            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+            for _, v in pairs({a, b, c, d}) do
+                table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+            end
             local a, b, c, d = MacroPopupFrame:GetRegions()
-            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+            for _, v in pairs({a, b, c, d}) do
+                table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+            end
         elseif arg1 == 'Blizzard_TalentUI'     then -- TALENTS
             local _, a, b, c, d = TalentFrame:GetRegions()
-            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+            for _, v in pairs({a, b, c, d}) do
+                table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+            end
         elseif arg1 == 'Blizzard_TradeSkillUI' then -- TRADESKILL
             local _, a, b, c, d = TradeSkillFrame:GetRegions()
-            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+            for _, v in pairs({a, b, c, d}) do
+                table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+            end
         elseif arg1 == 'Blizzard_TrainerUI'    then -- TRAINER
             local _, a, b, c, d = ClassTrainerFrame:GetRegions()
-            for i,v in pairs({a, b, c, d}) do v:SetVertexColor(colour.r, colour.g, colour.b) end
+            for _, v in pairs({a, b, c, d}) do
+                table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+            end
         end
     end)
 

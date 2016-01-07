@@ -29,6 +29,14 @@
         return hourlyxp, time
     end
 
+    local getWhoOnline = function()
+        -- SendWho('')
+        local  n, t = GetNumWhoResults()
+        local text = format(GetText('WHO_FRAME_TOTAL_TEMPLATE', nil, t), t)
+        text = gsub(text, '(.+) Found', '%1')
+        return text
+    end
+
     local stats = function()
         local hourlyxp, time = getSession()
 
@@ -36,6 +44,10 @@
 
             -- HEADER
         GameTooltip:AddDoubleLine('modui stats', '—', colour.r, colour.g, colour.b)
+        GameTooltip:AddLine' '
+
+            -- TOTAL ONLINE
+        GameTooltip:AddDoubleLine('Total Users Online', getWhoOnline(), colour.r, colour.g, colour.b, 1, .8, 0)
         GameTooltip:AddLine' '
 
             -- LATENCY

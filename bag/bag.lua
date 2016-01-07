@@ -1,5 +1,7 @@
 
 
+	if tonumber(GetCVar'modOneBag') == 0 then return end
+
 	local ButtonSize = 30
 	local ButtonSpacing = 12
 	local buttons, bankbuttons, keyringbuttons, orig = {}, {}, {}, {}
@@ -85,7 +87,6 @@
 
 		-- CONTAINER
 	local bagContainer = CreateFrame('Frame', 'modbag_inventory', UIParent)
-	bagContainer:SetPoint('BOTTOMRIGHT', UIParent, -110, 160)
 	bagContainer:SetFrameStrata'HIGH'
 	bagContainer:SetFrameLevel(6)
 	bagContainer:Hide()
@@ -280,6 +281,15 @@
 		reanchorKeyring()
 	end
 
+	bagContainer:SetScript('OnShow', function()
+		this:ClearAllPoints()
+		if tonumber(GetCVar'modAction') == 0 then
+			this:SetPoint('BOTTOMRIGHT', UIParent, -108, 150)
+		else
+			this:SetPoint('BOTTOMRIGHT', UIParent, -108, 103)
+		end
+	end)
+
 	BankFrame:SetScript('OnShow', function()
 		PlaySound'igMainMenuOpen'
 		KeyRingButton:Hide()
@@ -364,5 +374,38 @@
 	CloseAllBags = CloseBags
 	OpenAllBags = ToggleBags
 	CloseBackpack = CloseAllBags
+
+	for _, v in pairs({	-- dark theme
+		ButtonFrameTemplate.PortraitFrame.BG,
+		ButtonFrameTemplate.PortraitFrame.TitleBG,
+		ButtonFrameTemplate.PortraitFrame.PortraitFrame,
+		ButtonFrameTemplate.PortraitFrame.TopRightCorner,
+		ButtonFrameTemplate.PortraitFrame.TopBorder,
+		ButtonFrameTemplate.PortraitFrame.BotLeftCorner,
+		ButtonFrameTemplate.PortraitFrame.BotRightCorner,
+		ButtonFrameTemplate.PortraitFrame.BottomBorder,
+		ButtonFrameTemplate.PortraitFrame.LeftBorder,
+		ButtonFrameTemplate.PortraitFrame.RightBorder,
+		ButtonFrameTemplate.BtnCornerLeft,
+		ButtonFrameTemplate.BtnCornerRight,
+		ButtonFrameTemplate.PortraitFrame.TopTileStreaks, --
+	}) do
+		if v then
+			table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+		end
+	end
+
+
+	for _, v in pairs ({
+		ButtonFrameTemplate.Inset.BG,
+		ButtonFrameTemplate.Inset.TopLeftCorner,
+		ButtonFrameTemplate.Inset.TopRightCorner,
+		ButtonFrameTemplate.Inset.BotLeftCorner,
+		ButtonFrameTemplate.Inset.BotRightCorner,
+	}) do
+		if v then
+			table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+		end
+	end
 
 	--

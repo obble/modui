@@ -30,5 +30,8 @@
     f:SetScript('OnClick', modprint)
     f:SetScript('OnEnter', modtip)
     f:SetScript('OnLeave', function() GameTooltip:Hide() end)
+    HonorFrame:SetScript('OnShow', function()
+        if tonumber(GetCVar'modPVPRank') == 1 then f:Show() else f:Hide() end
+    end)
 
     --

@@ -14,6 +14,8 @@
     MODUI_SPELLCASTS_TO_TRACK = {
             -- AHN'QIRAJ
         ['Explode']                 = {[[Interface\Icons\Spell_fire_selfdestruct]], 6},
+            -- BLACKROCK SPIRE
+        ['Flame Buffet']                 = {[[Interface\Icons\Spell_fire_selfdestruct]], 6},
             -- BLACKWING LAIR
         ['Shadow Flame']            = {[[Interface\Icons\Spell_fire_incinerate]], 2},
         ['Wing Buffet']             = {[[Interface\Icons\Inv_misc_monsterscales_14]], 1},
@@ -78,15 +80,12 @@
         ['Revive Pet']              = {[[Interface\Icons\Ability_hunter_beastsoothe]], 10},
         ['Scare Beast']             = {[[Interface\Icons\Ability_druid_cower]], 1.5},
             -- MAGE
-        ['Arcane Missiles']         = {[[Interface\Icons\Spell_nature_starfall]], 5},
-        ['Blizzard']                = {[[Interface\Icons\Spell_frost_icestorm]], 8},
         ['Conjure Food']            = {[[Interface\Icons\Inv_misc_food_73cinnamonroll]], 3},
         ['Conjure Water']           = {[[Interface\Icons\Inv_drink_18]], 3},
         ['Conjure Mana Agate']      = {[[Interface\Icons\Inv_misc_gem_emerald_01]], 3},
         ['Conjure Mana Citrine']    = {[[Interface\Icons\Inv_misc_gem_opal_01]], 3},
         ['Conjure Mana Jade']       = {[[Interface\Icons\Inv_misc_gem_emerald_02]], 3},
         ['Conjure Mana Ruby']       = {[[Interface\Icons\Inv_misc_gem_ruby_01]], 3},
-        ['Evocation']               = {[[Interface\Icons\Spell_nature_purge]], 8},
         ['Fireball']                = {[[Interface\Icons\Spell_fire_flamebolt]], 3},
         ['Frostbolt']               = {[[Interface\Icons\Spell_frost_frostbolt02]], 3},
         ['Flamestrike']             = {[[Interface\Icons\Spell_fire_selfdestruct]], 3},
@@ -108,7 +107,7 @@
         ['Pyroblast']               = {[[Interface\Icons\Spell_fire_fireball02]], 6},
         ['Scorch']                  = {[[Interface\Icons\Spell_fire_soulburn]], 1.5},
             -- PALADIN
-        ['Hammer of Wrath']         = {[[Interface\Icons\Spell_paladin_hammerofwrath]], 1},
+        ['Hammer of Wrath']         = {[[Interface\Icons\Ability_ThunderClap]], 1},
         ['Holy Light']              = {[[Interface\Icons\Spell_holy_holybolt]], 2.5},
         ['Holy Wrath']              = {[[Interface\Icons\Spell_holy_weaponmastery]], 2},
         ['Flash of Light']          = {[[Interface\Icons\Spell_holy_flashheal]], 1.5},
@@ -162,14 +161,13 @@
         ['Create Healthstone']      = {[[Interface\Icons\Inv_stone_04]], 3},
         ['Create Spellstone']       = {[[Interface\Icons\Inv_misc_gem_sapphire_01]], 5},
         ['Create Soulstone']        = {[[Interface\Icons\Spell_shadow_soulgem]], 3},
-        ['Drain Life']              = {[[Interface\Icons\Spell_shadow_lifedrain02]], 5},
-        ['Drain Mana']              = {[[Interface\Icons\Spell_shadow_siphonmana]], 5},
         ['Enslave Demon']           = {[[Interface\Icons\Spell_shadow_enslavedemon]], 3},
         ['Fear']                    = {[[Interface\Icons\Spell_shadow_possession]], 1.5},
         ['Howl of Terror']          = {[[Interface\Icons\Ability_warlock_howlofterror]], 2},
         ['Immolate']                = {[[Interface\Icons\Spell_fire_immolation]], 1.5},
         ['Inferno']                 = {[[Interface\Icons\Spell_fire_incinerate]], 2},
         ['Ritual of Doom']          = {[[Interface\Icons\Spell_shadow_antimagicshell]], 10},
+        ['Rain of Fire']            = {[[Interface\Icons\Spell_shadow_rainoffire]], 6},
         ['Ritual of Summoning']     = {[[Interface\Icons\Spell_shadow_twilight]], 5},
         ['Searing Pain']            = {[[Interface\Icons\Spell_fire_soulburn]], 1.5},
         ['Seduction']               = {[[Interface\Icons\Spell_shadow_mindsteal]], 1.5},
@@ -181,6 +179,21 @@
         ['Summon Imp']              = {[[Interface\Icons\Spell_shadow_summonimp]], 6},
         ['Summon Succubus']         = {[[Interface\Icons\Spell_shadow_summonsuccubus]], 6},
         ['Summon Voidwalker']       = {[[Interface\Icons\Spell_shadow_summonvoidwalker]], 6},
+    }
+
+    MODUI_CHANNELED_SPELLCASTS_TO_TRACK = {
+        ['Arcane Missile']  = {[[Interface\Icons\Spell_nature_starfall]], 2.25},
+        ['Arcane Missiles'] = {[[Interface\Icons\Spell_nature_starfall]], 4.25},
+        ['Blizzard']        = {[[Interface\Icons\Spell_frost_icestorm]], 8},
+        ['Drain Life']      = {[[Interface\Icons\Spell_shadow_lifedrain02]], 5},
+        ['Drain Mana']      = {[[Interface\Icons\Spell_shadow_siphonmana]], 5},
+        ['Evocation']       = {[[Interface\Icons\Spell_nature_purge]], 8},
+        ['First Aid']       = {[[Interface\Icons\Spell_holy_heal]], 6},
+        ['Hellfire']        = {[[Interface\Icons\Spell_holy_heal]], 6},
+        ['Mend Pet']        = {[[Interface\Icons\Ability_hunter_mendpet]], 10},
+        ['Mind Flay']       = {[[Interface\Icons\Spell_shadow_siphonmana]], 3},
+        ['Mind Vision']     = {[[Interface\Icons\Spell_holy_mindvision]], 60},
+        ['Rain of Fire']    = {[[Interface\Icons\Spell_shadow_rainoffire]], 6},
     }
 
     MODUI_INTERRUPTS_TO_TRACK = {

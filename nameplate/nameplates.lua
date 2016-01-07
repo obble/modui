@@ -59,7 +59,7 @@
         if t > 5 then return decimal_round(t, 0) else return decimal_round(t, 1) end
     end
 
-    Cast.create = function(caster, spell, icon, dur, time)
+    Cast.create = function(caster, spell, icon, dur, time, inv)
         local acnt = {}
         setmetatable(acnt, modcast)
         acnt.caster    = caster
@@ -67,6 +67,7 @@
         acnt.icon      = icon
         acnt.timeStart = time
         acnt.timeEnd   = time + dur
+        acnt.inverse   = inv
         return acnt
     end
 
@@ -90,15 +91,32 @@
     	end
     end
 
-    local newCast = function(caster, spell)
-    	local time = GetTime()
-    	local info = nil
-    	removeDoubleCast(caster)
-    	if MODUI_SPELLCASTS_TO_TRACK[spell] ~= nil then info = MODUI_SPELLCASTS_TO_TRACK[spell] end
-    	if info ~= nil then
-    		local n = Cast.create(caster, spell, info[1], info[2], time)
-    		table.insert(casts, n)
+    local checkForChannels = function(caster, spell)
+        local k = 1
+    	for i, j in casts do
+    		if j.caster == caster and j.spell == spell and MODUI_CHANNELED_SPELLCASTS_TO_TRACK[spell] ~= nil then 	
+				return true
+			end
+    		k = k + 1
     	end
+		return false
+    end
+
+    local newCast = function(caster, spell, channel)
+        local time = GetTime()
+        local info = nil
+        if channel then
+            if MODUI_CHANNELED_SPELLCASTS_TO_TRACK[spell] ~= nil then info = MODUI_CHANNELED_SPELLCASTS_TO_TRACK[spell] end
+        else
+            if MODUI_SPELLCASTS_TO_TRACK[spell] ~= nil then info = MODUI_SPELLCASTS_TO_TRACK[spell] end
+        end
+        if info ~= nil then
+            if not checkForChannels(caster, spell) then
+                removeDoubleCast(caster)
+                local n = Cast.create(caster, spell, info[1], info[2], time, channel)
+                table.insert(casts, n)
+            end
+        end
     end
 
     local newHeal = function(n, no, crit)
@@ -112,7 +130,7 @@
         local border, glow, name, level, _, raidicon = plate:GetRegions()
         local n = name:GetText()
 
-        border:SetVertexColor(.2, .2, .2)
+        plate:SetFrameLevel(1)
 
         name:SetFont(STANDARD_TEXT_FONT, 12)
         name:ClearAllPoints()
@@ -120,8 +138,16 @@
         name:SetJustifyH'RIGHT'
 
         health:SetStatusBarTexture(TEXTURE)
-        health:SetBackdrop(BACKDROP)
-        health:SetBackdropColor(0, 0, 0)
+        health:SetFrameLevel(1)
+
+        border:SetVertexColor(.2, .2, .2)
+        border:SetDrawLayer'OVERLAY'
+
+        plate.bg = plate:CreateTexture(nil, 'BACKGROUND')
+        plate.bg:SetPoint('TOPLEFT', plate, 4, -20)
+        plate.bg:SetPoint('BOTTOMRIGHT', plate, -4, 4)
+        plate.bg:SetTexture[[Interface\Tooltips\UI-Tooltip-Background]]
+        plate.bg:SetVertexColor(0, 0, 0, .6)
 
         plate.cast = CreateFrame('StatusBar', nil, plate)
         plate.cast:SetStatusBarTexture(TEXTURE)
@@ -155,7 +181,7 @@
         plate.cast.border:SetTexture[[Interface\AddOns\modui\statusbar\texture\Nameplate-Castbar.blp]]
         plate.cast.border:SetHeight(32)
         plate.cast.border:SetPoint('TOPLEFT', plate, 'BOTTOMLEFT', 0, 8)
-        plate.cast.border:SetPoint('TOPRIGHT', plate, 'BOTTOMRIGHT', 0, 8)
+        plate.cast.border:SetPoint('TOPRIGHT', plate, 'BOTTOMRIGHT', 0, 9)
         plate.cast.border:SetVertexColor(.2, .2, .2)
 
         plate.heal = plate:CreateFontString(nil, 'OVERLAY')
@@ -219,12 +245,16 @@
             if v.caster == text then
                 if GetTime() < v.timeEnd then
                     plate.cast:SetMinMaxValues(0, v.timeEnd - v.timeStart)
-                	plate.cast:SetValue(mod((GetTime() - v.timeStart), v.timeEnd - v.timeStart))
-                	plate.cast.text:SetText(v.spell)
-                	plate.cast.timer:SetText(getTimerLeft(v.timeEnd)..'s')
-                	plate.cast.icon:SetTexture(v.icon)
+        			if v.inverse then
+        				plate.cast:SetValue(mod((v.timeEnd - GetTime()), v.timeEnd - v.timeStart))
+        			else
+        				plate.cast:SetValue(mod((GetTime() - v.timeStart), v.timeEnd - v.timeStart))
+        			end
+                    plate.cast.timer:SetText(getTimerLeft(v.timeEnd)..'s')
+                    plate.cast.text:SetText(v.spell)
+                    plate.cast.icon:SetTexture(v.icon)
                     plate.cast:SetAlpha(plate:GetAlpha())
-                	plate.cast:Show()
+                    plate.cast:Show()
                 end
             end
         end
@@ -260,22 +290,45 @@
 
     local handleCast = function()
         local time = GetTime()
-        local cast    = '(.+) begins to cast (.+).'        local fcast    = string.find(arg1, cast)
-        local craft   = '(.+) -> (.+).'                    local fcraft   = string.find(arg1, craft)
-        local perform = '(.+) begins to perform (.+).'     local fperform = string.find(arg1, perform)
-        local gain    = '(.+) gains (.+).'                 local fgain    = string.find(arg1, gain)
-        local afflict = '(.+) is afflicted by (.+).'       local fafflict = string.find(arg1, afflict)
-        local hits    = '(.+)\'s (.+) hits (.+) for (.+)'  local fhits    = string.find(arg1, hits)
-        local crits   = '(.+)\'s (.+) crits (.+) for (.+)' local fcrits   = string.find(arg1, crits)
-        local phits   = 'Your (.+) hits (.+) for (.+)'     local fphits   = string.find(arg1, phits)
-        local pcrits  = 'Your (.+) crits (.+) for (.+)'    local fpcrits  = string.find(arg1, pcrits)
-        local fear  = '(.+) attempts to run away in fear!' local ffear    = string.find(arg1, fear)
+        local cast     = '(.+) begins to cast (.+).'               local fcast     = string.find(arg1, cast)
+        local craft    = '(.+) -> (.+).'                           local fcraft    = string.find(arg1, craft)
+        local perform  = '(.+) begins to perform (.+).'            local fperform  = string.find(arg1, perform)
+        local gain     = '(.+) gains (.+).'                        local fgain     = string.find(arg1, gain)
+        local afflict  = '(.+) is afflicted by (.+).'              local fafflict  = string.find(arg1, afflict)
+        local hits     = '(.+)\'s (.+) hits (.+) for (.+)'         local fhits     = string.find(arg1, hits)
+        local crits    = '(.+)\'s (.+) crits (.+) for (.+)'        local fcrits    = string.find(arg1, crits)
+        local phits    = 'Your (.+) hits (.+) for (.+)'            local fphits    = string.find(arg1, phits)
+        local pcrits   = 'Your (.+) crits (.+) for (.+)'           local fpcrits   = string.find(arg1, pcrits)
+        local fear     = '(.+) attempts to run away in fear!'      local ffear     = string.find(arg1, fear)
+        local channel  = '(.+) suffers (.+) from (.+)\'s (.+).'    local fchannel  = string.find(arg1, channel)
+        local pchannel = 'You suffer (.+) from (.+)\'s (.+).'      local fpchannel = string.find(arg1, pchannel)
+        local absorb   = '(.+)\'s (.+) is absorbed by (.+).'       local fabsorb   = string.find(arg1, absorb)
+        local pabsorb  = 'Your (.+) is absorbed by (.+).'          local fpabsorb  = string.find(arg1, pabsorb)
+        local channelDot = '(.+) suffers (.+) from (.+)\'s (.+).'  local fchannelDot = string.find(arg1, channelDot)
+        local pchannelDot = "You suffer (.+) from (.+)'s (.+)."	   local fpchannelDot = string.find(arg1, pchannelDot)
+        local channelDotRes = '(.+)\'s (.+) was resisted by (.+).' local fchannelDotRes = string.find(arg1, channelDotRes)
+        local pchannelDotRes = '(.+)\'s (.+) was resisted.'        local fpchannelDotRes = string.find(arg1, pchannelDotRes)
         if fcast or fcraft or fperform then
-            local t = fcast and cast or fcraft and craft or perform
+            local t = fcast and cast or fcraft and craft or fperform and perform or gain
             local c = gsub(arg1, t, '%1')
             local s = gsub(arg1, t, '%2')
-            newCast(c, s)
-        elseif fgain or fafflict or fhits or fcrits or fphits or fpcrits or ffear then
+            newCast(c, s, false)
+        elseif fgain then
+            local t = gain
+            local c = gsub(arg1, t, '%1')
+            local s = gsub(arg1, t, '%2')
+            newCast(c, s, true)
+        elseif fchannelDot or fpchannelDot or fgain then
+            local t = fchannelDot and channelDot or fpchannelDot and pchannelDot
+            local c = fchannelDot and gsub(arg1, t, '%3') or fpchannelDot and gsub(arg1, t, '%2') or gsub(arg1, t, '%1')
+            local s = fchannelDot and gsub(arg1, t, '%4') or fpchannelDot and gsub(arg1, t, '%3') or gsub(arg1, t, '%2')
+            newCast(c, s, true)
+        elseif fchannelDotRes or fpchannelDotRes then
+            local t = fchannelDotRes and channelDotRes or fpchannelDotRes and pchannelDotRes
+            local c = gsub(arg1, t, '%1')
+            local s = gsub(arg1, t, '%2')
+            newCast(c, s, true)
+        elseif fgain or fafflict or fhits or fcrits or fphits or fpcrits or ffear or fabsorb or fpabsorb then
             local t, c, s
             if     fgain    then t = gain    c = gsub(arg1, t, '%1')
             elseif fafflict then t = afflict c = gsub(arg1, t, '%1')
@@ -283,9 +336,11 @@
             elseif fcrits   then t = crits   c = gsub(arg1, t, '%3')
             elseif fphits   then t = phits   c = gsub(arg1, t, '%2')
             elseif fpcrits  then t = pcrits  c = gsub(arg1, t, '%2')
-            elseif ffear    then t = fear    c = arg2 end
+            elseif ffear    then t = fear    c = arg2
+            elseif fabsorb then t = absorb c = gsub(arg1, t, '%3')
+            elseif fpabsorb then t = pabsorb c = gsub(arg1, t, '%2') end
             if not ffear then s = gsub(arg1, t, '%2') end
-            if fphits or fpcrits then s = gsub(arg1, t, '%1') end
+            if fphits or fpcrits or fpabsorb then s = gsub(arg1, t, '%1') end
             for k, v in pairs(casts) do
                 if MODUI_INTERRUPTS_TO_TRACK[s] ~= nil or ffear then
                     if (time < v.timeEnd) and (v.caster == c) then
@@ -314,27 +369,29 @@
     local f = CreateFrame'Frame'
     f:SetScript('OnUpdate', function()
         local frames = {WorldFrame:GetChildren()}
-	    for _, plate in ipairs(frames) do
-            if isPlate(plate) and plate:IsVisible() then
-                local _, _, name = plate:GetRegions()
-                if not plate.skinned then modPlate(plate) end
-                addClass(plate) addCP(plate) addCast(plate) addHeal(plate)
+        if tonumber(GetCVar'modNameplate') == 1 then
+    	    for _, plate in ipairs(frames) do
+                if isPlate(plate) and plate:IsVisible() then
+                    local _, _, name = plate:GetRegions()
+                    if not plate.skinned then modPlate(plate) end
+                    addClass(plate) addCP(plate) addCast(plate) addHeal(plate)
+                end
             end
+        	local i = 1
+        	for k, v in pairs(casts) do
+        		if GetTime() > v.timeEnd then
+        			table.remove(casts, i)
+        		end
+        		i = i + 1
+        	end
+            i = 1
+            for k, v in pairs(heals) do
+        		if GetTime() > v.timeEnd then
+        			table.remove(heals, i)
+        		end
+        		i = i + 1
+        	end
         end
-    	local i = 1
-    	for k, v in pairs(casts) do
-    		if GetTime() > v.timeEnd then
-    			table.remove(casts, i)
-    		end
-    		i = i + 1
-    	end
-        i = 1
-        for k, v in pairs(heals) do
-    		if GetTime() > v.timeEnd then
-    			table.remove(heals, i)
-    		end
-    		i = i + 1
-    	end
     end)
 
     f:RegisterEvent'CHAT_MSG_MONSTER_EMOTE'

@@ -2,14 +2,16 @@
 
     local orig = {}
 
-    function SecondsToTimeAbbrev(time)  -- AURA DURATION SUB
+    function SecondsToTimeAbbrev(time, f)  -- AURA DURATION SUB
+        local cv = tonumber(GetCVar'modAuraFormat')
         local h, m, s, text
         if time <= 0 then
             text = ''
         elseif time < 3600 and time > 60 then
             h = floor(time/3600)
-            m = floor(mod(time, 3600)/60 + 1)
-            text = format('|cffffffff%d|rm', m)
+            m = (cv == 1 or f ~= nil) and floor(mod(time, 3600)/60) or floor(mod(time, 3600)/60 + 1)
+            s = mod(time, 60)
+            text = (cv == 1 or f ~= nil) and format('|cffffffff%d|r:|cffffffff%d|r', m, s) or format('|cffffffff%d|rm', m)
         elseif time < 60 then
             m = floor(time/60)
             s = mod(time, 60)
