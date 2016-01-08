@@ -2,15 +2,17 @@
 
     local _, class = UnitClass'Player'
     local colour = RAID_CLASS_COLORS[class]
-    local addon = {}
+    local addon = {} local orig = {}
+    local queued = false
     local money, lastmoney, xp, startxp, lastxp, gotxp, sessionxp = 0
+    local f = CreateFrame'Frame'
 
-    local function getLatency()
+    local getLatency = function()
         local _, _, home = GetNetStats()
         return  '|c00ffffff'..home..'|r ms'
     end
 
-    local function getFPS()
+    local getFPS = function()
         return '|c00ffffff'..floor(GetFramerate())..'|r fps'
     end
 
@@ -30,7 +32,9 @@
     end
 
     local getWhoOnline = function()
-        -- SendWho('')
+        SendWho''
+        queued = true
+        f:RegisterEvent'WHO_LIST_UPDATE'
         local  n, t = GetNumWhoResults()
         local text = format(GetText('WHO_FRAME_TOTAL_TEMPLATE', nil, t), t)
         text = gsub(text, '(.+) Found', '%1')
@@ -88,12 +92,16 @@
         stats()
     end)
 
-    local f = CreateFrame'Frame'
 	f:RegisterEvent'PLAYER_ENTERING_WORLD'
     f:RegisterEvent'ADDON_LOADED'
 	f:RegisterEvent'PLAYER_MONEY'
     f:RegisterEvent'PLAYER_XP_UPDATE' f:RegisterEvent'PLAYER_LEVEL_UP'
     f:SetScript('OnEvent', function()
+        if event == 'WHO_LIST_UPDATE' then
+            HideUIPanel(FriendsFrame)
+            f:UnregisterEvent'WHO_LIST_UPDATE'
+            queued = false
+        end
         if event == 'PLAYER_ENTERING_WORLD' then
             lastmoney = GetMoney()
             lastxp    = UnitXP'player'
@@ -117,5 +125,27 @@
             lastxp = 0
         end
     end)
+
+        -- HIDE SOUNDS
+    function FriendsFrame_OnShow()
+        FriendsFrame.showFriendsList = 1
+        FriendsFrame_Update()
+        UpdateMicroButtons()
+        if not queued then PlaySound'igMainMenuOpen' end
+        GuildFrame.selectedGuildMember = 0
+        SetGuildRosterSelection(0)
+        InGuildCheck()
+    end
+
+    function FriendsFrame_OnHide()
+	   UpdateMicroButtons()
+       if not queued then PlaySound'igMainMenuClose' end
+       SetGuildRosterSelection(0)
+       GuildFrame.selectedGuildMember = 0
+       for _, v in pairs ({GuildControlPopupFrame, GuildMemberDetailFrame, GuildInfoFrame, RaidInfoFrame}) do
+           v:Hide()
+       end
+       for _, v in FRIENDSFRAME_SUBFRAMES do _G[v]:Hide() end
+   end
 
     --

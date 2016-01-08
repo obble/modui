@@ -1,5 +1,7 @@
 
 
+    if IsAddOnLoaded'!Questie' or IsAddOnLoaded'Questie' then return end
+
     local orig = {}
 
     local tip = CreateFrame('GameTooltip', 'QuestTip', UIParent, 'GameTooltipTemplate')

@@ -12,6 +12,7 @@ globals\mount.lua
 globals\shit.lua
 globals\string.lua
 globals\table.lua
+globals\unitcasting.lua
 
 actionbar\bagbar.lua
 actionbar\bar.lua
@@ -86,6 +87,7 @@ map\pins\pins.lua
 nameplate\nameplates.lua
 
 pvp\ab.lua
+pvp\av.lua
 pvp\wsg.lua
 pvp\rank.lua
 

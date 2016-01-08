@@ -28,14 +28,13 @@
 
 
     modSkinInfo = function(self)
-        if not self then print(name..' error:|r This frame does not exist!')
+        if not self then print(name..' error:|r The frame does not exist!')
         elseif self.modSkin then
             local tex = self.modSkin[1]:GetTexture()
             local width = self.modSkin[1]:GetWidth() local height = self.modSkin[1]:GetHeight()
             local r, g, b, a = self.modSkin[1]:GetVertexColor()
             return width, height, tex, r, g, b, a
-        else
-            print(name..' error:|r Invalid frame! This object has no '..name..' border')
+        else print(name..' error:|r Invalid frame \''..self..'\'! This object has no '..name..' border')
         end
     end
 
@@ -44,8 +43,7 @@
         if not self then print(name..' error:|r This frame does not exist!') return end
 
         if not self:IsObjectType'Frame' then
-            local frame  = 'frame'
-            print(name..' error:|r The entered object is not a '..frame..'!')
+            print(name..' error:|r The entered object \''..self..'\' is not a frame!')
             return
         end
 
@@ -78,7 +76,8 @@
         if not self then print(name..' error:|r This frame does not exist!')
         elseif self.modSkin then
             for i = 1, 8 do self.modSkin[i]:SetVertexColor(r, g, b, a or 1) end
-        else print(name..' error:|r Invalid frame! This object has no '..name..' border') end
+        else print(name..' error:|r Invalid frame \''..self..'\'! This object has no '..name..' border')
+        end
     end
 
 
@@ -86,7 +85,8 @@
         if not self then print(name..' error:|r This frame does not exist!')
         elseif self.modSkinShadow then
             for i = 1, 8 do self.modSkinShadow[i]:SetVertexColor(r, g, b, a or 1) end
-        else print(name..' error:|r Invalid frame! This object has no '..name..' border') end
+        else print(name..' error:|r Invalid frame \''..self..'\'! This object has no '..name..' border')
+        end
     end
 
 
@@ -94,7 +94,8 @@
         if not self then print(name..' error:|r This frame does not exist!')
         elseif self.modSkin then
             for i = 1, 8 do self.modSkin[i]:SetDrawLayer(layer or 'OVERLAY') end
-        else print(name..' error:|r Invalid frame! This object has no '..name..' border') end
+        else print(name..' error:|r Invalid frame \''..self..'\'! This object has no '..name..' border')
+        end
     end
 
 
@@ -106,7 +107,8 @@
                 else self.modSkin[i]:SetTexture(texture)
                 end
             end
-        else print(name..' error:|r Invalid frame! This object has no '..name..' border') end
+        else print(name..' error:|r Invalid frame \''..self..'\'! This object has no '..name..' border')
+        end
     end
 
 
@@ -114,7 +116,8 @@
         if (not self) then print(name..' error:|r This frame does not exist!')
         elseif self.modSkinShadow then
             for i = 1, 8 do self.modSkinShadow[i]:SetTexture(texture) end
-        else print(name..' error:|r Invalid frame! This object has no '..name..' border') end
+        else print(name..' error:|r Invalid frame \''..self..'\'! This object has no '..name..' border')
+        end
     end
 
 
@@ -127,7 +130,8 @@
                 self.modSkinShadow[i]:SetWidth(borderSize)
                 self.modSkinShadow[i]:SetHeight(borderSize)
             end
-        else print(name..' error:|r Invalid frame! This object has no '..name..' border') end
+        else print(name..' error:|r Invalid frame \''..self..'\'! This object has no '..name..' border')
+        end
     end
 
 
@@ -138,7 +142,8 @@
                 self.modSkin[i]:Hide()
                 self.modSkinShadow[i]:Hide()
             end
-        else print(name..' error:|r Invalid frame! This object has no '..name..' border') end
+        else print(name..' error:|r Invalid frame \''..self..'\'! This object has no '..name..' border')
+        end
     end
 
     modSkinShow = function(self)
@@ -148,15 +153,15 @@
                 self.modSkin[i]:Show()
                 self.modSkinShadow[i]:Show()
             end
-        else print(name..' error:|r Invalid frame! This object has no '..name..' border') end
+        else print(name..' error:|r Invalid frame \''..self..'\'! This object has no '..name..' border')
+        end
     end
 
     modSkin = function(self, borderSize)
         if not self then print(name..' error:|r This frame does not exist!') return end
 
         if not self:IsObjectType'Frame' then
-            local frame  = 'frame'
-            print(name..' error:|r The entered object is not a '..frame..'!')
+            print(name..' error:|r The entered object \''..self'\' is not a frame!')
             return
         end
 

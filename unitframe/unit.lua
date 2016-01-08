@@ -133,9 +133,26 @@
                     if sb:GetName() == 'MainMenuExpBar' then
                         string:SetPoint('CENTER', sb) string:SetJustifyH'CENTER'
                         if GetCVar'modValue' == '1' then
-			                string:SetText(true_format(v)..' / '..true_format(max))
+                            if ReputationWatchBar:IsShown() then
+                                local rname, _, _, rmax, rv = GetWatchedFactionInfo()
+                                MainMenuExpBar.rep:SetText(rname..': '..true_format(rv)..' / '..true_format(rmax)..'    ')
+                                string:SetText('—     XP: '..true_format(v)..' / '..true_format(max))
+                                string:SetPoint('CENTER', (string:GetWidth()/2) - 8, 25)
+                            else
+                                MainMenuExpBar.rep:SetText''
+                                string:SetText(true_format(v)..' / '..true_format(max))
+                            end
                         else
-                            string:SetText(percent..'%')
+                            if ReputationWatchBar:IsShown() then
+                                local rname, standing, rmin, rmax, rv = GetWatchedFactionInfo()
+                                local rperc = math.floor((rv - rmin)/(rmax - rmin)*100)
+                                MainMenuExpBar.rep:SetText(rname..': '..percent..'% into '.._G['FACTION_STANDING_LABEL'..standing]..'    ')
+                                string:SetText('—     XP: '..percent..'%')
+                                string:SetPoint('CENTER', (string:GetWidth()/2) - 8, 25)
+                            else
+                                MainMenuExpBar.rep:SetText''
+                                string:SetText(percent..'%')
+                            end
                         end
                     elseif sb:GetName() == 'PlayerFrameManaBar'
                     and (pp == 1 or pp == 2 or pp == 3) then
@@ -174,17 +191,6 @@
             TextStatusBar_UpdateTextString() ReloadUI()
         end
     end)
-
-    function UIOptionsFrame_UpdateDependencies()
-        if not UIOptionsFrameCheckButton72:GetChecked() then
-            OptionsFrame_EnableCheckBox(UIOptionsFrameCheckButton70)
-            OptionsFrame_EnableCheckBox(UIOptionsFrameCheckButton71)
-        else
-            OptionsFrame_DisableCheckBox(UIOptionsFrameCheckButton70)
-            OptionsFrame_DisableCheckBox(UIOptionsFrameCheckButton71)
-        end
-        orig.UIOptionsFrame_UpdateDependencies()
-    end
 
 
     --

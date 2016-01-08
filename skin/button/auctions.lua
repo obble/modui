@@ -3,7 +3,7 @@
     local f = CreateFrame'Frame'
     f:RegisterEvent'ADDON_LOADED'
     f:SetScript('OnEvent', function()
-        if arg1 == 'Blizzard_AuctionUI' then
+        if event == 'Blizzard_AuctionUI' then
             -- browse buttons
             for i = 1, 8 do
                 local bu = _G['BrowseButton'..i..'Item']

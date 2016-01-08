@@ -31,7 +31,7 @@
             modSkinColor(f, .2, .2, .2)
             f:SetBackdrop(BACKDROP)
             f:SetBackdropColor(0, 0, 0, .8)
-            f.textstring:SetFont(STANDARD_TEXT_FONT, 14)
+            f.textstring:SetFont(STANDARD_TEXT_FONT, 13)
             f.skinned = true
         end
     end

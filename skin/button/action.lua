@@ -1,7 +1,6 @@
 
 
     for i = 1, 12 do
-        _G['ActionButton'..i..'Cooldown']:SetFrameLevel(_G['ActionButton'..i]:GetFrameLevel() + 1)
         for _, v in pairs({
             _G['ActionButton'..i],
             _G['MultiBarRightButton'..i],
@@ -37,9 +36,10 @@
             _G['MultiBarLeftButton'..i..'Cooldown'],
             _G['MultiBarRightButton'..i..'Cooldown'],
             _G['MultiBarBottomLeftButton'..i..'Cooldown'],
-            _G['MultiBarBottomRightButton'..i..'Cooldown'],
-            _G['BonusActionButton'..i..'Cooldown'],}) do v:SetFrameLevel(4)
+            _G['MultiBarBottomRightButton'..i..'Cooldown'],}) do v:SetFrameLevel(4)
         end
+
+        _G['BonusActionButton'..i..'Cooldown']:SetFrameLevel(6)
     end
 
     for i = 1, 10 do
@@ -47,7 +47,6 @@
         modSkin(bu, 18)
         modSkinPadding(bu, 3)
         modSkinColor(bu, .2, .2, .2)
-        bu:SetFrameStrata'LOW'
         bu:GetNormalTexture():SetTexture''
         bu:GetPushedTexture():SetTexture''
         bu:GetCheckedTexture():SetTexture''
@@ -56,7 +55,6 @@
         modSkin(bu, 18)
         modSkinPadding(bu, 3)
         modSkinColor(bu, .2, .2, .2)
-        bu:SetFrameStrata'LOW'
         bu:GetNormalTexture():SetTexture''
         bu:GetPushedTexture():SetTexture''
         bu:GetCheckedTexture():SetTexture''
@@ -72,5 +70,12 @@
     modSkin(bu, 18)
     modSkinPadding(bu, 3)
     modSkinColor(bu, .2, .2, .2)
+    
+    bu:SetScript('OnEnter', function()
+        if not _G['modui_options']:IsShown() then modSkinColor(bu, 1, 175/255, 155/255) end
+    end)
+    bu:SetScript('OnLeave', function()
+        if not _G['modui_options']:IsShown() then modSkinColor(bu, .2, .2, .2) end
+    end)
 
     --

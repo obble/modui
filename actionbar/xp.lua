@@ -17,6 +17,10 @@
     MainMenuExpBar.spark:SetWidth(35) MainMenuExpBar.spark:SetHeight(35)
     MainMenuExpBar.spark:SetBlendMode'ADD'
 
+    MainMenuExpBar.rep = MainMenuExpBar:CreateFontString(nil, 'OVERLAY')
+    MainMenuExpBar.rep:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
+    MainMenuExpBar.rep:SetPoint('RIGHT', MainMenuBarExpText, 'LEFT')
+
     ReputationWatchStatusBar:SetWidth(1021)
     ReputationWatchStatusBar:SetBackdrop(BACKDROP)
     ReputationWatchStatusBar:SetBackdropColor(0, 0, 0, 1)
@@ -36,27 +40,41 @@
     function ReputationWatchBar_Update(newLevel)
         if not newLevel then newLevel = UnitLevel'player' end
         orig.ReputationWatchBar_Update(newLevel)
-        local _, _, min, max, v = GetWatchedFactionInfo()
+        local name, standing, min, max, v = GetWatchedFactionInfo()
+        local percent = math.floor((v - min)/(max - min)*100)
         local x
 
-        if v > 0 then x = ((v - min)/(max - min))*ReputationWatchStatusBar:GetWidth() end
+        local bar  = ReputationWatchBar
+        local sb   = ReputationWatchStatusBar
+        local text = ReputationWatchStatusBarText
 
-        ReputationWatchBar:SetFrameStrata'LOW'
-        ReputationWatchBar:SetHeight(newLevel < MAX_PLAYER_LEVEL and 4 or 5)
+        if v > 0 then x = ((v - min)/(max - min))*bar:GetWidth() end
+
+        bar:SetFrameStrata'LOW'
+        bar:SetHeight(newLevel < MAX_PLAYER_LEVEL and 4 or 5)
 
         if newLevel == MAX_PLAYER_LEVEL then
-            ReputationWatchBar:ClearAllPoints()
-            ReputationWatchBar:SetPoint('TOP', MainMenuBar, 0, -4)
-            ReputationWatchStatusBarText:SetPoint('CENTER', ReputationWatchBarOverlayFrame, 0, 3)
+            bar:ClearAllPoints()
+            bar:SetPoint('TOP', MainMenuBar, 0, -4)
+            text:SetPoint('CENTER', ReputationWatchBarOverlayFrame, 0, 3)
+            if name then
+                text:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
+                if GetCVar'modValue' == '1' then
+                    text:SetText(name..': '..true_format(v)..' / '..true_format(max))
+                else
+                    text:SetText(name..': '..percent..'% into '.._G['FACTION_STANDING_LABEL'..standing])
+                end
+            end
             MainMenuExpBar.spark:Hide()
         else
+            TextStatusBar_UpdateTextString(MainMenuExpBar)
+            text:SetText''
             MainMenuExpBar.spark:Show()
         end
 
-        ReputationWatchStatusBar:SetHeight(newLevel < MAX_PLAYER_LEVEL and 4 or 5)
-        ReputationWatchStatusBar:SetStatusBarColor(colour.r, colour.g, colour.b, 1)
-
-        ReputationWatchStatusBar.spark:SetPoint('CENTER', ReputationWatchStatusBar, 'LEFT', x, -1)
+        sb:SetHeight(newLevel < MAX_PLAYER_LEVEL and 4 or 5)
+        sb:SetStatusBarColor(colour.r, colour.g, colour.b, 1)
+        sb.spark:SetPoint('CENTER', sb, 'LEFT', x, -1)
     end
 
     local f = CreateFrame'Frame'

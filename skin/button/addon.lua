@@ -1,6 +1,8 @@
 
 
+    local orig = {}
     local f = CreateFrame'Frame'
+
     f:RegisterEvent'ADDON_LOADED'
     f:SetScript('OnEvent', function()
         if arg1 == 'zBar' then          -- ZBAR
@@ -39,6 +41,26 @@
             modSkinPadding(bu, 3, 4, 1, 4, 3, 1, 1, 1)
             modSkinColor(bu, .2, .2, .2)
             bu:SetNormalTexture''
+        end
+    end
+
+    if IsAddOnLoaded'RingMenu' then
+        orig.RingMenuFrame_ConfigureButtons = RingMenuFrame_ConfigureButtons
+        function RingMenuFrame_ConfigureButtons()
+            orig.RingMenuFrame_ConfigureButtons()
+            for i = 1, RingMenu_settings.numButtons do
+                local bu = _G['RingMenuButton'..i]
+                local bo = _G['RingMenuButton'..i..'Border']
+                local ic = _G['RingMenuButton'..i..'Icon']
+                if not bu.skin then
+                    modSkin(bu, 18)
+                    modSkinPadding(bu, 3)
+                    modSkinColor(bu, .2, .2, .2)
+                    bu:SetNormalTexture'' bo:Hide()
+                    ic:SetTexCoord(.1, .9, .1, .9)
+                    bu.skin = true
+                end
+            end
         end
     end
 

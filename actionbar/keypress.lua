@@ -4,11 +4,10 @@
 	local orig 	 = {}
 	local time   = nil
 
-	orig.ActionButton_OnUpdate = ActionButton_OnUpdate
+	orig.ActionButton_OnUpdate     = ActionButton_OnUpdate
+	orig.ShapeshiftBar_UpdateState = ShapeshiftBar_UpdateState
 
-	function ActionButton_OnUpdate(elapsed)
-		orig.ActionButton_OnUpdate(elapsed)
-		local nutime = GetTime()
+	local borders = function(nutime)
 		if this:GetChecked() then this.checked = true modSkinColor(this, 1, 175/255, 155/255) end
 		if this.keypress and modSkinned(this) then
 			local i = nutime - this.keypress
@@ -21,6 +20,26 @@
 		if this.keypress and nutime > (this.keypress + .4) then
 			modSkinColor(this, .2, .2, .2)
 			this.keypress = nil
+		end
+	end
+
+	function ActionButton_OnUpdate(elapsed)
+		orig.ActionButton_OnUpdate(elapsed)
+		local nutime = GetTime()
+		borders(nutime)
+	end
+
+	function ShapeshiftBar_UpdateState()
+		orig.ShapeshiftBar_UpdateState()
+		local numForms = GetNumShapeshiftForms()
+		for i = 1, NUM_SHAPESHIFT_SLOTS do
+			local _, _, active = GetShapeshiftFormInfo(i)
+			local bu = _G['ShapeshiftButton'..i]
+			if active then
+				modSkinColor(bu, 1, 175/255, 155/255)
+			else
+				modSkinColor(bu, .2, .2, .2)
+			end
 		end
 	end
 
