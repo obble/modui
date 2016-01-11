@@ -31,6 +31,10 @@
     ReputationWatchStatusBar.spark:SetBlendMode'ADD'
     ReputationWatchStatusBar.spark:SetVertexColor(colour.r*1.3, colour.g*1.3, colour.b*1.3, .6)
 
+    for i = 0, 3 do _G['MainMenuXPBarTexture'..i]:SetTexture'' end
+    for i = 0, 3 do _G['ReputationWatchBarTexture'..i]:SetTexture'' end
+    for i = 0, 3 do _G['ReputationXPBarTexture'..i]:SetTexture'' end
+
     function MainMenuExpBar_Update()
         local xp, next = UnitXP'player', UnitXPMax'player'
         MainMenuExpBar:SetMinMaxValues(min(0, xp), next)
@@ -60,7 +64,7 @@
             if name then
                 text:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
                 if GetCVar'modValue' == '1' then
-                    text:SetText(name..': '..true_format(v)..' / '..true_format(max))
+                    text:SetText(name..': '..true_format((v - min))..' / '..true_format((max - min)))
                 else
                     text:SetText(name..': '..percent..'% into '.._G['FACTION_STANDING_LABEL'..standing])
                 end

@@ -2,6 +2,8 @@
 
     local orig = {}
 
+    function isNAN(v) return v ~= v end    -- NAN RECOGNITION
+
     function SecondsToTimeAbbrev(time, f)  -- AURA DURATION SUB
         local cv = tonumber(GetCVar'modAuraFormat')
         local h, m, s, text

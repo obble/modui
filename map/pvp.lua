@@ -131,20 +131,23 @@
                 local _, _, subgroup = GetRaidRosterInfo(string.sub(unit, 5))
                 local class  = UnitClass(unit)
                 local colour = class and RAID_CLASS_COLORS[string.upper(class)] or {r = 1, g = .8, b = 0}
+                local x = UnitFactionGroup'player' == 'Alliance' and 'Horde' or 'Alliance' -- reversey
                 if s ~= nil then
                     local fc = logic(name, s)
                     if fc == 1 then
-                        local path = faction == 'Alliance' and [[Interface\WorldStateFrame\HordeFlag]]
-                                                            or [[Interface\WorldStateFrame\AllianceFlag]]
-                        icon:SetTexture(path)
+                        icon:SetTexture('Interface\\WorldStateFrame\\'..x..'Flag')
+                        icon:SetPoint('CENTER', 8, 8)
                         icon:SetVertexColor(1, 1, 1)
                     elseif fc == 0 then
                         icon:SetTexture(string.format([[Interface\AddOns\modui\map\blips\raid]]..'%d', subgroup))
+                        icon:SetPoint('CENTER', 0, 0)
                         icon:SetVertexColor(colour.r, colour.g, colour.b)
                     end
                 else
-                    icon:SetTexture(string.format([[Interface\AddOns\modui\map\blips\raid]]..'%d', subgroup))
-                    icon:SetVertexColor(colour.r, colour.g, colour.b)
+                    if icon:GetTexture() ~= ('Interface\\WorldStateFrame\\'..x..'Flag') then
+                        icon:SetTexture(string.format([[Interface\AddOns\modui\map\blips\raid]]..'%d', subgroup))
+                        icon:SetVertexColor(colour.r, colour.g, colour.b)
+                    end
                 end
             end
         end

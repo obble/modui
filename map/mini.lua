@@ -16,6 +16,9 @@
     f:EnableMouseWheel(true)
     f:SetScript('OnMouseWheel', modZoom)
 
+    MinimapBorderTop:Hide()
+    MinimapToggleButton:Hide()
+
     MinimapZoomIn:Hide()
 	MinimapZoomOut:Hide()
 

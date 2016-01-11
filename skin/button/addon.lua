@@ -64,4 +64,15 @@
         end
     end
 
+    if IsAddOnLoaded'PallyPower' then
+        for i = 1, 8 do
+            for _, v in pairs({_G['PallyPowerBuffBarBuff'..i..'BuffIcon']:GetParent(), _G['PallyPowerBuffBarBuff'..i..'ClassIcon']:GetParent()}) do
+                modSkin(v, 18)
+                modSkinPadding(v, 3)
+                modSkinColor(v, .2, .2, .2)
+            end
+        end
+    end
+
+
     --

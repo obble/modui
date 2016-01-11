@@ -15,7 +15,7 @@
         if x >= 0 and y >= 0 and x <= 1 and y <= 1 then
             local p = CreateFrame('Button', z..' modpin'..'_'..x, button)
             p:SetWidth(32) p:SetHeight(32)
-            p:SetPoint('CENTER', button, 'TOPLEFT', x*width, -y*height)
+            p:SetPoint('CENTER', button, 'TOPLEFT', x*width + 8, -y*height + 8)
             p:SetScript('OnClick', function()
                 p:Hide() p.disable = true
             end)
