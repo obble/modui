@@ -10,8 +10,8 @@
             modSkinDraw(f, drawlayer)
             modSkinTexture(f, texture or 'default')
             modSkinShadowTexture(f, texture)
-            modSkinColor(f, r, g, b)
-            modSkinShadowColor(f, r, g, b)
+            modSkinColor(f, r, g, b, a)
+            modSkinShadowColor(f, r, g, b, a)
             modSkinHide(f)
             modSkinShow(f)
             modSkinned(f) - true if has a border, false if not

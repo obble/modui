@@ -5,12 +5,36 @@
     h:SetTextColor(0, .8, .5)
     h:SetJustifyH'LEFT'
     h:SetPoint('TOPLEFT', UIParent, 'TOP', 40, -32)
+    h:Hide()
+
+    ho = CreateFrame('Button', 'modflag_hordeFC', WorldStateAlwaysUpFrame)
+    ho:SetFrameLevel(2)
+    ho:SetAllPoints(h)
+    ho:EnableMouse(true)
+    ho:SetScript('OnMouseDown', function() print'clicked!' target() end)
+    ho:Hide()
 
     local a = WorldStateAlwaysUpFrame:CreateFontString(nil, 'OVERLAY')
     a:SetFontObject(GameFontNormalSmall)
     a:SetTextColor(1, 0, 0)
     a:SetJustifyH'LEFT'
     a:SetPoint('TOPLEFT', UIParent, 'TOP', 40, -55)
+    a:Hide()
+
+    al = CreateFrame('Button', 'modflag_allianceFC', WorldStateAlwaysUpFrame)
+    al:SetFrameLevel(2)
+    al:SetAllPoints(a)
+    al:EnableMouse(true)
+    al:Hide()
+
+    local target = function()
+        local text = this == ho and h or a
+        local t = text:GetText()
+        this:SetAttribute('macrotext', '/tar '..t)
+    end
+
+    -- ho:SetScript('OnClick', function() print'clicked!' target() end)
+    -- al:SetScript('OnClick', function() print'clicked!' target() end)
 
     local f = CreateFrame'Frame'
     f:RegisterEvent'CHAT_MSG_BG_SYSTEM_ALLIANCE' f:RegisterEvent'CHAT_MSG_BG_SYSTEM_HORDE'
@@ -34,6 +58,12 @@
             or string.find(s, 'captured the Horde flag!') then
                 h:Hide()
             end
+
+            ho:SetAllPoints(h) ho:SetHeight(15)
+            al:SetAllPoints(a) al:SetHeight(15)
+
+            if a:IsShown() then al:Show() else al:Hide() end
+            if h:IsShown() then ho:Show() else ho:Hide() end
         end
     end)
 

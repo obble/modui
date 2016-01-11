@@ -1,4 +1,5 @@
 
+
     HEX_CLASS_COLORS = {
         ['DRUID']   = 'ff7d0a',
         ['HUNTER']  = 'abd473',
@@ -12,10 +13,12 @@
     }
 
     MODUI_SPELLCASTS_TO_TRACK = {
+            -- MISC
+        ['Furbolg Form'] 			= {[[Interface\Icons\Inv_misc_monsterclaw_04]], 2},
             -- AHN'QIRAJ
         ['Explode']                 = {[[Interface\Icons\Spell_fire_selfdestruct]], 6},
             -- BLACKROCK SPIRE
-        ['Flame Buffet']                 = {[[Interface\Icons\Spell_fire_selfdestruct]], 6},
+        ['Flame Buffet']            = {[[Interface\Icons\Spell_fire_selfdestruct]], 6},
             -- BLACKWING LAIR
         ['Shadow Flame']            = {[[Interface\Icons\Spell_fire_incinerate]], 2},
         ['Wing Buffet']             = {[[Interface\Icons\Inv_misc_monsterscales_14]], 1},
@@ -181,19 +184,80 @@
         ['Summon Voidwalker']       = {[[Interface\Icons\Spell_shadow_summonvoidwalker]], 6},
     }
 
+    MODUI_CHANNELED_HEALS_SPELLCASTS_TO_TRACK = {
+            -- FIRST AID
+        ['First Aid']   = {[[Interface\Icons\Spell_holy_heal]], 5.5, 1},
+            -- DRUID
+        ['Tranquility'] = {[[Interface\Icons\Spell_nature_tranquility]], 9.5, 2},
+    }
+
     MODUI_CHANNELED_SPELLCASTS_TO_TRACK = {
-        ['Arcane Missile']  = {[[Interface\Icons\Spell_nature_starfall]], 2.25},
-        ['Arcane Missiles'] = {[[Interface\Icons\Spell_nature_starfall]], 4.25},
-        ['Blizzard']        = {[[Interface\Icons\Spell_frost_icestorm]], 8},
-        ['Drain Life']      = {[[Interface\Icons\Spell_shadow_lifedrain02]], 5},
-        ['Drain Mana']      = {[[Interface\Icons\Spell_shadow_siphonmana]], 5},
-        ['Evocation']       = {[[Interface\Icons\Spell_nature_purge]], 8},
-        ['First Aid']       = {[[Interface\Icons\Spell_holy_heal]], 6},
-        ['Hellfire']        = {[[Interface\Icons\Spell_holy_heal]], 6},
-        ['Mend Pet']        = {[[Interface\Icons\Ability_hunter_mendpet]], 10},
-        ['Mind Flay']       = {[[Interface\Icons\Spell_shadow_siphonmana]], 3},
-        ['Mind Vision']     = {[[Interface\Icons\Spell_holy_mindvision]], 60},
-        ['Rain of Fire']    = {[[Interface\Icons\Spell_shadow_rainoffire]], 6},
+            -- HUNTER
+        ['Eagle Eye']         = {[[Interface\Icons\Ability_hunter_eagleeye]], 60},
+    	['Eyes of the Beast'] = {[[Interface\Icons\Ability_eyeoftheowl]], 60},
+        ['Mend Pet']          = {[[Interface\Icons\Ability_hunter_mendpet]], 10},
+            -- MAGE
+        ['Arcane Missile']    = {[[Interface\Icons\Spell_nature_starfall]], 2.25},
+        ['Arcane Missiles']   = {[[Interface\Icons\Spell_nature_starfall]], 4.25},
+        ['Blizzard']          = {[[Interface\Icons\Spell_frost_icestorm]], 8},
+        ['Evocation']         = {[[Interface\Icons\Spell_nature_purge]], 8},
+            -- PRIEST
+        ['Mind Flay']         = {[[Interface\Icons\Spell_shadow_siphonmana]], 3},
+        ['Mind Vision']       = {[[Interface\Icons\Spell_holy_mindvision]], 60},
+            -- WARLOCK
+        ['Drain Life']        = {[[Interface\Icons\Spell_shadow_lifedrain02]], 5},
+        ['Drain Mana']        = {[[Interface\Icons\Spell_shadow_siphonmana]], 5},
+        ['Drain Soul']        = {[[Interface\Icons\Spell_shadow_haunting]], 4},
+        ['Hellfire']          = {[[Interface\Icons\Spell_holy_heal]], 6},
+        ['Rain of Fire']      = {[[Interface\Icons\Spell_shadow_rainoffire]], 6},
+    }
+
+    MODUI_INSTANT_SPELLCASTS_TO_TRACK = {
+            -- DRUID
+		['Moonfire']         = true,
+            -- MAGE
+		['Arcane Explosion'] = true,
+		['Cone of Cold']     = true,
+		['Fire Blast']       = true,
+		['Frost Nova']       = true,
+            -- PRIEST
+		['Holy Nova']        = true,
+            -- SHAMAN
+		['Earth Shock']      = true,
+		['Flame Shock']      = true,
+		['Frost Shock']      = true,
+            -- WARLOCK
+		['Shadowburn']       = true,
+	}
+
+    MODUI_TIME_MODIFIER_BUFFS_TO_TRACK = {
+        ['Curse of Tongues']    = {1.6, {'all'}},
+
+        ['Mind-numbing Poison'] = {1.6, {'all'}},
+
+        ["Nature's Swiftness"]  = {0,
+            {   -- SHAMAN
+            'Chain Heal',
+            'Far Sight',
+            'Ghost Wolf',
+            'Healing Wave',
+            'Lesser Healing Wave', 'Lightning Bolt',
+                -- DRUID
+            'Entangling Roots',
+            'Healing Touch',
+            'Hibernate',
+            'Rebirth',
+            'Regrowth',
+            'Soothe Animal',
+            'Wrath',}
+        },
+        ['Shadow Trance']       = {0, {'Shadow Bolt'}},
+        ['Presence of Mind']    = {0,
+           {'Conjure Food', 'Conjure Water', 'Conjure Mana Agate', 'Conjure Mana Citrine', 'Conjure Mana Jade', 'Conjure Mana Ruby',
+            'Fireball', 'Frostbolt', 'Flamestrike',
+            'Polymorph', 'Pyroblast',
+            'Scorch',}
+        },
     }
 
     MODUI_INTERRUPTS_TO_TRACK = {

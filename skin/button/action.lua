@@ -70,7 +70,7 @@
     modSkin(bu, 18)
     modSkinPadding(bu, 3)
     modSkinColor(bu, .2, .2, .2)
-    
+
     bu:SetScript('OnEnter', function()
         if not _G['modui_options']:IsShown() then modSkinColor(bu, 1, 175/255, 155/255) end
     end)

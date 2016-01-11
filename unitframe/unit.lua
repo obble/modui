@@ -45,6 +45,10 @@
     TargetLevelText:SetJustifyH'LEFT'
     TargetLevelText:SetPoint('LEFT', TargetFrameTextureFrame, 'CENTER', 56, -16)
 
+    for i, v in pairs({PlayerPVPIcon, TargetFrameTextureFramePVPIcon,}) do v:SetAlpha(0) end
+
+    for i = 1, 4 do _G['PartyMemberFrame'..i..'PVPIcon']:SetAlpha(0) end
+
     for i = 1, 4 do
         for _, v in pairs({_G['PartyMemberFrame'..i..'HealthBar'], _G['PartyMemberFrame'..i..'ManaBar']}) do
             v:SetBackdrop(BACKDROP) v:SetBackdropColor(0, 0, 0, .6)
@@ -134,8 +138,8 @@
                         string:SetPoint('CENTER', sb) string:SetJustifyH'CENTER'
                         if GetCVar'modValue' == '1' then
                             if ReputationWatchBar:IsShown() then
-                                local rname, _, _, rmax, rv = GetWatchedFactionInfo()
-                                MainMenuExpBar.rep:SetText(rname..': '..true_format(rv)..' / '..true_format(rmax)..'    ')
+                                local rname, _, rmin, rmax, rv = GetWatchedFactionInfo()
+                                MainMenuExpBar.rep:SetText(rname..': '..true_format((rv - rmin))..' / '..true_format((rmax - rmin))..'    ')
                                 string:SetText('—     XP: '..true_format(v)..' / '..true_format(max))
                                 string:SetPoint('CENTER', (string:GetWidth()/2) - 8, 25)
                             else

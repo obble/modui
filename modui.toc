@@ -35,6 +35,10 @@ libs\mobhealth\MH3_Blizzard.lua
 
 dark\dark.lua
 
+dkp\button.lua
+dkp\create.lua
+dkp\dkp.lua
+
 options\menu.lua
 options\options_display.lua
 options\options_status.lua
@@ -69,12 +73,14 @@ skin\button\talent.lua
 skin\button\target.lua
 skin\button\trade.lua
 skin\frame\character.lua
+skin\frame\chat.lua
 skin\frame\options.lua
 skin\frame\tip.lua
 skin\frame\tutorial.lua
 skin\balloon.lua
 skin\skin.lua
 
+chat\addon.lua
 chat\chat.lua
 chat\event.lua
 chat\quest.lua
@@ -88,8 +94,9 @@ nameplate\nameplates.lua
 
 pvp\ab.lua
 pvp\av.lua
-pvp\wsg.lua
 pvp\rank.lua
+pvp\popup.lua
+pvp\wsg.lua
 
 statusbar\gradient.lua
 statusbar\smooth.lua

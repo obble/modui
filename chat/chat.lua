@@ -1,8 +1,12 @@
 
 
     local orig = {}
+    local _, class = UnitClass'Player'
+    local colour = RAID_CLASS_COLORS[class]
 
     orig.ChatFrame_OnUpdate = ChatFrame_OnUpdate
+    orig.FCF_SetTabPosition = FCF_SetTabPosition
+    orig.FCF_FlashTab       = FCF_FlashTab
 
     ChatFontNormal:SetFont(STANDARD_TEXT_FONT, 14)      -- DEFAULT FONT
     ChatFontNormal:SetShadowOffset(1, -1)
@@ -27,6 +31,48 @@
          elseif arg1 < 0 then
              if IsShiftKeyDown() then f:ScrollToBottom()
       		else f:ScrollDown() end
+         end
+     end
+
+     local tab = function(f)                         -- CHAT TAB
+         if not f.styled then
+             local tab = _G[f:GetName()..'Tab']
+
+             local a, b, c = tab:GetRegions()
+             for _, v in pairs({a, b, c}) do v:Hide() end
+
+             local flash = _G[f:GetName()..'TabFlash']
+             local a = flash:GetRegions()
+             a:SetTexture''
+
+                 -- text
+             local text = _G[f:GetName()..'TabText']
+             text:SetJustifyH'CENTER'
+             text:SetWidth(40)
+             text:SetFont(STANDARD_TEXT_FONT, 14, 'OUTLINE')
+             text:SetShadowOffset(0, 0)
+             text:SetDrawLayer('OVERLAY', 7)
+
+             local hover = tab:CreateFontString(nil, 'OVERLAY')
+             hover:SetFont(STANDARD_TEXT_FONT, 13, 'OUTLINE')
+             hover:SetShadowOffset(0, 0)
+             hover:SetPoint('RIGHT', text, 'LEFT')
+             hover:SetTextColor(colour.r, colour.g, colour.b)
+             hover:SetText''
+
+             tab:GetHighlightTexture():SetTexture''
+
+             local t = text:GetText()
+             tab:SetScript('OnEnter', function()
+                 hover:SetText'> '
+                 GameTooltip_AddNewbieTip(CHAT_OPTIONS_LABEL, 1.0, 1.0, 1.0, NEWBIE_TOOLTIP_CHATOPTIONS, 1)
+             end)
+             tab:SetScript('OnLeave', function()
+                 hover:SetText''
+                 GameTooltip:Hide()
+             end)
+
+             f.styled = true
          end
      end
 
@@ -80,6 +126,10 @@
          end
      end
 
+     function FCF_SetTabPosition(f, x)
+         orig.FCF_SetTabPosition(f, x)
+         tab(f)
+     end
 
      ChatTypeInfo.SAY.sticky = 1                        -- STICKY CHANNELS
      ChatTypeInfo.EMOTE.sticky = 1
