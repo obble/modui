@@ -47,7 +47,7 @@
             local s = arg1
             local o, t
 
-            if string.find(s, '(.+) is under attack!') then
+            if string.find(s, '(.+) is under attack!') and not string.find(s, 'your General is under attack!') then
                 t = gsub(s, '(.+) is under attack! If left unchecked, the (.+) will (.+) it!', '%1')
                 o = gsub(s, '(.+) is under attack! If left unchecked, the (.+) will (.+) it!', '%2')
                 t = gsub(t, 'The (.+)', '%1')
