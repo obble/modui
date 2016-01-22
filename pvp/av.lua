@@ -22,7 +22,7 @@
             node:SetPoint(i == 1 and 'TOP' or 'TOPLEFT',
                           i == 1 and UIParent or _G['modnode_av'..(j - 1)],
                           i == 1 and 'TOP' or 'BOTTOMLEFT',
-                          20,
+                          0,
                           i == 1 and -20 or -5)
             if node:IsShown() then i = i + 1 end
         end

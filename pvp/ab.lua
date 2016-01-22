@@ -79,7 +79,7 @@
                 if t ~= nil and not node.name then
                     node.name = t
                     t = gsub(t, '^%l', string.upper)
-                    node.max = GetTime() + 65
+                    node.max = GetTime() + 61
                     node:Show()
                     node:SetScript('OnUpdate', function() nodeUpdate(node.text, node.faction, o, t) end)
                     reposition()

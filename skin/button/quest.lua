@@ -12,6 +12,18 @@
         end
     end
 
+    for i = 1, 6 do                             -- QUEST DETAIL
+        local bu = _G['QuestDetailItem'..i]
+        local ic = _G['QuestDetailItem'..i..'IconTexture']
+        if bu then
+            local f = CreateFrame('Frame', nil, bu)
+            f:SetAllPoints(ic)
+            modSkin(f, 18)
+            modSkinPadding(f, 2)
+            modSkinColor(f, .2, .2, .2)
+        end
+    end
+
     for i = 1, 6 do                             -- QUEST PROGRESS
         local bu = _G['QuestProgressItem'..i]
         local ic = _G['QuestProgressItem'..i..'IconTexture']

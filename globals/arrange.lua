@@ -108,9 +108,9 @@
             GameTooltip:SetBackdropBorderColor(.1, .1, .1, 1)
             if type == 'ANCHOR_NONE' then
                 GameTooltip:ClearAllPoints()
-                if SHOW_MULTI_ACTIONBAR_4 then
+                if SHOW_MULTI_ACTIONBAR_3 then
                     GameTooltip:SetPoint('BOTTOMRIGHT', MultiBarLeftButton12, 'TOPRIGHT', 3, 8)
-                elseif SHOW_MULTI_ACTIONBAR_2 and not SHOW_MULTI_ACTIONBAR_4 then
+                elseif SHOW_MULTI_ACTIONBAR_2 and not SHOW_MULTI_ACTIONBAR_3 then
                     GameTooltip:SetPoint('BOTTOMRIGHT', MultiBarBottomRightButton12, 'TOPRIGHT', 3, 8)
                 else
                     GameTooltip:SetPoint('BOTTOMRIGHT', MainMenuBarBackpackButton, 'TOPRIGHT', 3, 16)
