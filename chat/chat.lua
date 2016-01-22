@@ -45,7 +45,6 @@
              local a = flash:GetRegions()
              a:SetTexture''
 
-                 -- text
              local text = _G[f:GetName()..'TabText']
              text:SetJustifyH'CENTER'
              text:SetWidth(40)
@@ -110,8 +109,8 @@
      local x = ({ChatFrameEditBox:GetRegions()})
      x[6]:SetAlpha(0) x[7]:SetAlpha(0) x[8]:SetAlpha(0)
      ChatFrameEditBox:ClearAllPoints()
-     ChatFrameEditBox:SetPoint('BOTTOMLEFT', ChatFrame1, 'TOPLEFT', -5, 0)
-     ChatFrameEditBox:SetPoint('BOTTOMRIGHT', ChatFrame1, 'TOPRIGHT',  5, 0)
+     ChatFrameEditBox:SetPoint('BOTTOMLEFT', ChatFrame1, 'TOPLEFT', -2, 18)
+     ChatFrameEditBox:SetPoint('BOTTOMRIGHT', ChatFrame1, 'TOPRIGHT',  2, 18)
      ChatFrameEditBox:SetAltArrowKeyMode(nil)
 
     function ChatFrame_OnUpdate(elapsed)

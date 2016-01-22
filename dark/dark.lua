@@ -338,6 +338,9 @@
     local f = CreateFrame'Frame'
     f:RegisterEvent'ADDON_LOADED'
     f:SetScript('OnEvent', function()
+        if IsAddOnLoaded'moddkp' then
+            table.insert(MODUI_COLOURELEMENTS_FOR_UI, Minimap.moddkp.border)
+        end
         if IsAddOnLoaded'Postal' then                   -- POSTAL
             PostalButton1:SetScript('OnShow', function()
                 if MailFrame.Material:IsShown() then MailFrame.Material:Hide() end
@@ -385,6 +388,9 @@
             for _, v in pairs({a, b, c, d}) do
                 table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
             end
+        elseif arg1 == 'Blizzard_RaidUI' then
+            local _, a = ReadyCheckFrame:GetRegions()   -- READYCHECK
+            table.insert(MODUI_COLOURELEMENTS_FOR_UI, a)
         elseif arg1 == 'Blizzard_TalentUI' then         -- TALENTS
             local _, a, b, c, d = TalentFrame:GetRegions()
             for _, v in pairs({a, b, c, d}) do

@@ -29,6 +29,7 @@ libs\libs\AceAddon-2.0\AceAddon-2.0.lua
 libs\libs\AceConsole-2.0\AceConsole-2.0.lua
 libs\libs\RosterLib-2.0\RosterLib-2.0.lua
 libs\libs\HealComm-1.0\HealComm-1.0.lua
+libs\libs\ProximityLib\ProximityLib.lua
 libs\healcomm\HealComm.lua
 libs\mobhealth\MobHealth3.lua
 libs\mobhealth\MH3_Blizzard.lua
@@ -97,6 +98,9 @@ pvp\av.lua
 pvp\rank.lua
 pvp\popup.lua
 pvp\wsg.lua
+
+raid\spawn.lua
+raid\unit.lua
 
 statusbar\gradient.lua
 statusbar\smooth.lua
