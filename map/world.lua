@@ -108,9 +108,9 @@
     end
 
     local dungeonmap = function(z)
-        if z == 'blackwing lair' then
+        if z == 'blackwinglair' then
             local sz = string.lower(GetSubZoneText())
-            sz = string.gsub(z, '%W', '')
+            sz = string.gsub(sz, '%W', '')
             if sz then
                 for i = 1, 12 do
                     local d12 = _G['moddungeonmap'..i]

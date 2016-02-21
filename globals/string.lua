@@ -14,6 +14,8 @@
         return count
     end
 
+    MODUI_FFqueued = false  -- used for quiet FriendsFrame data fetches
+
     MODUI_UICOLOR_DEFAULT = {r = .2, g = .2, b = .2}
     MODUI_COLOUR_FOR_UI   = {}
     MODUI_COLOURELEMENTS_FOR_UI          = {}

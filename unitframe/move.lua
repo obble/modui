@@ -1,7 +1,7 @@
 
 
     if tonumber(GetCVar'modUnitFrame') == 0 then return end
-    
+
     local orig = {}
 
     for _, v in pairs({ PlayerFrame, TargetFrame, PartyMemberFrame1 }) do
@@ -29,9 +29,7 @@
         local unit = this.unit
 
         if SHOW_NEWBIE_TIPS == '1'  -- MOVE HINT
-        and name ~= 'PetFrame'
-        and name ~= 'PartyMemberFrame2' and name ~= 'PartyMemberFrame3'
-        and name ~= 'PartyMemberFrame4' and name ~= 'TargetofTargetFrame' then
+        and (name == 'TargetFrame' or name == 'PartyMemberFrame1') then
             GameTooltip:AddLine('Shift + Drag to move '..name..'.', .3, 1, .6)
             GameTooltip:Show()
         end

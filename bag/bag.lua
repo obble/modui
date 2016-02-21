@@ -373,6 +373,7 @@
 	OpenBackpack = OpenBags
 	CloseAllBags = CloseBags
 	OpenAllBags = ToggleBags
+	ToggleBackpack = ToggleBags
 	CloseBackpack = CloseAllBags
 
 	for _, v in pairs({	-- dark theme

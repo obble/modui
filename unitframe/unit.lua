@@ -8,6 +8,17 @@
     local colour = RAID_CLASS_COLORS[class]
     local orig = {}
 
+    local anchor = function(num)
+    	if num > 5 then return 6 end
+    	return 1
+    end
+
+    orig.TargetDebuffButton_Update         = TargetDebuffButton_Update
+    orig.PartyMemberFrame_UpdateMember     = PartyMemberFrame_UpdateMember
+    orig.TargetofTarget_Update             = TargetofTarget_Update
+    orig.TextStatusBar_UpdateTextString    = TextStatusBar_UpdateTextString
+    orig.UIOptionsFrame_UpdateDependencies = UIOptionsFrame_UpdateDependencies
+
     PlayerFrameBackground.bg = PlayerFrame:CreateTexture(nil, 'ARTWORK')
     PlayerFrameBackground.bg:SetPoint('TOPLEFT', PlayerFrameBackground)
     PlayerFrameBackground.bg:SetPoint('BOTTOMRIGHT', PlayerFrameBackground, 0, 22)
@@ -37,13 +48,29 @@
     TargetFrameManaBar:SetBackdropColor(0, 0, 0, .6)
 
     PlayerFrameGroupIndicator:SetAlpha(0)
+
     PlayerHitIndicator:SetText(nil)
     PlayerHitIndicator.SetText = function() end
+
     PetHitIndicator:SetText(nil)
     PetHitIndicator.SetText = function() end
 
     TargetLevelText:SetJustifyH'LEFT'
     TargetLevelText:SetPoint('LEFT', TargetFrameTextureFrame, 'CENTER', 56, -16)
+
+    for i = 6, 12 do
+        local f = CreateFrame('Button', 'TargetFrameBuff'..i, TargetFrame, 'TargetBuffButtonTemplate')
+        f:SetID(i)
+        f:Hide()
+        modSkin(f, 16)      -- first 6 are skinned in skin/button/target.lua
+        modSkinPadding(f, 2)
+        modSkinColor(f, .2, .2, .2)
+        if i == 6 then
+            f:SetPoint('TOPLEFT', TargetFrameBuff1, 'BOTTOMLEFT', 0, -2)
+        else
+            f:SetPoint('LEFT', _G['TargetFrameBuff'..(i - 1)], 'RIGHT', 3, 0)
+        end
+    end
 
     for i, v in pairs({PlayerPVPIcon, TargetFrameTextureFramePVPIcon,}) do v:SetAlpha(0) end
 
@@ -74,6 +101,63 @@
     function TargetFrame_OnHide() CloseDropDownMenus() end
 
 
+
+    local mod_TargetBuffs = function()          -- TARGET AURAS (up to 16)
+        local b, d = 0, 0
+
+        for i = 1, 16 do
+            local bu = _G['TargetFrameBuff'..i]
+            local ic = UnitBuff('target', i)
+            if bu and ic then
+                _G['TargetFrameBuff'..i..'Icon']:SetTexture(ic)
+                bu:Show()
+                bu.id = i
+                b = i
+            else
+                if bu then bu:Hide() end
+            end
+        end
+
+        for i = 1, 16 do
+            local ic, stack = UnitDebuff('target', i)
+            local bu = _G['TargetFrameDebuff'..i]
+            if bu and ic then
+                local count = _G['TargetFrameDebuff'..i..'Count']
+                if stack > 1 then
+                    count:SetText(stack)
+                    count:Show()
+                else
+                    count:Hide()
+                end
+                _G['TargetFrameDebuff'..i..'Icon']:SetTexture(ic)
+                bu:Show()
+                bu.id = i
+                d = i
+            else
+                if bu then bu:Hide() end
+            end
+        end
+
+        for i = 6, 12 do
+            local bu = _G['TargetFrameBuff'..i]
+            local x, y = _G['TargetFrameBuff1']:GetWidth(), _G['TargetFrameBuff1']:GetHeight()
+            bu:SetWidth(x) bu:SetHeight(y)
+        end
+
+        if UnitIsFriend('player', 'target') then
+            TargetFrameBuff1:ClearAllPoints()
+            TargetFrameBuff1:SetPoint('TOPLEFT', 'TargetFrame', 'BOTTOMLEFT', 5, 32)
+            TargetFrameDebuff1:ClearAllPoints()
+            TargetFrameDebuff1:SetPoint('TOPLEFT', _G['TargetFrameBuff'..anchor(b)], 'BOTTOMLEFT', 0, -2)
+        else
+            TargetFrameBuff1:ClearAllPoints()
+            TargetFrameBuff1:SetPoint('TOPLEFT', _G['TargetFrameDebuff'..anchor(d)], 'BOTTOMLEFT', 0, -2)
+            TargetFrameDebuff1:ClearAllPoints()
+            TargetFrameDebuff1:SetPoint('TOPLEFT', TargetFrame, 'BOTTOMLEFT', 5, 32)
+        end
+    end
+
+
     t = CreateFrame'Frame'
     t:RegisterEvent'PLAYER_TARGET_CHANGED' t:RegisterEvent'PARTY_MEMBERS_CHANGED'
     t:RegisterEvent'UNIT_FACTION'
@@ -83,11 +167,6 @@
         if UnitIsPlayer'target' then TargetFrameNameBackground:SetVertexColor(colour.r, colour.g, colour.b, 1) end
         if arg1 == 'PARTY_MEMBERS_CHANGED' then colourParty() end
     end)
-
-    orig.PartyMemberFrame_UpdateMember     = PartyMemberFrame_UpdateMember
-    orig.TargetofTarget_Update             = TargetofTarget_Update
-    orig.TextStatusBar_UpdateTextString    = TextStatusBar_UpdateTextString
-    orig.UIOptionsFrame_UpdateDependencies = UIOptionsFrame_UpdateDependencies
 
     function PartyMemberFrame_UpdateMember()
         orig.PartyMemberFrame_UpdateMember()
@@ -195,6 +274,19 @@
             TextStatusBar_UpdateTextString() ReloadUI()
         end
     end)
+
+    TargetFrame:SetScript('OnEnter', function()
+        UnitFrame_OnEnter()
+        function TargetDebuffButton_Update() mod_TargetBuffs() end
+        TargetDebuffButton_Update()
+    end)
+    TargetFrame:SetScript('OnLeave', function()
+        UnitFrame_OnLeave()
+        function TargetDebuffButton_Update() orig.TargetDebuffButton_Update() end
+        TargetDebuffButton_Update()
+        for i = 6, 12 do _G['TargetFrameBuff'..i]:Hide() end
+    end)
+
 
 
     --

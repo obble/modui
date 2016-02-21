@@ -118,6 +118,27 @@
         plate.heal:SetTextColor(0, .6, 0, .6)
         plate.heal:Hide()
 
+        plate.buffs = {}
+        for i = 1, 4 do
+            plate.buffs[i] = CreateFrame('Frame', nil, plate)
+            plate.buffs[i]:SetWidth(25) plate.buffs[i]:SetHeight(15)
+            plate.buffs[i]:SetPoint('BOTTOMLEFT', plate, 'TOPLEFT', (i - 1)*32 + (i - 1)*2 + 5, -8)
+            plate.buffs[i]:Hide()
+
+            modSkin(plate.buffs[i], 14.5)
+            modSkinPadding(plate.buffs[i], 2)
+            modSkinColor(plate.buffs[i], .2, .2, .2)
+
+            plate.buffs[i].icon = plate.buffs[i]:CreateTexture(nil, 'ARTWORK')
+            plate.buffs[i].icon:SetAllPoints()
+            plate.buffs[i].icon:SetTexCoord(.1, .9, .25, .75)
+
+            plate.buffs[i].duration = plate.buffs[i]:CreateFontString(nil, 'OVERLAY', 'GameFontNormalSmall')
+            plate.buffs[i].duration:SetFont(STANDARD_TEXT_FONT, 8)
+            plate.buffs[i].duration:SetTextColor(1, 1, 1)
+            plate.buffs[i].duration:SetPoint('CENTER', plate.buffs[i], 'BOTTOM', 0, -2)
+        end
+
         if class == 'Rogue' or class == 'Druid' then
             plate.cp = plate:CreateFontString(nil, 'OVERLAY')
             plate.cp:SetFont(STANDARD_TEXT_FONT, 20, 'OUTLINE')
@@ -193,32 +214,49 @@
     end
 
     local addHeal = function(plate)
-            local _, _, name = plate:GetRegions()
-            local text = name:GetText()
-    		plate.heal:Hide()
-
-    		local v = PROCESSCASTINGgetHeal(text)
-    		if v ~= nil then
-    			if GetTime() < v.timeEnd then
-    				local y = 14
-    				if v.crit == 1 then
-    					plate.heal:SetFont(STANDARD_TEXT_FONT, 28, 'OUTLINE')
-    				else
-    					plate.heal:SetFont(STANDARD_TEXT_FONT, 24, 'OUTLINE')
-    					y = y + v.y
-    					if y + v.y < y + 20 then v.y = v.y + 1 end
-    				end
-    				plate.heal:SetPoint('CENTER', plate, 0, y)
-    				if (v.timeEnd - GetTime()) < .6 then
-    					plate.heal:SetAlpha(mod((v.timeEnd - GetTime()), 1))
-    				else
-    					plate.heal:SetAlpha(.6)
-    				end
-    				plate.heal:SetText('+'..v.amount)
-    				plate.heal:Show()
+        local _, _, name = plate:GetRegions()
+        local text = name:GetText()
+    	plate.heal:Hide()
+    	local v = PROCESSCASTINGgetHeal(text)
+    	if v ~= nil then
+    		if GetTime() < v.timeEnd then
+    			local y = 14
+    			if v.crit == 1 then
+    				plate.heal:SetFont(STANDARD_TEXT_FONT, 28, 'OUTLINE')
+    			else
+    				plate.heal:SetFont(STANDARD_TEXT_FONT, 24, 'OUTLINE')
+    				y = y + v.y
+    				if y + v.y < y + 20 then v.y = v.y + 1 end
     			end
+    			plate.heal:SetPoint('CENTER', plate, 0, y)
+    			if (v.timeEnd - GetTime()) < .6 then
+    				plate.heal:SetAlpha(mod((v.timeEnd - GetTime()), 1))
+    			else
+    				plate.heal:SetAlpha(.6)
+    			end
+    			plate.heal:SetText('+'..v.amount)
+    			plate.heal:Show()
     		end
+    	end
+    end
+
+    local addBuff = function(plate)
+        local _, _, name = plate:GetRegions()
+        local text = name:GetText()
+        local v = PROCESSBUFFSgetBuffs(text)
+        for i = 1, 4 do
+            plate.buffs[i]:Hide()
+            plate.buffs[i].icon:SetTexture''
+            plate.buffs[i].duration:SetText''
         end
+        if v ~= nil then
+            for i, e in pairs(v) do
+                plate.buffs[i]:Show()
+                plate.buffs[i].icon:SetTexture(e.icon)
+                plate.buffs[i].duration:SetText(getTimerLeft(e.timeEnd))
+            end
+        end
+    end
 
     local f = CreateFrame'Frame'
     f:SetScript('OnUpdate', function()
@@ -228,7 +266,7 @@
                 if isPlate(plate) and plate:IsVisible() then
                     local _, _, name = plate:GetRegions()
                     if not plate.skinned then modPlate(plate) end
-                    addClass(plate) addCP(plate) addCast(plate) addHeal(plate)
+                    addClass(plate) addCP(plate) addCast(plate) addHeal(plate) addBuff(plate)
                 end
             end
         end

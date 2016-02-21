@@ -1,7 +1,7 @@
 ## Interface: 11200
 ## Author: modernist
-## Title:  ui
-## Notes: ui s.
+## Title: mod ui
+## Notes: make the ui better.
 ##SavedVariablesPerCharacter: modAction, modStatus, modValue, modBoth, modGryphon, modEndcap, modTimestamp, modAuraFormat, modOneBag, modChatFormat, modItemLink, modBattleMap, modDungeonMap, modNameplate, modQuestWatch, modTooltip, modUnitFrame, modPVPTimers, modPVPRank, modStopWatch, MODUI_COLOUR_FOR_UI
 
 globals\auction.lua
@@ -12,11 +12,13 @@ globals\mount.lua
 globals\shit.lua
 globals\string.lua
 globals\table.lua
+globals\unitbuff.lua
 globals\unitcasting.lua
 
 actionbar\bagbar.lua
 actionbar\bar.lua
 actionbar\keypress.lua
+actionbar\paging.lua
 actionbar\stats.lua
 actionbar\xp.lua
 
@@ -86,6 +88,8 @@ chat\chat.lua
 chat\event.lua
 chat\quest.lua
 
+combattext\ct.lua
+
 map\mini.lua
 map\pvp.lua
 map\world.lua
@@ -99,7 +103,6 @@ pvp\rank.lua
 pvp\popup.lua
 pvp\wsg.lua
 
-raid\spawn.lua
 raid\unit.lua
 
 statusbar\gradient.lua
@@ -111,8 +114,11 @@ tip\tip.lua
 
 tracker\click.lua
 
+unitframe\boss\create.lua
+unitframe\boss\update.lua
 unitframe\castbar.lua
 unitframe\energy.lua
 unitframe\move.lua
 unitframe\unit.lua
 unitframe\mobhealth.lua
+unitframe\shards.lua

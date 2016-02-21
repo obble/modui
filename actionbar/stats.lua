@@ -3,7 +3,6 @@
     local _, class = UnitClass'Player'
     local colour = RAID_CLASS_COLORS[class]
     local addon = {} local orig = {}
-    local queued = false
     local money, lastmoney, xp, startxp, lastxp, gotxp, sessionxp = 0
     local f = CreateFrame'Frame'
 
@@ -33,7 +32,7 @@
 
     local getWhoOnline = function()
         SendWho''
-        queued = true
+        MODUI_FFqueued = true
         f:RegisterEvent'WHO_LIST_UPDATE'
         local  n, t = GetNumWhoResults()
         local text = format(GetText('WHO_FRAME_TOTAL_TEMPLATE', nil, t), t)
@@ -100,7 +99,7 @@
         if event == 'WHO_LIST_UPDATE' then
             HideUIPanel(FriendsFrame)
             f:UnregisterEvent'WHO_LIST_UPDATE'
-            queued = false
+            MODUI_FFqueued = false
         end
         if event == 'PLAYER_ENTERING_WORLD' then
             lastmoney = GetMoney()
@@ -131,7 +130,7 @@
         FriendsFrame.showFriendsList = 1
         FriendsFrame_Update()
         UpdateMicroButtons()
-        if not queued then PlaySound'igMainMenuOpen' end
+        if not MODUI_FFqueued then PlaySound'igMainMenuOpen' end
         GuildFrame.selectedGuildMember = 0
         SetGuildRosterSelection(0)
         InGuildCheck()
@@ -139,7 +138,7 @@
 
     function FriendsFrame_OnHide()
 	   UpdateMicroButtons()
-       if not queued then PlaySound'igMainMenuClose' end
+       if not MODUI_FFqueued then PlaySound'igMainMenuClose' end
        SetGuildRosterSelection(0)
        GuildFrame.selectedGuildMember = 0
        for _, v in pairs ({GuildControlPopupFrame, GuildMemberDetailFrame, GuildInfoFrame, RaidInfoFrame}) do

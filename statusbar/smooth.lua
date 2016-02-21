@@ -18,18 +18,7 @@
         SkillRankFrame9, SkillRankFrame10, SkillRankFrame11, SkillRankFrame12,
     }
 
-    local raidbarstosmooth = {
-        RaidPullout1Button1HealthBar, RaidPullout1Button2HealthBar, RaidPullout1Button3HealthBar, RaidPullout1Button4HealthBar, RaidPullout1Button5HealthBar,
-        RaidPullout2Button1HealthBar, RaidPullout2Button2HealthBar, RaidPullout2Button3HealthBar, RaidPullout2Button4HealthBar, RaidPullout5Button5HealthBar,
-        RaidPullout3Button1HealthBar, RaidPullout3Button2HealthBar, RaidPullout3Button3HealthBar, RaidPullout3Button4HealthBar, RaidPullout3Button5HealthBar,
-        RaidPullout4Button1HealthBar, RaidPullout4Button2HealthBar, RaidPullout4Button3HealthBar, RaidPullout4Button4HealthBar, RaidPullout4Button5HealthBar,
-        RaidPullout5Button1HealthBar, RaidPullout5Button2HealthBar, RaidPullout5Button3HealthBar, RaidPullout5Button4HealthBar, RaidPullout5Button5HealthBar,
-        RaidPullout1Button1ManaBar, RaidPullout1Button2ManaBar, RaidPullout1Button3ManaBar, RaidPullout1Button4ManaBar, RaidPullout1Button5ManaBar,
-        RaidPullout2Button1ManaBar, RaidPullout2Button2ManaBar, RaidPullout2Button3ManaBar, RaidPullout2Button4ManaBar, RaidPullout5Button5ManaBar,
-        RaidPullout3Button1ManaBar, RaidPullout3Button2ManaBar, RaidPullout3Button3ManaBar, RaidPullout3Button4ManaBar, RaidPullout3Button5ManaBar,
-        RaidPullout4Button1ManaBar, RaidPullout4Button2ManaBar, RaidPullout4Button3ManaBar, RaidPullout4Button4ManaBar, RaidPullout4Button5ManaBar,
-        RaidPullout5Button1ManaBar, RaidPullout5Button2ManaBar, RaidPullout5Button3ManaBar, RaidPullout5Button4ManaBar, RaidPullout5Button5ManaBar,
-    }
+    MODUI_RAIDBARS_TO_SMOOTH = {}
 
 	local smoothframe = CreateFrame'Frame'
 	smoothing = {}
@@ -101,7 +90,13 @@
     smoothframe:RegisterEvent'ADDON_LOADED'
     smoothframe:SetScript('OnEvent', function()
         if arg1 == 'Blizzard_RaidUI' then
-            for _, v in pairs (raidbarstosmooth) do if v then SmoothBar(v) end end
+            for i = 1, 40 do
+                local hp = _G['modraid'..i]
+                local pp = _G['modraid'..i]
+                if hp then
+                    for _, v in pairs({hp.hp, pp.mana}) do SmoothBar(v) end
+                end
+            end
         end
     end)
 

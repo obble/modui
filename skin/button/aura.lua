@@ -8,7 +8,6 @@
     for i = 0, 23 do                    -- AURA
         local bu = _G['BuffButton'..i]
         local du = _G['BuffButton'..i..'Duration']
-        local cv = tonumber(GetCVar'modAuraFormat')
         modSkin(bu, 16)
         modSkinPadding(bu, 2)
         modSkinColor(bu, .2, .2, .2)
@@ -18,7 +17,6 @@
     for i = 1, 2 do
         local bu = _G['TempEnchant'..i]
         local du = _G['TempEnchant'..i..'Duration']
-        local cv = tonumber(GetCVar'modAuraFormat')
         _G['TempEnchant'..i]:SetAlpha(0)
         modSkin(bu, 16)
         modSkinPadding(bu, 2)
@@ -38,7 +36,6 @@
     end
 
     function BuffButtons_UpdatePositions()
-        local cv = tonumber(GetCVar'modAuraFormat')
         if SHOW_BUFF_DURATIONS == '1' then
             BuffButton8:SetPoint('TOP', TempEnchant1, 'BOTTOM', 0, -25)
             BuffButton16:SetPoint('TOPRIGHT', TemporaryEnchantFrame, "TOPRIGHT", 0, -120)
