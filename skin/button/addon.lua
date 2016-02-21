@@ -5,7 +5,14 @@
 
     f:RegisterEvent'ADDON_LOADED'
     f:SetScript('OnEvent', function()
-        if arg1 == 'zBar' then          -- ZBAR
+        if arg1 == 'TrinketMenu' then       -- TRINKETMENU
+            for i = 0, 1 do
+                local bu = _G['TrinketMenu_Trinket'..i]
+                modSkin(bu, 18)
+                modSkinPadding(bu, 3)
+                modSkinColor(bu, .2, .2, .2)
+            end
+        elseif arg1 == 'zBar' then          -- ZBAR
             for _, v in pairs({zBar1, zBar2, zBar3, zBar4, zBar9}) do
                 for i = 1, 12 do
                     local f = v:GetName()
@@ -19,6 +26,12 @@
             end
         end
     end)
+
+    if IsAddOnLoaded'moddkp' then
+        modSkin(moddkp_container, 18)
+        modSkinPadding(moddkp_container, 2)
+        modSkinColor(moddkp_container, .2, .2, .2)
+    end
 
     if IsAddOnLoaded'KLHThreatMeter' then
         modSkin(KLHTM_Frame, 18)

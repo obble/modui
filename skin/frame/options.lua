@@ -9,7 +9,6 @@
         modui_optionsmodraid,
         modui_elements,
         modui_elementscontainer,
-        -- moddkp_container
     }) do
         modSkin(v, 14.5)
         modSkinPadding(v, -1, 0, -1, 0, -1, 2, -1, 2)
@@ -19,10 +18,6 @@
     modSkin(modui_optionsCloseButton, 14.5)
     modSkinPadding(modui_optionsCloseButton, -5)
     modSkinColor(modui_optionsCloseButton, .2, .2, .2)
-
-    modSkin(moddkp_container, 18)
-    modSkinPadding(moddkp_container, 2)
-    modSkinColor(moddkp_container, .2, .2, .2)
 
     for i = 1, 60 do
         local bu = _G['modui_actionbutton'..i]

@@ -21,6 +21,7 @@
 
     function HealthBar_OnValueChanged(v, smooth)
         if not v then return end
+        if string.find(this:GetName(), 'RaidPullout') then return end
         local r, g, b
         local min, max = this:GetMinMaxValues()
         gradient(v, this, min, max)

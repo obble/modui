@@ -61,6 +61,7 @@
             bar:ClearAllPoints()
             bar:SetPoint('TOP', MainMenuBar, 0, -4)
             text:SetPoint('CENTER', ReputationWatchBarOverlayFrame, 0, 3)
+            text:SetDrawLayer('OVERLAY', 7)
             if name then
                 text:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
                 if GetCVar'modValue' == '1' then

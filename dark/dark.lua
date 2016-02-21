@@ -223,6 +223,13 @@
     table.insert(MODUI_COLOURELEMENTS_FOR_UI, QuestTimerHeader)
 
 
+        -- RAIDINFO
+    local _, _, a = RaidInfoFrame:GetRegions()
+    for _, v in pairs({a}) do
+        table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
+    end
+
+
         -- REPUTATION
     table.insert(MODUI_COLOURELEMENTS_BORDER_FOR_UI, ReputationDetailFrame)
     local a, b, c, d = ReputationFrame:GetRegions()

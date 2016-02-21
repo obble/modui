@@ -4,8 +4,9 @@
 	local orig 	 = {}
 	local time   = nil
 
-	orig.ActionButton_OnUpdate     = ActionButton_OnUpdate
-	orig.ShapeshiftBar_UpdateState = ShapeshiftBar_UpdateState
+	orig.ActionButton_OnUpdate      = ActionButton_OnUpdate
+	orig.PetActionBarFrame_OnUpdate = PetActionBarFrame_OnUpdate
+	orig.ShapeshiftBar_UpdateState  = ShapeshiftBar_UpdateState
 
 	local borders = function(nutime)
 		if this:GetChecked() then this.checked = true modSkinColor(this, 1, 175/255, 155/255) end
@@ -25,6 +26,12 @@
 
 	function ActionButton_OnUpdate(elapsed)
 		orig.ActionButton_OnUpdate(elapsed)
+		local nutime = GetTime()
+		borders(nutime)
+	end
+
+	function PetActionBarFrame_OnUpdate(elapsed)
+		orig.PetActionBarFrame_OnUpdate(elapsed)
 		local nutime = GetTime()
 		borders(nutime)
 	end
