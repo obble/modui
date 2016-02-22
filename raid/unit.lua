@@ -162,16 +162,16 @@
     end
 
     local vheals = function(bu)
-		local v = PROCESSCASTINGgetHeal(UnitName(this.unit))
+        local v = PROCESSCASTINGgetHeal(UnitName(this.unit))
         bu.healv:Hide()
-		if v then
+        if v then
             if GetTime() < v.timeEnd then
                 local y = -4
                 if v.crit == 1 then
-                    bu.healv:SetFont(STANDARD_TEXT_FONT, 12, 'MONOCHROMEOUTLINE')
+                    bu.healv:SetFont(STANDARD_TEXT_FONT, 16, 'MONOCHROMEOUTLINE')
                     y = 0
                 else
-                    bu.healv:SetFont(STANDARD_TEXT_FONT, 10, 'MONOCHROMEOUTLINE')
+                    bu.healv:SetFont(STANDARD_TEXT_FONT, 12, 'MONOCHROMEOUTLINE')
                     y = y + v.y
                     if y + v.y < y + 8 then v.y = v.y + .5 end
                 end
@@ -181,10 +181,10 @@
                 else
                     bu.healv:SetAlpha(.6)
                 end
-			    bu.healv:SetText('+ '..v.amount..(v.crit == 1 and '!' or ''))
-			    bu.healv:Show()
+                bu.healv:SetText('+ '..v.amount..(v.crit == 1 and '!' or ''))
+                bu.healv:Show()
             end
-		end
+        end
 	end
 
     local status = function(bu)
@@ -352,8 +352,8 @@
         bu[i].heal:SetStatusBarColor(0, 1, 0, .7)
 
         bu[i].healv = bu[i]:CreateFontString(nil, 'OVERLAY', 'GameFontNormalSmall')
-		bu[i].healv:SetTextColor(0, .6, 0, .6)
-		bu[i].healv:SetPoint('CENTER', bu[i], 0, -4)
+        bu[i].healv:SetTextColor(0, .6, 0, .6)
+        bu[i].healv:SetPoint('CENTER', bu[i], 0, -4)
 
         bu[i].ric = bu[i]:CreateTexture(nil, 'OVERLAY')
         bu[i].ric:SetWidth(17) bu[i].ric:SetHeight(17)
