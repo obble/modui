@@ -126,7 +126,7 @@
             plate.buffs[i]:Hide()
 
             modSkin(plate.buffs[i], 14.5)
-            modSkinPadding(plate.buffs[i], 2)
+            modSkinPadding(plate.buffs[i], 3)
             modSkinColor(plate.buffs[i], .2, .2, .2)
 
             plate.buffs[i].icon = plate.buffs[i]:CreateTexture(nil, 'ARTWORK')

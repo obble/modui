@@ -78,17 +78,17 @@
                 local t = gsub(arg1, '(.+) (.+) damage.', '%2')
                 if t then colour = SPELL_SCHOOL_COLORS[t] else colour = {r =  1, g =  1, b =  0} end
     			arg2 = gsub(arg1, m, '%3')  arg2 = gsub(arg2, '(.+) (.+) damage.', '%1')
-                msgType = 'OUTGOING_DMG'
+                msgType = crit and 'OUTGOING_DMG_CRIT' or 'OUTGOING_DMG'
             end
         elseif event == 'CHAT_MSG_SPELL_SELF_BUFF' then
-            local h    = 'Your (.+) heals (.+) for (.+).'
-            local c    = 'Your (.+) critically heals (.+) for (.+).'
+            local h    = 'Your (.+) heals (.+) for (.+).'            local heal = string.find(arg1, h)
+            local c    = 'Your (.+) critically heals (.+) for (.+).' local crit = string.find(arg1, c)
             local hot  = '(.+) gains (.+) health from your (.+).'
-            if string.find(arg1, h) or string.find(arg1, c) then
+            if heal or crit then
                 arg2 = gsub(arg1, h, '%3 — %2')
                 colour = {r = .1, g = .7, b = .65}
                 if string.find(arg2, '(.+) — you') then return end
-                msgType = 'OUTGOING_HEALING'
+                msgType = crit and 'OUTGOING_HEALING_CRIT' or 'OUTGOING_HEALING'
             end
         elseif event == 'COMBAT_TEXT_UPDATE' then
         	msgType = arg1
@@ -122,11 +122,19 @@
             -- dspType = 'plus'
         end
 
-        if msgType == 'OUTGOING_DMG' then
-            info = COMBAT_TEXT_TYPE_INFO['OUTGOING_DMG']
+        if msgType == 'OUTGOING_DMG' or msgType == 'OUTGOING_DMG_CRIT' then
+            if msgType == 'OUTGOING_DMG_CRIT' then
+                info = COMBAT_TEXT_TYPE_INFO['OUTGOING_DMG_CRIT']
+            else
+                info = COMBAT_TEXT_TYPE_INFO['OUTGOING_DMG']
+            end
             message = arg2
         elseif msgType == 'OUTGOING_HEALING' then
-            info = COMBAT_TEXT_TYPE_INFO['OUTGOING_HEALING']
+            if msgType == 'OUTGOING_HEALING_CRIT' then
+                info = COMBAT_TEXT_TYPE_INFO['OUTGOING_HEALING_CRIT']
+            else
+                info = COMBAT_TEXT_TYPE_INFO['OUTGOING_HEALING']
+            end
             message = arg2
         end
 
@@ -200,25 +208,27 @@
     f:SetScript('OnEvent', function()
         if event == 'ADDON_LOADED' then
             if arg1 == 'Blizzard_CombatText' then
-                orig.CombatText_UpdateDisplayedMessages   = CombatText_UpdateDisplayedMessages
-                orig.CombatText_AddMessage                = CombatText_AddMessage
-                orig.CombatText_OnEvent                   = CombatText_OnEvent
-                orig.CombatText_GetAvailableString        = CombatText_GetAvailableString
-                orig.CombatText_OnUpdate                  = CombatText_OnUpdate
-                COMBAT_TEXT_HEIGHT                        = 18  -- SIZE
-                COMBAT_TEXT_SCROLLSPEED                   = 3   -- ANIMSPEED
-                COMBAT_TEXT_FADEOUT_TIME                  = 2   -- FADE
-                COMBAT_TEXT_CRIT_MAXHEIGHT                = 30  -- CRIT SIZE MAX
-                COMBAT_TEXT_CRIT_MINHEIGHT                = 20  -- CRIT SIZE MIN
-                COMBAT_TEXT_TYPE_INFO['OUTGOING_DMG']     = {r = .9, g = .7, b = .1,  show = 1}
-                COMBAT_TEXT_TYPE_INFO['OUTGOING_HEALING'] = {r = .1, g = .7, b = .65, show = 1}
+                orig.CombatText_UpdateDisplayedMessages        = CombatText_UpdateDisplayedMessages
+                orig.CombatText_AddMessage                     = CombatText_AddMessage
+                orig.CombatText_OnEvent                        = CombatText_OnEvent
+                orig.CombatText_GetAvailableString             = CombatText_GetAvailableString
+                orig.CombatText_OnUpdate                       = CombatText_OnUpdate
+                COMBAT_TEXT_HEIGHT                             = 18  -- SIZE
+                COMBAT_TEXT_SCROLLSPEED                        = 3   -- ANIMSPEED
+                COMBAT_TEXT_FADEOUT_TIME                       = 2   -- FADE
+                COMBAT_TEXT_CRIT_MAXHEIGHT                     = 30  -- CRIT SIZE MAX
+                COMBAT_TEXT_CRIT_MINHEIGHT                     = 20  -- CRIT SIZE MIN
+                COMBAT_TEXT_TYPE_INFO['OUTGOING_DMG']          = {r = .9, g = .7, b = .1,  show = 1}
+                COMBAT_TEXT_TYPE_INFO['OUTGOING_DMG_CRIT']     = {r = .9, g = .7, b = .1,  show = 1}
+                COMBAT_TEXT_TYPE_INFO['OUTGOING_HEALING']      = {r = .1, g = .7, b = .65, show = 1}
+                COMBAT_TEXT_TYPE_INFO['OUTGOING_HEALING_CRIT'] = {r = .1, g = .7, b = .65, show = 1}
                 CombatText:RegisterEvent'CHAT_MSG_SPELL_SELF_BUFF'
                 CombatText:RegisterEvent'CHAT_MSG_SPELL_SELF_DAMAGE'
-                                                                --
-                f:ApplyOverrides()                              -- INIT SUBS
-                                                                --
-                style()                                         -- FONT
-                                                                --
+                                                                     --
+                f:ApplyOverrides()                                   -- INIT SUBS
+                                                                     --
+                style()                                              -- FONT
+                                                                     --
                 function CombatText_OnEvent(event)
                     handler(event)
                     orig.CombatText_OnEvent(event)
@@ -233,11 +243,11 @@
                 end
                 function CombatText_GetAvailableString()
                     for i = 1, NUM_COMBAT_TEXT_LINES do
-                        local string = getglobal('CombatText'..i)
+                        local string = _G['CombatText'..i]
                         if string.modType then string.modType = nil end
                     end
                     if dspType == 'crit' then
-                        local string = getglobal'CombatTextCrit' return string
+                        local string = _G['CombatTextCrit'] return string
                     else return orig.CombatText_GetAvailableString() end
                 end
                 function CombatText_UpdateDisplayedMessages()
