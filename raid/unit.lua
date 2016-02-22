@@ -85,13 +85,10 @@
     end
 
     local buffs = function(bu)
-        local v = PROCESSBUFFSgetBuffs(UnitName(bu.unit))
-        if v ~= nil then
-            for i, e in pairs(v) do
-                print(e.target)
-                bu.aura:Show()
-                bu.aura.icon:SetTexture(e.icon)
-            end
+        local v = PROCESSBUFFSgetBuffs(UnitName(bu.unit))[1]
+        if v and v.icon then
+            bu.aura:Show()
+            bu.aura.icon:SetTexture(v.icon)
         else
             bu.aura:Hide()
             bu.aura.icon:SetTexture''
@@ -102,10 +99,9 @@
         if this.unit ~= arg1 or not this.unit then return end
         local _, _, dtype = UnitDebuff(this.unit, 1, 1)
         local lastfound = 1
-        local v = PROCESSBUFFSgetBuffs(UnitName(this.unit))
 
         if dtype then
-            local colour = DebuffTypeColor[dtype] or DebuffTypeColor['none']
+            local colour = DebuffTypeColor[dtype]
             modSkinColor(this, colour.r, colour.g, colour.b)
         else
             modSkinColor(this, .2, .2, .2)
@@ -129,7 +125,7 @@
 
     local raidicon = function(bu)
         bu.ric:Hide() bu.name:Show()
-        if bu.flag:IsShown() then bu.name:Hide() return end
+        if bu.flag:IsShown() or bu.healv:IsShown() then bu.name:Hide() return end
         if UnitExists(bu.unit) then
             local i = GetRaidTargetIndex(bu.unit)
             if i then
@@ -164,6 +160,32 @@
             bu.heal:Hide()
     	end
     end
+
+    local vheals = function(bu)
+		local v = PROCESSCASTINGgetHeal(UnitName(this.unit))
+        bu.healv:Hide()
+		if v then
+            if GetTime() < v.timeEnd then
+                local y = -4
+                if v.crit == 1 then
+                    bu.healv:SetFont(STANDARD_TEXT_FONT, 12, 'MONOCHROMEOUTLINE')
+                    y = 0
+                else
+                    bu.healv:SetFont(STANDARD_TEXT_FONT, 10, 'MONOCHROMEOUTLINE')
+                    y = y + v.y
+                    if y + v.y < y + 8 then v.y = v.y + .5 end
+                end
+                bu.healv:SetPoint('CENTER', bu, -1, y)
+                if (v.timeEnd - GetTime()) < .6 then
+                    bu.healv:SetAlpha(mod((v.timeEnd - GetTime()), 1))
+                else
+                    bu.healv:SetAlpha(.6)
+                end
+			    bu.healv:SetText('+ '..v.amount..(v.crit == 1 and '!' or ''))
+			    bu.healv:Show()
+            end
+		end
+	end
 
     local status = function(bu)
         if not UnitIsConnected(this.unit) then
@@ -207,6 +229,7 @@
             raidicon(this)
             range(this, time, seen, r, g, b)
             heals(this)
+            vheals(this)
             status(this)
 
             if power ~= 0 and UnitMana(this.unit) < 1 then
@@ -244,10 +267,11 @@
     end
 
     local unflag = function(t, index)
+        print'trying to unflag'
         for i = 1, 8 do
             for j = 1, getn(roster[i]) do
                 local raid = bu[index]
-                if t == UnitName(raid.unit) then raid.flag:Hide() break end
+                if t == UnitName(raid.unit) then print'found unit' raid.flag:Hide() end
                 index = index + 1
             end
         end
@@ -327,6 +351,10 @@
         bu[i].heal:SetStatusBarTexture(sb)
         bu[i].heal:SetStatusBarColor(0, 1, 0, .7)
 
+        bu[i].healv = bu[i]:CreateFontString(nil, 'OVERLAY', 'GameFontNormalSmall')
+		bu[i].healv:SetTextColor(0, .6, 0, .6)
+		bu[i].healv:SetPoint('CENTER', bu[i], 0, -4)
+
         bu[i].ric = bu[i]:CreateTexture(nil, 'OVERLAY')
         bu[i].ric:SetWidth(17) bu[i].ric:SetHeight(17)
         bu[i].ric:SetTexture[[Interface\TargetingFrame\UI-RaidTargetingIcons]]
@@ -339,15 +367,17 @@
         bu[i].flag:Hide()
 
         bu[i].aura = CreateFrame('Button', nil, bu[i])
-        bu[i].aura:SetWidth(20) bu[i].aura:SetHeight(18)
-        bu[i].aura:SetPoint('CENTER', bu[i], 'BOTTOM', 0, 4)
+        bu[i].aura:SetWidth(19) bu[i].aura:SetHeight(19)
+        bu[i].aura:SetPoint('CENTER', bu[i], 'BOTTOM', 0, 6)
         bu[i].aura:SetFrameLevel(2)
+        bu[i].aura:EnableMouse(false)
         bu[i].aura:Hide()
 
-        bu[i].aura.icon = bu[i].aura:CreateTexture(nil, 'BACKGROUND')
+        bu[i].aura.icon = bu[i].aura:CreateTexture(nil, 'BACKGROUND', 0, -7)
         bu[i].aura.icon:SetAllPoints()
+        bu[i].aura.icon:SetAlpha(.7)
 
-        modSkin(bu[i].aura, 13.5)
+        modSkin(bu[i].aura, 12.5)
         modSkinPadding(bu[i].aura, 2)
         modSkinColor(bu[i].aura, .2, .2, .2)
 

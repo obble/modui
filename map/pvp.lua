@@ -68,8 +68,11 @@
     		map:Hide()
     		SHOW_BATTLEFIELD_MINIMAP = '0'
     	else
-    		if (MiniMapBattlefieldFrame.status == 'active' or GetNumWorldStateUI() > 0)
-            and (z ~= 'Silithus' or z ~= 'Eastern Plaguelands') then
+            if z == 'Silithus' or z == 'Eastern Plaguelands' then
+                SHOW_BATTLEFIELD_MINIMAP = '1'
+    			map:Show()
+                non_pvp()
+    		elseif MiniMapBattlefieldFrame.status == 'active' or GetNumWorldStateUI() > 0 then
     			SHOW_BATTLEFIELD_MINIMAP = '1'
     			map:Show()
                 pvp()

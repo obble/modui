@@ -291,8 +291,11 @@
     MODUI_BUFFS_TO_TRACK = {
             -- MISC
     	['Free Action Potion']     = {[[Interface\Icons\Inv_potion_04]], 30},
-    	['Will of the Forsaken']   = {[[Interface\Icons\Spell_shadow_raisedead]], 5},
-    	['Invulnerability']        = {[[Interface\Icons\Spell_holy_divineintervention]], 6},
+        ['Invulnerability']        = {[[Interface\Icons\Spell_holy_divineintervention]], 6},
+            -- RACIALS
+        ['Perception']             = {[[Interface\Icons\Spell_nature_sleep]], 20},
+        ['Stoneform']              = {[[Interface\Icons\Spell_shadow_unholystrength]], 8},
+        ['Will of the Forsaken']   = {[[Interface\Icons\Spell_shadow_raisedead]], 5},
             -- ENGINEERING
         ['Frost Reflector']        = {[[Interface\Icons\Spell_frost_frostward]], 5},
         ['Fire Reflector']         = {[[Interface\Icons\Spell_fire_sealoffire]], 5},
@@ -300,6 +303,8 @@
             -- DRUID
     	['Abolish Poison']         = {[[Interface\Icons\Spell_nature_nullifypoison_02]], 8},
     	['Nature\'s Grasp']        = {[[Interface\Icons\Spell_nature_natureswrath]], 45},
+            -- HUNTER
+        ['Feign Death']            = {[[Interface\Icons\Ability_rogue_feigndeath]], 360},
             -- MAGE
     	['Frost Ward']             = {[[Interface\Icons\Spell_frost_frostward]], 30},
     	['Fire Ward']              = {[[Interface\Icons\Spell_fire_firearmor]], 30},
@@ -309,7 +314,10 @@
     	['Blessing of Freedom']    = {[[Interface\Icons\Spell_holy_sealofvalor]], 10},
     	['Divine Protection']      = {[[Interface\Icons\Spell_holy_restoration]], 8},
             -- PRIEST
+        ['Power Infusion']         = {[[Interface\Icons\Spell_holy_powerinfusion]], 20},
     	['Power Word: Shield']     = {[[Interface\Icons\Spell_holy_powerwordshield]], 30},
+            -- ROGUE
+        ['Vanish']                 = {[[Interface\Icons\Ability_vanish]], 10},
             -- WARLOCK
     	-- ['Shadow Trance'] = {'Interface\\Icons\\Spell_shadow_twilight', 10},
     }

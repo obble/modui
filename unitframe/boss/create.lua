@@ -32,7 +32,6 @@
 
         f.name = f:CreateFontString(nil, 'OVERLAY', 'GameFontNormalSmall')
         f.name:SetWidth(85) f.name:SetHeight(10)
-        -- f.name:SetText'Ragnaros'
         f.name:SetJustifyH'RIGHT'
         f.name:SetPoint('TOPRIGHT', -40, 0)
 

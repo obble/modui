@@ -53,7 +53,7 @@
                 table.insert(list, e)
             end
         end
-        if tlength(list) > 1 then return list else return nil end
+        return list
     end
 
     local function eventHandler()
