@@ -2,6 +2,7 @@
 
     if tonumber(GetCVar'modUnitFrame') == 0 then return end
 
+    local HealComm  = AceLibrary'HealComm-1.0'  -- healcomm
     local BG = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
     local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]]}
     local _, class = UnitClass'player'
@@ -16,6 +17,7 @@
     orig.TargetDebuffButton_Update         = TargetDebuffButton_Update
     orig.PartyMemberFrame_UpdateMember     = PartyMemberFrame_UpdateMember
     orig.TargetofTarget_Update             = TargetofTarget_Update
+    orig.UnitFrameHealthBar_OnValueChanged = UnitFrameHealthBar_OnValueChanged
     orig.TextStatusBar_UpdateTextString    = TextStatusBar_UpdateTextString
     orig.UIOptionsFrame_UpdateDependencies = UIOptionsFrame_UpdateDependencies
 
@@ -157,6 +159,26 @@
         end
     end
 
+    local healcomm = function(this)
+        if this.heal then
+            local heal = HealComm:getHeal(UnitName'player')
+            local v, max = UnitHealth'player', UnitHealthMax'player'
+            local bu_w, bu_h = this:GetWidth(), this:GetHeight()
+            local hp_w, hp_h = bu_w*(v/max), bu_h*(v/max)
+            if heal > 0 and v < max and not UnitIsDeadOrGhost'player' then
+                local w = bu_w*(heal/max)
+                if (hp_w + w) > bu_w then w = bu_w - hp_w end
+                this.heal:Show()
+                this.heal:SetWidth(w)
+                this.heal:SetHeight(bu_h)
+                this.heal:ClearAllPoints()
+                this.heal:SetPoint('TOPLEFT', this, hp_w, 0)
+            else
+                this.heal:Hide()
+            end
+        end
+    end
+
 
     t = CreateFrame'Frame'
     t:RegisterEvent'PLAYER_TARGET_CHANGED' t:RegisterEvent'PARTY_MEMBERS_CHANGED'
@@ -182,6 +204,11 @@
         else
             TargetofTargetName:SetTextColor(1, .8, 0)
         end
+    end
+
+    function UnitFrameHealthBar_OnValueChanged(v)
+        orig.UnitFrameHealthBar_OnValueChanged(v)
+        healcomm(this)
     end
 
     function TextStatusBar_UpdateTextString(sb)  -- STATUS TEXT
