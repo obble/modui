@@ -46,8 +46,14 @@
         ['OUTGOING_DMG'] = {
             APPEND = { '>> ', '' },  -- >> DAMAGE
         },
+        ['OUTGOING_DMG_CRIT'] = {
+            APPEND = { '!> ', '' },  -- !> DAMAGE
+        },
         ['OUTGOING_HEALING'] = {
             APPEND = { '+> ', '' },  -- +> HEAL
+        },
+        ['OUTGOING_HEALING_CRIT'] = {
+            APPEND = { '+!> ', '' }, -- +!> HEAL
         },
     }
 
