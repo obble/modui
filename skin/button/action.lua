@@ -44,16 +44,16 @@
 
     for i = 1, 10 do
         local bu = _G['ShapeshiftButton'..i]
-        modSkin(bu, 18)
-        modSkinPadding(bu, 3)
+        modSkin(bu, 16)
+        modSkinPadding(bu, 2)
         modSkinColor(bu, .2, .2, .2)
         bu:GetNormalTexture():SetTexture''
         bu:GetPushedTexture():SetTexture''
         bu:GetCheckedTexture():SetTexture''
 
         local bu = _G['PetActionButton'..i]
-        modSkin(bu, 18)
-        modSkinPadding(bu, 3)
+        modSkin(bu, 16)
+        modSkinPadding(bu, 2)
         modSkinColor(bu, .2, .2, .2)
         bu:GetNormalTexture():SetTexture''
         bu:GetPushedTexture():SetTexture''

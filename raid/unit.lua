@@ -469,7 +469,7 @@
                 for i = 1, 8 do _G['modraid_grp'..i]:Hide() end
                 Minimap.raid:Hide() f.reset = true
             end
-        elseif event == 'CHAT_MSG_BG_SYSTEM_ALLIANCE' or event == 'CHAT_MSG_BG_SYSTEM_ALLIANCE' then
+        elseif event == 'CHAT_MSG_BG_SYSTEM_ALLIANCE' or event == 'CHAT_MSG_BG_SYSTEM_HORDE' then
             local s = arg1
             local index = 1
             if string.find(s, 'The Alliance Flag was picked up')

@@ -91,19 +91,19 @@
         or string.find(s, 'The Horde flag was picked up')
         or string.find(s, '+ Horde Flag') then
             local t  = gsub(s, 'The (.+) was picked up by (.+)!', '%2')
-            local sub = gsub(s, '+ (.+) Flag — (.+)', '%2')
+            local sub = gsub(s, '+ (.+) Flag — (.+).', '%2')
             if name and (string.find(name, t) or string.find(name, sub)) then
                 return 1
             end
         elseif string.find(s, 'The Horde flag was dropped')
-            or string.find(s, '- Horde Flag')
+            or string.find(s, '- Horde Flag —')
             or string.find(s, 'The Alliance Flag was dropped')
-            or string.find(s, '- Alliance Flag')
+            or string.find(s, '- Alliance Flag —')
             or string.find(s, 'captured the Horde flag')
             or string.find(s, 'captured the Alliance Flag') then
             local d   = gsub(s, 'The (.+) was dropped by (.+)!', '%2')
             local c   = gsub(s, '(.+) captured the (.+)!', '%1')
-            local sub = gsub(s, '- (.+) Flag — (.+)', '%2')
+            local sub = gsub(s, '- (.+) Flag — (.+).', '%2')
             if name and (string.find(name, d) or string.find(name, c) or string.find(name, sub)) then
                 return 0
             end
