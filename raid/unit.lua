@@ -267,11 +267,10 @@
     end
 
     local unflag = function(t, index)
-        print'trying to unflag'
         for i = 1, 8 do
             for j = 1, getn(roster[i]) do
                 local raid = bu[index]
-                if t == UnitName(raid.unit) then print'found unit' raid.flag:Hide() end
+                if t == UnitName(raid.unit) then raid.flag:Hide() end
                 index = index + 1
             end
         end
