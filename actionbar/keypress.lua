@@ -24,6 +24,18 @@
 		end
 	end
 
+	local pet_borders = function()
+		for i = 1, 10 do
+			local bu = _G['PetActionButton'..i]
+			local _, _, _, _, active = GetPetActionInfo(i)
+			if active then
+				modSkinColor(bu, 1, 175/255, 155/255)
+			else
+				modSkinColor(bu, .2, .2, .2)
+			end
+		end
+	end
+
 	function ActionButton_OnUpdate(elapsed)
 		orig.ActionButton_OnUpdate(elapsed)
 		local nutime = GetTime()
@@ -32,8 +44,7 @@
 
 	function PetActionBarFrame_OnUpdate(elapsed)
 		orig.PetActionBarFrame_OnUpdate(elapsed)
-		local nutime = GetTime()
-		borders(nutime)
+		pet_borders()
 	end
 
 	function ShapeshiftBar_UpdateState()

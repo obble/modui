@@ -1,7 +1,7 @@
 
 
     local _, class = UnitClass'player'
-    
+
     if class ~= 'WARLOCK' then return end
     if tonumber(GetCVar'modUnitFrame') == 0 then return end
 
@@ -62,7 +62,7 @@
     end)
     PlayerFrame.shard:SetScript('OnLeave', function() GameTooltip:Hide() end)
 
-    f:RegisterEvent'BAG_UPDATE'
+    f:RegisterEvent'BAG_UPDATE' f:RegisterEvent'PLAYER_ENTERING_WORLD'
     f:SetScript('OnEvent', scan)
 
     --
