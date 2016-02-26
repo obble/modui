@@ -5,7 +5,8 @@
     for i = 1, 4 do
         local f = CreateFrame('Frame', 'modBossFrame'..i, UIParent)
         f:SetWidth(128) f:SetHeight(53) f:SetScale(.85)
-        f:SetHitRectInsets(7, 85, 6, 7)
+        f:SetHitRectInsets(85, 7, 6, 7)
+        f:EnableMouse(true)
         f:Hide()
 
         if i == 1 then
@@ -44,7 +45,7 @@
         f.health:SetFrameLevel(1)
         f.health:SetStatusBarColor(0, .9, 0)
         f.health:SetScript('OnValueChanged', function() UnitFrameHealthBar_OnValueChanged(arg1) end)
-
+        
         f.mana = CreateFrame('StatusBar', f:GetName()..'ManaBar', f, 'TextStatusBar')
         f.mana:SetWidth(70) f.mana:SetHeight(8)
         f.mana:SetStatusBarTexture[[Interface\TargetingFrame\UI-StatusBar]]

@@ -2,7 +2,7 @@
 
     local TEXTURE  = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
     local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],}
-    local class    = UnitClass'player'
+    local _, class = UnitClass'player'
     local p    = {} local t     = {}
     local enabled  = true               -- TOGGLE NAMEPLATES VISIBILITY DEFAULT
     local showpet  = false              -- TOGGLE NON_COMBAT PET VISIBILITY

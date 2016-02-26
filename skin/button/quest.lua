@@ -52,7 +52,7 @@
     local ski = _G['QuestInfoSkillPointFrameIconTexture']
     if sk then
         local f = CreateFrame('Frame', nil, sk)
-        f:SetAllPoints(_G['QuestInfoSkillPointFrameIconTexture'])
+        f:SetAllPoints(ski)
         modSkin(f, 18)
         modSkinPadding(f, 2)
         modSkinColor(f, .2, .2, .2)

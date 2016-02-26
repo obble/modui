@@ -125,7 +125,7 @@
 
     local raidicon = function(bu)
         bu.ric:Hide() bu.name:Show()
-        if bu.flag:IsShown() or bu.healv:IsShown() then bu.name:Hide() return end
+        if bu.flag:IsShown() or bu.healv:IsShown() or bu.rez:IsShown() then bu.name:Hide() return end
         if UnitExists(bu.unit) then
             local i = GetRaidTargetIndex(bu.unit)
             if i then
@@ -144,10 +144,13 @@
     end
 
     local heals = function(bu)
-    	local heal = HealComm:getHeal(UnitName(bu.unit))
+        local name = UnitName(bu.unit)
+    	local heal = HealComm:getHeal(name)
+        local rez  = HealComm:UnitisResurrecting(name)
     	local v, max = UnitHealth(bu.unit), UnitHealthMax(bu.unit)
     	local bu_w, bu_h = bu.hp:GetWidth(), bu.hp:GetHeight()
     	local hp_w, hp_h = bu_w*(v/max), bu_h*(v/max)
+        if rez then bu.rez:Show() else bu.rez:Hide() end
     	if heal > 0 and v < max and not UnitIsDeadOrGhost(bu.unit) then
             local w = bu_w*(heal/max)
     		if (hp_w + w) > bu_w then w = bu_w - hp_w end
@@ -188,6 +191,7 @@
 	end
 
     local status = function(bu)
+        bu.name:SetShadowColor(0, 0, 0)
         if not UnitIsConnected(this.unit) then
             bu.hp:SetStatusBarColor(.7, .7, .7)
             bu.hp:SetMinMaxValues(0, 1)
@@ -196,6 +200,7 @@
         elseif UnitIsDead(this.unit) then
             bu.name:SetTextColor(1, 0, 0)
         elseif UnitIsGhost(this.unit) then
+            bu.name:SetShadowColor(.15, .15, .15)
             bu.name:SetTextColor(.5, .5, .5)
         else
             local _, class = UnitClass(this.unit)
@@ -358,6 +363,12 @@
         bu[i].ric:SetWidth(17) bu[i].ric:SetHeight(17)
         bu[i].ric:SetTexture[[Interface\TargetingFrame\UI-RaidTargetingIcons]]
         bu[i].ric:SetPoint('CENTER', bu[i])
+
+        bu[i].rez = bu[i]:CreateTexture(nil, 'OVERLAY', nil, 7)
+        bu[i].rez:SetWidth(24) bu[i].rez:SetHeight(24)
+        bu[i].rez:SetTexture[[Interface\AddOns\modui\raid\texture\Raid-Icon-Rez.tga]]
+        bu[i].rez:SetPoint('CENTER', bu[i])
+        bu[i].rez:Hide()
 
         bu[i].flag = bu[i]:CreateTexture(nil, 'OVERLAY', nil, 7)
         bu[i].flag:SetWidth(24) bu[i].flag:SetHeight(24)
