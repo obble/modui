@@ -27,8 +27,10 @@
             return true
         elseif UnitStored(unit) then
             for i, v in pairs(bossList) do
-                v['health']  = UnitHealth(unit)
-                v['mana']    = UnitMana(unit)
+                if i == UnitName(unit) then
+                    v['health']  = UnitHealth(unit)
+                    v['mana']    = UnitMana(unit)
+                end
             end
             return true
     	end
@@ -56,7 +58,6 @@
                 local info = ManaBarColor[UnitPowerType(v['unit'])]
                 local r, g, b
                 boss:Show()
-                boss:SetScript('OnMouseUp', function() TargetUnit(v['unit']) end)
                 boss.name:SetText(i)
                 boss.health:SetValue(v['health'])
                 boss.mana:SetValue(v['mana'])
@@ -65,7 +66,11 @@
                                        reaction and UnitReactionColor[reaction].g or 0,
                                        reaction and UnitReactionColor[reaction].b or 1)
                 SetPortraitTexture(boss.portrait, v['unit'])
+                boss.unit = v['unit']
                 boss.used = true
+                boss:SetScript('OnEnter', function() UnitFrame_OnEnter() GameTooltipStatusBar:Hide() end)
+                boss:SetScript('OnLeave',  UnitFrame_OnLeave)
+                boss:SetScript('OnMouseUp', function() TargetUnit(this.unit) end)
             elseif boss and boss.name:GetText() == i then
                 boss.health:SetValue(v['health'])
                 if v['health'] == 0 then
@@ -76,7 +81,11 @@
             end
             for j = 1, 4 do     -- discontinue any duplicates
                 local bosses = _G['modBossFrame'..j]
-                if bosses and bosses.name:GetText() == i and bosses ~= boss then bosses:Hide() end
+                if bosses and bosses.name:GetText() == i and bosses ~= boss then
+                    bosses:Hide()
+                    bosses.unit = nil
+                    bosses.used = false
+                end
             end
             index = index + 1
         end
@@ -86,6 +95,7 @@
         for i = 1, 4 do
             local boss = _G['modBossFrame'..i]
             boss:Hide()
+            boss.unit = nil
             boss.used = false
         end
     end
