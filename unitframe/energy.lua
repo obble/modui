@@ -2,8 +2,8 @@
 
     if tonumber(GetCVar'modUnitFrame') == 0 then return end
 
-    local class = UnitClass'player'
-    if not (class == 'Rogue' or class == 'Druid') then return end
+    local _, class = UnitClass'player'
+    if not (class == 'ROGUE' or class == 'DRUID') then return end
 
     local t    = 0
     local last = 0
@@ -31,7 +31,7 @@
         if arg1 == 'PLAYER_AURAS_CHANGED' then
             local stance = GetShapeshiftForm(true)
             local power  = UnitPowerType'player'
-            if (class == 'Druid' and stance == 3) or power == 3 then
+            if (class == 'DRUID' and stance == 3) or power == 3 then
                  energy:Show()
             else energy:Hide()
             end

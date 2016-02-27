@@ -243,9 +243,7 @@
 
     MODUI_TIME_MODIFIER_BUFFS_TO_TRACK = {
         ['Curse of Tongues']    = {1.6, {'all'}},
-
         ['Mind-numbing Poison'] = {1.6, {'all'}},
-
         ["Nature's Swiftness"]  = {0,
             {   -- SHAMAN
             'Chain Heal',
@@ -331,35 +329,11 @@
         ['Iron Grenade']             = {[[Interface\Icons\Spell_fire_selfdestruct]], 3, 'None'},
         ['Thorium Grenade']          = {[[Interface\Icons\Spell_fire_selfdestruct]], 3, 'None'},
             -- DRUID
-        ['Bash']                     = {[[Interface\Icons\Ability_druid_bash]], 4, 'None'},
-        ['Entangling Roots']         = {[[Interface\Icons\Spell_nature_stranglevines]], 27, 'Magic'},
-        ['Faerie Fire']              = {[[Interface\Icons\Spell_nature_faeriefire]], 40, 'Magic'},
-        ['Faerie Fire (Feral)']      = {[[Interface\Icons\Spell_nature_faeriefire]], 40, 'Magic'},
         ['Hibernate']                = {[[Interface\Icons\Spell_nature_sleep]], 40, 'Magic'},
-        ['Insect Swarm']             = {[[Interface\Icons\Spell_nature_insectswarm]], 12, 'Magic'},
-        ['Moonfire']                 = {[[Interface\Icons\Spell_nature_starfall]], 12, 'Magic'},
-        ['Rake']                     = {[[Interface\Icons\Ability_druid_disembowel]], 9, 'None'},
             -- HUNTER
-        ['Concussive Shot']          = {[[Interface\Icons\Spell_frost_stun]], 4, 'None'},
         ['Freezing Trap']            = {[[Interface\Icons\Spell_frost_chainsofice]], 20, 'Magic'},
-        ['Hunter\'s Mark']           = {[[Interface\Icons\Ability_hunter_snipershot]], 120, 'Magic'},
-        ['Immolation Trap']          = {[[Interface\Icons\Spell_fire_flameshock]], 15, 'Magic'},
-        ['Improved Concussive Shot'] = {[[Interface\Icons\Spell_frost_stun]], 3, 'None'},
-        ['Improved Wing Clip']       = {[[Interface\Icons\Ability_rogue_trip]], 5, 'None'},
-        ['Scatter Shot']             = {[[Interface\Icons\Ability_golemstormbolt]], 4, 'None'},
         ['Scare Beast']              = {[[Interface\Icons\Ability_druid_cower]], 20, 'Magic'},
-        ['Serpent Sting']            = {[[Interface\Icons\Ability_hunter_quickshot]], 15, 'Poison'},
-        ['Wing Clip']                = {[[Interface\Icons\Ability_rogue_trip]], 10, 'None'},
-        ['Wyvern Sting']             = {[[Interface\Icons\Inv_spear_02]], 12, 'Poison'},
             -- MAGE
-        ['Blizzard']                 = {[[Interface\Icons\Spell_frost_icestorm]], 8, 'Magic'},
-        ['Chilled']                  = {[[Interface\Icons\Spell_frost_frostarmor02]], 5, 'Magic'},
-        ['Cone of Cold']             = {[[Interface\Icons\Spell_frost_glacier]], 8, 'Magic'},
-        ['Fireball']                 = {[[Interface\Icons\Spell_fire_flamebolt]], 8, 'Magic'},
-        ['Frostbolt']                = {[[Interface\Icons\Spell_frost_frostbolt02]], 9, 'Magic'},
-        ['Frost Nova']               = {[[Interface\Icons\Spell_frost_frostnova]], 8, 'Magic'},
-        ['Frostbite']                = {[[Interface\Icons\Spell_frost_frostarmor]], 5, 'Magic'},
-        ['Impact']                   = {[[Interface\Icons\Spell_fire_meteorstorm]], 2, 'None'},
         ['Polymorph']                = {[[Interface\Icons\Spell_nature_polymorph]], 50, 'Magic'},
         ['Polymorph: Pig']           = {[[Interface\Icons\Spell_magic_polymorphpig]], 50, 'Magic'},
         ['Polymorph: Turtle']        = {[[Interface\Icons\Ability_hunter_pet_turtle]], 50, 'Magic'},
@@ -367,49 +341,24 @@
         ['Hammer of Justice']        = {[[Interface\Icons\Spell_holy_sealofmight]], 6, 'Magic'},
         ['Repentance']               = {[[Interface\Icons\Spell_holy_prayerofhealing]], 6, 'Magic'},
             -- PRIEST
-        ['Blackout']                 = {[[Interface\Icons\Spell_shadow_gathershadows]], 3, 'Magic'},
-        ['Devouring Plague']         = {[[Interface\Icons\Spell_shadow_blackplague]], 24, 'Disease'},
-        ['Holy Fire']                = {[[Interface\Icons\Spell_holy_searinglight]], 10, 'Magic'},
-        ['Mind Flay']                = {[[Interface\Icons\Spell_shadow_siphonmana]], 3, 'None'},
+        ['Mind Control']             = {[[Interface\Icons\Spell_shadow_siphonmana]], 3, 'None'},
         ['Mind Vision']              = {[[Interface\Icons\Spell_holy_mindvision]], 60, 'None'},
         ['Psychic Scream']           = {[[Interface\Icons\Spell_shadow_psychicscream]], 8, 'None'},
-        ['Shadow Word: Pain']        = {[[Interface\Icons\Spell_shadow_shadowwordpain]], 18, 'Magic'},
             -- ROGUE
         ['Blind']                    = {[[Interface\Icons\Spell_shadow_mindsteal]], 10, 'Poison'},
         ['Cheap Shot']               = {[[Interface\Icons\Ability_cheapshot]], 5, 'None'},
-        ['Expose Armor']             = {[[Interface\Icons\Ability_warrior_riposte]], 30, 'None'},
-        ['Garrote']                  = {[[Interface\Icons\Ability_rogue_garrote]], 18, 'None'},
         ['Gouge']                    = {[[Interface\Icons\Ability_gouge]], 4, 'None'},
         ['Kidney Shot']              = {[[Interface\Icons\Ability_rogue_kidneyshot]], 6, 'None'},
-        ['Rupture']                  = {[[Interface\Icons\Ability_rogue_rupture]], 18, 'Magic'},
-            -- SHAMAN
-        ['Earth Shock']              = {[[Interface\Icons\Spell_nature_earthshock]], 2, 'None'},
-        ['Earthbind Totem']          = {[[Interface\Icons\Spell_nature_strengthofearthtotem02]], 45, 'None'},
-        ['Flame Shock']              = {[[Interface\Icons\Spell_fire_flameshock]], 12, 'Magic'},
-        ['Frost Shock']              = {[[Interface\Icons\Spell_frost_frostshock]], 8, 'Magic'},
             -- WARLOCK
-        ['Corruption']               = {[[Interface\Icons\Spell_shadow_abominationexplosion]], 18, 'Magic'},
         ['Curse of Exhaustion']      = {[[Interface\Icons\Spell_shadow_grimward]], 12, 'Curse'},
-        ['Curse of Agony']           = {[[Interface\Icons\Spell_shadow_curseofsargeras]], 24, 'Curse'},
-        ['Curse of Weakness']        = {[[Interface\Icons\Spell_shadow_curseofmannoroth]], 120, 'Curse'},
-        ['Curse of Recklessness']    = {[[Interface\Icons\Spell_shadow_unholystrength]], 120, 'Curse'},
         ['Curse of Tongues']         = {[[Interface\Icons\Spell_shadow_curseoftounges]], 30, 'Curse'},
-        ['Curse of the Elements']    = {[[Interface\Icons\Spell_shadow_chilltouch]], 300, 'Curse'},
-        ['Curse of Doom']            = {[[Interface\Icons\Spell_shadow_auraofdarkness]], 60, 'Curse'},
         ['Death Coil']               = {[[Interface\Icons\Spell_shadow_deathcoil]], 3, 'Magic'},
-        ['Drain Life']               = {[[Interface\Icons\Spell_shadow_lifedrain02]], 5, 'Magic'},
         ['Drain Mana']               = {[[Interface\Icons\Spell_shadow_siphonmana]], 5, 'Magic'},
-        ['Drain Soul']               = {[[Interface\Icons\Spell_shadow_haunting]], 15, 'Magic'},
         ['Fear']                     = {[[Interface\Icons\Spell_shadow_possession]], 20, 'Magic'},
         ['Howl of Terror']           = {[[Interface\Icons\Spell_shadow_deathscream]], 15, 'Magic'},
-        ['Immolate']                 = {[[Interface\Icons\Spell_fire_immolation]], 15, 'Magic'},
             -- WARRIOR
         ['Charge Stun']              = {[[Interface\Icons\Spell_frost_stun]], 1, 'None'},
-        ['Concussion Blow']          = {[[Interface\Icons\Ability_thunderbolt]], 5, 'None'},
-        ['Hamstring']                = {[[Interface\Icons\Ability_shockwave]], 15, 'None'},
-        ['Improved Hamstring']       = {[[Interface\Icons\Ability_shockwave]], 5, 'None'},
         ['Intercept Stun']           = {[[Interface\Icons\Spell_frost_stun]], 3, 'None'},
-        ['Rend']                     = {[[Interface\Icons\Ability_gouge]], 21, 'None'},
     }
 
     --

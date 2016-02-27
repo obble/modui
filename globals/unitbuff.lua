@@ -13,6 +13,7 @@
         acnt.icon      = buffType[1]
         acnt.timeStart = time
         acnt.timeEnd   = time + buffType[2]
+        acnt.border	   = buffType[3] and DebuffTypeColor[buffType[3]] or {r = .2, g = .2,  b = .2}
         return acnt
     end
 
@@ -32,6 +33,14 @@
         local time = GetTime()
         if MODUI_BUFFS_TO_TRACK[t] ~= nil then
             local n = buff.create(tar, t, MODUI_BUFFS_TO_TRACK[t], time)
+            table.insert(buffList, n)
+        end
+    end
+
+    local function newdebuff(tar, t)
+        local time = GetTime()
+        if MODUI_DEBUFFS_TO_TRACK[t] ~= nil then
+            local n = buff.create(tar, t, MODUI_DEBUFFS_TO_TRACK[t], time)
             table.insert(buffList, n)
         end
     end
@@ -59,14 +68,26 @@
     local function eventHandler()
         local on = '(.+) gains (.+).'
         local off = '(.+) fades from (.+).'
+        local aff = '(.+) is afflicted by (.+).'
+        local rem = '(.+)\'s (.+) is removed'
         if string.find(arg1, on) then
             local tar  = gsub(arg1, on, '%1')
             local t = gsub(arg1, on, '%2')
             newbuff(tar, t)
         end
+        if string.find(arg1, aff) then
+            local tar  = gsub(arg1, aff, '%1')
+            local t = gsub(arg1, aff, '%2')
+            newdebuff(tar, t)
+        end
         if string.find(arg1, off) then
             local t  = gsub(arg1, off, '%1')
             local tar = gsub(arg1, off, '%2')
+            rembuff(tar, t)
+        end
+        if string.find(arg1, rem) then
+            local t  = gsub(arg1, rem, '%1')
+            local tar = gsub(arg1, rem, '%2')
             rembuff(tar, t)
         end
     end

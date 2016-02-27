@@ -314,6 +314,7 @@
         for i = 6, 12 do _G['TargetFrameBuff'..i]:Hide() end
     end)
 
+    TargetFrameManaBar:RegisterEvent'PLAYER_DEAD'
 
 
     --
