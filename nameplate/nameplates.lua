@@ -45,10 +45,7 @@
             if UnitIsPlayer'target' then
                 local _, class = UnitClass'target'
                 table.insert(p, n)
-                p[n] = {['player'] = true}
                 p[n] = {['class']  = string.upper(class)}
-            else
-                if p[n] then p[n] = {['player'] = false} end
             end
         end
     end
@@ -164,8 +161,6 @@
         and not string.find(n, '%s') and string.len(n) < 13
         and not t[n] then
             isPlayer(n) ClearTarget()
-        else
-            if p[n] then p[n]['player'] = false end
         end
 
         if p[n] and r > .9 then
@@ -248,7 +243,7 @@
     local addBuff = function(plate)
         local _, _, name = plate:GetRegions()
         local n = name:GetText()
-        local v = PROCESSBUFFSgetBuffs(text)
+        local v = PROCESSBUFFSgetBuffs(n)
         for i = 1, 4 do
             plate.buffs[i]:Hide()
             plate.buffs[i].icon:SetTexture''
@@ -256,7 +251,7 @@
         end
         if v ~= nil then
             for i, e in pairs(v) do
-                if i < 5 and p[n]['player'] then
+                if i < 5 then
                     plate.buffs[i]:Show()
                     plate.buffs[i].icon:SetTexture(e.icon)
                     plate.buffs[i].duration:SetText(getTimerLeft(e.timeEnd))
