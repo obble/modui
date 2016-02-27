@@ -89,6 +89,7 @@
         if v and v.icon then
             bu.aura:Show()
             bu.aura.icon:SetTexture(v.icon)
+            modSkinColor(bu.aura, v.border.r, v.border.g, v.border.b)
         else
             bu.aura:Hide()
             bu.aura.icon:SetTexture''

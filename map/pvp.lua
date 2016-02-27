@@ -134,7 +134,7 @@
 
             if string.find(unit, 'raid', 1, true) then
                 local _, _, subgroup = GetRaidRosterInfo(string.sub(unit, 5))
-                local class  = UnitClass(unit)
+                local _, class  = UnitClass(unit)
                 local colour = class and RAID_CLASS_COLORS[string.upper(class)] or {r = 1, g = .8, b = 0}
                 local x = UnitFactionGroup'player' == 'Alliance' and 'Horde' or 'Alliance' -- reversey
                 if s ~= nil then

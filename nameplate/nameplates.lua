@@ -43,9 +43,12 @@
             table.insert(t, n)
             t[n] = 'ok'
             if UnitIsPlayer'target' then
-                local class = UnitClass'target'
+                local _, class = UnitClass'target'
                 table.insert(p, n)
-                p[n] = {['class'] = string.upper(class)}
+                p[n] = {['player'] = true}
+                p[n] = {['class']  = string.upper(class)}
+            else
+                if p[n] then p[n] = {['player'] = false} end
             end
         end
     end
@@ -139,9 +142,9 @@
             plate.buffs[i].duration:SetPoint('CENTER', plate.buffs[i], 'BOTTOM', 0, -2)
         end
 
-        if class == 'Rogue' or class == 'Druid' then
+        if class == 'ROGUE' or class == 'DRUID' then
             plate.cp = plate:CreateFontString(nil, 'OVERLAY')
-            plate.cp:SetFont(STANDARD_TEXT_FONT, 20, 'OUTLINE')
+            plate.cp:SetFont(STANDARD_TEXT_FONT, 18, 'OUTLINE')
             plate.cp:SetPoint('LEFT', health)
             plate.cp:Hide()
         end
@@ -161,6 +164,8 @@
         and not string.find(n, '%s') and string.len(n) < 13
         and not t[n] then
             isPlayer(n) ClearTarget()
+        else
+            if p[n] then p[n]['player'] = false end
         end
 
         if p[n] and r > .9 then
@@ -179,7 +184,7 @@
             plate.cp:Hide()
             if target == text and health:GetAlpha() == 1 and cp > 0 then
                 plate.cp:Show()
-                plate.cp:SetText(cp)
+                plate.cp:SetText(string.rep('°', cp))
                 plate.cp:SetTextColor(.5*(cp - 1), 2/(cp - 1), .5/(cp - 1))
             end
         end
@@ -242,7 +247,7 @@
 
     local addBuff = function(plate)
         local _, _, name = plate:GetRegions()
-        local text = name:GetText()
+        local n = name:GetText()
         local v = PROCESSBUFFSgetBuffs(text)
         for i = 1, 4 do
             plate.buffs[i]:Hide()
@@ -251,9 +256,12 @@
         end
         if v ~= nil then
             for i, e in pairs(v) do
-                plate.buffs[i]:Show()
-                plate.buffs[i].icon:SetTexture(e.icon)
-                plate.buffs[i].duration:SetText(getTimerLeft(e.timeEnd))
+                if i < 5 and p[n]['player'] then
+                    plate.buffs[i]:Show()
+                    plate.buffs[i].icon:SetTexture(e.icon)
+                    plate.buffs[i].duration:SetText(getTimerLeft(e.timeEnd))
+                    modSkinColor(plate.buffs[i], e.border.r, e.border.g, e.border.b)
+                end
             end
         end
     end

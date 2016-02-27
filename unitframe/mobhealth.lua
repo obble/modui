@@ -48,10 +48,10 @@
     end
 
     function MH3Blizz:PowerUpdate()
-        local class   = UnitClass'target'
-        local v, max  = UnitMana'target', UnitManaMax'target'
-        local percent = math.floor(v/max*100)
-        local string  = MobHealth3BlizzardPowerText
+        local _, class = UnitClass'target'
+        local v, max   = UnitMana'target', UnitManaMax'target'
+        local percent  = math.floor(v/max*100)
+        local string   = MobHealth3BlizzardPowerText
         move()
 
         if max == 0 or cur == 0 or percent == 0 then string:SetText() return end
@@ -65,7 +65,7 @@
             end
             string:SetPoint('RIGHT', -8, 0)
         elseif GetCVar'modValue'  == '1' and GetCVar'modBoth' == '0' then
-            local logic = MH3BlizzConfig.powerPerc and v <= 100 and percent == v and class ~= 'Rogue'
+            local logic = MH3BlizzConfig.powerPerc and v <= 100 and percent == v and class ~= 'ROGUE'
             local t = logic and true_format(v)..'%' or true_format(v)
             string:SetText(t)
         else
