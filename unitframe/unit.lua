@@ -2,12 +2,13 @@
 
     if tonumber(GetCVar'modUnitFrame') == 0 then return end
 
-    local HealComm  = AceLibrary'HealComm-1.0'  -- healcomm
-    local BG = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
-    local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]]}
-    local _, class = UnitClass'player'
-    local colour = RAID_CLASS_COLORS[class]
-    local orig = {}
+    local HealComm       = AceLibrary'HealComm-1.0'  -- healcomm
+    local BG             = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
+    local BACKDROP       = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]]}
+    local _, class       = UnitClass'player'
+    local colour         = RAID_CLASS_COLORS[class]
+    local diffThreshold  = .1
+    local orig           = {}
 
     local anchor = function(num)
     	if num > 5 then return 6 end
@@ -102,8 +103,6 @@
     function TargetFrame_OnShow() end           -- REMOVE TARGETING SOUND
     function TargetFrame_OnHide() CloseDropDownMenus() end
 
-
-
     local mod_TargetBuffs = function()          -- TARGET AURAS (up to 16)
         local b, d = 0, 0
 
@@ -180,7 +179,7 @@
     end
 
 
-    t = CreateFrame'Frame'
+    local t = CreateFrame'Frame'
     t:RegisterEvent'PLAYER_TARGET_CHANGED' t:RegisterEvent'PARTY_MEMBERS_CHANGED'
     t:RegisterEvent'UNIT_FACTION'
     t:SetScript('OnEvent', function()           -- COLOUR UNIT

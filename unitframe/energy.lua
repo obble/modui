@@ -37,7 +37,7 @@
             end
         else
             local p = UnitMana'player'
-        	if arg1 == 'player' and p < 100 then
+        	if arg1 == 'player' then
         		if p == last + 20 then t = GetTime() end
         		last = p
                 energy:SetScript('OnUpdate', energy_OnUpdate)

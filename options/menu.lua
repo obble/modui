@@ -58,7 +58,7 @@
     menu.intro:SetTextColor(colour.r, colour.g, colour.b)
     menu.intro:SetPoint('TOP', menu, 0, -85)
     menu.intro:SetWidth(280)
-    menu.intro:SetText'Hello! You are using version v68 of |cffff6c6cmodui|r. You can find the latest version and further support on the dedicated thread on Nostalrius\' forums:'
+    menu.intro:SetText'Hello! You are using version v69 (...nice) of |cffff6c6cmodui|r. You can find the latest version and further support on the dedicated thread on Nostalrius\' forums:'
 
     menu.uilink = CreateFrame('EditBox', 'modui_uilink', menu, 'InputBoxTemplate')
     menu.uilink:SetFont(STANDARD_TEXT_FONT, 12)
@@ -73,12 +73,6 @@
     menu.description:SetPoint('TOP', menu, 0, -170)
     menu.description:SetWidth(280)
     menu.description:SetText'This panel offers several further customisation options and toggles to your UI, cycle through the different menus with the tabbed buttons located at the top of this window.'
-
-    menu.whisper = menu:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
-    menu.whisper:SetTextColor(255/255, 126/255, 255/255)
-    menu.whisper:SetPoint('TOP', menu, 0, -230)
-    menu.whisper:SetWidth(280)
-    menu.whisper:SetText'/w iips or modernist.'
 
     menu.reload = CreateFrame('Button', 'modui_optionsreload', menu, 'UIPanelButtonTemplate')
     menu.reload:SetWidth(100) menu.reload:SetHeight(20)

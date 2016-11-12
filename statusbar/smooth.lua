@@ -1,6 +1,5 @@
 
 
-
     local barstosmooth = {    -- SMOOTH ANIM ON PLAYER, TARGET, XP, REP, SKILL STATUSBARS
                               -- ALSO NAMEPLATES
         PlayerFrameHealthBar, PlayerFrameManaBar,
@@ -23,15 +22,6 @@
 	local smoothframe = CreateFrame'Frame'
 	smoothing = {}
 
-    local isPlate = function(frame)
-        local overlayRegion = frame:GetRegions()
-        if not overlayRegion or overlayRegion:GetObjectType() ~= 'Texture'
-        or overlayRegion:GetTexture() ~= [[Interface\Tooltips\Nameplate-Border]] then
-            return false
-        end
-        return true
-    end
-
 	local min, max = math.min, math.max
 	local function AnimationTick()
 		local limit = 30/GetFramerate()
@@ -50,12 +40,14 @@
 
 	local function SmoothSetValue(self, value)
 		local _, max = self:GetMinMaxValues()
+
 		if value == self:GetValue() or self._max and self._max ~= max then
 			smoothing[self] = nil
 			self:SetValue_(value)
 		else
 			smoothing[self] = value
 		end
+
 		self._max = max
 	end
 
@@ -65,28 +57,24 @@
 
 	local function SmoothBar(bar)
 		if not bar.SetValue_ then
-			bar.SetValue_ = bar.SetValue bar.SetValue = SmoothSetValue
+			bar.SetValue_ = bar.SetValue
+            bar.SetValue  = SmoothSetValue
 		end
 	end
 
 	local function ResetBar(bar)
-		if bar.SetValue_ then
-			bar.SetValue = bar.SetValue_ bar.SetValue_ = nil
+		if  bar.SetValue_ then
+			bar.SetValue  = bar.SetValue_
+            bar.SetValue_ = nil
 		end
 	end
 
-    smoothframe:SetScript('OnUpdate', function()
-        local frames = {WorldFrame:GetChildren()}
-        for _, plate in ipairs(frames) do
-            if isPlate(plate) and plate:IsVisible() then
-                local v = plate:GetChildren()
-                SmoothBar(v)
-            end
-        end
-        AnimationTick()
-    end)
+    smoothframe:SetScript('OnUpdate', AnimationTick)
 
-	for _, v in pairs (barstosmooth) do if v then SmoothBar(v) end end
+	for _, v in pairs (barstosmooth) do
+        if v then SmoothBar(v) end
+    end
+
     smoothframe:RegisterEvent'ADDON_LOADED'
     smoothframe:SetScript('OnEvent', function()
         if arg1 == 'Blizzard_RaidUI' then

@@ -37,33 +37,41 @@
     -- al:SetScript('OnClick', function() print'clicked!' target() end)
 
     local f = CreateFrame'Frame'
-    f:RegisterEvent'CHAT_MSG_BG_SYSTEM_ALLIANCE' f:RegisterEvent'CHAT_MSG_BG_SYSTEM_HORDE'
+    f:RegisterEvent'CHAT_MSG_BG_SYSTEM_ALLIANCE'
+    f:RegisterEvent'CHAT_MSG_BG_SYSTEM_HORDE'
+    f:RegisterEvent'ZONE_CHANGED_NEW_AREA'
     f:SetScript('OnEvent', function()
         if tonumber(GetCVar'modPVPTimers') then
             local s = arg1
-            if string.find(s, 'The Alliance Flag was picked up')
-            or string.find(s, '+ Alliance Flag') then
-                local t = gsub(s, 'The Alliance Flag was picked up by (.+)!', '%1')
-                a:SetText(t)
-                a:Show()
-            elseif string.find(s, 'The Alliance Flag was dropped')
-            or string.find(s, 'captured the Alliance flag!') then
-                a:Hide()
-            elseif string.find(s, 'The Horde flag was picked up')
-            or string.find(s, '+ Horde Flag') then
-                local t = gsub(s, 'The Horde flag was picked up by (.+)!', '%1')
-                h:SetText(t)
-                h:Show()
-            elseif  string.find(s, 'The Horde flag was dropped')
-            or string.find(s, 'captured the Horde flag!') then
-                h:Hide()
+
+            if event == 'ZONE_CHANGED_NEW_AREA' then
+                ho:Hide() h:Hide()
+                al:Hide() a:Hide()
+            else
+                if string.find(s, 'The Alliance Flag was picked up')
+                or string.find(s, '+ Alliance Flag') then
+                    local t = gsub(s, 'The Alliance Flag was picked up by (.+)!', '%1')
+                    a:SetText(t)
+                    a:Show()
+                elseif string.find(s, 'The Alliance Flag was dropped')
+                or string.find(s, 'captured the Alliance flag!') then
+                    a:Hide()
+                elseif string.find(s, 'The Horde flag was picked up')
+                or string.find(s, '+ Horde Flag') then
+                    local t = gsub(s, 'The Horde flag was picked up by (.+)!', '%1')
+                    h:SetText(t)
+                    h:Show()
+                elseif  string.find(s, 'The Horde flag was dropped')
+                or string.find(s, 'captured the Horde flag!') then
+                    h:Hide()
+                end
+
+                ho:SetAllPoints(h) ho:SetHeight(15)
+                al:SetAllPoints(a) al:SetHeight(15)
+
+                if a:IsShown() then al:Show() else al:Hide() end
+                if h:IsShown() then ho:Show() else ho:Hide() end
             end
-
-            ho:SetAllPoints(h) ho:SetHeight(15)
-            al:SetAllPoints(a) al:SetHeight(15)
-
-            if a:IsShown() then al:Show() else al:Hide() end
-            if h:IsShown() then ho:Show() else ho:Hide() end
         end
     end)
 

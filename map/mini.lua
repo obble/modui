@@ -16,21 +16,27 @@
     f:EnableMouseWheel(true)
     f:SetScript('OnMouseWheel', modZoom)
 
-    MinimapBorderTop:Hide()
-    MinimapToggleButton:Hide()
+    for _, v in pairs({
+        MinimapBorderTop,
+        MinimapToggleButton,
+        MinimapZoomIn,
+	    MinimapZoomOut
+    }) do
+        v:Hide()
+    end
 
-    MinimapZoomIn:Hide()
-	MinimapZoomOut:Hide()
+    MiniMapTrackingFrame:SetScale(.8)
+    MiniMapTrackingFrame:SetFrameStrata'MEDIUM'
+    MiniMapTrackingFrame:ClearAllPoints()
+    MiniMapTrackingFrame:SetPoint('BOTTOM', -3, -2)
 
-    MiniMapTrackingFrame:SetScale(.6)
-    MiniMapTrackingFrame:ClearAllPoints() MiniMapTrackingFrame:SetPoint('BOTTOM', -3, 6)
+    MiniMapMailFrame:ClearAllPoints()
+    MiniMapMailFrame:SetPoint('TOPRIGHT', 0, -10)
 
-    MiniMapMailFrame:ClearAllPoints() MiniMapMailFrame:SetPoint('TOPRIGHT', 0, -10)
-
-    MinimapZoneText:ClearAllPoints() MinimapZoneText:SetPoint('TOP', Minimap, 0, 17)
+    MinimapZoneText:ClearAllPoints()
+    MinimapZoneText:SetPoint('TOP', Minimap, 0, 17)
 
     GameTimeFrame:SetScale(.7)
-    GameTimeFrame:SetFrameStrata'MEDIUM'
     GameTimeFrame:ClearAllPoints() GameTimeFrame:SetPoint('BOTTOM', 12, 10)
 
     --

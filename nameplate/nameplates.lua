@@ -77,7 +77,7 @@
         plate.bg:SetPoint('TOPLEFT', plate, 4, -20)
         plate.bg:SetPoint('BOTTOMRIGHT', plate, -4, 4)
         plate.bg:SetTexture[[Interface\Tooltips\UI-Tooltip-Background]]
-        plate.bg:SetVertexColor(0, 0, 0, .6)
+        plate.bg:SetVertexColor(0, 0, 0, 1)
 
         plate.cast = CreateFrame('StatusBar', nil, plate)
         plate.cast:SetStatusBarTexture(TEXTURE)
@@ -150,6 +150,13 @@
 
         plate.skinned = true
     end
+
+    local addSize = function(plate)
+        local health = plate:GetChildren()
+        plate:SetWidth(120)
+        health:SetWidth(100)
+    end
+
 
     local addClass = function(plate)    -- CLASS COLOUR
         local health = plate:GetChildren()
@@ -269,7 +276,7 @@
                 if isPlate(plate) and plate:IsVisible() then
                     local _, _, name = plate:GetRegions()
                     if not plate.skinned then modPlate(plate) end
-                    addClass(plate) addCP(plate) addCast(plate) addHeal(plate) addBuff(plate)
+                    addSize(plate) addClass(plate) addCP(plate) addCast(plate) addHeal(plate) addBuff(plate)
                 end
             end
         end

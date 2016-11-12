@@ -34,9 +34,11 @@
                 local link = GetContainerItemLink(id, bu:GetID())
                 modSkinColor(bu, .2, .2, .2)
                 if bu and bu:IsShown() and link then
-                    local _, _, istring = string.find(link, '|H(.+)|h')
-                    local _, _, q = GetItemInfo(istring)
-                    if q and q > 1 then
+                    local _, _, istring         = string.find(link, '|H(.+)|h')
+                    local _, _, q, _, _, type   = GetItemInfo(istring)
+                    if  type == 'Quest' then
+                        modSkinColor(bu, 1, .33, .0)
+                    elseif q and q > 1 then
                     	local r, g, b = GetItemQualityColor(q)
                     	modSkinColor(bu, r, g, b)
                     end
