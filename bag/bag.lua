@@ -2,11 +2,12 @@
 
 	if tonumber(GetCVar'modOneBag') == 0 then return end
 
-	local ButtonSize = 30
-	local ButtonSpacing = 12
+	local ButtonSize = 16
+	local ButtonSpacing = 23
 	local buttons, bankbuttons, keyringbuttons, orig = {}, {}, {}, {}
 	local ItemsPerRow = 11
 	local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],}
+	local TEXTURE  = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
 
 	orig.ContainerFrame_GenerateFrame = ContainerFrame_GenerateFrame
 	orig.ContainerFrame_Update 	      = ContainerFrame_Update
@@ -26,6 +27,27 @@
 			end
 		end
 		return numBags
+	end
+
+	local BagSpace = function()
+		local ct = 0
+		for bag = 0, NUM_BAG_SLOTS do
+			for slot = 1, GetContainerNumSlots(bag) do
+				local  link = GetContainerItemLink(bag, slot)
+				if not link then ct = ct + 1 end
+			end
+		end
+		return ct
+	end
+
+	local BagMaxSpace = function()
+		local ct = 0
+		for bag = 0, NUM_BAG_SLOTS do
+			for slot = 1, GetContainerNumSlots(bag) do
+				ct = ct + 1
+			end
+		end
+		return ct
 	end
 
 		-- HIDE OLD ART
@@ -61,7 +83,7 @@
 			bu:SetFrameStrata'HIGH'
 			bu:SetFrameLevel(6)
 			bu:ClearAllPoints()
-			bu:SetPoint('TOPLEFT', frame, col*(ButtonSize + ButtonSpacing) + 10, -1*row*(ButtonSize + ButtonSpacing) - 75)
+			bu:SetPoint('TOPLEFT', frame, col*(ButtonSize + ButtonSpacing) + 7, -1*row*(ButtonSize + ButtonSpacing) - 88)
 
 				-- bg art
 			if not bu.bg then
@@ -80,7 +102,7 @@
 		end
 
 		frame:SetHeight((row + (col == 0 and 0 or 1))*(ButtonSize + ButtonSpacing) + 110)
-		frame:SetWidth(columns*ButtonSize + ButtonSpacing*(columns - 1) - 12)
+		frame:SetWidth(columns*ButtonSize + ButtonSpacing*(columns - 1) - 2)
 		col, row = 0, 0
 	end
 
@@ -90,6 +112,22 @@
 	bagContainer:SetFrameStrata'HIGH'
 	bagContainer:SetFrameLevel(6)
 	bagContainer:Hide()
+
+	bagContainer.freespace = CreateFrame('StatusBar', nil, bagContainer)
+	bagContainer.freespace:SetStatusBarTexture(TEXTURE)
+	bagContainer.freespace:SetHeight(11)
+	bagContainer.freespace:SetPoint('TOPLEFT', 8, -69)
+	bagContainer.freespace:SetPoint('TOPRIGHT', -10, -69)
+	bagContainer.freespace:SetBackdrop(BACKDROP)
+	bagContainer.freespace:SetBackdropColor(0, 0, 0)
+	modSkin(bagContainer.freespace, 14.5)
+	modSkinPadding(bagContainer.freespace, 3)
+	modSkinColor(bagContainer.freespace, .2, .2, .2)
+
+	bagContainer.freespace.title = bagContainer.freespace:CreateFontString(nil, 'OVERLAY', 'GameFontHighlight')
+	bagContainer.freespace.title:SetPoint('BOTTOMRIGHT', bagContainer.freespace, 'TOPRIGHT', -2, 5)
+	bagContainer.freespace.title:SetText'Free Space Remaining:'
+
 
 	-- bagContainer:SetClampedToScreen(true)
 	--[[bagContainer:SetMovable(true) bagContainer:EnableMouse(true) bagContainer:RegisterForDrag'LeftButton'
@@ -126,13 +164,13 @@
 	local name = Container:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
 	name:SetFont(STANDARD_TEXT_FONT, 12)
 	name:SetText'Inventory'
-	name:SetPoint('TOP', 0, -5)
+	name:SetPoint('TOP', 5, -5)
 
 			-- CA$H
 	local money = ContainerFrame1MoneyFrame
 	money:SetParent(Container)
 	money:ClearAllPoints()
-	money:SetPoint('BOTTOMRIGHT', Container, -9, 9)
+	money:SetPoint('BOTTOMRIGHT', Container, -9, 5)
 	money:SetFrameStrata'TOOLTIP'
 	money:SetFrameLevel(5)
 	BankFrameMoneyFrame:Hide()
@@ -221,6 +259,11 @@
 
 			bankContainer:Show()
 		end
+	end
+
+	local BagSpaceBarUpdate = function()
+		bagContainer.freespace:SetMinMaxValues(0, BagMaxSpace())
+		bagContainer.freespace:SetValue(BagSpace())
 	end
 
 		-- OPEN/CLOSE
@@ -408,5 +451,12 @@
 			table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
 		end
 	end
+
+	local e = CreateFrame'Frame'
+	e:RegisterEvent'PLAYER_ENTERING_WORLD'
+	e:RegisterEvent'UNIT_INVENTORY_CHANGED'
+	e:RegisterEvent'BAG_UPDATE'
+	e:RegisterEvent'BANKFRAME_OPENED'
+	e:SetScript('OnEvent', BagSpaceBarUpdate)
 
 	--

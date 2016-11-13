@@ -35,4 +35,18 @@
         gradient(v, this, min, max)
     end
 
+    local BagSpaceBarUpdate = function()
+        local bar = _G['modbag_inventory'].freespace
+        local v = bar:GetValue()
+        local min, max = bar:GetMinMaxValues()
+        gradient(v, bar, min, max)
+    end
+
+    local e = CreateFrame'Frame'
+	e:RegisterEvent'PLAYER_ENTERING_WORLD'
+	e:RegisterEvent'UNIT_INVENTORY_CHANGED'
+	e:RegisterEvent'BAG_UPDATE'
+	e:RegisterEvent'BANKFRAME_OPENED'
+	e:SetScript('OnEvent', BagSpaceBarUpdate)
+
     --

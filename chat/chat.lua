@@ -16,6 +16,14 @@
     SLASH_RELOADUI1 = '/rl'                             -- DEVTOOLS
     SlashCmdList.RELOADUI = ReloadUI
 
+    SLASH_FRAMESTACK1 = '/fs'
+    SLASH_FRAMESTACK3 = '/fstack'
+    SLASH_FRAMESTACK2 = '/framestack'
+    SlashCmdList.FRAMESTACK = function()
+        print(GetMouseFocus():GetName())
+    end
+
+
 
     CHAT_FONT_HEIGHTS = {                               -- MORE MENU FONT SIZES
         [1] = 8, [2] = 9, [3] = 10, [4] = 11, [5] = 12, [6] = 13,

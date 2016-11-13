@@ -24,8 +24,8 @@
         GameTooltip:Show()
     end
 
-    orig.UnitFrame_OnEnter = UnitFrame_OnEnter
-    orig.GameTooltip_SetDefaultAnchor = GameTooltip_SetDefaultAnchor
+    orig.UnitFrame_OnEnter              = UnitFrame_OnEnter
+    orig.GameTooltip_SetDefaultAnchor   = GameTooltip_SetDefaultAnchor
 
     GameTooltipStatusBar:SetHeight(5)
     GameTooltipStatusBar:SetStatusBarTexture(sb)
@@ -94,12 +94,22 @@
         local g = GetGuildInfo'mouseover'
         local n = GameTooltipTextLeft2:GetText()
         local c = UnitClassification'mouseover'
-        if g then GameTooltip:AddLine('<'..g..'>', 0, 1, .5) end
-        if n and string.find(n, 'Level (.+)') and c ~= 'normal' and c ~= 'minus' then
-            local t = gsub(n, 'Level (.+) ((.+))', '%1')
-            local classification = c == 'elite' and '(Elite)' or c == 'rare' and '(Rare)' or c == 'rareelite' and '(Rare Elite)' or '(Boss)'
-            GameTooltipTextLeft2:SetText('Level '..t..' '..classification)
+        local class, colour
+
+        if n and string.find(n, 'Level (.+)') then
+            if   string.find(n, '(Player)') then
+                local t = gsub(n, 'Level %d (.+) (.+) ((.+))', '%2')
+                if t then colour = RAID_CLASS_COLORS[string.upper(t)] end
+            end
+            if c ~= 'normal' and c ~= 'minus' then
+                local t = gsub(n, 'Level (.+) ((.+))', '%1')
+                local classification = c == 'elite' and '(Elite)' or c == 'rare' and '(Rare)' or c == 'rareelite' and '(Rare Elite)' or '(Boss)'
+                GameTooltipTextLeft2:SetText('Level '..t..' '..classification)
+            end
         end
+
+        if g then GameTooltip:AddLine('<'..g..'>', 0, 1, .5) end
+
         if GameTooltipStatusBar:IsShown() and GameTooltipStatusBar:GetValue() > 0
         and (not string.find(GameTooltip:GetParent():GetName(), 'PlayerFrame')
          or  not string.find(GameTooltip:GetParent():GetName(), 'TargetFrame')
@@ -109,6 +119,15 @@
         else
             GameTooltipStatusBar:Hide()
         end
+
+        if  colour then
+            local r, g, b = GameTooltip_UnitColor'mouseover'
+            GameTooltipTextLeft1:SetTextColor(colour and colour.r or r, colour and colour.g or g, colour and colour.b or b)
+            if  GameTooltipStatusBar:IsShown() then
+                GameTooltipStatusBar:SetStatusBarColor(colour and colour.r or r, colour and colour.g or g, colour and colour.b or b)
+            end
+        end
+
         GameTooltip:Show()
     end)
 

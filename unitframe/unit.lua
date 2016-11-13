@@ -41,6 +41,14 @@
     PlayerFrameManaBar:SetBackdrop(BACKDROP)
     PlayerFrameManaBar:SetBackdropColor(0, 0, 0, .6)
 
+    PlayerPVPIcon:SetHeight(48) PlayerPVPIcon:SetWidth(48)
+    PlayerPVPIcon:ClearAllPoints()
+    PlayerPVPIcon:SetPoint('CENTER', PlayerFrame, 'LEFT', 60, 16)
+
+    TargetPVPIcon:SetHeight(48) TargetPVPIcon:SetWidth(48)
+    TargetPVPIcon:ClearAllPoints()
+    TargetPVPIcon:SetPoint('CENTER', TargetFrame, 'RIGHT', -42, 16)
+
     TargetFrameNameBackground:SetTexture(BG)
     TargetFrameNameBackground:SetDrawLayer'BORDER'
 
@@ -75,7 +83,7 @@
         end
     end
 
-    for i, v in pairs({PlayerPVPIcon, TargetFrameTextureFramePVPIcon,}) do v:SetAlpha(0) end
+    for i, v in pairs({PlayerPVPIcon, TargetFrameTextureFramePVPIcon,}) do v:SetHeight(48) v:SetWidth(48) end
 
     for i = 1, 4 do _G['PartyMemberFrame'..i..'PVPIcon']:SetAlpha(0) end
 
