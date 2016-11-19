@@ -157,8 +157,8 @@
 
         plate.pvp = plate:CreateTexture(nil, 'OVERLAY')
         plate.pvp:SetWidth(14)
-        plate.pvp:SetHeight(14)
-        plate.pvp:SetPoint('RIGHT', name, 'LEFT', -2, 0)
+        plate.pvp:SetHeight(13)
+        plate.pvp:SetPoint('RIGHT', name, 'LEFT', -3, 1)
         plate.pvp:Hide()
 
         if not showpet then if isPet(n) then plate:Hide() end end
@@ -286,13 +286,12 @@
     local addPvP = function(plate)
         local _, _, name = plate:GetRegions()
         local n = name:GetText()
+        plate.pvp:Hide()
         if  p[n] then
             local rank = p[n]['rank']
             if  rank > 0 then
                 plate.pvp:Show()
                 plate.pvp:SetTexture(format('%s%02d', 'Interface\\PvPRankBadges\\PvPRank', rank))
-            else
-                plate.pvp:Hide()
             end
         end
     end
