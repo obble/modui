@@ -2,9 +2,9 @@
 
     if tonumber(GetCVar'modTooltip') == 0 then return end
 
-    local sb = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
-    local GameTooltip = GameTooltip
-    local GameTooltipStatusBar = GameTooltipStatusBar
+    local sb                    = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
+    local GameTooltip           = GameTooltip
+    local GameTooltipStatusBar  = GameTooltipStatusBar
     local orig = {}
 
     local statustext = function()
@@ -80,7 +80,7 @@
     for i = 1, 6 do                 -- QUEST PROGRESS TOOLTIP
         local p = _G['QuestProgressItem'..i]
         p:SetScript('OnEnter', function()
-            if GameTooltip then
+            if  GameTooltip then
                 GameTooltip:SetOwner(p, 'ANCHOR_RIGHT')
                 if GetNumQuestItems() > 0 then GameTooltip:SetQuestItem(p.type, p:GetID()) end
             end
@@ -98,7 +98,7 @@
 
         if n and string.find(n, 'Level (.+)') then
             if   string.find(n, '(Player)') then
-                local t = gsub(n, 'Level %d (.+) (.+) ((.+))', '%2')
+                local t = gsub(n, 'Level %d (.+) (.+) (Player)', '%1')
                 if t then colour = RAID_CLASS_COLORS[string.upper(t)] end
             end
             if c ~= 'normal' and c ~= 'minus' then

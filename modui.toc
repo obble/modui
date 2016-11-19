@@ -83,6 +83,8 @@ skin\skin.lua
 bag\template.lua
 bag\bag.lua
 
+castbar\castbar.lua
+
 chat\addon.lua
 chat\chat.lua
 chat\event.lua

@@ -2,6 +2,11 @@
 
     if tonumber(GetCVar'modWorldMap') == 0 then return end
 
+    local tieredDungeons = {
+        ['blackwinglair']   = true,
+        ['thedeadmines']    = true,
+    }
+
     UIPanelWindows['WorldMapFrame'] = {area = 'center', pushable = 9}
 
         -- COORDINATES
@@ -104,24 +109,30 @@
             else
                 return ''
             end
+        elseif z == 'thedeadmines' then
+            if sz == 'ironcladcove' or sz == 'goblinfoundry' then
+                return '2'
+            else
+                return '1'
+            end
         end
     end
 
     local dungeonmap = function(z)
-        if z == 'blackwinglair' then
+        if tieredDungeons[z] then
             local sz = string.lower(GetSubZoneText())
             sz = string.gsub(sz, '%W', '')
             if sz then
                 for i = 1, 12 do
                     local d12 = _G['moddungeonmap'..i]
-                    d12:SetTexture('Interface\\AddOns\\modui\\map\\instances\\'..z..'\\'..dungeonsubzone(z, sz)..'\\'..z..i..'.tga')
+                    d12:SetTexture('Interface\\AddOns\\modui\\map\\instances\\'..z..'\\'..dungeonsubzone(z, sz)..'\\'..z..i)
                     d12:Show()
                 end
             end
         else
             for i = 1, 12 do
                 local d12 = _G['moddungeonmap'..i]
-                d12:SetTexture('Interface\\AddOns\\modui\\map\\instances\\'..z..'\\'..z..i..'.tga')
+                d12:SetTexture('Interface\\AddOns\\modui\\map\\instances\\'..z..'\\'..z..i)
                 d12:Show()
             end
         end

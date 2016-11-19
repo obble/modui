@@ -3,7 +3,7 @@
     if tonumber(GetCVar'modUnitFrame') == 0 then return end
 
     local HealComm       = AceLibrary'HealComm-1.0'  -- healcomm
-    local BG             = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
+    local TEXTURE        = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
     local BACKDROP       = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]]}
     local _, class       = UnitClass'player'
     local colour         = RAID_CLASS_COLORS[class]
@@ -26,7 +26,7 @@
     PlayerFrameBackground.bg:SetPoint('TOPLEFT', PlayerFrameBackground)
     PlayerFrameBackground.bg:SetPoint('BOTTOMRIGHT', PlayerFrameBackground, 0, 22)
     PlayerFrameBackground.bg:SetVertexColor(colour.r, colour.g, colour.b, 1)
-    PlayerFrameBackground.bg:SetTexture(BG)
+    PlayerFrameBackground.bg:SetTexture(TEXTURE)
     PlayerFrameBackground.bg:SetTexCoord(1, 0, 0, 1)
 
     PlayerFrame.status = PlayerFrameTexture:GetParent():CreateFontString(nil, 'OVERLAY')
@@ -37,9 +37,11 @@
 
     PlayerFrameHealthBar:SetBackdrop(BACKDROP)
     PlayerFrameHealthBar:SetBackdropColor(0, 0, 0, .6)
+    PlayerFrameHealthBar:SetStatusBarTexture(TEXTURE)
 
     PlayerFrameManaBar:SetBackdrop(BACKDROP)
     PlayerFrameManaBar:SetBackdropColor(0, 0, 0, .6)
+    PlayerFrameManaBar:SetStatusBarTexture(TEXTURE)
 
     PlayerPVPIcon:SetHeight(48) PlayerPVPIcon:SetWidth(48)
     PlayerPVPIcon:ClearAllPoints()
@@ -49,14 +51,16 @@
     TargetPVPIcon:ClearAllPoints()
     TargetPVPIcon:SetPoint('CENTER', TargetFrame, 'RIGHT', -42, 16)
 
-    TargetFrameNameBackground:SetTexture(BG)
+    TargetFrameNameBackground:SetTexture(TEXTURE)
     TargetFrameNameBackground:SetDrawLayer'BORDER'
 
     TargetFrameHealthBar:SetBackdrop(BACKDROP)
     TargetFrameHealthBar:SetBackdropColor(0, 0, 0, .6)
+    TargetFrameHealthBar:SetStatusBarTexture(TEXTURE)
 
     TargetFrameManaBar:SetBackdrop(BACKDROP)
     TargetFrameManaBar:SetBackdropColor(0, 0, 0, .6)
+    TargetFrameManaBar:SetStatusBarTexture(TEXTURE)
 
     PlayerFrameGroupIndicator:SetAlpha(0)
 
@@ -68,6 +72,10 @@
 
     TargetLevelText:SetJustifyH'LEFT'
     TargetLevelText:SetPoint('LEFT', TargetFrameTextureFrame, 'CENTER', 56, -16)
+
+    TargetofTargetHealthBar:SetStatusBarTexture(TEXTURE)
+
+    TargetofTargetManaBar:SetStatusBarTexture(TEXTURE)
 
     for i = 6, 12 do
         local f = CreateFrame('Button', 'TargetFrameBuff'..i, TargetFrame, 'TargetBuffButtonTemplate')

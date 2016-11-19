@@ -43,9 +43,13 @@
             table.insert(t, n)
             t[n] = 'ok'
             if UnitIsPlayer'target' then
-                local _, class = UnitClass'target'
+                local _, rankNo = GetPVPRankInfo(UnitPVPRank'target')
+                local _, class  = UnitClass'target'
                 table.insert(p, n)
-                p[n] = {['class']  = string.upper(class)}
+                p[n] = {
+                    ['class']  = string.upper(class),
+                    ['rank']   = rankNo
+                }
             end
         end
     end
@@ -72,6 +76,11 @@
 
         border:SetVertexColor(.2, .2, .2)
         border:SetDrawLayer'OVERLAY'
+
+        level:ClearAllPoints()
+        level:SetPoint('LEFT', health, 'RIGHT', -2, 0)
+        level:SetFont(STANDARD_TEXT_FONT, 11)
+        level:SetJustifyH'LEFT'
 
         plate.bg = plate:CreateTexture(nil, 'BACKGROUND')
         plate.bg:SetPoint('TOPLEFT', plate, 4, -20)
@@ -145,6 +154,12 @@
             plate.cp:SetPoint('LEFT', health)
             plate.cp:Hide()
         end
+
+        plate.pvp = plate:CreateTexture(nil, 'OVERLAY')
+        plate.pvp:SetWidth(14)
+        plate.pvp:SetHeight(14)
+        plate.pvp:SetPoint('RIGHT', name, 'LEFT', -2, 0)
+        plate.pvp:Hide()
 
         if not showpet then if isPet(n) then plate:Hide() end end
 
@@ -268,6 +283,20 @@
         end
     end
 
+    local addPvP = function(plate)
+        local _, _, name = plate:GetRegions()
+        local n = name:GetText()
+        if  p[n] then
+            local rank = p[n]['rank']
+            if  rank > 0 then
+                plate.pvp:Show()
+                plate.pvp:SetTexture(format('%s%02d', 'Interface\\PvPRankBadges\\PvPRank', rank))
+            else
+                plate.pvp:Hide()
+            end
+        end
+    end
+
     local f = CreateFrame'Frame'
     f:SetScript('OnUpdate', function()
         local frames = {WorldFrame:GetChildren()}
@@ -276,7 +305,7 @@
                 if isPlate(plate) and plate:IsVisible() then
                     local _, _, name = plate:GetRegions()
                     if not plate.skinned then modPlate(plate) end
-                    addSize(plate) addClass(plate) addCP(plate) addCast(plate) addHeal(plate) addBuff(plate)
+                    addSize(plate) addClass(plate) addCP(plate) addCast(plate) addHeal(plate) addBuff(plate) addPvP(plate)
                 end
             end
         end

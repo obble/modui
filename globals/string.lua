@@ -6,16 +6,24 @@
 
     _G = getfenv(0)
 
-    print = function(m) DEFAULT_CHAT_FRAME:AddMessage(m) end
-
     tlength = function(t)
         local count = 0
         for _ in pairs(t) do count = count + 1 end
         return count
     end
 
-    MODUI_FFqueued = false  -- used for quiet FriendsFrame data fetches
+    print = function(m)
+        if  (not m) or m == '' then
+            DEFAULT_CHAT_FRAME:AddMessage'nil'
+        elseif  type(m) == 'table' then
+            DEFAULT_CHAT_FRAME:AddMessage('table: '..GetName(m))
+        else
+            DEFAULT_CHAT_FRAME:AddMessage(m)
+        end
+    end
 
+    MODUI_FFqueued = false  -- used for quiet FriendsFrame data fetching
+    MODUI                                = {}
     MODUI_UICOLOR_DEFAULT                = {r = .2, g = .2, b = .2}
     MODUI_COLOUR_FOR_UI                  = {}
     MODUI_PREVCOLOUR_FOR_UI              = {}

@@ -36,7 +36,7 @@
     end
 
     local BagSpaceBarUpdate = function()
-        local bar = _G['modbag_inventory'].freespace
+        local bar = _G['modbag_inventory_space']
         local v = bar:GetValue()
         local min, max = bar:GetMinMaxValues()
         gradient(v, bar, min, max)
