@@ -11,8 +11,8 @@
                 v:ClearAllPoints()
                 v:SetPoint('CENTER',
                             TargetFrame,
-                            v:GetName() == 'MobHealth3BlizzardPowerText' and -30 or -80,
-                            -2)
+                            v:GetName() == 'MobHealth3BlizzardPowerText' and -26 or -75,
+                            -3)
             end
         end
     end
@@ -30,6 +30,8 @@
                 v = math.floor(v)
             end
         end
+
+        string:SetTextColor(.05, 1, 0)
 
         if GetCVar'modBoth' == '1' then
             if max == 100 then
@@ -56,6 +58,8 @@
 
         if max == 0 or cur == 0 or percent == 0 then string:SetText() return end
         if MH3BlizzConfig.powerAbs then v = math.floor(v) end
+
+        string:SetTextColor(.6, .65, 1)
 
         if GetCVar'modBoth' == '1' then
             if max == 100 then

@@ -68,7 +68,7 @@
 
     local bu = modmenu
     modSkin(bu, 18)
-    modSkinPadding(bu, 3)
+    modSkinPadding(bu, 4)
     modSkinColor(bu, .2, .2, .2)
 
     bu:SetScript('OnEnter', function()

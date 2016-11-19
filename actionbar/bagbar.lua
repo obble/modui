@@ -5,9 +5,10 @@
 
     local bagspace = function()
     	local ct = 0
-    	for bag = 0, NUM_BAG_SLOTS do
+    	for bag = 0, NUM_BAG_SLOTS do           --  TODO: link this up with a global function for our
+                                                --  bag space statusbar etc.
     		for slot = 1, GetContainerNumSlots(bag) do
-    			local link = GetContainerItemLink(bag, slot)
+    			local  link = GetContainerItemLink(bag, slot)
     			if not link then ct = ct + 1 end
     		end
     	end

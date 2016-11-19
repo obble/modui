@@ -299,9 +299,14 @@
                                     (sb:GetName() == ('PetFrameHealthBar' or 'PetFrameManaBar')) and PetFrame or PlayerFrame,
                                     (sb:GetName() == ('PetFrameHealthBar' or 'PetFrameManaBar')) and 18 or
                                     (sb:GetName() == 'PlayerFrameManaBar') and 30 or 80,
-                                    -2)
+                                    -3)
                     end
     			end
+                if  sb:GetName() == 'PlayerFrameManaBar' or sb:GetName() == 'TargetFrameManaBar' then
+                    string:SetTextColor(.6, .65, 1)
+                elseif sb:GetName() == 'PlayerFrameHealthBar' or sb:GetName() == 'TargetFrameHealthBar' then
+                    string:SetTextColor(.05, 1, 0)
+                end
             end
     	end
     end

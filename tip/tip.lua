@@ -98,7 +98,9 @@
 
         if n and string.find(n, 'Level (.+)') then
             if   string.find(n, '(Player)') then
-                local t = gsub(n, 'Level %d (.+) (.+) (Player)', '%1')
+                    --  this is the ugliest god damn capture sequence
+                    --  but im too tired to make it pretty atm
+                local t = gsub(n, 'Level (.+) (.+) (.+)', '%2')
                 if t then colour = RAID_CLASS_COLORS[string.upper(t)] end
             end
             if c ~= 'normal' and c ~= 'minus' then
