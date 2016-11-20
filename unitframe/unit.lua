@@ -4,6 +4,7 @@
 
     local HealComm       = AceLibrary'HealComm-1.0'  -- healcomm
     local TEXTURE        = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
+    local NAME_TEXTURE   = [[Interface\AddOns\modui\statusbar\texture\name.tga]]
     local BACKDROP       = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]]}
     local _, class       = UnitClass'player'
     local colour         = RAID_CLASS_COLORS[class]
@@ -26,7 +27,7 @@
     PlayerFrameBackground.bg:SetPoint('TOPLEFT', PlayerFrameBackground)
     PlayerFrameBackground.bg:SetPoint('BOTTOMRIGHT', PlayerFrameBackground, 0, 22)
     PlayerFrameBackground.bg:SetVertexColor(colour.r, colour.g, colour.b, 1)
-    PlayerFrameBackground.bg:SetTexture(TEXTURE)
+    PlayerFrameBackground.bg:SetTexture(NAME_TEXTURE)
     PlayerFrameBackground.bg:SetTexCoord(1, 0, 0, 1)
 
     PlayerFrame.status = PlayerFrameTexture:GetParent():CreateFontString(nil, 'OVERLAY')
@@ -51,7 +52,7 @@
     TargetPVPIcon:ClearAllPoints()
     TargetPVPIcon:SetPoint('CENTER', TargetFrame, 'RIGHT', -42, 16)
 
-    TargetFrameNameBackground:SetTexture(TEXTURE)
+    TargetFrameNameBackground:SetTexture(NAME_TEXTURE)
     TargetFrameNameBackground:SetDrawLayer'BORDER'
 
     TargetFrameHealthBar:SetBackdrop(BACKDROP)
@@ -98,6 +99,7 @@
     for i = 1, 4 do
         for _, v in pairs({_G['PartyMemberFrame'..i..'HealthBar'], _G['PartyMemberFrame'..i..'ManaBar']}) do
             v:SetBackdrop(BACKDROP) v:SetBackdropColor(0, 0, 0, .6)
+            v:SetStatusBarTexture(TEXTURE)
         end
     end
 

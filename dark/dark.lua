@@ -349,10 +349,11 @@
             table.insert(MODUI_COLOURELEMENTS_FOR_UI, Minimap.moddkp.border)
         end
         if IsAddOnLoaded'Postal' then                   -- POSTAL
-            PostalButton1:SetScript('OnShow', function()
+            local bu = _G['PostalButton1'] or _G['PostalAttachment1']
+            bu:SetScript('OnShow', function()
                 if MailFrame.Material:IsShown() then MailFrame.Material:Hide() end
             end)
-            PostalButton1:SetScript('OnHide', function()
+            bu:SetScript('OnHide', function()
                 if MailFrame:IsShown() then MailFrame.Material:Show() end
             end)
         end

@@ -126,9 +126,9 @@
 	modSkinPadding(bagContainer.freespace, 3)
 	modSkinColor(bagContainer.freespace, .2, .2, .2)
 
-	bagContainer.freespace.title = bagContainer.freespace:CreateFontString(nil, 'OVERLAY', 'GameFontHighlight')
-	bagContainer.freespace.title:SetPoint('BOTTOMRIGHT', bagContainer.freespace, 'TOPRIGHT', -2, 5)
-	bagContainer.freespace.title:SetText'Free Space Remaining:'
+	bagContainer.freespace.title = bagContainer.freespace:CreateFontString(nil, 'OVERLAY', 'GameFontHighlightSmall')
+	bagContainer.freespace.title:SetPoint('BOTTOMLEFT', bagContainer.freespace, 'TOPLEFT', 2, 4)
+	bagContainer.freespace.title:SetText'Free Space:'
 
 
 	-- bagContainer:SetClampedToScreen(true)

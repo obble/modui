@@ -286,6 +286,13 @@
         for i = 1, 40 do _G['modraid'..i].flag:Hide() end
     end
 
+    local initDropDown = function(level)
+		local i = {}
+        i.text = 'Msrk as Tank'
+        i.func = function() print'atank' end
+        UIDropDownMenu_AddButton(i)
+    end
+
     for i = 1, 8 do
         local header = CreateFrame('Button', 'modraid_grp'..i, UIParent)
         header:SetWidth(32) header:SetHeight(12)
@@ -317,6 +324,7 @@
 
     for i = 1, 40 do
         bu[i] = CreateFrame('Button', 'modraid'..i, UIParent)
+        bu[i]:RegisterForClicks'RightButtonUp'
         bu[i]:SetWidth(53) bu[i]:SetHeight(24)
         bu[i]:SetBackdrop(bg)
         bu[i]:SetBackdropColor(0, 0, 0, 1)
@@ -388,6 +396,12 @@
         bu[i].aura.icon:SetAllPoints()
         bu[i].aura.icon:SetAlpha(.7)
 
+        bu[i].dropdown = CreateFrame('Button', 'modraid'..i..'DropDown', bu[i], 'UIDropDownMenuTemplate')
+        UIDropDownMenu_Initialize(bu[i].dropdown, initDropDown, 'MENU')
+        UIDropDownMenu_SetAnchor(0, 0, bu[i].dropdown, 'TOPLEFT', bu[i], 'TOPRIGHT')
+        UIDropDownMenu_SetWidth(60, bu[i].dropdown)
+        UIDropDownMenu_JustifyText('LEFT', bu[i].dropdown)
+
         modSkin(bu[i].aura, 12.5)
         modSkinPadding(bu[i].aura, 2)
         modSkinColor(bu[i].aura, .2, .2, .2)
@@ -415,7 +429,22 @@
 
         bu[i]:RegisterEvent'UNIT_AURA'     -- init
         bu[i]:SetScript('OnEvent',  function() debuffs(arg1) end)
-        bu[i]:SetScript('OnClick',  function() if CursorHasItem() then DropItemOnUnit(this.unit) else TargetUnit(this.unit) end end)
+        --[[bu[i]:SetScript('OnClick',  function()
+            print'pass'
+            print(arg1)
+                if  CursorHasItem() then
+                    DropItemOnUnit(this.unit)
+                elseif SpellIsTargeting() then
+                    SpellTargetUnit(this.unit)
+                else
+                    TargetUnit(this.unit)
+                end
+            if arg1 == 'RightButton' then
+                HideDropDownMenu(1)
+                ToggleDropDownMenu(1, nil, _G['modraid'..i..'DropDown'])
+            end
+        end)]]
+         bu[i]:SetScript('OnClick',  function() if CursorHasItem() then DropItemOnUnit(this.unit) else TargetUnit(this.unit) end end)
         bu[i]:SetScript('OnEnter',  function() UnitFrame_OnEnter() GameTooltipStatusBar:Hide() end)
         bu[i]:SetScript('OnLeave',  UnitFrame_OnLeave)
         bu[i]:SetScript('OnUpdate', raidupdate)

@@ -16,7 +16,7 @@
 
     local icon = CreateFrame('Button', 'modmenu', MainMenuBar)
     icon:SetWidth(16) icon:SetHeight(33)
-    icon:SetPoint('LEFT', MainMenuBarPerformanceBarFrameButton, 'RIGHT', -4, -1)
+    icon:SetPoint('LEFT', MainMenuBarPerformanceBarFrameButton, 'RIGHT', 2, -1)
     icon:SetFrameLevel(4)
     icon:Show()
 

@@ -1,6 +1,6 @@
 
 
-    local TEXTURE  = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
+    local TEXTURE  = [[Interface\AddOns\modui\statusbar\texture\name.tga]]
     local BACKDROP = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],}
     local _, class = UnitClass'player'
     local p    = {} local t     = {}

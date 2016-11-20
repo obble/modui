@@ -50,6 +50,8 @@ options\options_colour.lua
 options\options_actionbar.lua
 options\options_modraid.lua
 
+castbar\castbar.lua
+
 skin\method\method.lua
 skin\button\action.lua
 skin\button\addon.lua
@@ -57,6 +59,7 @@ skin\button\auctions.lua
 skin\button\aura.lua
 skin\button\bag.lua
 skin\button\bank.lua
+skin\button\castbar.lua
 skin\button\chat.lua
 skin\button\craft.lua
 skin\button\inspect.lua
@@ -82,8 +85,6 @@ skin\skin.lua
 
 bag\template.lua
 bag\bag.lua
-
-castbar\castbar.lua
 
 chat\addon.lua
 chat\chat.lua

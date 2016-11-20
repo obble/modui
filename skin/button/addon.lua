@@ -49,11 +49,13 @@
 
     if IsAddOnLoaded'Postal' then
         for i = 1, 21 do
-            local bu = _G['PostalButton'..i]
-            modSkin(bu, 18)
-            modSkinPadding(bu, 3, 4, 1, 4, 3, 1, 1, 1)
-            modSkinColor(bu, .2, .2, .2)
-            bu:SetNormalTexture''
+            local bu = _G['PostalButton'..i] or _G['PostalAttachment'..i]
+            if  bu then
+                modSkin(bu, 18)
+                modSkinPadding(bu, 3, 4, 1, 4, 3, 1, 1, 1)
+                modSkinColor(bu, .2, .2, .2)
+                bu:SetNormalTexture''
+            end
         end
     end
 
