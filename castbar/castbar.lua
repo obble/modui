@@ -6,6 +6,7 @@
     local overrideIcons = { -- these should be pulled into a casting table in globals tbh
         ['Hearthstone']    = [[Interface\Icons\inv_misc_rune_01]],
         ['Herb Gathering'] = [[Interface\Icons\spell_nature_naturetouchgrow]],
+        ['Mining']         = [[Interface\Icons\trade_mining]]
     }
 
     orig.UseAction = UseAction

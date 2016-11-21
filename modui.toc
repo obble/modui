@@ -125,3 +125,4 @@ unitframe\move.lua
 unitframe\unit.lua
 unitframe\mobhealth.lua
 unitframe\shards.lua
+unitframe\totems.lua
