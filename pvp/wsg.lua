@@ -27,10 +27,25 @@
     al:EnableMouse(true)
     al:Hide()
 
+    local OnEnter = function()
+        local text = this == ho and h or a
+        text:SetTextColor(1, .8, 0)
+        GameTooltip:SetOwner(this, 'ANCHOR_TOPRIGHT')
+		GameTooltip:SetText'Click to Target'
+		GameTooltip:Show()
+    end
+
+    local OnLeave = function()
+        local text = this == ho and h or a
+        local f    = this == a and 'Horde' or 'Alliance'
+        GameTooltip:Hide()
+        text:SetTextColor(this == a and 1 or 0, this == a and 0 or .8, this == a and 0 or .5)
+    end
+
     local target = function()
         local text = this == ho and h or a
         local t = text:GetText()
-        this:SetAttribute('macrotext', '/tar '..t)
+        TargetByName(t, true)
     end
 
     -- ho:SetScript('OnClick', function() print'clicked!' target() end)
@@ -43,26 +58,31 @@
     f:SetScript('OnEvent', function()
         if tonumber(GetCVar'modPVPTimers') then
             local s = arg1
-
+            local alliancePick  = 'The Alliance (.+) was picked up by (.+)!'
+            local allianceDrop  = 'The Alliance (.+) was dropped by (.+)!'
+            local allianceCap   = 'captured the Alliance (.+)!'
+            local hordePick     = 'The Horde (.+) was picked up by (.+)!'
+            local hordeDrop     = 'The Horde (.+) was dropped by (.+)!'
+            local hordeCap      = 'captured the Horde (.+)!'
             if event == 'ZONE_CHANGED_NEW_AREA' then
                 ho:Hide() h:Hide()
                 al:Hide() a:Hide()
             else
-                if string.find(s, 'The Alliance Flag was picked up')
+                if string.find(s, alliancePick)
                 or string.find(s, '+ Alliance Flag') then
-                    local t = gsub(s, 'The Alliance Flag was picked up by (.+)!', '%1')
+                    local t = gsub(s, alliancePick, '%1')
                     a:SetText(t)
                     a:Show()
-                elseif string.find(s, 'The Alliance Flag was dropped')
-                or string.find(s, 'captured the Alliance flag!') then
+                elseif string.find(s, allianceDrop)
+                or string.find(s, allianceCap) then
                     a:Hide()
-                elseif string.find(s, 'The Horde flag was picked up')
+                elseif string.find(s, hordePick)
                 or string.find(s, '+ Horde Flag') then
-                    local t = gsub(s, 'The Horde flag was picked up by (.+)!', '%1')
+                    local t = gsub(s, hordePick, '%1')
                     h:SetText(t)
                     h:Show()
-                elseif  string.find(s, 'The Horde flag was dropped')
-                or string.find(s, 'captured the Horde flag!') then
+                elseif  string.find(s, hordeDrop)
+                or string.find(s, hordeCap) then
                     h:Hide()
                 end
 

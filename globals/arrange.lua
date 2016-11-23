@@ -156,6 +156,14 @@
         KeyRingButton:SetFrameLevel(5)
     end
 
+    local moveDurability = function()
+        if  DurabilityFrame then
+            DurabilityFrame:SetScale(.8)
+            DurabilityFrame:ClearAllPoints()
+            DurabilityFrame:SetPoint('BOTTOMRIGHT', MainMenuBar, 60, 125)
+        end
+    end
+
     orig.GameTooltip_SetDefaultAnchor  = GameTooltip_SetDefaultAnchor
     orig.updateContainerFrameAnchors   = updateContainerFrameAnchors
     orig.UIParent_ManageFramePositions = UIParent_ManageFramePositions
@@ -186,6 +194,7 @@
 
     function UIParent_ManageFramePositions()
         orig.UIParent_ManageFramePositions()
+        moveDurability()
         if tonumber(GetCVar'modAction') == 0 then
             movebars()
             moveCB()

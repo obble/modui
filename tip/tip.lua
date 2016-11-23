@@ -87,6 +87,21 @@
         end)
     end
 
+    local AddTarget = function()
+        local unit = 'mouseovertarget'
+        if  UnitIsUnit('player', unit) then
+            return '|cffff0000You!|r'
+        else
+            if  UnitPlayerControlled(unit) then
+                local _, class = UnitClass(unit)
+                local r, g, b = RAID_CLASS_COLORS[class]
+                return UnitName(unit), r, g, b
+            else
+                local r, g, b = GameTooltip_UnitColor'mouseovertarget'
+                return UnitName(unit), r, g, b
+            end
+        end
+    end
 
     local f = CreateFrame'Frame'    -- GUILD TAG
     f:RegisterEvent'UPDATE_MOUSEOVER_UNIT'
@@ -112,6 +127,11 @@
 
         if g then GameTooltip:AddLine('<'..g..'>', 0, 1, .5) end
 
+        if  UnitExists'mouseovertarget' then
+            local name, r, g, b = AddTarget()
+            GameTooltip:AddLine('|cfffec500Target:|r '..name, r, g, b)
+        end
+
         if GameTooltipStatusBar:IsShown() and GameTooltipStatusBar:GetValue() > 0
         and (not string.find(GameTooltip:GetParent():GetName(), 'PlayerFrame')
          or  not string.find(GameTooltip:GetParent():GetName(), 'TargetFrame')
@@ -121,6 +141,7 @@
         else
             GameTooltipStatusBar:Hide()
         end
+
 
         if  colour then
             local r, g, b = GameTooltip_UnitColor'mouseover'
