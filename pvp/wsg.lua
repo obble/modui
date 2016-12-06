@@ -25,6 +25,7 @@
     al:SetFrameLevel(2)
     al:SetAllPoints(a)
     al:EnableMouse(true)
+    al:SetScript('OnMouseDown', function() print'clicked!' target() end)
     al:Hide()
 
     local OnEnter = function()

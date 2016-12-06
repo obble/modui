@@ -303,11 +303,11 @@
 	end
 
 	local channelDot = function()
-		local channelDot = "(.+) suffers (.+) from (.+)'s (.+)."		local fchannelDot = string.find(arg1, channelDot)
-		local pchannelDot = "You suffer (.+) from (.+)'s (.+)."			local fpchannelDot = string.find(arg1, pchannelDot)
+		local channelDot = '(.+) suffers (.+) from (.+)\'s (.+).'		local fchannelDot = string.find(arg1, channelDot)
+		local pchannelDot = 'You suffer (.+) from (.+)\'s (.+).'		local fpchannelDot = string.find(arg1, pchannelDot)
 
-		local channelDotRes = "(.+)'s (.+) was resisted by (.+)."		local fchannelDotRes = string.find(arg1, channelDotRes)
-		local pchannelDotRes = "(.+)'s (.+) was resisted."				local fpchannelDotRes = string.find(arg1, pchannelDotRes)
+		local channelDotRes = '(.+)\'s (.+) was resisted by (.+).'		local fchannelDotRes = string.find(arg1, channelDotRes)
+		local pchannelDotRes = '(.+)\'s (.+) was resisted.'				local fpchannelDotRes = string.find(arg1, pchannelDotRes)
 
 		-- channeling dmg spells on other (mind flay, life drain(?))
 		if fchannelDot then

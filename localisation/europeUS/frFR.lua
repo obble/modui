@@ -1,7 +1,7 @@
 
 
     -- TODO:  check each of these for existing globals
-    if GetLocale() == 'zhCN' then
+    if GetLocale() == 'frFR' then
          MODUI.L = {
             -- ['global string']    =    "localised string",
 

@@ -24,7 +24,6 @@
     TargetFrame.cast.text:SetShadowOffset(1, -1)
     TargetFrame.cast.text:SetShadowColor(0, 0, 0)
     TargetFrame.cast.text:SetPoint('TOPLEFT', TargetFrame.cast, 'BOTTOMLEFT', 2, -5)
-    TargetFrame.cast.text:SetText'Evocation'
 
     TargetFrame.cast.timer = TargetFrame.cast:CreateFontString(nil, 'OVERLAY')
     TargetFrame.cast.timer:SetTextColor(1, 1, 1)
@@ -32,7 +31,6 @@
     TargetFrame.cast.timer:SetShadowOffset(1, -1)
     TargetFrame.cast.timer:SetShadowColor(0, 0, 0)
     TargetFrame.cast.timer:SetPoint('RIGHT', TargetFrame.cast, -1, 1)
-    TargetFrame.cast.timer:SetText'3.5s'
 
     TargetFrame.cast.icon = TargetFrame.cast:CreateTexture(nil, 'OVERLAY', nil, 7)
     TargetFrame.cast.icon:SetWidth(18) TargetFrame.cast.icon:SetHeight(18)
