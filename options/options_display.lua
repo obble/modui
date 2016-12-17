@@ -3,6 +3,7 @@
     local _, class = UnitClass'player'
     local colour   = RAID_CLASS_COLORS[class]
     local menu     = _G['modui_options']
+    local orig     = {}
 
     RegisterCVar('modGryphon',    1, true)
     RegisterCVar('modEndcap',     1, true)
@@ -10,6 +11,11 @@
     RegisterCVar('modChatFormat', 1, true)
     RegisterCVar('modItemLink',   1, true)
     RegisterCVar('modAuraFormat', 0, true)
+    RegisterCVar('modShowTooltipMover', 0, true)
+    RegisterCVar('modPlayerCastbar', 0, true)
+
+    orig.SetPoint       = CastingBarFrame.SetPoint
+    orig.ClearAllPoints = CastingBarFrame.ClearAllPoints
 
     local highlight = function()
         if modSkinned(this) then
@@ -155,6 +161,34 @@
         menu.aurabutton.duration:SetText'|cffffffff30|rm'
     end
 
+    menu.tooltip = CreateFrame('CheckButton', 'modui_tooltip', menu, 'UICheckButtonTemplate')
+    menu.tooltip:SetHeight(20) menu.tooltip:SetWidth(20)
+    menu.tooltip:SetPoint('TOPLEFT', menu, 25, -355)
+    menu.tooltip:Hide()
+    _G[menu.tooltip:GetName()..'Text']:SetJustifyH'LEFT'
+    _G[menu.tooltip:GetName()..'Text']:SetWidth(270)
+    _G[menu.tooltip:GetName()..'Text']:SetPoint('LEFT', menu.tooltip, 'RIGHT', 4, 0)
+    _G[menu.tooltip:GetName()..'Text']:SetText'Toggle Tooltip Mover Frame'
+
+    menu.tooltip.title = menu.tooltip:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
+    menu.tooltip.title:SetTextColor(colour.r, colour.g, colour.b)
+    menu.tooltip.title:SetPoint('TOPLEFT', menu, 30, -340)
+    menu.tooltip.title:SetText'—Tooltip'
+
+    menu.castbar = CreateFrame('CheckButton', 'modui_castbar', menu, 'UICheckButtonTemplate')
+    menu.castbar:SetHeight(20) menu.castbar:SetWidth(20)
+    menu.castbar:SetPoint('TOPLEFT', menu, 25, -395)
+    menu.castbar:Hide()
+    _G[menu.castbar:GetName()..'Text']:SetJustifyH'LEFT'
+    _G[menu.castbar:GetName()..'Text']:SetWidth(270)
+    _G[menu.castbar:GetName()..'Text']:SetPoint('LEFT', menu.castbar, 'RIGHT', 4, 0)
+    _G[menu.castbar:GetName()..'Text']:SetText'Show Castbar Under PlayerFrame'
+
+    menu.castbar.title = menu.castbar:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
+    menu.castbar.title:SetTextColor(colour.r, colour.g, colour.b)
+    menu.castbar.title:SetPoint('TOPLEFT', menu, 30, -380)
+    menu.castbar.title:SetText'—Castbar'
+
     menu.display = CreateFrame('Button', 'modui_display', menu, 'UIPanelButtonTemplate')
     menu.display:SetWidth(100) menu.display:SetHeight(20)
     menu.display:SetText'Display'
@@ -163,16 +197,16 @@
 
     menu.display:SetScript('OnClick', function()
         highlight()
-        for _, v in pairs({menu.intro, menu.uilink, menu.description, menu.whisper, menu.horizontal, menu.value, menu.consolidate, menu.elements.title, menu.elements.description, menu.elementcontainer, menu.allelement, menu.actionlayout, menu.modraid.apology}) do v:Hide() end
+        for _, v in pairs({menu.intro, menu.uilink, menu.description, menu.whisper, menu.horizontal, menu.value, menu.consolidate, menu.ctDMG, menu.ctHEAL, menu.elements.title, menu.elements.description, menu.elementcontainer, menu.allelement, menu.actionlayout, menu.modraid.apology, menu.modraid.text}) do v:Hide() end
         for i = 1, 11 do _G['modui_element'..i]:Hide() end
         for i = 1, 60 do _G['modui_actionbutton'..i]:Hide() end
-        for _, v in pairs({menu.gryphon, menu.endcap, menu.chatstamp, menu.chatformat, menu.itemlink, menu.auraformat}) do v:Show() end
+        for _, v in pairs({menu.gryphon, menu.endcap, menu.chatstamp, menu.chatformat, menu.itemlink, menu.auraformat, menu.tooltip, menu.castbar}) do v:Show() end
         for i = 1,  2 do _G['modui_optionsaurabutton'..i]:Show() end
-        menu.reload:SetPoint('TOP', menu, 0, -370)
+        menu.reload:SetPoint('TOP', menu, 0, -450)
         if menu.reload:IsShown() then
-            menu:SetHeight(410)
+            menu:SetHeight(510)
         else
-            menu:SetHeight(370)
+            menu:SetHeight(440)
         end
     end)
 
@@ -204,6 +238,69 @@
 
     menu.aurabutton:SetScript('OnShow', aura)
     menu.aurabutton:SetScript('OnHide', aura)
+
+    menu.tooltip:SetScript('OnClick', function()
+        local parent = _G['modTooltipParent']
+        if  this:GetChecked() == 1 then
+            parent:EnableMouse(true)
+        	parent:SetBackdropColor(0, 1, 0, 1)
+            parent:SetScript('OnDragStart', function() this:StartMoving() end)
+            parent:SetScript('OnDragStop',  function() this:StopMovingOrSizing() end)
+            SetCVar('modShowTooltipMover', 1)
+        else
+            parent:EnableMouse(false)
+        	parent:SetBackdropColor(0, 0, 0, 0)
+            parent:SetScript('OnDragStart', nil)
+            parent:SetScript('OnDragStop',  nil)
+            SetCVar('modShowTooltipMover', 0)
+        end
+    end)
+
+    menu.castbar:SetScript('OnClick', function()
+        if  this:GetChecked() == 1 then
+            SetCVar('modPlayerCastbar', 1)
+            CastingBarFrame:ClearAllPoints()
+            CastingBarFrame:SetPoint('LEFT', PlayerFrame, 75, 0)
+            CastingBarFrame:SetPoint('RIGHT', PlayerFrame, -8, 0)
+            CastingBarFrame:SetPoint('TOP', PlayerFrame, 'BOTTOM', 0, -2)
+            CastingBarFrame.SetPoint = function() end
+            CastingBarFrame.ClearAllPoints = function() end
+            CastingBarFrame:SetWidth(142)
+            CastingBarFrame:SetHeight(8)
+
+            CastingBarBorder:Hide()
+
+            CastingBarSpark:SetTexture''
+            CastingBarFlash:SetTexture''
+
+            CastingBarText:ClearAllPoints()
+            CastingBarText:SetPoint('TOPLEFT', CastingBarFrame, 'BOTTOMLEFT', 2, -5)
+            CastingBarText:SetJustifyH'LEFT'
+
+            CastingBarFrame.Icon:SetPoint('RIGHT', CastingBarFrame, 'LEFT', -10, 1)
+            modSkinShow(CastingBarFrame)
+        else
+            SetCVar('modPlayerCastbar', 0)
+            CastingBarFrame.SetPoint = orig.SetPoint
+            CastingBarFrame.ClearAllPoints = orig.ClearAllPoints
+            CastingBarFrame:ClearAllPoints()
+            CastingBarFrame:SetPoint('BOTTOM', UIParent, 0, 180)
+            CastingBarFrame:SetWidth(195)
+            CastingBarFrame:SetHeight(13)
+
+            CastingBarBorder:Show()
+
+            CastingBarSpark:SetTexture[[Interface\CastingBar\UI-CastingBar-Spark]]
+            CastingBarFlash:SetTexture[[Interface\CastingBar\UI-CastingBar-Flash]]
+
+            CastingBarText:ClearAllPoints()
+            CastingBarText:SetPoint('TOP', 0, 5)
+            CastingBarText:SetJustifyH'CENTER'
+
+            CastingBarFrame.Icon:SetPoint('RIGHT', CastingBarFrame, 'LEFT', -10, 2.5)
+            modSkinHide(CastingBarFrame)
+        end
+    end)
 
     local f = CreateFrame'Frame'
     f:RegisterEvent'PLAYER_ENTERING_WORLD'
@@ -238,6 +335,10 @@
         if cv == 1 then menu.itemlink:SetChecked(true) else menu.itemlink:SetChecked(false) end
         local cv = tonumber(GetCVar'modAuraFormat')
         if cv == 1 then menu.auraformat:SetValue(1) else menu.auraformat:SetValue(0) end
+        local cv = tonumber(GetCVar'modShowTooltipMover')
+        if cv == 1 then menu.tooltip:SetChecked(true) else menu.tooltip:SetChecked(false) end
+        local cv = tonumber(GetCVar'modPlayerCastbar')
+        if cv == 1 then menu.castbar:SetChecked(true) else menu.castbar:SetChecked(false) end
     end)
 
     --

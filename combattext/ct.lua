@@ -77,24 +77,30 @@
         elseif event == 'PLAYER_COMBO_POINTS' then
         	msgType = 'COMBO_POINTS'
         elseif event == 'CHAT_MSG_SPELL_SELF_DAMAGE' then
-            local h = 'Your (.+) hits (.+) for (.+)'  local hit  = string.find(arg1, h)
-            local c = 'Your (.+) crits (.+) for (.+)' local crit = string.find(arg1, c)
-            if hit or crit then
-                local m = hit and h or crit and c
-                local t = gsub(arg1, '(.+) (.+) damage.', '%2')
-                if t then colour = SPELL_SCHOOL_COLORS[t] else colour = {r =  1, g =  1, b =  0} end
-    			arg2 = gsub(arg1, m, '%3')  arg2 = gsub(arg2, '(.+) (.+) damage.', '%1')
-                msgType = crit and 'OUTGOING_DMG_CRIT' or 'OUTGOING_DMG'
+            local cv = tonumber(GetCVar'modSCTDMG')
+            if cv == 1 then
+                local h = 'Your (.+) hits (.+) for (.+)'  local hit  = string.find(arg1, h)
+                local c = 'Your (.+) crits (.+) for (.+)' local crit = string.find(arg1, c)
+                if hit or crit then
+                    local m = hit and h or crit and c
+                    local t = gsub(arg1, '(.+) (.+) damage.', '%2')
+                    if t then colour = SPELL_SCHOOL_COLORS[t] else colour = {r =  1, g =  1, b =  0} end
+        			arg2 = gsub(arg1, m, '%3')  arg2 = gsub(arg2, '(.+) (.+) damage.', '%1')
+                    msgType = crit and 'OUTGOING_DMG_CRIT' or 'OUTGOING_DMG'
+                end
             end
         elseif event == 'CHAT_MSG_SPELL_SELF_BUFF' then
-            local h    = 'Your (.+) heals (.+) for (.+).'            local heal = string.find(arg1, h)
-            local c    = 'Your (.+) critically heals (.+) for (.+).' local crit = string.find(arg1, c)
-            local hot  = '(.+) gains (.+) health from your (.+).'
-            if heal or crit then
-                arg2 = gsub(arg1, h, '%3 — %2')
-                colour = {r = .1, g = .7, b = .65}
-                if string.find(arg2, '(.+) — you') then return end
-                msgType = crit and 'OUTGOING_HEALING_CRIT' or 'OUTGOING_HEALING'
+            local cv = tonumber(GetCVar'modSCTHEAL')
+            if cv == 1 then
+                local h    = 'Your (.+) heals (.+) for (.+).'            local heal = string.find(arg1, h)
+                local c    = 'Your (.+) critically heals (.+) for (.+).' local crit = string.find(arg1, c)
+                local hot  = '(.+) gains (.+) health from your (.+).'
+                if heal or crit then
+                    arg2 = gsub(arg1, h, '%3 — %2')
+                    colour = {r = .1, g = .7, b = .65}
+                    if string.find(arg2, '(.+) — you') then return end
+                    msgType = crit and 'OUTGOING_HEALING_CRIT' or 'OUTGOING_HEALING'
+                end
             end
         elseif event == 'COMBAT_TEXT_UPDATE' then
         	msgType = arg1

@@ -9,7 +9,10 @@
 	orig.ShapeshiftBar_UpdateState  = ShapeshiftBar_UpdateState
 
 	local borders = function(nutime)
-		if this:GetChecked() then this.checked = true modSkinColor(this, 1, 175/255, 155/255) end
+		if  this:GetChecked() then
+			this.checked = true
+			modSkinColor(this, 255/255, 240/255, 0/255) 	-- see how this looks
+		end
 		if this.keypress and modSkinned(this) then
 			local i = nutime - this.keypress
 			modSkinColor(this, .075/i, .05/i, .025/i)
@@ -29,7 +32,7 @@
 			local bu = _G['PetActionButton'..i]
 			local _, _, _, _, active = GetPetActionInfo(i)
 			if active then
-				modSkinColor(bu, 1, 175/255, 155/255)
+				modSkinColor(bu, 255/255, 240/255, 0/255)
 			else
 				modSkinColor(bu, .2, .2, .2)
 			end
@@ -54,7 +57,7 @@
 			local _, _, active = GetShapeshiftFormInfo(i)
 			local bu = _G['ShapeshiftButton'..i]
 			if active then
-				modSkinColor(bu, 1, 175/255, 155/255)
+				modSkinColor(bu, 255/255, 240/255, 0/255)
 			else
 				modSkinColor(bu, .2, .2, .2)
 			end

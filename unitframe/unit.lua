@@ -305,9 +305,13 @@
                     end
     			end
                 if  sb:GetName() == 'PlayerFrameManaBar' or sb:GetName() == 'TargetFrameManaBar' then
-                    string:SetTextColor(.6, .65, 1)
-                elseif sb:GetName() == 'PlayerFrameHealthBar' or sb:GetName() == 'TargetFrameHealthBar' then
-                    string:SetTextColor(.05, 1, 0)
+                    if class == 'ROGUE' then
+                        string:SetTextColor(250/255, 240/255, 200/255)
+                    elseif class == 'WARRIOR' then
+                        string:SetTextColor(250/255, 108/255, 108/255)
+                    else
+                        string:SetTextColor(.6, .65, 1)
+                    end
                 end
             end
     	end

@@ -71,7 +71,7 @@
             else
                 if string.find(s, alliancePick)
                 or string.find(s, '+ Alliance Flag') then
-                    local t = gsub(s, alliancePick, '%1')
+                    local t = gsub(s, alliancePick, '%2')
                     a:SetText(t)
                     a:Show()
                 elseif string.find(s, allianceDrop)
@@ -79,7 +79,7 @@
                     a:Hide()
                 elseif string.find(s, hordePick)
                 or string.find(s, '+ Horde Flag') then
-                    local t = gsub(s, hordePick, '%1')
+                    local t = gsub(s, hordePick, '%2')
                     h:SetText(t)
                     h:Show()
                 elseif  string.find(s, hordeDrop)

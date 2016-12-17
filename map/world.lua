@@ -2,6 +2,13 @@
 
     if tonumber(GetCVar'modWorldMap') == 0 then return end
 
+    if IsAddOnLoaded'!Questie' then
+        local bu = _G['Questie_Toggle']
+        bu:SetHeight(22)
+        bu:ClearAllPoints()
+        bu:SetPoint('TOP', -217, -133)
+    end
+
     local tieredDungeons = {
         ['blackwinglair']   = true,
         ['thedeadmines']    = true,

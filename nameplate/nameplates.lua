@@ -22,7 +22,7 @@
         'Unconscious Dig Rat', }
 
     local isPlate = function(frame)     -- GO FISH
-        local overlayRegion = frame:GetRegions()
+        local  overlayRegion = frame:GetRegions()
         if not overlayRegion or overlayRegion:GetObjectType() ~= 'Texture'
         or overlayRegion:GetTexture() ~= [[Interface\Tooltips\Nameplate-Border]] then
             return false
@@ -30,9 +30,9 @@
         return true
     end
 
-    local isPet = function(name)
-        for _, pname in pairs(pets) do
-            if name == pname then return true end
+    local isPet = function(n)
+        for _, name in pairs(pets) do
+            if n == name then return true end
         end
         return false
     end
@@ -99,8 +99,8 @@
         plate.cast:SetPoint('TOP', health, 'BOTTOM', 0, -8)
 
         plate.cast.text = plate.cast:CreateFontString(nil, 'OVERLAY')
-        plate.cast.text:SetTextColor(1, 1, 1)
-        plate.cast.text:SetFont(STANDARD_TEXT_FONT, 10)
+        plate.cast.text:SetTextColor(1, .8, 0)
+        plate.cast.text:SetFont(STANDARD_TEXT_FONT, 11)
         plate.cast.text:SetShadowOffset(1, -1)
         plate.cast.text:SetShadowColor(0, 0, 0)
         plate.cast.text:SetPoint('TOPLEFT', plate.cast, 'BOTTOMLEFT', 0, -2)
@@ -143,10 +143,23 @@
             plate.buffs[i].icon:SetTexCoord(.1, .9, .25, .75)
 
             plate.buffs[i].duration = plate.buffs[i]:CreateFontString(nil, 'OVERLAY', 'GameFontNormalSmall')
-            plate.buffs[i].duration:SetFont(STANDARD_TEXT_FONT, 8)
+            plate.buffs[i].duration:SetFont(STANDARD_TEXT_FONT, 10)
             plate.buffs[i].duration:SetTextColor(1, 1, 1)
-            plate.buffs[i].duration:SetPoint('CENTER', plate.buffs[i], 'BOTTOM', 0, -2)
+            plate.buffs[i].duration:SetPoint('BOTTOM', plate.buffs[i], 'TOP', 0, 3)
         end
+
+        plate.totem = CreateFrame('Frame', nil, plate)
+        plate.totem:SetWidth(26)
+        plate.totem:SetHeight(22)
+        plate.totem:SetPoint('BOTTOM', plate)
+
+        modSkin(plate.totem, 14.5)
+        modSkinPadding(plate.totem, 3)
+        modSkinColor(plate.totem, .2, .2, .2)
+
+        plate.totem.icon = plate.totem:CreateTexture(nil, 'ARTWORK')
+        plate.totem.icon:SetAllPoints()
+        plate.totem.icon:SetTexCoord(.1, .9, .15, .85)
 
         if class == 'ROGUE' or class == 'DRUID' then
             plate.cp = plate:CreateFontString(nil, 'OVERLAY')
@@ -171,7 +184,6 @@
         plate:SetWidth(120)
         health:SetWidth(100)
     end
-
 
     local addClass = function(plate)    -- CLASS COLOUR
         local health = plate:GetChildren()
@@ -296,6 +308,48 @@
         end
     end
 
+    local addTotem = function(plate)
+        local health = plate:GetChildren()
+        local border, glow, name, level, _, raidicon = plate:GetRegions()
+        local n = gsub(name:GetText(), '(.+) Totem', '%1')
+        if  MODUI_TOTEMS[n] then
+            local totem  = MODUI_TOTEMS[n]
+
+            health:SetStatusBarTexture''
+
+            for _, v in pairs({plate:GetRegions()}) do
+                v:SetAlpha(0)
+            end
+
+            name:SetAlpha(1)
+            name:ClearAllPoints()
+            name:SetPoint('BOTTOM', plate.totem, 'TOP', 0, 6)
+            name:SetJustifyH'LEFT'
+
+            plate.totem:Show()
+            plate.totem.icon:SetTexture('Interface\\Icons\\'..totem.icon)
+        else
+            health:SetStatusBarTexture(TEXTURE)
+
+            name:ClearAllPoints()
+            name:SetPoint('BOTTOMRIGHT', plate, 'TOPRIGHT', -4, -16)
+            name:SetJustifyH'RIGHT'
+
+            for _, v in pairs({plate:GetRegions()}) do
+                if  v:GetObjectType() == 'Texture'
+                and not
+                    (v:GetTexture() == [[Interface\TargetingFrame\UI-RaidTargetingIcons]]
+                    or
+                    string.find(tostring(v:GetTexture()), 'HighLevel'))
+                then
+                    v:SetAlpha(1)
+                end
+            end
+
+            plate.totem:Hide()
+        end
+    end
+
     local f = CreateFrame'Frame'
     f:SetScript('OnUpdate', function()
         local frames = {WorldFrame:GetChildren()}
@@ -304,7 +358,7 @@
                 if isPlate(plate) and plate:IsVisible() then
                     local _, _, name = plate:GetRegions()
                     if not plate.skinned then modPlate(plate) end
-                    addSize(plate) addClass(plate) addCP(plate) addCast(plate) addHeal(plate) addBuff(plate) addPvP(plate)
+                    addSize(plate) addClass(plate) addCP(plate) addCast(plate) addHeal(plate) addBuff(plate) addPvP(plate) addTotem(plate)
                 end
             end
         end

@@ -17,6 +17,24 @@
         end
     end
 
+    local gradient = function(v, f, min, max)
+        if v < min or v > max then return end
+        if (max - min) > 0 then
+            v = (v - min)/(max - min)
+        else
+            v = 0
+        end
+        if v > .5 then
+            r = (1 - v)*2
+            g = 1
+        else
+            r = 1
+            g = v*2
+        end
+        b = 0
+        f:SetTextColor(r*1.5, g*1.5, b*1.5)
+    end
+
     function MH3Blizz:HealthUpdate()
         local v, max  = MobHealth3:GetUnitHealth('target', UnitHealth'target', UnitHealthMax'target')
         local percent = math.floor(v/max*100)
@@ -31,7 +49,7 @@
             end
         end
 
-        string:SetTextColor(.05, 1, 0)
+        gradient(v, string, 0, max)
 
         if GetCVar'modBoth' == '1' then
             if max == 100 then
@@ -59,7 +77,13 @@
         if max == 0 or cur == 0 or percent == 0 then string:SetText() return end
         if MH3BlizzConfig.powerAbs then v = math.floor(v) end
 
-        string:SetTextColor(.6, .65, 1)
+        if class == 'ROGUE' then
+            string:SetTextColor(250/255, 240/255, 200/255)
+        elseif class == 'WARRIOR' then
+            string:SetTextColor(250/255, 108/255, 108/255)
+        else
+            string:SetTextColor(.6, .65, 1)
+        end
 
         if GetCVar'modBoth' == '1' then
             if max == 100 then
@@ -69,7 +93,7 @@
             end
             string:SetPoint('RIGHT', -8, 0)
         elseif GetCVar'modValue'  == '1' and GetCVar'modBoth' == '0' then
-            local logic = MH3BlizzConfig.powerPerc and v <= 100 and percent == v and class ~= 'ROGUE'
+            local logic = MH3BlizzConfig.powerPerc and v <= 100 and percent == v and (class ~= 'ROGUE' or class ~= 'WARRIOR' or (class ~= 'DRUID' and GetShapeshiftFormID() ~= 5 or GetShapeshiftFormID() ~= 1)) 
             local t = logic and true_format(v)..'%' or true_format(v)
             string:SetText(t)
         else

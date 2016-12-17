@@ -7,6 +7,8 @@
     RegisterCVar('modStatus', 1, true)
     RegisterCVar('modBoth', 1, true)
     RegisterCVar('modValue', 1, true)
+    RegisterCVar('modSCTDMG', 0, true)
+    RegisterCVar('modSCTHEAL', 0, true)
 
     local xy = function()
         local hp, hmax = UnitHealth'player', UnitHealthMax'player'
@@ -109,15 +111,38 @@
     menu.status:SetFont(STANDARD_TEXT_FONT, 10)
     menu.status:SetPoint('LEFT', menu.display, 'RIGHT', 3, 0)
 
+    menu.ctDMG = CreateFrame('CheckButton', 'modui_statusctDMG', menu, 'UICheckButtonTemplate')
+    menu.ctDMG:SetHeight(20) menu.ctDMG:SetWidth(20)
+    menu.ctDMG:SetPoint('TOPLEFT', menu, 25, -285)
+    menu.ctDMG:Hide()
+    _G[menu.ctDMG:GetName()..'Text']:SetJustifyH'LEFT'
+    _G[menu.ctDMG:GetName()..'Text']:SetWidth(270)
+    _G[menu.ctDMG:GetName()..'Text']:SetPoint('LEFT', menu.ctDMG, 'RIGHT', 4, 0)
+    _G[menu.ctDMG:GetName()..'Text']:SetText'Show Outgoing Damage'
+
+    menu.ctHEAL = CreateFrame('CheckButton', 'modui_statusctHEAL', menu, 'UICheckButtonTemplate')
+    menu.ctHEAL:SetHeight(20) menu.ctHEAL:SetWidth(20)
+    menu.ctHEAL:SetPoint('TOPLEFT', menu, 25, -303)
+    menu.ctHEAL:Hide()
+    _G[menu.ctHEAL:GetName()..'Text']:SetJustifyH'LEFT'
+    _G[menu.ctHEAL:GetName()..'Text']:SetWidth(270)
+    _G[menu.ctHEAL:GetName()..'Text']:SetPoint('LEFT', menu.ctHEAL, 'RIGHT', 4, 0)
+    _G[menu.ctHEAL:GetName()..'Text']:SetText'Show Outgoing Healing'
+
+    menu.ctDMG.title = menu.ctDMG:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
+    menu.ctDMG.title:SetTextColor(colour.r, colour.g, colour.b)
+    menu.ctDMG.title:SetPoint('TOPLEFT', menu, 30, -270)
+    menu.ctDMG.title:SetText'—Scrolling Combat Text'
+
     menu.status:SetScript('OnClick', function()
         highlight()
-        for _, v in pairs({menu.intro, menu.uilink, menu.description, menu.whisper, menu.gryphon, menu.endcap, menu.chatstamp, menu.chatformat, menu.itemlink, menu.auraformat, menu.elements.title, menu.elements.description, menu.elementcontainer, menu.allelement, menu.actionlayout, menu.modraid.apology}) do v:Hide() end
+        for _, v in pairs({menu.intro, menu.uilink, menu.description, menu.whisper, menu.gryphon, menu.endcap, menu.chatstamp, menu.chatformat, menu.itemlink, menu.auraformat, menu.tooltip, menu.castbar, menu.elements.title, menu.elements.description, menu.elementcontainer, menu.allelement, menu.actionlayout, menu.modraid.apology, menu.modraid.text}) do v:Hide() end
         for i = 1,  2 do _G['modui_optionsaurabutton'..i]:Hide() end
         for i = 1, 11 do _G['modui_element'..i]:Hide() end
         for i = 1, 60 do _G['modui_actionbutton'..i]:Hide() end
-        for _, v in pairs({menu.horizontal, menu.value, menu.consolidate}) do v:Show() end
-        menu.reload:SetPoint('TOP', menu, 0, -320)
-        if menu.reload:IsShown() then menu:SetHeight(365) else menu:SetHeight(295) end
+        for _, v in pairs({menu.horizontal, menu.value, menu.consolidate, menu.ctDMG, menu.ctHEAL}) do v:Show() end
+        menu.reload:SetPoint('TOP', menu, 0, -360)
+        if menu.reload:IsShown() then menu:SetHeight(415) else menu:SetHeight(345) end
     end)
 
     menu.horizontal:SetScript('OnShow', xy)
@@ -142,6 +167,23 @@
             reload()
         end
     end)
+
+    menu.ctDMG:SetScript('OnClick', function()
+        if this:GetChecked() == 1 then
+            SetCVar('modSCTDMG', 1)
+        else
+            SetCVar('modSCTDMG', 0)
+        end
+    end)
+
+    menu.ctHEAL:SetScript('OnClick', function()
+        if this:GetChecked() == 1 then
+            SetCVar('modSCTHEAL', 1)
+        else
+            SetCVar('modSCTHEAL', 0)
+        end
+    end)
+
 
     local f = CreateFrame'Frame'
     f:RegisterEvent'PLAYER_ENTERING_WORLD'

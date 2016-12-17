@@ -1,6 +1,9 @@
 
     local orig = {}
 
+    orig.CastingBarFrame_OnUpdate       = CastingBarFrame_OnUpdate
+    orig.TextStatusBar_UpdateTextString = TextStatusBar_UpdateTextString
+
     local gradient = function(v, f, min, max)
         if v < min or v > max then return end
         if (max - min) > 0 then
@@ -16,23 +19,44 @@
             g = v*2
         end
         b = 0
-        f:SetStatusBarColor(r, g, b)
+        if  f:GetObjectType() == 'StatusBar'  then
+            f:SetStatusBarColor(r, g, b)
+        elseif
+            f:GetObjectType() == 'FontString' then
+            f:SetTextColor(r*1.5, g*1.5, b*1.5)
+        else
+            f:SetVertexColor(r, g, b)
+        end
     end
 
     function HealthBar_OnValueChanged(v, smooth)
         if not v then return end
         if string.find(this:GetName(), 'RaidPullout') then return end
-        local r, g, b
         local min, max = this:GetMinMaxValues()
         gradient(v, this, min, max)
     end
 
-    orig.CastingBarFrame_OnUpdate = CastingBarFrame_OnUpdate
+    function TextStatusBar_UpdateTextString(sb)  -- STATUS TEXT
+        if not sb then sb = this end
+        orig.TextStatusBar_UpdateTextString(sb)
+        local string = sb.TextString
+    	if string then
+            if  sb:GetName() == 'PlayerFrameHealthBar' or sb:GetName() == 'TargetFrameHealthBar' then
+                local v = sb:GetValue()
+                local min, max = sb:GetMinMaxValues()
+                gradient(v, string, min, max)
+            end
+        end
+    end
+
     function CastingBarFrame_OnUpdate()
         orig.CastingBarFrame_OnUpdate()
         local v = CastingBarFrameStatusBar:GetValue()
         local min, max = this:GetMinMaxValues()
         gradient(v, this, min, max)
+        if  CastingBarText:GetText() == INTERRUPTED or CastingBarText:GetText() == FAILED then
+            this:SetStatusBarColor(1, 0, 0)
+        end
     end
 
     local BagSpaceBarUpdate = function()

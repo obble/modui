@@ -22,7 +22,6 @@
             }) do
                 UIPARENT_MANAGED_FRAME_POSITIONS[v] = nil
             end
-            UIPARENT_MANAGED_FRAME_POSITIONS['CastingBarFrame'] = {baseY = 60, bottomEither = 40, pet = 40, reputation = 9}
             UIPARENT_MANAGED_FRAME_POSITIONS['CONTAINER_OFFSET_X'] = {baseX = 0, rightLeft = 90, rightRight = 45, isVar = 'xAxis'}
             UIPARENT_MANAGED_FRAME_POSITIONS['CONTAINER_OFFSET_Y'] = {baseY = 70, bottomEither = 27, bottomRight = 0, reputation = 9, isVar = 'yAxis', pet = 23}
         end
@@ -101,21 +100,27 @@
     end
 
     local movetip = function()           -- TOOLTIP
-        if tonumber(GetCVar'modAction') == 0 then
-            local type = GameTooltip:GetAnchorType()
+        if  tonumber(GetCVar'modAction') == 0 then
+            local parent    = _G['modTooltipParent']
+            local type      = GameTooltip:GetAnchorType()
+            local x = {parent:GetPoint()}
             local i = 1
             GameTooltip:SetBackdropColor(0, 0, 0)
             GameTooltip:SetBackdropBorderColor(.1, .1, .1, 1)
-            if type == 'ANCHOR_NONE' then
+            if  type == 'ANCHOR_NONE' then
                 GameTooltip:ClearAllPoints()
-                if SHOW_MULTI_ACTIONBAR_3 then
-                    GameTooltip:SetPoint('BOTTOMRIGHT', MultiBarLeftButton12, 'TOPRIGHT', 3, 8)
-                elseif SHOW_MULTI_ACTIONBAR_2 and not SHOW_MULTI_ACTIONBAR_3 then
-                    GameTooltip:SetPoint('BOTTOMRIGHT', MultiBarBottomRightButton12, 'TOPRIGHT', 3, 8)
-                else
-                    GameTooltip:SetPoint('BOTTOMRIGHT', MainMenuBarBackpackButton, 'TOPRIGHT', 3, 16)
+                GameTooltip:SetPoint('BOTTOMRIGHT', parent)
+                if x[4] == -10 and x[5] == 140 then
+                    parent:ClearAllPoints()
+                    if SHOW_MULTI_ACTIONBAR_3 then
+                        parent:SetPoint('BOTTOMRIGHT', MultiBarLeftButton12, 'TOPRIGHT', 3, 8)
+                    elseif SHOW_MULTI_ACTIONBAR_2 and not SHOW_MULTI_ACTIONBAR_3 then
+                        parent:SetPoint('BOTTOMRIGHT', MultiBarBottomRightButton12, 'TOPRIGHT', 3, 8)
+                    else
+                        parent:SetPoint('BOTTOMRIGHT', MainMenuBarBackpackButton, 'TOPRIGHT', 3, 16)
+                    end
                 end
-                while ContainerFrame1.bags[i] do
+                while ContainerFrame1.bags[i] and tonumber(GetCVar'modOneBag') == 1 do
                     local f  = _G[ContainerFrame1.bags[i]]
                     GameTooltip:SetOwner(UIParent, 'ANCHOR_CURSOR')
                     i = i + 1
@@ -132,6 +137,7 @@
 
     local moveCB = function()          -- CASTBAR
         local y
+        local cv = tonumber(GetCVar'modPlayerCastbar')
         if SHOW_MULTI_ACTIONBAR_3 or SHOW_MULTI_ACTIONBAR_4 then
             y = 160
         elseif  (SHOW_MULTI_ACTIONBAR_1 or SHOW_MULTI_ACTIONBAR_2)
@@ -140,7 +146,9 @@
         else
             y = 80
         end
-        CastingBarFrame:SetPoint('BOTTOM', UIParent, 0, y)
+        if  cv == 0 then
+            CastingBarFrame:SetPoint('BOTTOM', UIParent, 0, y)
+        end
     end
 
     local moveTimer = function()        -- QUEST TIMER
@@ -176,8 +184,11 @@
         CONTAINER_OFFSET_Y = tonumber(GetCVar'modAction') == 0 and 144 or 98
         while ContainerFrame1.bags[i] do
             local f  = _G[ContainerFrame1.bags[i]]
+            local x = {f:GetPoint()}
             f:SetWidth(192)
-            if i == 1 then f:SetPoint('BOTTOMRIGHT', f:GetParent(), -CONTAINER_OFFSET_X - 16, CONTAINER_OFFSET_Y) end
+            if i == 1 and x[5] == CONTAINER_OFFSET_Y then
+                f:SetPoint('BOTTOMRIGHT', f:GetParent(), -CONTAINER_OFFSET_X - 16, CONTAINER_OFFSET_Y)
+            end
             i = i + 1
         end
     end

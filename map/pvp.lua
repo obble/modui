@@ -64,7 +64,7 @@
     local toggle = function()
         local map = BattlefieldMinimap
         local z   = GetZoneText()
-        if map:IsVisible() then
+        if  map:IsVisible() then
     		map:Hide()
     		SHOW_BATTLEFIELD_MINIMAP = '0'
     	else
@@ -86,24 +86,44 @@
     end
 
     local logic = function(name, s)
-        if string.find(s, 'The Alliance Flag was picked up')
-        or string.find(s, '+ Alliance Flag')
-        or string.find(s, 'The Horde flag was picked up')
-        or string.find(s, '+ Horde Flag') then
-            local t  = gsub(s, 'The (.+) was picked up by (.+)!', '%2')
-            local sub = gsub(s, '+ (.+) Flag — (.+).', '%2')
+        local alliancePick  = 'The Alliance (.+) was picked up by (.+)!'
+        local allianceDrop  = 'The Alliance (.+) was dropped by (.+)!'
+        local allianceCap   = 'captured the Alliance (.+)!'
+        local hordePick     = 'The Horde (.+) was picked up by (.+)!'
+        local hordeDrop     = 'The Horde (.+) was dropped by (.+)!'
+        local hordeCap      = '(.+) captured the Horde (.+)!'
+        if  string.find(s, alliancePick)
+        or  string.find(s, '+ Alliance Flag') then
+            local t     = gsub(s, alliancePick, '%2')
+            local sub   = gsub(s, '+ (.+) Flag — (.+).', '%2')
             if name and (string.find(name, t) or string.find(name, sub)) then
                 return 1
             end
-        elseif string.find(s, 'The Horde flag was dropped')
-            or string.find(s, '- Horde Flag —')
-            or string.find(s, 'The Alliance Flag was dropped')
-            or string.find(s, '- Alliance Flag —')
-            or string.find(s, 'captured the Horde flag')
-            or string.find(s, 'captured the Alliance Flag') then
-            local d   = gsub(s, 'The (.+) was dropped by (.+)!', '%2')
-            local c   = gsub(s, '(.+) captured the (.+)!', '%1')
-            local sub = gsub(s, '- (.+) Flag — (.+).', '%2')
+        elseif
+            string.find(s, hordePick)
+        or  string.find(s, '+ Horde Flag') then
+            local t     = gsub(s, hordePick, '%2')
+            local sub   = gsub(s, '+ (.+) Flag — (.+).', '%2')
+            if name and (string.find(name, t) or string.find(name, sub)) then
+                return 1
+            end
+        elseif
+            string.find(s, hordeDrop)
+        or  string.find(s, '- Horde Flag —')
+        or  string.find(s, hordeCap) then
+            local d    = gsub(s, hordeDrop, '%2')
+            local c    = gsub(s, hordeCap,  '%1')
+            local sub  = gsub(s, '- Horde Flag — (.+).', '%1')
+            if name and (string.find(name, d) or string.find(name, c) or string.find(name, sub)) then
+                return 0
+            end
+        elseif
+            string.find(s, allianceDrop)
+        or  string.find(s, '- Alliance Flag —')
+        or  string.find(s, allianceCap) then
+            local d    = gsub(s, allianceDrop, '%2')
+            local c    = gsub(s, allianceCap,  '%1')
+            local sub  = gsub(s, '- Alliance Flag — (.+).', '%1')
             if name and (string.find(name, d) or string.find(name, c) or string.find(name, sub)) then
                 return 0
             end

@@ -90,7 +90,7 @@
 
     menu.actionbar:SetScript('OnClick', function()
         highlight()
-        for _, v in pairs({menu.intro, menu.uilink, menu.description, menu.whisper, menu.gryphon, menu.endcap, menu.chatstamp, menu.chatformat, menu.itemlink, menu.auraformat, menu.horizontal, menu.value, menu.consolidate, menu.elements.title, menu.elements.description, menu.elementcontainer, menu.allelement, menu.modraid.apology}) do v:Hide() end
+        for _, v in pairs({menu.intro, menu.uilink, menu.description, menu.whisper, menu.gryphon, menu.endcap, menu.chatstamp, menu.chatformat, menu.itemlink, menu.auraformat, menu.tooltip, menu.castbar, menu.horizontal, menu.value, menu.consolidate, menu.ctDMG, menu.ctHEAL, menu.elements.title, menu.elements.description, menu.elementcontainer, menu.allelement, menu.modraid.apology, menu.modraid.text}) do v:Hide() end
         for i = 1,  2 do _G['modui_optionsaurabutton'..i]:Hide() end
         for i = 1, 11 do _G['modui_element'..i]:Hide() end
         for i = 1, 60 do _G['modui_actionbutton'..i]:Show() end

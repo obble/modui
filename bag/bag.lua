@@ -110,48 +110,54 @@
 		-- CONTAINER
 	local bagContainer = CreateFrame('Frame', 'modbag_inventory', UIParent)
 	bagContainer:SetFrameStrata'HIGH'
-	bagContainer:SetFrameLevel(6)
+	bagContainer:SetFrameLevel(3)
+	bagContainer:SetPoint('BOTTOMRIGHT', UIParent, -108, 150)
 	bagContainer:Hide()
 
 	bagContainer.freespace = CreateFrame('StatusBar', 'modbag_inventory_space', bagContainer)
 	bagContainer.freespace:SetStatusBarTexture(TEXTURE)
-	bagContainer.freespace:SetHeight(11)
-	bagContainer.freespace:SetPoint('TOPLEFT', 8, -69)
-	bagContainer.freespace:SetPoint('TOPRIGHT', -10, -69)
+	bagContainer.freespace:SetHeight(8)
+	bagContainer.freespace:SetPoint('TOPLEFT', 8, -74)
+	bagContainer.freespace:SetPoint('TOPRIGHT', -10, -74)
 	bagContainer.freespace:SetBackdrop(BACKDROP)
 	bagContainer.freespace:SetBackdropColor(0, 0, 0)
 	bagContainer.freespace:SetMinMaxValues(0, 1)
 	bagContainer.freespace:SetValue(0)
-	modSkin(bagContainer.freespace, 14.5)
-	modSkinPadding(bagContainer.freespace, 3)
-	modSkinColor(bagContainer.freespace, .2, .2, .2)
+	modSkin(bagContainer.freespace, 12)
+    modSkinPadding(bagContainer.freespace, 2, 2, 2, 2, 2, 3, 2, 3)
+    modSkinColor(bagContainer.freespace, .2, .2, .2)
 
 	bagContainer.freespace.title = bagContainer.freespace:CreateFontString(nil, 'OVERLAY', 'GameFontHighlightSmall')
 	bagContainer.freespace.title:SetPoint('BOTTOMLEFT', bagContainer.freespace, 'TOPLEFT', 2, 4)
 	bagContainer.freespace.title:SetText'Free Space:'
 
-
-	-- bagContainer:SetClampedToScreen(true)
-	--[[bagContainer:SetMovable(true) bagContainer:EnableMouse(true) bagContainer:RegisterForDrag'LeftButton'
-	bagContainer:SetScript("OnDragStart", function() if IsShiftKeyDown() then this:StartMoving() end end)
-	bagContainer:SetScript("OnDragStop", function() this:StopMovingOrSizing() end) ]]
+	bagContainer:SetClampedToScreen(true)
+	bagContainer:SetMovable(true)
+	bagContainer:EnableMouse(true)
+	bagContainer:RegisterForDrag'LeftButton'
+	bagContainer:SetScript('OnDragStart', function()
+		if IsShiftKeyDown() then this:StartMoving() end
+	end)
+	bagContainer:SetScript('OnDragStop', function() this:StopMovingOrSizing() end)
 
 	local bankContainer = CreateFrame('Button', 'modbag_bank', UIParent)
 	bankContainer:SetPoint('TOPRIGHT', bagContainer, 'TOPLEFT', 4, 0)
 	bankContainer:SetFrameStrata'HIGH'
-	bankContainer:SetFrameLevel(6)
+	bankContainer:SetFrameLevel(3)
 	bankContainer:Hide()
 
 	local Container = CreateFrame('Frame', 'modbag', bagContainer)
 	Container:SetPoint('BOTTOMRIGHT', bagContainer)
 	Container:SetFrameStrata'HIGH'
-	Container:SetFrameLevel(5)
+	Container:SetFrameLevel(2)
 	art(Container)
 
 	ButtonFrameTemplate:SetParent(Container)
 	ButtonFrameTemplate:SetFrameLevel(4)
 	ButtonFrameTemplate:SetPoint('TOPLEFT', Container)
 	ButtonFrameTemplate:SetPoint('BOTTOMRIGHT', Container)
+
+	ButtonFrameTemplate.CloseButton:SetParent(bagContainer)
 
 	local bagName = bagContainer:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
 	bagName:SetFont(STANDARD_TEXT_FONT, 12)
@@ -173,14 +179,14 @@
 	money:SetParent(Container)
 	money:ClearAllPoints()
 	money:SetPoint('BOTTOMRIGHT', Container, -9, 5)
-	money:SetFrameStrata'TOOLTIP'
-	money:SetFrameLevel(5)
+	money:SetFrameStrata'DIALOG'
+	money:SetFrameLevel(4)
 	BankFrameMoneyFrame:Hide()
 
 		-- KEYRING
-	KeyRingButton:SetParent(Container)
+	KeyRingButton:SetParent(bagContainer)
 	KeyRingButton:ClearAllPoints() KeyRingButton:SetPoint('TOPRIGHT', bagContainer, -10, -25)
-	KeyRingButton:SetFrameLevel(5)
+	KeyRingButton:SetFrameLevel(7)
 
 
 		-- SET-UP BAG
@@ -325,15 +331,6 @@
 		if this:GetID() ~= -2 then CloseBags2() end
 		reanchorKeyring()
 	end
-
-	bagContainer:SetScript('OnShow', function()
-		this:ClearAllPoints()
-		if tonumber(GetCVar'modAction') == 0 then
-			this:SetPoint('BOTTOMRIGHT', UIParent, -108, 150)
-		else
-			this:SetPoint('BOTTOMRIGHT', UIParent, -108, 103)
-		end
-	end)
 
 	BankFrame:SetScript('OnShow', function()
 		PlaySound'igMainMenuOpen'

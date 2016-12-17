@@ -79,16 +79,24 @@
 		sw:SetScript('OnUpdate', sw_OnUpdate)
 	end
 
-	local sw_show = function()
-		if tonumber(GetCVar'modStopWatch') == 1 then
-			if visible then
-				sw:Hide()
-				visible = false
-				t0 = nil
+	local sw_show = function(bu)
+		if IsShiftKeyDown() then
+			if  TwentyFourHourTime then
+				TwentyFourHourTime = false
 			else
-				sw:Show()
-				t:SetText'0:0:0'
-				visible = true
+				TwentyFourHourTime = true
+			end
+		else
+			if tonumber(GetCVar'modStopWatch') == 1 then
+				if visible then
+					sw:Hide()
+					visible = false
+					t0 = nil
+				else
+					sw:Show()
+					t:SetText'0:0:0'
+					visible = true
+				end
 			end
 		end
 	end
@@ -135,20 +143,26 @@
 
 	GameTimeFrame:SetScript('OnMouseDown', sw_show)
 	function GameTimeFrame_UpdateTooltip(h, m)
-		if TwentyFourHourTime then
-			GameTooltip:SetText(format(TEXT(TIME_TWENTYFOURHOURS), h, m))
+		-- TODO: format local time & offer option between
+		-- local time = time()
+		-- print(time)
+		if  TwentyFourHourTime then
+			GameTooltip:SetText(format(TEXT(TIME_TWENTYFOURHOURS), h, m)..' — Server Time')
 		else
 			local pm = 0
 			if h >= 12 then pm = 1 end
 			if h >  12 then h = h - 12 end
 			if h ==  0 then h = 12 end
 			if pm == 0 then
-				GameTooltip:SetText(format(TEXT(TIME_TWELVEHOURAM), h, m))
+				GameTooltip:SetText(format(TEXT(TIME_TWELVEHOURAM), h, m)..' — Server Time')
 			else
-				GameTooltip:SetText(format(TEXT(TIME_TWELVEHOURPM), h, m))
+				GameTooltip:SetText(format(TEXT(TIME_TWELVEHOURPM), h, m)..' — Server Time')
 			end
 		end
-		if tonumber(GetCVar'modStopWatch') == 1 then GameTooltip:AddLine'Click to Toggle Stopwatch.' end
+		if  tonumber(GetCVar'modStopWatch') == 1 then
+			GameTooltip:AddLine('Click to Toggle Stopwatch.', .3, 1, .6)
+		end
+		GameTooltip:AddLine('Shift + Click to Toggle 24hr Time.', .3, 1, .6)
 		GameTooltip:Show()
 	end
 

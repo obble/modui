@@ -5,12 +5,13 @@
     local sb                    = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
     local GameTooltip           = GameTooltip
     local GameTooltipStatusBar  = GameTooltipStatusBar
+    local cv                    = tonumber(GetCVar'modShowTooltipMover')
     local orig = {}
 
     local statustext = function()
         TextStatusBar_UpdateTextString()
         ShowTextStatusBarText(this)
-		if this:GetParent() == TargetFrame then
+		if  this:GetParent() == TargetFrame then
             GameTooltip_SetDefaultAnchor(GameTooltip, this)
             if GameTooltip:SetUnit(TargetFrame.unit) then
                 TargetFrame.updateTooltip = TOOLTIP_UPDATE_TIME
@@ -26,6 +27,16 @@
 
     orig.UnitFrame_OnEnter              = UnitFrame_OnEnter
     orig.GameTooltip_SetDefaultAnchor   = GameTooltip_SetDefaultAnchor
+
+    local parent = CreateFrame('Frame', 'modTooltipParent', UIParent)
+    parent:SetWidth(100)
+    parent:SetHeight(35)
+    parent:SetPoint('BOTTOMRIGHT', MainMenuBar, -10, 140)
+    parent:SetMovable(true)
+    parent:EnableMouse(true)
+    parent:RegisterForDrag'LeftButton'
+    parent:SetBackdrop({bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
+							 insets = {left = -1, right = -1, top = -1, bottom = -1}})
 
     GameTooltipStatusBar:SetHeight(5)
     GameTooltipStatusBar:SetStatusBarTexture(sb)
@@ -46,6 +57,17 @@
     GameTooltipText:SetShadowOffset(.7, -.7)
     GameTooltipText:SetShadowColor(0, 0, 0,1)
 
+    if cv == 1 then
+        parent:EnableMouse(true)
+        parent:SetBackdropColor(0, 1, 0, 1)
+        parent:SetScript('OnDragStart', function() this:StartMoving() end)
+        parent:SetScript('OnDragStop',  function() this:StopMovingOrSizing() end)
+    else
+        parent:EnableMouse(false)
+        parent:SetBackdropColor(0, 0, 0, 0)
+        parent:SetScript('OnDragStart', nil)
+        parent:SetScript('OnDragStop',  nil)
+    end
 
     local tooltips = {  GameTooltip,
                         ItemRefTooltip,
@@ -70,14 +92,14 @@
                         LanguageMenu, }
 
 
-    for i, v in ipairs(menus) do v:SetScript('OnShow', function()
+    for i, v in ipairs(menus) do
+        v:SetScript('OnShow', function()
             this:SetBackdropColor(0, 0, 0)
             this:SetBackdropBorderColor(.1, .1, .1)
         end)
     end
 
-
-    for i = 1, 6 do                 -- QUEST PROGRESS TOOLTIP
+    for i = 1, 6 do     -- add tooltips to quest progress items in quest window
         local p = _G['QuestProgressItem'..i]
         p:SetScript('OnEnter', function()
             if  GameTooltip then
@@ -103,7 +125,7 @@
         end
     end
 
-    local f = CreateFrame'Frame'    -- GUILD TAG
+    local f = CreateFrame'Frame'    -- guild tag
     f:RegisterEvent'UPDATE_MOUSEOVER_UNIT'
     f:SetScript('OnEvent', function()
         local g = GetGuildInfo'mouseover'
@@ -159,7 +181,9 @@
         GameTooltipStatusBar:Hide()
     end
 
-    for _, v in pairs({TargetFrameHealthBar, TargetFrameManaBar}) do v:SetScript('OnEnter', statustext) end
+    for _, v in pairs({TargetFrameHealthBar, TargetFrameManaBar}) do
+        v:SetScript('OnEnter', statustext)
+    end
 
     local r = CreateFrame'Frame'
     r:RegisterEvent'ADDON_LOADED'

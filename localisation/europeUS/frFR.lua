@@ -30,6 +30,7 @@
             ['Fishing']                                                         = '',
             ['Herb Gathering']                                                  = '',
             ['Mining']                                                          = '',
+            ['Aimed Shot']                                                      = 'Vis\195\169e',
 
             --  CHAT --
             --      event.lua

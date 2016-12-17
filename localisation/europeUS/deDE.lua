@@ -30,6 +30,7 @@
             ['Fishing']                                                         = '',
             ['Herb Gathering']                                                  = '',
             ['Mining']                                                          = '',
+            ['Aimed Shot']                                                      = 'Gezielter Schuss',
 
             --  CHAT --
             --      event.lua
