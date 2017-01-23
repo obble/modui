@@ -158,6 +158,7 @@
         and (not string.find(GameTooltip:GetParent():GetName(), 'PlayerFrame')
          or  not string.find(GameTooltip:GetParent():GetName(), 'TargetFrame')
          or  not string.find(GameTooltip:GetParent():GetName(), 'PartyFrame')
+         or  not string.find(GameTooltip:GetParent():GetName(), 'PetFrame')
          or  not string.find(GameTooltip:GetParent():GetName(), 'RaidFrame')) then
             GameTooltip:AddLine' '
         else
@@ -197,5 +198,6 @@
             r:UnregisterAllEvents()
         end
     end)
+
 
     --

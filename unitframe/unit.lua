@@ -4,7 +4,7 @@
 
     local HealComm       = AceLibrary'HealComm-1.0'  -- healcomm
     local TEXTURE        = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
-    local NAME_TEXTURE   = [[Interface\AddOns\modui\statusbar\texture\name.tga]]
+    local NAME_TEXTURE   = [[Interface\AddOns\modui\statusbar\texture\name2.tga]]
     local BACKDROP       = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]]}
     local _, class       = UnitClass'player'
     local colour         = RAID_CLASS_COLORS[class]
@@ -17,6 +17,7 @@
     end
 
     orig.TargetDebuffButton_Update         = TargetDebuffButton_Update
+    orig.TargetFrame_CheckClassification   = TargetFrame_CheckClassification
     orig.PartyMemberFrame_UpdateMember     = PartyMemberFrame_UpdateMember
     orig.TargetofTarget_Update             = TargetofTarget_Update
     orig.UnitFrameHealthBar_OnValueChanged = UnitFrameHealthBar_OnValueChanged
@@ -48,6 +49,18 @@
     PlayerPVPIcon:ClearAllPoints()
     PlayerPVPIcon:SetPoint('CENTER', PlayerFrame, 'LEFT', 60, 16)
 
+    TargetFrame.Elite = TargetFrameTextureFrame:CreateTexture(nil, 'OVERLAY')
+    TargetFrame.Elite:SetTexture[[Interface\AddOns\modui\unitframe\UI-TargetingFrame-Elite]]
+    TargetFrame.Elite:SetWidth(124)
+    TargetFrame.Elite:SetHeight(124)
+    TargetFrame.Elite:SetPoint('TOPRIGHT', TargetFrame, -1, -1)
+
+    TargetFrame.Rare = TargetFrameTextureFrame:CreateTexture(nil, 'OVERLAY')
+    TargetFrame.Rare:SetTexture[[Interface\AddOns\modui\unitframe\UI-TargetingFrame-Rare-Elite]]
+    TargetFrame.Rare:SetWidth(124)
+    TargetFrame.Rare:SetHeight(124)
+    TargetFrame.Rare:SetPoint('TOPRIGHT', TargetFrame, -1, -1)
+
     TargetPVPIcon:SetHeight(48) TargetPVPIcon:SetWidth(48)
     TargetPVPIcon:ClearAllPoints()
     TargetPVPIcon:SetPoint('CENTER', TargetFrame, 'RIGHT', -42, 16)
@@ -77,6 +90,9 @@
     TargetofTargetHealthBar:SetStatusBarTexture(TEXTURE)
 
     TargetofTargetManaBar:SetStatusBarTexture(TEXTURE)
+
+    PartyMemberFrame1:ClearAllPoints()
+    PartyMemberFrame1:SetPoint('TOPLEFT', 10, -145)
 
     for i = 6, 12 do
         local f = CreateFrame('Button', 'TargetFrameBuff'..i, TargetFrame, 'TargetBuffButtonTemplate')
@@ -120,6 +136,18 @@
 
     function TargetFrame_OnShow() end           -- REMOVE TARGETING SOUND
     function TargetFrame_OnHide() CloseDropDownMenus() end
+
+    function TargetFrame_CheckClassification()
+        orig.TargetFrame_CheckClassification()
+        local c = UnitClassification'target'
+        TargetFrame.Elite:Hide()
+        TargetFrame.Rare:Hide()
+        if  c == 'worldboss' or c == 'rareelite' or c == 'elite' then
+            TargetFrame.Elite:Show()
+        elseif c == 'rare' then
+            TargetFrame.Rare:Show()
+        end
+    end
 
     local mod_TargetBuffs = function()          -- TARGET AURAS (up to 16)
         local b, d = 0, 0

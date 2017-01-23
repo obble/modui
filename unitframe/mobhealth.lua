@@ -60,7 +60,7 @@
             string:SetPoint('RIGHT', -8, 0)
         elseif GetCVar'modValue'  == '1' and GetCVar'modBoth' == '0' then
             local logic = MH3BlizzConfig.healthPerc and v <= 100 and percent == v
-            local t = logic and true_format(v)..'%' or true_format(v)
+            local t = v == 0 and 'Dead' or logic and true_format(v)..'%' or true_format(v)
             string:SetText(t)
         else
             string:SetText(percent..'%')
@@ -79,7 +79,7 @@
 
         if class == 'ROGUE' then
             string:SetTextColor(250/255, 240/255, 200/255)
-        elseif class == 'WARRIOR' then
+        elseif UnitIsPlayer'target' and class == 'WARRIOR' then
             string:SetTextColor(250/255, 108/255, 108/255)
         else
             string:SetTextColor(.6, .65, 1)
@@ -93,7 +93,7 @@
             end
             string:SetPoint('RIGHT', -8, 0)
         elseif GetCVar'modValue'  == '1' and GetCVar'modBoth' == '0' then
-            local logic = MH3BlizzConfig.powerPerc and v <= 100 and percent == v and (class ~= 'ROGUE' or class ~= 'WARRIOR' or (class ~= 'DRUID' and GetShapeshiftFormID() ~= 5 or GetShapeshiftFormID() ~= 1)) 
+            local logic = MH3BlizzConfig.powerPerc and v <= 100 and percent == v and (class ~= 'ROGUE' or class ~= 'WARRIOR' or (class ~= 'DRUID' and GetShapeshiftFormID() ~= 5 or GetShapeshiftFormID() ~= 1))
             local t = logic and true_format(v)..'%' or true_format(v)
             string:SetText(t)
         else

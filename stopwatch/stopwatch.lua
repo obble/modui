@@ -8,6 +8,8 @@
 	local orig = {}
 	local pad  = function(n) return strlen(n) == 2 and n or '0'..n end
 
+	RegisterCVar('modClock', 0, true)
+
 	local sw = CreateFrame('Frame', 'modstopwatch', UIParent)
 	sw:EnableMouse(true) sw:SetMovable(true)
 	sw:SetWidth(132) sw:SetHeight(24)
@@ -83,8 +85,10 @@
 		if IsShiftKeyDown() then
 			if  TwentyFourHourTime then
 				TwentyFourHourTime = false
+				SetCVar('modClock', 0)
 			else
 				TwentyFourHourTime = true
+				SetCVar('modClock', 1)
 			end
 		else
 			if tonumber(GetCVar'modStopWatch') == 1 then
@@ -146,7 +150,7 @@
 		-- TODO: format local time & offer option between
 		-- local time = time()
 		-- print(time)
-		if  TwentyFourHourTime then
+		if  tonumber(GetCVar'modClock') == 1 or TwentyFourHourTime then
 			GameTooltip:SetText(format(TEXT(TIME_TWENTYFOURHOURS), h, m)..' — Server Time')
 		else
 			local pm = 0

@@ -6,7 +6,6 @@
     local sb = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
     local bg = {bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],}
     local f  = CreateFrame'Frame'
-    local x  = UnitFactionGroup'player' == 'Alliance' and 'Horde' or 'Alliance'
     local xx = 4
     local bu = {}
     local a_offset, y_offset = 0, 0
@@ -286,11 +285,12 @@
         for i = 1, 40 do _G['modraid'..i].flag:Hide() end
     end
 
-    local initDropDown = function(level)
-		local i = {}
-        i.text = 'Msrk as Tank'
-        i.func = function() print'atank' end
-        UIDropDownMenu_AddButton(i)
+    local ToggleTank = function(unit)
+        if  this.tank:IsShown() then
+            this.tank:Hide()
+        else
+            this.tank:Show()
+        end
     end
 
     for i = 1, 8 do
@@ -324,7 +324,7 @@
 
     for i = 1, 40 do
         bu[i] = CreateFrame('Button', 'modraid'..i, UIParent)
-        bu[i]:RegisterForClicks'RightButtonUp'
+        bu[i]:RegisterForClicks('LeftButtonUp', 'RightButtonUp')
         bu[i]:SetWidth(53) bu[i]:SetHeight(24)
         bu[i]:SetBackdrop(bg)
         bu[i]:SetBackdropColor(0, 0, 0, 1)
@@ -381,9 +381,15 @@
 
         bu[i].flag = bu[i]:CreateTexture(nil, 'OVERLAY', nil, 7)
         bu[i].flag:SetWidth(24) bu[i].flag:SetHeight(24)
-        bu[i].flag:SetTexture('Interface\\WorldStateFrame\\'..x..'Flag')
+        bu[i].flag:SetTexture('Interface\\WorldStateFrame\\'..(UnitFactionGroup'player' == 'Alliance' and 'Horde' or 'Alliance')..'Flag')
         bu[i].flag:SetPoint('CENTER', bu[i])
         bu[i].flag:Hide()
+
+        bu[i].tank = bu[i].hp:CreateTexture(nil, 'OVERLAY', nil, 7)
+        bu[i].tank:SetWidth(16) bu[i].tank:SetHeight(16)
+        bu[i].tank:SetTexture[[Interface\AddOns\modui\raid\texture\Tank.tga]]
+        bu[i].tank:SetPoint('CENTER', bu[i], 'BOTTOM', 0, 1)
+        bu[i].tank:Hide()
 
         bu[i].aura = CreateFrame('Button', nil, bu[i])
         bu[i].aura:SetWidth(19) bu[i].aura:SetHeight(19)
@@ -395,12 +401,6 @@
         bu[i].aura.icon = bu[i].aura:CreateTexture(nil, 'BACKGROUND', 0, -7)
         bu[i].aura.icon:SetAllPoints()
         bu[i].aura.icon:SetAlpha(.7)
-
-        bu[i].dropdown = CreateFrame('Button', 'modraid'..i..'DropDown', bu[i], 'UIDropDownMenuTemplate')
-        UIDropDownMenu_Initialize(bu[i].dropdown, initDropDown, 'MENU')
-        UIDropDownMenu_SetAnchor(0, 0, bu[i].dropdown, 'TOPLEFT', bu[i], 'TOPRIGHT')
-        UIDropDownMenu_SetWidth(60, bu[i].dropdown)
-        UIDropDownMenu_JustifyText('LEFT', bu[i].dropdown)
 
         modSkin(bu[i].aura, 12.5)
         modSkinPadding(bu[i].aura, 2)
@@ -429,9 +429,10 @@
 
         bu[i]:RegisterEvent'UNIT_AURA'     -- init
         bu[i]:SetScript('OnEvent',  function() debuffs(arg1) end)
-        --[[bu[i]:SetScript('OnClick',  function()
-            print'pass'
-            print(arg1)
+        bu[i]:SetScript('OnClick',  function()
+            if  arg1 == 'RightButton' then
+                ToggleTank(this.unit)
+            else
                 if  CursorHasItem() then
                     DropItemOnUnit(this.unit)
                 elseif SpellIsTargeting() then
@@ -439,12 +440,9 @@
                 else
                     TargetUnit(this.unit)
                 end
-            if arg1 == 'RightButton' then
-                HideDropDownMenu(1)
-                ToggleDropDownMenu(1, nil, _G['modraid'..i..'DropDown'])
             end
-        end)]]
-         bu[i]:SetScript('OnClick',  function() if CursorHasItem() then DropItemOnUnit(this.unit) else TargetUnit(this.unit) end end)
+        end)
+        --bu[i]:SetScript('OnClick',  function() if CursorHasItem() then DropItemOnUnit(this.unit) else TargetUnit(this.unit) end end)
         bu[i]:SetScript('OnEnter',  function() UnitFrame_OnEnter() GameTooltipStatusBar:Hide() end)
         bu[i]:SetScript('OnLeave',  UnitFrame_OnLeave)
         bu[i]:SetScript('OnUpdate', raidupdate)

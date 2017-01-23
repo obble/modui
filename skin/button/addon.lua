@@ -47,6 +47,12 @@
         -- SW_BarFrame1_Title:SetFrameLevel(0)
     end
 
+    if IsAddOnLoaded'DPSMate' then
+        modSkin(DPSMate_DPSMate, 18)
+        modSkinPadding(DPSMate_DPSMate, 3.5, 4, 4, 4, 3.5, 6, 4, 6)
+        modSkinColor(DPSMate_DPSMate, .2, .2, .2)
+    end
+
     if IsAddOnLoaded'Postal' then
         for i = 1, 21 do
             local bu = _G['PostalButton'..i] or _G['PostalAttachment'..i]
@@ -63,10 +69,9 @@
         orig.RingMenuFrame_ConfigureButtons = RingMenuFrame_ConfigureButtons
         function RingMenuFrame_ConfigureButtons()
             orig.RingMenuFrame_ConfigureButtons()
-            for i = 1, RingMenu_settings.numButtons do
-                local bu = _G['RingMenuButton'..i]
-                local bo = _G['RingMenuButton'..i..'Border']
-                local ic = _G['RingMenuButton'..i..'Icon']
+            for _, bu in ipairs(RingMenu_usedButtons) do
+                local bo = _G[bu:GetName()..'Border']
+                local ic = _G[bu:GetName()..'Icon']
                 if not bu.skin then
                     modSkin(bu, 18)
                     modSkinPadding(bu, 3)

@@ -120,8 +120,10 @@
                         parent:SetPoint('BOTTOMRIGHT', MainMenuBarBackpackButton, 'TOPRIGHT', 3, 16)
                     end
                 end
-                while ContainerFrame1.bags[i] and tonumber(GetCVar'modOneBag') == 1 do
-                    local f  = _G[ContainerFrame1.bags[i]]
+                if  tonumber(GetCVar'modShowTooltipCursor') == 1 then
+                    GameTooltip:SetOwner(UIParent, 'ANCHOR_CURSOR')
+                end
+                while (ContainerFrame1.bags[i] and tonumber(GetCVar'modOneBag') == 1) do
                     GameTooltip:SetOwner(UIParent, 'ANCHOR_CURSOR')
                     i = i + 1
                 end

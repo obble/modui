@@ -2,7 +2,7 @@
 ## Author: modernist
 ## Title: mod ui
 ## Notes: make the ui better.
-##SavedVariablesPerCharacter: modAction, modStatus, modValue, modBoth, modGryphon, modEndcap, modTimestamp, modAuraFormat, modOneBag, modChatFormat, modItemLink, modBattleMap, modDungeonMap, modNameplate, modQuestWatch, modTooltip, modUnitFrame, modPVPTimers, modPVPRank, modStopWatch, modShowTooltipMover, modPlayerCastbar, modSCTDMG, modSCTHEAL, MODUI_COLOUR_FOR_UI
+##SavedVariablesPerCharacter: modAction, modStatus, modValue, modBoth, modGryphon, modEndcap, modTimestamp, modAuraFormat, modOneBag, modChatFormat, modItemLink, modBattleMap, modDungeonMap, modNameplate, modQuestWatch, modTooltip, modUnitFrame, modPVPTimers, modPVPRank, modStopWatch, modShowTooltipMover, modShowTooltipCursor, modPlayerCastbar, modMoveTargetCastbar, modSCTDMG, modSCTHEAL, modClock, MODUI_COLOUR_FOR_UI
 
 globals\auction.lua
 globals\colour.lua
@@ -28,10 +28,11 @@ libs\libs\AceLibrary\AceLibrary.lua
 libs\libs\AceOO-2.0\AceOO-2.0.lua
 libs\libs\AceEvent-2.0\AceEvent-2.0.lua
 libs\libs\AceAddon-2.0\AceAddon-2.0.lua
-libs\libs\AceConsole-2.0\AceConsole-2.0.lua
+libs\libs\AceHook-2.1\AceHook-2.1.lua
 libs\libs\RosterLib-2.0\RosterLib-2.0.lua
 libs\libs\HealComm-1.0\HealComm-1.0.lua
 libs\libs\ProximityLib\ProximityLib.lua
+libs\libs\DruidManaLib-1.0\DruidManaLib-1.0.lua
 libs\healcomm\HealComm.lua
 libs\mobhealth\MobHealth3.lua
 libs\mobhealth\MH3_Blizzard.lua
@@ -106,6 +107,7 @@ pvp\av.lua
 pvp\rank.lua
 pvp\popup.lua
 pvp\wsg.lua
+pvp\scoreboard.lua
 
 raid\unit.lua
 
@@ -122,6 +124,7 @@ unitframe\boss\create.lua
 unitframe\boss\update.lua
 unitframe\castbar.lua
 unitframe\energy.lua
+unitframe\extramana.lua
 unitframe\move.lua
 unitframe\unit.lua
 unitframe\mobhealth.lua
