@@ -28,6 +28,7 @@ libs\libs\AceLibrary\AceLibrary.lua
 libs\libs\AceOO-2.0\AceOO-2.0.lua
 libs\libs\AceEvent-2.0\AceEvent-2.0.lua
 libs\libs\AceAddon-2.0\AceAddon-2.0.lua
+libs\libs\AceConsole-2.0\AceConsole-2.0.lua
 libs\libs\AceHook-2.1\AceHook-2.1.lua
 libs\libs\RosterLib-2.0\RosterLib-2.0.lua
 libs\libs\HealComm-1.0\HealComm-1.0.lua
