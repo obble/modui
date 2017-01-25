@@ -53,13 +53,13 @@
     TargetFrame.Elite:SetTexture[[Interface\AddOns\modui\unitframe\UI-TargetingFrame-Elite]]
     TargetFrame.Elite:SetWidth(124)
     TargetFrame.Elite:SetHeight(124)
-    TargetFrame.Elite:SetPoint('TOPRIGHT', TargetFrame, -1, -1)
+    TargetFrame.Elite:SetPoint('TOPRIGHT', TargetFrame, 1, -1)
 
     TargetFrame.Rare = TargetFrameTextureFrame:CreateTexture(nil, 'OVERLAY')
     TargetFrame.Rare:SetTexture[[Interface\AddOns\modui\unitframe\UI-TargetingFrame-Rare-Elite]]
     TargetFrame.Rare:SetWidth(124)
     TargetFrame.Rare:SetHeight(124)
-    TargetFrame.Rare:SetPoint('TOPRIGHT', TargetFrame, -1, -1)
+    TargetFrame.Rare:SetPoint('TOPRIGHT', TargetFrame, 1, -1)
 
     TargetPVPIcon:SetHeight(48) TargetPVPIcon:SetWidth(48)
     TargetPVPIcon:ClearAllPoints()
@@ -333,9 +333,9 @@
                     end
     			end
                 if  sb:GetName() == 'PlayerFrameManaBar' or sb:GetName() == 'TargetFrameManaBar' then
-                    if class == 'ROGUE' then
+                    if class == 'ROGUE' or (class == 'DRUID' and pp == 3) then
                         string:SetTextColor(250/255, 240/255, 200/255)
-                    elseif class == 'WARRIOR' then
+                    elseif class == 'WARRIOR' or (class == 'DRUID' and pp == 1) then
                         string:SetTextColor(250/255, 108/255, 108/255)
                     else
                         string:SetTextColor(.6, .65, 1)

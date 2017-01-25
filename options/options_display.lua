@@ -11,10 +11,8 @@
     RegisterCVar('modChatFormat',           1, true)
     RegisterCVar('modItemLink',             1, true)
     RegisterCVar('modAuraFormat',           0, true)
-    RegisterCVar('modShowTooltipMover',     0, true)
     RegisterCVar('modShowTooltipCursor',    0, true)
     RegisterCVar('modPlayerCastbar',        0, true)
-    RegisterCVar('modMoveTargetCastbar',    0, true)
 
     orig.SetPoint       = CastingBarFrame.SetPoint
     orig.ClearAllPoints = CastingBarFrame.ClearAllPoints
@@ -266,13 +264,11 @@
         	parent:SetBackdropColor(0, 1, 0, 1)
             parent:SetScript('OnDragStart', function() this:StartMoving() end)
             parent:SetScript('OnDragStop',  function() this:StopMovingOrSizing() end)
-            SetCVar('modShowTooltipMover', 1)
         else
             parent:EnableMouse(false)
         	parent:SetBackdropColor(0, 0, 0, 0)
             parent:SetScript('OnDragStart', nil)
             parent:SetScript('OnDragStop',  nil)
-            SetCVar('modShowTooltipMover', 0)
         end
     end)
 
@@ -344,13 +340,11 @@
             TargetFrame.cast.text:SetText'Frostbolt'
             TargetFrame.cast.timer:SetText'2.5s'
             TargetFrame.cast.icon:SetTexture[[Interface\ICONS\spell_frost_frostbolt02]]
-            SetCVar('modMoveTargetCastbar', 1)
         else
             parent:EnableMouse(false)
         	parent:SetBackdropColor(0, 0, 0, 0)
             parent:SetScript('OnDragStart', nil)
             parent:SetScript('OnDragStop',  nil)
-            SetCVar('modMoveTargetCastbar', 0)
         end
     end)
 
@@ -387,8 +381,7 @@
         if cv == 1 then menu.itemlink:SetChecked(true) else menu.itemlink:SetChecked(false) end
         local cv = tonumber(GetCVar'modAuraFormat')
         if cv == 1 then menu.auraformat:SetValue(1) else menu.auraformat:SetValue(0) end
-        local cv = tonumber(GetCVar'modShowTooltipMover')
-        if cv == 1 then menu.tooltip:SetChecked(true) else menu.tooltip:SetChecked(false) end
+        menu.tooltip:SetChecked(false)
         local cv = tonumber(GetCVar'modShowTooltipCursor')
         if cv == 1 then
             menu.tooltip.cursor:SetChecked(true)
@@ -398,8 +391,7 @@
         end
         local cv = tonumber(GetCVar'modPlayerCastbar')
         if cv == 1 then menu.castbar:SetChecked(true) else menu.castbar:SetChecked(false) end
-        local cv = tonumber(GetCVar'modMoveTargetCastbar')
-        if cv == 1 then menu.castbar.target:SetChecked(true) else menu.castbar.target:SetChecked(false) end
+        menu.castbar.target:SetChecked(false)
     end)
 
     --

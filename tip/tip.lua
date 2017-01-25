@@ -5,7 +5,6 @@
     local sb                    = [[Interface\AddOns\modui\statusbar\texture\sb.tga]]
     local GameTooltip           = GameTooltip
     local GameTooltipStatusBar  = GameTooltipStatusBar
-    local cv                    = tonumber(GetCVar'modShowTooltipMover')
     local orig = {}
 
     local statustext = function()
@@ -57,7 +56,7 @@
     GameTooltipText:SetShadowOffset(.7, -.7)
     GameTooltipText:SetShadowColor(0, 0, 0,1)
 
-    if cv == 1 then
+    if _G['modui_tooltip']:GetChecked() == 1 then
         parent:EnableMouse(true)
         parent:SetBackdropColor(0, 1, 0, 1)
         parent:SetScript('OnDragStart', function() this:StartMoving() end)

@@ -16,7 +16,7 @@
         if  (not m) or m == '' then
             DEFAULT_CHAT_FRAME:AddMessage'nil'
         elseif  type(m) == 'table' then
-            DEFAULT_CHAT_FRAME:AddMessage('table: '..GetName(m))
+            DEFAULT_CHAT_FRAME:AddMessage'table'
         else
             DEFAULT_CHAT_FRAME:AddMessage(m)
         end

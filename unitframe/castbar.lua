@@ -101,7 +101,6 @@
 
     local showCast = function()
         local target = GetUnitName'target'
-        local cv = tonumber(GetCVar'modMoveTargetCastbar')
         TargetFrame.cast:Hide()
         if target ~= nil or cv == 1 then
             local v = PROCESSCASTINGgetCast(target)
@@ -120,7 +119,7 @@
                     TargetFrame.cast:Show()
                     position()
                 end
-            elseif cv == 1 then
+            elseif _G['modui_castbarTarget']:GetChecked() == 1 then
                     TargetFrame.cast:Show()
                     TargetFrame.cast:SetMinMaxValues(0, 1)
                     TargetFrame.cast:SetValue(1)
