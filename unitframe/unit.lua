@@ -24,6 +24,11 @@
     orig.TextStatusBar_UpdateTextString    = TextStatusBar_UpdateTextString
     orig.UIOptionsFrame_UpdateDependencies = UIOptionsFrame_UpdateDependencies
 
+    if  IsAddOnLoaded'UnitFramesImproved_Vanilla' then
+        print'tinkle'
+        orig.UnitFramesImproved_TargetFrame_CheckClassification = UnitFramesImproved_TargetFrame_CheckClassification
+    end
+
     PlayerFrameBackground.bg = PlayerFrame:CreateTexture(nil, 'ARTWORK')
     PlayerFrameBackground.bg:SetPoint('TOPLEFT', PlayerFrameBackground)
     PlayerFrameBackground.bg:SetPoint('BOTTOMRIGHT', PlayerFrameBackground, 0, 22)
@@ -54,12 +59,14 @@
     TargetFrame.Elite:SetWidth(124)
     TargetFrame.Elite:SetHeight(124)
     TargetFrame.Elite:SetPoint('TOPRIGHT', TargetFrame, 1, -1)
+    TargetFrame.Elite:Hide()
 
     TargetFrame.Rare = TargetFrameTextureFrame:CreateTexture(nil, 'OVERLAY')
     TargetFrame.Rare:SetTexture[[Interface\AddOns\modui\unitframe\UI-TargetingFrame-Rare-Elite]]
     TargetFrame.Rare:SetWidth(124)
     TargetFrame.Rare:SetHeight(124)
     TargetFrame.Rare:SetPoint('TOPRIGHT', TargetFrame, 1, -1)
+    TargetFrame.Rare:Hide()
 
     TargetPVPIcon:SetHeight(48) TargetPVPIcon:SetWidth(48)
     TargetPVPIcon:ClearAllPoints()
@@ -133,12 +140,7 @@
         end
     end
 
-
-    function TargetFrame_OnShow() end           -- REMOVE TARGETING SOUND
-    function TargetFrame_OnHide() CloseDropDownMenus() end
-
-    function TargetFrame_CheckClassification()
-        orig.TargetFrame_CheckClassification()
+    local AddClassification = function()
         local c = UnitClassification'target'
         TargetFrame.Elite:Hide()
         TargetFrame.Rare:Hide()
@@ -146,6 +148,23 @@
             TargetFrame.Elite:Show()
         elseif c == 'rare' then
             TargetFrame.Rare:Show()
+        end
+    end
+
+
+    function TargetFrame_OnShow() end           -- REMOVE TARGETING SOUND
+    function TargetFrame_OnHide() CloseDropDownMenus() end
+
+    function TargetFrame_CheckClassification()
+        orig.TargetFrame_CheckClassification()
+        AddClassification()
+    end
+
+    if  IsAddOnLoaded'UnitFramesImproved_Vanilla' then
+        function UnitFramesImproved_TargetFrame_CheckClassification()
+            print'ping'
+            orig.UnitFramesImproved_TargetFrame_CheckClassification()
+            AddClassification()
         end
     end
 
