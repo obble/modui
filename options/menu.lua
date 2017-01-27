@@ -60,7 +60,7 @@
     menu.intro:SetTextColor(colour.r, colour.g, colour.b)
     menu.intro:SetPoint('TOP', menu, 0, -85)
     menu.intro:SetWidth(280)
-    menu.intro:SetText'Hello! You are using version '..version..' of |cffff6c6cmodui|r. You can find the latest version and further support on the dedicated thread on Nostalrius\' forums:'
+    menu.intro:SetText('Hello! You are using version '..version..' of |cffff6c6cmodui|r. You can find the latest version and further support on the dedicated thread on Nostalrius\' forums:')
 
     menu.uilink = CreateFrame('EditBox', 'modui_uilink', menu, 'InputBoxTemplate')
     menu.uilink:SetFont(STANDARD_TEXT_FONT, 12)
