@@ -242,9 +242,9 @@
         orig.CastSpell(id, book)
     end
 
-    CastSpellByName = function(n)
+    CastSpellByName = function(n, onSelf)
         AddCastSpellByName(n)
-        orig.CastSpellByName(n)
+        orig.CastSpellByName(n, onSelf)
     end
 
     UseIventoryItem = function(id)
