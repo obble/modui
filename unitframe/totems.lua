@@ -193,7 +193,7 @@
 
     local AddCastSpellByName = function(n)
         local start, duration, enable = GetSpellCooldown(id, BOOKTYPE_SPELL)
-        local n, i = GetSpellName(id, book) -- i is rank
+        local n, i = GetSpellName(id, BOOKTYPE_SPELL) -- i is rank
         n = gsub(n, '(.+) Totem', '%1')
         if  n then
             i = gsub(i, 'Rank (%d+)', '%1')
