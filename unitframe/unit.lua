@@ -24,11 +24,6 @@
     orig.TextStatusBar_UpdateTextString    = TextStatusBar_UpdateTextString
     orig.UIOptionsFrame_UpdateDependencies = UIOptionsFrame_UpdateDependencies
 
-    --[[if  IsAddOnLoaded'UnitFramesImproved_Vanilla' then
-        print'tinkle'
-        orig.UnitFramesImproved_TargetFrame_CheckClassification = UnitFramesImproved_TargetFrame_CheckClassification
-    end]]
-
     PlayerFrameBackground.bg = PlayerFrame:CreateTexture(nil, 'ARTWORK')
     PlayerFrameBackground.bg:SetPoint('TOPLEFT', PlayerFrameBackground)
     PlayerFrameBackground.bg:SetPoint('BOTTOMRIGHT', PlayerFrameBackground, 0, 22)
@@ -159,14 +154,6 @@
         orig.TargetFrame_CheckClassification()
         AddClassification()
     end
-
-    --[[if  IsAddOnLoaded'UnitFramesImproved_Vanilla' then
-        function UnitFramesImproved_TargetFrame_CheckClassification()
-            print'ping'
-            orig.UnitFramesImproved_TargetFrame_CheckClassification()
-            AddClassification()
-        end
-    end]]
 
     local mod_TargetBuffs = function()          -- TARGET AURAS (up to 16)
         local b, d = 0, 0

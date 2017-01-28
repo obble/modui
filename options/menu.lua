@@ -8,7 +8,7 @@
     local _, class = UnitClass'player'
     local colour = RAID_CLASS_COLORS[class]
 
-    local version = '80.5' -- VERSION OF ADDON
+    local version = '82' -- VERSION OF ADDON
 
     local menu = CreateFrame('Frame', 'modui_options', UIParent)
     menu:SetWidth(360) menu:SetHeight(270)

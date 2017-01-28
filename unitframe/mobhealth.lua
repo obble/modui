@@ -1,6 +1,7 @@
 
 
     if tonumber(GetCVar'modUnitFrame') == 0 then return end
+    if (not MobHealth3) or IsAddOnLoaded'MobInfo2' then return end
 
     local move = function()
         for _, v in pairs ({MobHealth3BlizzardHealthText, MobHealth3BlizzardPowerText}) do
