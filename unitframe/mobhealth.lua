@@ -19,21 +19,25 @@
     end
 
     local gradient = function(v, f, min, max)
-        if v < min or v > max then return end
-        if (max - min) > 0 then
-            v = (v - min)/(max - min)
+        if _G['modui_vars'].db['modWhiteStatusText'] == 0 then
+            if v < min or v > max then return end
+            if (max - min) > 0 then
+                v = (v - min)/(max - min)
+            else
+                v = 0
+            end
+            if v > .5 then
+                r = (1 - v)*2
+                g = 1
+            else
+                r = 1
+                g = v*2
+            end
+            b = 0
+            f:SetTextColor(r*1.5, g*1.5, b*1.5)
         else
-            v = 0
+            f:SetTextColor(1, 1, 1)
         end
-        if v > .5 then
-            r = (1 - v)*2
-            g = 1
-        else
-            r = 1
-            g = v*2
-        end
-        b = 0
-        f:SetTextColor(r*1.5, g*1.5, b*1.5)
     end
 
     function MH3Blizz:HealthUpdate()
@@ -83,14 +87,18 @@
         if max == 0 or cur == 0 or percent == 0 then string:SetText() return end
         if MH3BlizzConfig.powerAbs then v = math.floor(v) end
 
-        if class == 'ROGUE' or (class == 'DRUID' and pp == 3) then
-            string:SetTextColor(250/255, 240/255, 200/255)
-        elseif (UnitIsPlayer'target' and class == 'WARRIOR') -- NPCs are classed as warriors by default
-            or (class == 'DRUID' and pp == 1)
-            then
-            string:SetTextColor(250/255, 108/255, 108/255)
+        if _G['modui_vars'].db['modWhiteStatusText'] == 0 then
+            if class == 'ROGUE' or (class == 'DRUID' and pp == 3) then
+                string:SetTextColor(250/255, 240/255, 200/255)
+            elseif (UnitIsPlayer'target' and class == 'WARRIOR') -- NPCs are classed as warriors by default
+                or (class == 'DRUID' and pp == 1)
+                then
+                string:SetTextColor(250/255, 108/255, 108/255)
+            else
+                string:SetTextColor(.6, .65, 1)
+            end
         else
-            string:SetTextColor(.6, .65, 1)
+            string:SetTextColor(1, 1, 1)
         end
 
         if GetCVar'modValue' == '1' then

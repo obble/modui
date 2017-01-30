@@ -49,7 +49,7 @@
 
     menu.actionbar = CreateFrame('Button', 'modui_optionsactionbar', menu, 'UIPanelButtonTemplate')
     menu.actionbar:SetWidth(100) menu.actionbar:SetHeight(20)
-    menu.actionbar:SetText'Actionbar'
+    menu.actionbar:SetText'Action Buttons'
     menu.actionbar:SetFont(STANDARD_TEXT_FONT, 10)
     menu.actionbar:SetPoint('LEFT', menu.colour, 'RIGHT', 3, 0)
 
@@ -68,6 +68,20 @@
     menu.actionlayout.title:SetTextColor(colour.r, colour.g, colour.b)
     menu.actionlayout.title:SetPoint('TOPLEFT', menu, 30, -90)
     menu.actionlayout.title:SetText'—Button Layout'
+
+    menu.keydown = CreateFrame('CheckButton', 'modui_optionskeypress', menu, 'UICheckButtonTemplate')
+    menu.keydown:SetHeight(20) menu.keydown:SetWidth(20)
+    menu.keydown:SetPoint('TOPLEFT', menu, 25, -185)
+    menu.keydown:Hide()
+    _G[menu.keydown:GetName()..'Text']:SetJustifyH'LEFT'
+    _G[menu.keydown:GetName()..'Text']:SetWidth(250)
+    _G[menu.keydown:GetName()..'Text']:SetPoint('LEFT', menu.keydown, 'RIGHT', 4, 0)
+    _G[menu.keydown:GetName()..'Text']:SetText'Cast on Downward Keypress (Recommended for Faster Skill-Casts)'
+
+    menu.keydown.title = menu.keydown:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
+    menu.keydown.title:SetTextColor(colour.r, colour.g, colour.b)
+    menu.keydown.title:SetPoint('TOPLEFT', menu, 30, -165)
+    menu.keydown.title:SetText'—Keypress'
 
     for i = 1, 60 do
         menu.actionbutton = CreateFrame('Button', 'modui_actionbutton'..i, menu)
@@ -90,11 +104,12 @@
 
     menu.actionbar:SetScript('OnClick', function()
         highlight()
-        for _, v in pairs({menu.intro, menu.uilink, menu.description, menu.whisper, menu.gryphon, menu.endcap, menu.chatstamp, menu.chatformat, menu.itemlink, menu.auraformat, menu.tooltip, menu.tooltip.cursor, menu.castbar, menu.castbar.target, menu.horizontal, menu.value, menu.consolidate, menu.ctDMG, menu.ctHEAL, menu.elements.title, menu.elements.description, menu.elementcontainer, menu.allelement, menu.modraid.apology, menu.modraid.text}) do v:Hide() end
+        for _, v in pairs({menu.intro, menu.uilink, menu.description, menu.whisper, menu.gryphon, menu.endcap, menu.chatstamp, menu.chatformat, menu.chateditbox, menu.itemlink, menu.auraformat, menu.targetaura, menu.tooltip, menu.tooltip.cursor, menu.castbar, menu.castbar.target, menu.horizontal, menu.value, menu.consolidate, menu.white, menu.ctDMG, menu.ctHEAL, menu.elements.title, menu.elements.description, menu.elementcontainer, menu.allelement, menu.modraid.apology, menu.modraid.text}) do v:Hide() end
         for i = 1,  2 do _G['modui_optionsaurabutton'..i]:Hide() end
         for i = 1, 11 do _G['modui_element'..i]:Hide() end
         for i = 1, 60 do _G['modui_actionbutton'..i]:Show() end
         menu.actionlayout:Show()
+        menu.keydown:Show()
         menu.reload:SetPoint('TOP', menu, 0, -295)
         if menu.reload:IsShown() then
             menu:SetHeight(340)
@@ -103,11 +118,23 @@
         end
     end)
 
+    menu.keydown:SetScript('OnClick', function()
+        if this:GetChecked() == 1 then
+            _G['modui_vars'].db['modKeyDown'] = 1
+            MODUI_VARS['modKeyDown'] = 1
+        else
+            _G['modui_vars'].db['modKeyDown'] = 0
+            MODUI_VARS['modKeyDown'] = 0
+        end
+    end)
+
     local f = CreateFrame'Frame'
     f:RegisterEvent'PLAYER_ENTERING_WORLD'
     f:SetScript('OnEvent', function()
         local cv = tonumber(GetCVar'modAction')
         if cv == 1 then menu.actionlayout:SetValue(1) else menu.actionlayout:SetValue(0) end
+        cv = _G['modui_vars'].db['modKeyDown']
+        if cv == 1 then menu.keydown:SetChecked(true) else menu.keydown:SetChecked(false) end
     end)
 
 

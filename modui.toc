@@ -2,7 +2,7 @@
 ## Author: modernist
 ## Title: mod ui
 ## Notes: make the ui better.
-##SavedVariablesPerCharacter: modAction, modStatus, modValue, modBoth, modGryphon, modEndcap, modTimestamp, modAuraFormat, modOneBag, modChatFormat, modItemLink, modBattleMap, modDungeonMap, modNameplate, modQuestWatch, modTooltip, modUnitFrame, modPVPTimers, modPVPRank, modStopWatch, modShowTooltipCursor, modPlayerCastbar, modSCTDMG, modSCTHEAL, modClock, MODUI_COLOUR_FOR_UI
+##SavedVariablesPerCharacter: modAction, modStatus, modValue, modBoth, modGryphon, modEndcap, modTimestamp, modAuraFormat, modOneBag, modChatFormat, modItemLink, modBattleMap, modDungeonMap, modNameplate, modQuestWatch, modTooltip, modUnitFrame, modPVPTimers, modPVPRank, modStopWatch, modShowTooltipCursor, modPlayerCastbar, modClock, MODUI_VARS, MODUI_COLOUR_FOR_UI
 
 globals\string.lua
 globals\vars.lua
@@ -124,6 +124,7 @@ tracker\click.lua
 
 unitframe\boss\create.lua
 unitframe\boss\update.lua
+unitframe\aura.lua
 unitframe\castbar.lua
 unitframe\energy.lua
 unitframe\extramana.lua

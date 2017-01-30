@@ -7,6 +7,10 @@
 	orig.ActionButton_OnUpdate      = ActionButton_OnUpdate
 	orig.PetActionBarFrame_OnUpdate = PetActionBarFrame_OnUpdate
 	orig.ShapeshiftBar_UpdateState  = ShapeshiftBar_UpdateState
+	orig.ActionButtonDown			= ActionButtonDown
+	orig.ActionButtonUp				= ActionButtonUp
+	orig.MultiActionButtonDown		= MultiActionButtonDown
+	orig.MultiActionButtonUp		= MultiActionButtonUp
 
 	local borders = function(nutime)
 		if  this:GetChecked() then
@@ -65,80 +69,96 @@
 	end
 
 	function ActionButtonDown(i)
-		local time = GetTime()
-		if not bongos then
-			if BonusActionBarFrame:IsShown() then
-				local bu = _G['BonusActionButton'..i]
+		if  _G['modui_vars'].db['modKeyDown'] == 0 then
+			orig.ActionButtonDown(i)
+		else
+			local time = GetTime()
+			if not bongos then
+				if BonusActionBarFrame:IsShown() then
+					local bu = _G['BonusActionButton'..i]
+					if  bu:GetButtonState() == 'NORMAL' then
+						bu:SetButtonState'PUSHED'
+						UseAction(ActionButton_GetPagedID(bu), 0)
+						bu.keypress = time
+					end
+					return
+				end
+				local bu = _G['ActionButton'..i]
 				if  bu:GetButtonState() == 'NORMAL' then
 					bu:SetButtonState'PUSHED'
 					UseAction(ActionButton_GetPagedID(bu), 0)
 					bu.keypress = time
 				end
-				return
-			end
-			local bu = _G['ActionButton'..i]
-			if  bu:GetButtonState() == 'NORMAL' then
-				bu:SetButtonState'PUSHED'
-				UseAction(ActionButton_GetPagedID(bu), 0)
+			else
+				local bu = _G['BActionButton'..i]
+				local id = BActionButton.GetPagedID(i)
+				if bu and bu:GetButtonState() == 'NORMAL' then bu:SetButtonState'PUSHED' end
+				UseAction(id, 0)
 				bu.keypress = time
 			end
-		else
-			local bu = _G['BActionButton'..i]
-			local id = BActionButton.GetPagedID(i)
-			if bu and bu:GetButtonState() == 'NORMAL' then bu:SetButtonState'PUSHED' end
-			UseAction(id, 0)
-			bu.keypress = time
 		end
 	end
 
 	function ActionButtonUp(i, onSelf)
-		if not bongos then
-			if BonusActionBarFrame:IsShown() then
-				local bu = _G['BonusActionButton'..i]
-				if  bu:GetButtonState() == 'PUSHED' then
+		if  _G['modui_vars'].db['modKeyDown'] == 0 then
+			orig.ActionButtonUp(i, onSelf)
+		else
+			if not bongos then
+				if BonusActionBarFrame:IsShown() then
+					local bu = _G['BonusActionButton'..i]
+					if  bu:GetButtonState() == 'PUSHED' then
+						bu:SetButtonState'NORMAL'
+						if MacroFrame_SaveMacro then MacroFrame_SaveMacro() end
+						if IsCurrentAction(ActionButton_GetPagedID(bu)) then bu:SetChecked(1)
+						else bu:SetChecked(0) end
+					end
+					return
+				end
+
+				local bu = _G['ActionButton'..i]
+				if bu and bu:GetButtonState() == 'PUSHED' then
 					bu:SetButtonState'NORMAL'
 					if MacroFrame_SaveMacro then MacroFrame_SaveMacro() end
 					if IsCurrentAction(ActionButton_GetPagedID(bu)) then bu:SetChecked(1)
-					else bu:SetChecked(0) end
+					else bu:SetChecked(0)
+					end
 				end
-				return
-			end
-
-			local bu = _G['ActionButton'..i]
-			if bu and bu:GetButtonState() == 'PUSHED' then
-				bu:SetButtonState'NORMAL'
-				if MacroFrame_SaveMacro then MacroFrame_SaveMacro() end
-				if IsCurrentAction(ActionButton_GetPagedID(bu)) then bu:SetChecked(1)
-				else bu:SetChecked(0)
+			else
+				local bu = _G['BActionButton'..i]
+				if bu and bu:GetButtonState() == 'PUSHED' then
+					bu:SetButtonState'NORMAL'
+					if MacroFrame_SaveMacro then MacroFrame_SaveMacro() end
+					bu:SetChecked(IsCurrentAction(BActionButton.GetPagedID(i)))
 				end
-			end
-		else
-			local bu = _G['BActionButton'..i]
-			if bu and bu:GetButtonState() == 'PUSHED' then
-				bu:SetButtonState'NORMAL'
-				if MacroFrame_SaveMacro then MacroFrame_SaveMacro() end
-				bu:SetChecked(IsCurrentAction(BActionButton.GetPagedID(i)))
 			end
 		end
 	end
 
 	function MultiActionButtonDown(bar, i)
-		local time = GetTime()
-		local bu = _G[bar..'Button'..i]
-		if  bu:GetButtonState() == 'NORMAL' then
-			bu:SetButtonState'PUSHED'
-			UseAction(ActionButton_GetPagedID(bu), 0)
-			bu.keypress = time
+		if  _G['modui_vars'].db['modKeyDown'] == 0 then
+			orig.MultiActionButtonDown(bar, i)
+		else
+			local time = GetTime()
+			local bu = _G[bar..'Button'..i]
+			if  bu:GetButtonState() == 'NORMAL' then
+				bu:SetButtonState'PUSHED'
+				UseAction(ActionButton_GetPagedID(bu), 0)
+				bu.keypress = time
+			end
 		end
 	end
 
 	function MultiActionButtonUp(bar, i, onSelf)
-		local bu = _G[bar..'Button'..i]
-		if  bu:GetButtonState() == 'PUSHED' then
-			bu:SetButtonState'NORMAL'
-			if MacroFrame_SaveMacro then MacroFrame_SaveMacro() end
-			if IsCurrentAction(ActionButton_GetPagedID(bu)) then bu:SetChecked(1)
-			else bu:SetChecked(0)
+		if  _G['modui_vars'].db['modKeyDown'] == 0 then
+			orig.MultiActionButtonUp(bar, i, onSelf)
+		else
+			local bu = _G[bar..'Button'..i]
+			if  bu:GetButtonState() == 'PUSHED' then
+				bu:SetButtonState'NORMAL'
+				if MacroFrame_SaveMacro then MacroFrame_SaveMacro() end
+				if IsCurrentAction(ActionButton_GetPagedID(bu)) then bu:SetChecked(1)
+				else bu:SetChecked(0)
+				end
 			end
 		end
 	end

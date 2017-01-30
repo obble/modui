@@ -47,11 +47,21 @@
         -- SW_BarFrame1_Title:SetFrameLevel(0)
     end
 
-    if IsAddOnLoaded'DPSMate' then
-        modSkin(DPSMate_DPSMate, 18)
-        modSkinPadding(DPSMate_DPSMate, 3.5, 4, 4, 4, 3.5, 6, 4, 6)
-        modSkinColor(DPSMate_DPSMate, .2, .2, .2)
-    end
+    --[[if IsAddOnLoaded'DPSMate' then
+        local toggle = DPSMate.Options:ToggleVisibility()
+        function DPSMate.Options:ToggleVisibility()
+            toggle()
+            for _, v in DPSMateSettings['windows'] do]]
+        		--local f = _G['DPSMate_'..v['name']]
+            --[[    if  not f.skinned then
+                    modSkin(f, 18)
+                    modSkinPadding(f, 3.5, 4, 4, 4, 3.5, 6, 4, 6)
+                    modSkinColor(f, .2, .2, .2)
+                    f.skinned = true
+                end
+            end
+        end
+    end]]
 
     if IsAddOnLoaded'Postal' then
         for i = 1, 21 do

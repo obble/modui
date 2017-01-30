@@ -443,10 +443,6 @@
     }
 
     MODUI_TOTEMS = {
-        ['Horde Guard']         = {   icon = 'Spell_Nature_GroundingTotem',
-                                    time = 45,
-                                    type = 'Earth'
-                                },
         ['Grounding']         = {   icon = 'Spell_Nature_GroundingTotem',
                                     time = 45,
                                     type = 'Earth'
@@ -460,6 +456,10 @@
                                     type = 'Earth',
                                     -- rank[index] equals hitpoints in this case
                                     rank = {206, 276, 316, 346, 426, 486},
+                                },
+        ['Strength of Earth'] = {   icon = 'Spell_nature_earthbindtotem',
+                                    time = 120,
+                                    type = 'Earth'
                                 },
         ['Stoneskin']         = {   icon = 'Spell_Nature_StoneSkinTotem',
                                     time = 120,

@@ -151,17 +151,15 @@
 		-- local time = time()
 		-- print(time)
 		if  tonumber(GetCVar'modClock') == 1 or TwentyFourHourTime then
-			GameTooltip:SetText(format(TEXT(TIME_TWENTYFOURHOURS), h, m)..' — Server Time')
+			GameTooltip:AddDoubleLine(date'%H:%M', '|cffffffffLocal Time|r')
+			GameTooltip:AddDoubleLine(format(TEXT(TIME_TWENTYFOURHOURS), h, m), '|cffffffffServer Time|r')
 		else
 			local pm = 0
 			if h >= 12 then pm = 1 end
 			if h >  12 then h = h - 12 end
 			if h ==  0 then h = 12 end
-			if pm == 0 then
-				GameTooltip:SetText(format(TEXT(TIME_TWELVEHOURAM), h, m)..' — Server Time')
-			else
-				GameTooltip:SetText(format(TEXT(TIME_TWELVEHOURPM), h, m)..' — Server Time')
-			end
+			GameTooltip:AddDoubleLine(date'%I:%M %p', '|cffffffffLocal Time|r')
+			GameTooltip:AddDoubleLine(format(TEXT(pm == 0 and TIME_TWELVEHOURAM or TIME_TWELVEHOURPM), h, m), '|cffffffffServer Time|r')
 		end
 		if  tonumber(GetCVar'modStopWatch') == 1 then
 			GameTooltip:AddLine('Click to Toggle Stopwatch.', .3, 1, .6)

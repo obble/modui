@@ -124,9 +124,18 @@
     _G[menu.itemlink:GetName()..'Text']:SetPoint('LEFT', menu.itemlink, 'RIGHT', 4, 0)
     _G[menu.itemlink:GetName()..'Text']:SetText'Toggle |cffc600ff[Brackets]|r on Item Links.'
 
+    menu.chateditbox = CreateFrame('CheckButton', 'modui_chateditbox', menu, 'UICheckButtonTemplate')
+    menu.chateditbox:SetHeight(20) menu.chateditbox:SetWidth(20)
+    menu.chateditbox:SetPoint('TOPLEFT', menu, 25, -245)
+    menu.chateditbox:Hide()
+    _G[menu.chateditbox:GetName()..'Text']:SetJustifyH'LEFT'
+    _G[menu.chateditbox:GetName()..'Text']:SetWidth(270)
+    _G[menu.chateditbox:GetName()..'Text']:SetPoint('LEFT', menu.chateditbox, 'RIGHT', 4, 0)
+    _G[menu.chateditbox:GetName()..'Text']:SetText'Position Edit Box Above Chat Frame.'
+
     menu.auraformat = CreateFrame('Slider', 'modui_optionsauraformat', menu, 'OptionsSliderTemplate')
     menu.auraformat:SetWidth(200) menu.auraformat:SetHeight(20)
-    menu.auraformat:SetPoint('TOP', menu, 0, -275)
+    menu.auraformat:SetPoint('TOP', menu, 0, -295)
     menu.auraformat:SetMinMaxValues(0, 1)
     menu.auraformat:SetValue(0)
     menu.auraformat:SetValueStep(1)
@@ -138,7 +147,7 @@
 
     menu.auraformat.title = menu.auraformat:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
     menu.auraformat.title:SetTextColor(colour.r, colour.g, colour.b)
-    menu.auraformat.title:SetPoint('TOPLEFT', menu, 30, -250)
+    menu.auraformat.title:SetPoint('TOPLEFT', menu, 30, -270)
     menu.auraformat.title:SetText'—Auras'
 
     for i = 1, 2 do
@@ -161,9 +170,18 @@
         menu.aurabutton.duration:SetText'|cffffffff30|rm'
     end
 
+    menu.targetaura = CreateFrame('CheckButton', 'modui_targetauraorientation', menu, 'UICheckButtonTemplate')
+    menu.targetaura:SetHeight(20) menu.targetaura:SetWidth(20)
+    menu.targetaura:SetPoint('TOPLEFT', menu, 25, -355)
+    menu.targetaura:Hide()
+    _G[menu.targetaura:GetName()..'Text']:SetJustifyH'LEFT'
+    _G[menu.targetaura:GetName()..'Text']:SetWidth(270)
+    _G[menu.targetaura:GetName()..'Text']:SetPoint('LEFT', menu.targetaura, 'RIGHT', 4, 0)
+    _G[menu.targetaura:GetName()..'Text']:SetText'Target Auras Above Frame'
+
     menu.tooltip = CreateFrame('CheckButton', 'modui_tooltip', menu, 'UICheckButtonTemplate')
     menu.tooltip:SetHeight(20) menu.tooltip:SetWidth(20)
-    menu.tooltip:SetPoint('TOPLEFT', menu, 25, -355)
+    menu.tooltip:SetPoint('TOPLEFT', menu, 25, -395)
     menu.tooltip:Hide()
     _G[menu.tooltip:GetName()..'Text']:SetJustifyH'LEFT'
     _G[menu.tooltip:GetName()..'Text']:SetWidth(270)
@@ -172,7 +190,7 @@
 
     menu.tooltip.cursor = CreateFrame('CheckButton', 'modui_tooltipcursor', menu, 'UICheckButtonTemplate')
     menu.tooltip.cursor:SetHeight(20) menu.tooltip.cursor:SetWidth(20)
-    menu.tooltip.cursor:SetPoint('TOPLEFT', menu, 25, -375)
+    menu.tooltip.cursor:SetPoint('TOPLEFT', menu, 25, -415)
     menu.tooltip.cursor:Hide()
     _G[menu.tooltip.cursor:GetName()..'Text']:SetJustifyH'LEFT'
     _G[menu.tooltip.cursor:GetName()..'Text']:SetWidth(270)
@@ -181,12 +199,12 @@
 
     menu.tooltip.title = menu.tooltip:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
     menu.tooltip.title:SetTextColor(colour.r, colour.g, colour.b)
-    menu.tooltip.title:SetPoint('TOPLEFT', menu, 30, -340)
+    menu.tooltip.title:SetPoint('TOPLEFT', menu, 30, -380)
     menu.tooltip.title:SetText'—Tooltip'
 
     menu.castbar = CreateFrame('CheckButton', 'modui_castbar', menu, 'UICheckButtonTemplate')
     menu.castbar:SetHeight(20) menu.castbar:SetWidth(20)
-    menu.castbar:SetPoint('TOPLEFT', menu, 25, -415)
+    menu.castbar:SetPoint('TOPLEFT', menu, 25, -455)
     menu.castbar:Hide()
     _G[menu.castbar:GetName()..'Text']:SetJustifyH'LEFT'
     _G[menu.castbar:GetName()..'Text']:SetWidth(270)
@@ -195,7 +213,7 @@
 
     menu.castbar.target = CreateFrame('CheckButton', 'modui_castbarTarget', menu, 'UICheckButtonTemplate')
     menu.castbar.target:SetHeight(20) menu.castbar.target:SetWidth(20)
-    menu.castbar.target:SetPoint('TOPLEFT', menu, 25, -435)
+    menu.castbar.target:SetPoint('TOPLEFT', menu, 25, -475)
     menu.castbar.target:Hide()
     _G[menu.castbar.target:GetName()..'Text']:SetJustifyH'LEFT'
     _G[menu.castbar.target:GetName()..'Text']:SetWidth(270)
@@ -204,7 +222,7 @@
 
     menu.castbar.title = menu.castbar:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
     menu.castbar.title:SetTextColor(colour.r, colour.g, colour.b)
-    menu.castbar.title:SetPoint('TOPLEFT', menu, 30, -400)
+    menu.castbar.title:SetPoint('TOPLEFT', menu, 30, -440)
     menu.castbar.title:SetText'—Castbar'
 
     menu.display = CreateFrame('Button', 'modui_display', menu, 'UIPanelButtonTemplate')
@@ -215,16 +233,16 @@
 
     menu.display:SetScript('OnClick', function()
         highlight()
-        for _, v in pairs({menu.intro, menu.uilink, menu.description, menu.whisper, menu.horizontal, menu.value, menu.consolidate, menu.ctDMG, menu.ctHEAL, menu.elements.title, menu.elements.description, menu.elementcontainer, menu.allelement, menu.actionlayout, menu.modraid.apology, menu.modraid.text}) do v:Hide() end
+        for _, v in pairs({menu.intro, menu.uilink, menu.description, menu.whisper, menu.horizontal, menu.value, menu.consolidate, menu.white, menu.ctDMG, menu.ctHEAL, menu.elements.title, menu.elements.description, menu.elementcontainer, menu.allelement, menu.actionlayout, menu.keydown, menu.modraid.apology, menu.modraid.text}) do v:Hide() end
         for i = 1, 11 do _G['modui_element'..i]:Hide() end
         for i = 1, 60 do _G['modui_actionbutton'..i]:Hide() end
-        for _, v in pairs({menu.gryphon, menu.endcap, menu.chatstamp, menu.chatformat, menu.itemlink, menu.auraformat, menu.tooltip, menu.tooltip.cursor, menu.castbar, menu.castbar.target}) do v:Show() end
+        for _, v in pairs({menu.gryphon, menu.endcap, menu.chatstamp, menu.chatformat, menu.chateditbox, menu.itemlink, menu.auraformat, menu.tooltip, menu.tooltip.cursor, menu.castbar, menu.castbar.target, menu.targetaura}) do v:Show() end
         for i = 1,  2 do _G['modui_optionsaurabutton'..i]:Show() end
         menu.reload:SetPoint('TOP', menu, 0, -450)
         if menu.reload:IsShown() then
-            menu:SetHeight(550)
+            menu:SetHeight(590)
         else
-            menu:SetHeight(480)
+            menu:SetHeight(520)
         end
     end)
 
@@ -248,6 +266,21 @@
 
     menu.chatformat:SetScript('OnClick', function()
         if this:GetChecked() == 1 then SetCVar('modChatFormat', 1) reload() else SetCVar('modChatFormat', 0) reload() end
+    end)
+
+    menu.chateditbox:SetScript('OnClick', function()
+        ChatFrameEditBox:ClearAllPoints()
+        if  this:GetChecked() == 1 then
+            _G['modui_vars'].db['modEditBoxOrientation'] = 1
+            MODUI_VARS['modEditBoxOrientation'] = 1
+            ChatFrameEditBox:SetPoint('BOTTOMLEFT', ChatFrame1, 'TOPLEFT', -2, 18)
+            ChatFrameEditBox:SetPoint('BOTTOMRIGHT', ChatFrame1, 'TOPRIGHT',  2, 18)
+        else
+            _G['modui_vars'].db['modEditBoxOrientation'] = 0
+            MODUI_VARS['modEditBoxOrientation'] = 0
+            ChatFrameEditBox:SetPoint('TOPLEFT', ChatFrame1, 'BOTTOMLEFT', -2, -18)
+            ChatFrameEditBox:SetPoint('TOPRIGHT', ChatFrame1, 'BOTTOMRIGHT',  2, -18)
+        end
     end)
 
     menu.itemlink:SetScript('OnClick', function()
@@ -348,6 +381,18 @@
         end
     end)
 
+    menu.targetaura:SetScript('OnClick', function()
+        if  _G['modui_vars'].db['modAuraOrientation'] == 0 then
+            _G['modui_vars'].db['modAuraOrientation'] = 1
+            MODUI_VARS['modAuraOrientation'] = 1
+            TargetDebuffButton_Update()
+        else
+            _G['modui_vars'].db['modAuraOrientation'] = 0
+            MODUI_VARS['modAuraOrientation'] = 0
+            TargetDebuffButton_Update()
+        end
+    end)
+
     local f = CreateFrame'Frame'
     f:RegisterEvent'PLAYER_ENTERING_WORLD'
     f:SetScript('OnEvent', function()
@@ -392,6 +437,8 @@
         local cv = tonumber(GetCVar'modPlayerCastbar')
         if cv == 1 then menu.castbar:SetChecked(true) else menu.castbar:SetChecked(false) end
         menu.castbar.target:SetChecked(false)
+        local cv = _G['modui_vars'].db['modAuraOrientation']
+        if  cv == 1 then menu.targetaura:SetChecked(true) else menu.targetaura:SetChecked(false) end
     end)
 
     --
