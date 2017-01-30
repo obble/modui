@@ -102,6 +102,19 @@
 	function ActionButtonUp(i, onSelf)
 		if  _G['modui_vars'].db['modKeyDown'] == 0 then
 			orig.ActionButtonUp(i, onSelf)
+			local time = GetTime()
+			if not bongos then
+				if BonusActionBarFrame:IsShown() then
+					local bu = _G['BonusActionButton'..i]
+					bu.keypress = time
+					return
+				end
+				local bu = _G['ActionButton'..i]
+				bu.keypress = time
+			else
+				local bu = _G['BActionButton'..i]
+				bu.keypress = time
+			end
 		else
 			if not bongos then
 				if BonusActionBarFrame:IsShown() then
