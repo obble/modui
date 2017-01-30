@@ -12,6 +12,12 @@
                 modSkinPadding(bu, 3)
                 modSkinColor(bu, .2, .2, .2)
             end
+            for i = 1, 30 do
+ 				local bu = _G['TrinketMenu_Menu'..i]
+ 				modSkin(bu, 18)
+	 		 	modSkinPadding(bu, 3)
+	 		 	modSkinColor(bu, .2, .2, .2)
+			end
         elseif arg1 == 'zBar' then          -- ZBAR
             for _, v in pairs({zBar1, zBar2, zBar3, zBar4, zBar9}) do
                 for i = 1, 12 do

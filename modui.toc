@@ -18,6 +18,7 @@ globals\unitcasting.lua
 
 actionbar\bagbar.lua
 actionbar\bar.lua
+actionbar\cooldown.lua
 actionbar\keypress.lua
 actionbar\paging.lua
 actionbar\stats.lua

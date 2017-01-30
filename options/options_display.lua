@@ -238,7 +238,7 @@
         for i = 1, 60 do _G['modui_actionbutton'..i]:Hide() end
         for _, v in pairs({menu.gryphon, menu.endcap, menu.chatstamp, menu.chatformat, menu.chateditbox, menu.itemlink, menu.auraformat, menu.tooltip, menu.tooltip.cursor, menu.castbar, menu.castbar.target, menu.targetaura}) do v:Show() end
         for i = 1,  2 do _G['modui_optionsaurabutton'..i]:Show() end
-        menu.reload:SetPoint('TOP', menu, 0, -450)
+        menu.reload:SetPoint('TOP', menu, 0, -540)
         if menu.reload:IsShown() then
             menu:SetHeight(590)
         else

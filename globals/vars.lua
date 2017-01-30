@@ -46,6 +46,7 @@
         ['modEditBoxOrientation'] = 1,
         ['modWhiteStatusText']    = 0,
         ['modKeyDown']            = 1,
+        ['modCDCount']            = 1,
     }
 
     -- this function copies values from one table into another:

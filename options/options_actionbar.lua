@@ -111,7 +111,7 @@
         menu.actionlayout:Show()
         menu.keydown:Show()
         menu.reload:SetPoint('TOP', menu, 0, -295)
-        if menu.reload:IsShown() then
+        if  menu.reload:IsShown() then
             menu:SetHeight(340)
         else
             menu:SetHeight(280)
