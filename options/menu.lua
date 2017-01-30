@@ -92,7 +92,7 @@
         for _, v in pairs({menu.intro, menu.uilink, menu.description, menu.whisper, menu.gryphon, menu.endcap, menu.chatstamp, menu.chatformat, menu.chateditbox, menu.itemlink, menu.auraformat, menu.tooltip, menu.tooltip.cursor, menu.castbar, menu.castbar.target, menu.targetaura, menu.horizontal, menu.value, menu.consolidate, menu.white, menu.ctDMG, menu.ctHEAL, menu.elements.title, menu.elements.description, menu.elementcontainer, menu.allelement, menu.actionlayout, menu.keydown, menu.modraid.apology, menu.modraid.text}) do v:Hide() end
         for _, v in pairs({menu.intro, menu.uilink, menu.description, menu.whisper}) do v:Show() end
         for i = 1,  2 do _G['modui_optionsaurabutton'..i]:Hide() end
-        for i = 1, 11 do _G['modui_element'..i]:Hide() end
+        for i = 1, 12 do _G['modui_element'..i]:Hide() end
         for i = 1, 60 do _G['modui_actionbutton'..i]:Hide() end
         menu.reload:SetPoint('TOP', menu, 0, -300)
         if menu.reload:IsShown() then menu:SetHeight(340) else menu:SetHeight(270) end
