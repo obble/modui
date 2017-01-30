@@ -95,9 +95,9 @@
          hideFrameForever(_G['ChatFrame'..i..'UpButton'])
          hideFrameForever(_G['ChatFrame'..i..'DownButton'])
 
-          _G['ChatFrame'..i..'BottomButton']:ClearAllPoints()
-         _G['ChatFrame'..i..'BottomButton']:SetPoint('BOTTOMLEFT', -35, 22)
-         _G['ChatFrame'..i..'BottomButton']:Hide()
+        _G['ChatFrame'..i..'BottomButton']:ClearAllPoints()
+        _G['ChatFrame'..i..'BottomButton']:SetPoint('BOTTOMLEFT', -35, 22)
+        _G['ChatFrame'..i..'BottomButton']:Hide()
 
          local f = CreateFrame('Frame', nil, chat)
          f:EnableMouse(false)
@@ -109,6 +109,12 @@
          _G['ChatFrame'..i..'UpButton']:GetNormalTexture():SetVertexColor(.5, .5, .5)
          _G['ChatFrame'..i..'DownButton']:GetNormalTexture():SetVertexColor(.5, .5, .5)
          _G['ChatFrame'..i..'BottomButton']:GetNormalTexture():SetVertexColor(.5, .5, .5)
+     end
+
+     function FCF_SetButtonSide(f, side)
+        local bu = _G[f:GetName()..'BottomButton']
+        bu:ClearAllPoints()
+        bu:SetPoint('BOTTOMLEFT', -35, 22)
      end
 
      ChatFrameMenuButton:GetNormalTexture():SetVertexColor(.5, .5, .5)
