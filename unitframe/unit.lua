@@ -43,18 +43,18 @@
     PlayerPVPIcon:ClearAllPoints()
     PlayerPVPIcon:SetPoint('CENTER', PlayerFrame, 'LEFT', 60, 16)
 
-    TargetFrame.Elite = TargetFrameTextureFrame:CreateTexture(nil, 'OVERLAY')
+    TargetFrame.Elite = TargetFrameTextureFrame:CreateTexture(nil, 'BORDER')
     TargetFrame.Elite:SetTexture[[Interface\AddOns\modui\unitframe\UI-TargetingFrame-Elite]]
-    TargetFrame.Elite:SetWidth(124)
-    TargetFrame.Elite:SetHeight(124)
-    TargetFrame.Elite:SetPoint('TOPRIGHT', TargetFrame, 1, -1)
+    TargetFrame.Elite:SetWidth(128)
+    TargetFrame.Elite:SetHeight(128)
+    TargetFrame.Elite:SetPoint('TOPRIGHT', TargetFrame)
     TargetFrame.Elite:Hide()
 
-    TargetFrame.Rare = TargetFrameTextureFrame:CreateTexture(nil, 'OVERLAY')
+    TargetFrame.Rare = TargetFrameTextureFrame:CreateTexture(nil, 'BORDER')
     TargetFrame.Rare:SetTexture[[Interface\AddOns\modui\unitframe\UI-TargetingFrame-Rare-Elite]]
     TargetFrame.Rare:SetWidth(124)
     TargetFrame.Rare:SetHeight(124)
-    TargetFrame.Rare:SetPoint('TOPRIGHT', TargetFrame, 1, -1)
+    TargetFrame.Rare:SetPoint('TOPRIGHT', TargetFrame)
     TargetFrame.Rare:Hide()
 
     TargetRaidTargetIcon:SetDrawLayer('OVERLAY', 7)
@@ -140,24 +140,20 @@
         end
     end
 
-    local AddClassification = function()
+    function TargetFrame_OnShow() end           -- REMOVE TARGETING SOUND
+    function TargetFrame_OnHide() CloseDropDownMenus() end
+
+    function TargetFrame_CheckClassification()
         local c = UnitClassification'target'
-        TargetFrame.Elite:Hide()
-        TargetFrame.Rare:Hide()
+        TargetFrameTexture:SetTexture[[Interface\TargetingFrame\UI-TargetingFrame]]
+        for _, v in pairs({TargetFrame.Elite, TargetFrame.Rare}) do
+            v:Hide()
+        end
         if  c == 'worldboss' or c == 'rareelite' or c == 'elite' then
             TargetFrame.Elite:Show()
         elseif c == 'rare' then
             TargetFrame.Rare:Show()
         end
-    end
-
-
-    function TargetFrame_OnShow() end           -- REMOVE TARGETING SOUND
-    function TargetFrame_OnHide() CloseDropDownMenus() end
-
-    function TargetFrame_CheckClassification()
-        orig.TargetFrame_CheckClassification()
-        AddClassification()
     end
 
     local healcomm = function(this)

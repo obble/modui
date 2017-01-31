@@ -51,6 +51,7 @@
         -- raid
         ['modGridSize']           = 1,
         ['mod40yd']               = 1,
+        ['modRaidLeft2Right']     = 1,
 
     }
 
