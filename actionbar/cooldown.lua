@@ -2,7 +2,6 @@
     local orig = {}
 
     orig.CooldownFrame_SetTimer         = CooldownFrame_SetTimer
-    orig.CooldownFrame_OnUpdateModel    = CooldownFrame_OnUpdateModel
 
     local AddTextUpdate = function(elapsed)
         if  this.text and not this.text:IsShown() then return end
@@ -33,10 +32,11 @@
                     this.text:SetFont(STANDARD_TEXT_FONT, 16, 'OUTLINE')
                     this.text:SetPoint('CENTER', 1, -1)
                     this.text:SetJustifyH'CENTER'
-                    this:SetScript('OnUpdateModel', function()
+                    this:SetScript('OnUpdate', function()
                         AddTextUpdate()
-                        orig.CooldownFrame_OnUpdateModel()
                     end)
+                else
+                    this.text:Show()
                 end
             else
                 if this.text then this.text:Hide() end
