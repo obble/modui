@@ -33,21 +33,12 @@
     modSkinPadding(PlayerFrame.ExtraManaBar, 2, 2, 2, 2, 2, 2, 2, 2)
     modSkinColor(PlayerFrame.ExtraManaBar, .2, .2, .2)
 
-    local GetValue = function()
-        local v = DruidManaLib:GetMana()
+    local OnUpdate = function()
+        DruidManaLib:MaxManaScript()
+        local v, max = DruidManaLib:GetMana()
+        PlayerFrame.ExtraManaBar:SetMinMaxValues(0, max)
         PlayerFrame.ExtraManaBar:SetValue(v)
         PlayerFrame.ExtraManaBar.Text:SetText(true_format(v))
-    end
-
-    local GetMaxValue = function()
-    	DruidManaLib:MaxManaScript()
-    	local _, max = DruidManaLib:GetMana()
-    	PlayerFrame.ExtraManaBar:SetMinMaxValues(0, max)
-    end
-
-    local OnUpdate = function()
-        GetMaxValue()
-	    GetValue()
     end
 
     local OnEvent = function()
