@@ -19,8 +19,10 @@ globals\unitcasting.lua
 actionbar\bagbar.lua
 actionbar\bar.lua
 actionbar\cooldown.lua
+actionbar\hotkey.lua
 actionbar\keypress.lua
 actionbar\paging.lua
+actionbar\range.lua
 actionbar\stats.lua
 actionbar\xp.lua
 
@@ -97,6 +99,10 @@ chat\event.lua
 chat\quest.lua
 
 combattext\ct.lua
+
+friends\friends.lua
+friends\guild.lua
+friends\who.lua
 
 map\mini.lua
 map\pvp.lua

@@ -54,6 +54,14 @@
 		pet_borders()
 	end
 
+	local AddSelfCast = function()
+		if  _G['modui_vars'].db['modKeyDownSelf'] then
+			return IsAltKeyDown()
+		else
+			return 0
+		end
+	end
+
 	function ShapeshiftBar_UpdateState()
 		orig.ShapeshiftBar_UpdateState()
 		local numForms = GetNumShapeshiftForms()
@@ -78,7 +86,7 @@
 					local bu = _G['BonusActionButton'..i]
 					if  bu:GetButtonState() == 'NORMAL' then
 						bu:SetButtonState'PUSHED'
-						UseAction(ActionButton_GetPagedID(bu), 0)
+						UseAction(ActionButton_GetPagedID(bu), 0, AddSelfCast())
 						bu.keypress = time
 					end
 					return
@@ -86,7 +94,7 @@
 				local bu = _G['ActionButton'..i]
 				if  bu:GetButtonState() == 'NORMAL' then
 					bu:SetButtonState'PUSHED'
-					UseAction(ActionButton_GetPagedID(bu), 0)
+					UseAction(ActionButton_GetPagedID(bu), 0, AddSelfCast())
 					bu.keypress = time
 				end
 			else
@@ -155,7 +163,7 @@
 			local bu = _G[bar..'Button'..i]
 			if  bu:GetButtonState() == 'NORMAL' then
 				bu:SetButtonState'PUSHED'
-				UseAction(ActionButton_GetPagedID(bu), 0)
+				UseAction(ActionButton_GetPagedID(bu), 0, AddSelfCast())
 				bu.keypress = time
 			end
 		end
@@ -163,7 +171,9 @@
 
 	function MultiActionButtonUp(bar, i, onSelf)
 		if  _G['modui_vars'].db['modKeyDown'] == 0 then
+			local time = GetTime()
 			orig.MultiActionButtonUp(bar, i, onSelf)
+			bu.keypress = time
 		else
 			local bu = _G[bar..'Button'..i]
 			if  bu:GetButtonState() == 'PUSHED' then

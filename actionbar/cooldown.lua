@@ -37,8 +37,6 @@
                         AddTextUpdate()
                         orig.CooldownFrame_OnUpdateModel()
                     end)
-                else
-                    this.text:Show()
                 end
             else
                 if this.text then this.text:Hide() end

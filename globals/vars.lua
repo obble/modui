@@ -46,7 +46,12 @@
         ['modEditBoxOrientation'] = 1,
         ['modWhiteStatusText']    = 0,
         ['modKeyDown']            = 1,
+        ['modKeydownSelf']        = 1,
         ['modCDCount']            = 1,
+        -- raid
+        ['modGridSize']           = 1,
+        ['mod40yd']               = 1,
+
     }
 
     -- this function copies values from one table into another:

@@ -21,7 +21,7 @@
                                                 i == 37 and menu or i == 49 and _G['modui_actionbutton'..(i - 12)] or _G['modui_actionbutton'..(i - 1)],
                                                 i == 37 and 'TOPRIGHT' or i == 49 and 'TOPLEFT' or 'BOTTOMRIGHT',
                                                 i == 37 and -25  or i == 49 and -8 or 0,
-                                                i == 37 and -110 or i == 49 and 0 or -6)
+                                                i == 37 and -140 or i == 49 and 0 or -6)
                 end
             end
         else
@@ -35,7 +35,7 @@
                                       i == 1 and menu or i == 13 and _G['modui_actionbutton'..(i - 12)] or i == 37 and _G['modui_actionbutton'..(i - 24)] or _G['modui_actionbutton'..(i - 1)],
                                      (i == 1 or i == 13 or i == 37) and 'TOPLEFT' or 'BOTTOMRIGHT',
                                       i == 1 and 50 or (i == 13 or i == 37) and 0 or 6,
-                                      i == 1 and -250 or i == 13 and 10 or i == 37 and 8 or 0)
+                                      i == 1 and -280 or i == 13 and 10 or i == 37 and 8 or 0)
             end
         end
     end
@@ -78,6 +78,15 @@
     _G[menu.keydown:GetName()..'Text']:SetPoint('LEFT', menu.keydown, 'RIGHT', 4, 0)
     _G[menu.keydown:GetName()..'Text']:SetText'Cast on Downward Keypress (Recommended for Faster Skill-Casts)'
 
+    menu.keydown.selfcast = CreateFrame('CheckButton', 'modui_optionskeypressself', menu, 'UICheckButtonTemplate')
+    menu.keydown.selfcast:SetHeight(20) menu.keydown.selfcast:SetWidth(20)
+    menu.keydown.selfcast:SetPoint('TOPLEFT', menu, 25, -205)
+    menu.keydown.selfcast:Hide()
+    _G[menu.keydown.selfcast:GetName()..'Text']:SetJustifyH'LEFT'
+    _G[menu.keydown.selfcast:GetName()..'Text']:SetWidth(250)
+    _G[menu.keydown.selfcast:GetName()..'Text']:SetPoint('LEFT', menu.keydown.selfcast, 'RIGHT', 4, 0)
+    _G[menu.keydown.selfcast:GetName()..'Text']:SetText'Cast Spells on Self with Alt + [Keybind]'
+
     menu.keydown.title = menu.keydown:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
     menu.keydown.title:SetTextColor(colour.r, colour.g, colour.b)
     menu.keydown.title:SetPoint('TOPLEFT', menu, 30, -165)
@@ -110,11 +119,12 @@
         for i = 1, 60 do _G['modui_actionbutton'..i]:Show() end
         menu.actionlayout:Show()
         menu.keydown:Show()
-        menu.reload:SetPoint('TOP', menu, 0, -295)
+        menu.keydown.selfcast:Show()
+        menu.reload:SetPoint('TOP', menu, 0, -325)
         if  menu.reload:IsShown() then
-            menu:SetHeight(340)
+            menu:SetHeight(370)
         else
-            menu:SetHeight(280)
+            menu:SetHeight(310)
         end
     end)
 
