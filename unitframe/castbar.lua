@@ -9,7 +9,7 @@
     local parent = CreateFrame('Frame', 'modCastbarParent', UIParent)
     parent:SetWidth(142)
     parent:SetHeight(8)
-    parent:SetPoint('TOP', TargetFrame, 'BOTTOM', -38, -2)
+    parent:SetPoint('TOP', TargetFrame, 'BOTTOM', -38, -22)
     parent:SetMovable(true)
     parent:EnableMouse(true)
     parent:RegisterForDrag'LeftButton'

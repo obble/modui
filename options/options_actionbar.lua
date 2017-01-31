@@ -138,6 +138,16 @@
         end
     end)
 
+    menu.keydown.selfcast:SetScript('OnClick', function()
+        if this:GetChecked() == 1 then
+             _G['modui_vars'].db['modKeyDownSelf'] = 1
+            MODUI_VARS['modKeyDownSelf'] = 1
+        else
+            _G['modui_vars'].db['modKeyDownSelf'] = 0
+            MODUI_VARS['modKeyDownSelf'] = 0
+        end
+    end)
+
     local f = CreateFrame'Frame'
     f:RegisterEvent'PLAYER_ENTERING_WORLD'
     f:SetScript('OnEvent', function()
@@ -145,6 +155,8 @@
         if cv == 1 then menu.actionlayout:SetValue(1) else menu.actionlayout:SetValue(0) end
         cv = _G['modui_vars'].db['modKeyDown']
         if cv == 1 then menu.keydown:SetChecked(true) else menu.keydown:SetChecked(false) end
+        cv = _G['modui_vars'].db['modKeyDownSelf']
+        if cv == 1 then menu.keydown.selfcast:SetChecked(true) else menu.keydown.selfcast:SetChecked(false) end
     end)
 
 
