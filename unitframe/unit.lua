@@ -52,8 +52,8 @@
 
     TargetFrame.Rare = TargetFrameTextureFrame:CreateTexture(nil, 'BORDER')
     TargetFrame.Rare:SetTexture[[Interface\AddOns\modui\unitframe\UI-TargetingFrame-Rare-Elite]]
-    TargetFrame.Rare:SetWidth(124)
-    TargetFrame.Rare:SetHeight(124)
+    TargetFrame.Rare:SetWidth(128)
+    TargetFrame.Rare:SetHeight(128)
     TargetFrame.Rare:SetPoint('TOPRIGHT', TargetFrame, 0, 0)
     TargetFrame.Rare:Hide()
 
