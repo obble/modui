@@ -46,7 +46,7 @@
     GameTooltipStatusBar:SetPoint('LEFT', GameTooltipStatusBar:GetParent(), 10, 0)
     GameTooltipStatusBar:SetPoint('RIGHT', GameTooltipStatusBar:GetParent(), -10, 0)
     GameTooltipStatusBar:SetPoint('TOP', GameTooltipStatusBar:GetParent(), 'BOTTOM', 0, 17)
-    GameTooltipStatusBar:SetFrameLevel(GameTooltipStatusBar:GetFrameLevel() + 2)
+    GameTooltipStatusBar:SetFrameLevel(GameTooltipStatusBar:GetFrameLevel() + 4)
 
     GameTooltipHeaderText:SetFont(STANDARD_TEXT_FONT, 13)
     GameTooltipHeaderText:SetShadowOffset(.7, -.7)
@@ -139,7 +139,7 @@
                 local t = gsub(n, 'Level (.+) (.+) (.+)', '%2')
                 if t then colour = RAID_CLASS_COLORS[string.upper(t)] end
             end
-            if c ~= 'normal' and c ~= 'minus' then
+            if  c ~= 'normal' and c ~= 'minus' then
                 local t = gsub(n, 'Level (.+) ((.+))', '%1')
                 local classification = c == 'elite' and '(Elite)' or c == 'rare' and '(Rare)' or c == 'rareelite' and '(Rare Elite)' or '(Boss)'
                 GameTooltipTextLeft2:SetText('Level '..t..' '..classification)
