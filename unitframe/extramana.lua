@@ -51,6 +51,9 @@
     end
 
     local OnEvent = function()
+        if event == 'PLAYER_AURAS_CHANGED' then
+            if not PlayerFrame.ExtraManaBar:IsShown() then return end
+        end
         if  f.loaded and UnitPowerType'player' ~= 0 then
             PlayerFrame.ExtraManaBar:Show()
         else
