@@ -37,14 +37,19 @@
     }
 
     local UpdateHotkeys = function(actionButtonType)
+        if not actionButtonType then actionButtonType = 'ACTIONBUTTON' end
         local ho = _G[this:GetName()..'HotKey']
-        local text = ho:GetText()
-        if text then
+        local text = GetBindingText(GetBindingKey(actionButtonType..this:GetID()), 'KEY_', 1)
+        if text == '' then
+            ho:Hide()
+        else
             for k, v in pairs(replacements) do
                 text = gsub(text, k, v)
             end
             ho:SetText(text)
+            ho:SetTextHeight(12)
             ho:SetDrawLayer'OVERLAY'
+            ho:Show()
         end
     end
 
