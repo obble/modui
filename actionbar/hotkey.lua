@@ -37,8 +37,9 @@
     }
 
     local UpdateHotkeys = function(actionButtonType)
+        if not actionButtonType then actionButtonType = 'ACTIONBUTTON' end
         local ho = _G[this:GetName()..'HotKey']
-        local text = ho:GetText()
+        local text = GetBindingText(GetBindingKey(actionButtonType..this:GetID()), 'KEY_', 1)
         if text then
             for k, v in pairs(replacements) do
                 text = gsub(text, k, v)
