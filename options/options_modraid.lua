@@ -36,7 +36,6 @@
             local db = _G['modui_vars'].db
             if 	bu then
                 local x, y = this:GetParent():GetWidth(), this:GetParent():GetHeight()
-                print(x)
                 bu:SetWidth(x)
                 bu:SetHeight(y)
                 db['modRaidX'], db['modRaidY'] = x, y	-- save as cvar
@@ -64,15 +63,6 @@
     menu.modraid.frame:SetBackdropColor(0, 0, 0, 1)
     menu.modraid.frame:SetPoint('TOP', menu, 0, -170)
     menu.modraid.frame:Hide()
-
-    menu.modraid.frame.sizer = CreateFrame('Button', nil, menu.modraid.frame)
-    menu.modraid.frame.sizer:SetWidth(16)
-    menu.modraid.frame.sizer:SetHeight(16)
-    menu.modraid.frame.sizer:SetPoint('BOTTOMRIGHT', -1, 1)
-    menu.modraid.frame.sizer:SetNormalTexture[[Interface\Addons\modui\raid\sizer.tga]]
-    menu.modraid.frame.sizer:SetPushedTexture''
-    menu.modraid.frame.sizer:SetHighlightTexture''
-    menu.modraid.frame.sizer:RegisterForClicks'AnyUp'
 
     menu.modraid.frame.hp = CreateFrame('StatusBar', nil, menu.modraid.frame)
     menu.modraid.frame.hp:SetMinMaxValues(0, 100)
@@ -103,6 +93,15 @@
     menu.modraid.frametext:SetJustifyH'RIGHT'
     menu.modraid.frametext:SetText'Drag The Bottom-Right Corner of this Frame to Resize Raid Units.'
     menu.modraid.frametext:Hide()
+
+    menu.modraid.frame.sizer = CreateFrame('Button', nil, menu.modraid.frame.hp)
+    menu.modraid.frame.sizer:SetWidth(16)
+    menu.modraid.frame.sizer:SetHeight(16)
+    menu.modraid.frame.sizer:SetPoint('BOTTOMRIGHT', menu.modraid.frame, -1, 1)
+    menu.modraid.frame.sizer:SetNormalTexture[[Interface\Addons\modui\raid\sizer.tga]]
+    menu.modraid.frame.sizer:SetPushedTexture''
+    menu.modraid.frame.sizer:SetHighlightTexture''
+    menu.modraid.frame.sizer:RegisterForClicks'AnyUp'
 
     menu.modraid.frame.sizer:SetScript('OnMouseDown', function(self)
         this:SetButtonState('PUSHED', true)
