@@ -79,9 +79,6 @@
         health.new:SetStatusBarTexture(TEXTURE)
         health.new:SetFrameLevel(1)
 
-        local r, g, b = health:GetStatusBarColor()
-        health.new:SetStatusBarColor(r, g, b)
-        
         border:SetVertexColor(.2, .2, .2)
         border:SetDrawLayer'OVERLAY'
 
@@ -199,6 +196,12 @@
         local min, max = health:GetMinMaxValues()
         health.new:SetMinMaxValues(min, max)
         health.new:SetValue(health:GetValue())
+    end
+
+    local addColour = function(plate)
+        local health  = plate:GetChildren()
+        local r, g, b = health:GetStatusBarColor()
+        health.new:SetStatusBarColor(r, g, b)
     end
 
     local addClass = function(plate)    -- CLASS COLOUR
@@ -374,7 +377,7 @@
                 if isPlate(plate) and plate:IsVisible() then
                     local _, _, name = plate:GetRegions()
                     if not plate.skinned then modPlate(plate) end
-                    addSize(plate) addValue(plate) addClass(plate) addCP(plate) addCast(plate) addHeal(plate) addBuff(plate) addPvP(plate) addTotem(plate)
+                    addSize(plate) addValue(plate) addColour(plate) addClass(plate) addCP(plate) addCast(plate) addHeal(plate) addBuff(plate) addPvP(plate) addTotem(plate)
                 end
             end
         end
