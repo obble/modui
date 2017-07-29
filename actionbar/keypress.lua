@@ -18,15 +18,15 @@
 			modSkinColor(this, 255/255, 240/255, 0/255) 	-- see how this looks
 		end
 		if this.keypress and modSkinned(this) then
-			local i = nutime - this.keypress
-			modSkinColor(this, .075/i, .05/i, .025/i)
+			local i = (nutime - this.keypress)*5
+			modSkinColor(this, .3*i, .3*i, .3*i)
 		end
 		if this.checked and not this:GetChecked() then
-			modSkinColor(this, .2, .2, .2)
+			modSkinColor(this, .7, .7, .7)
 			this.checked = nil
 		end
 		if this.keypress and nutime > (this.keypress + .4) then
-			modSkinColor(this, .2, .2, .2)
+			modSkinColor(this, .7, .7, .7)
 			this.keypress = nil
 		end
 	end
@@ -38,7 +38,7 @@
 			if active then
 				modSkinColor(bu, 255/255, 240/255, 0/255)
 			else
-				modSkinColor(bu, .2, .2, .2)
+				modSkinColor(bu, .7, .7, .7)
 			end
 		end
 	end
@@ -71,7 +71,7 @@
 			if active then
 				modSkinColor(bu, 255/255, 240/255, 0/255)
 			else
-				modSkinColor(bu, .2, .2, .2)
+				modSkinColor(bu, .7, .7, .7)
 			end
 		end
 	end

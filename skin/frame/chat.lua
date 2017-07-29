@@ -8,11 +8,10 @@
     function FCF_SetWindowAlpha(f, a, dontsave)
         orig.FCF_SetWindowAlpha(f, a, dontsave)
         local v = _G[f:GetName()..'ResizeTopLeftTexture']:GetAlpha()
-        if not modSkinned(f) then
-            modSkin(f, 18)
-            modSkinPadding(f, 6, 6, 6, 6, 6, 10, 6, 10)
+        if  not modSkinned(f) then
+            modSkin(f, -4)
         end
-        modSkinColor(f, .2, .2, .2, v) modSkinShadowColor(f, .2, .2, .2, v)
+        modSkinColor(f, .7, .7, .7, v)
     end
 
     function FCF_OnUpdate(elapsed)

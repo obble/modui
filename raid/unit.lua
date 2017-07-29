@@ -9,9 +9,19 @@
     local xx = 4
     local bu = {}
     local a_offset, y_offset = 0, 0
+    local cursed = {}
+
     local roster = {
         [1] = {}, [2] = {}, [3] = {}, [4] = {},
         [5] = {}, [6] = {}, [7] = {}, [8] = {},
+    }
+
+    local decurse = {
+        ['MAGE']    = 'Remove Curse',
+        ['DRUID']   = 'Remove Curse',
+        ['DRUID']   = 'Remove Poison',
+        ['PRIEST']  = 'Dispel',
+        ['SHAMAN']  = 'Cleanse',
     }
 
     local showdebuffs = false                   -- TOGGLE DEBUFF ICONS
@@ -100,16 +110,18 @@
         local _, _, dtype = UnitDebuff(this.unit, 1, 1)
         local lastfound = 1
 
-        if dtype then
+        if  dtype then
             local colour = DebuffTypeColor[dtype]
             modSkinColor(this, colour.r, colour.g, colour.b)
+            tinsert(cursed, this.unit)
         else
-            modSkinColor(this, .2, .2, .2)
+            modSkinColor(this, .7, .7, .7)
+            if cursed[this.unit] then tremove(cursed, this.unit) end
         end
 
         for i = 1, 2 do
             local texture, _, dtype = UnitDebuff(this.unit, i)
-            if texture and showdebuffs then
+            if  texture and showdebuffs then
                 local colour = DebuffTypeColor[dtype] or DebuffTypeColor['none']
                 this.debuffs[i]:SetTexture(texture)
                 this.debuffs[i]:Show()
@@ -120,6 +132,24 @@
                 this.debuffs[i]:Hide()
                 this.debuffs[i].border:Hide()
             end
+        end
+    end
+
+    local Decurse = function(unit)
+        local class  = UnitClass'player'
+        local target
+        -- target player
+        -- castspellbyname
+        -- retarget og. target if exists
+        if  UnitExists'target' then
+            target = UnitName'target'   -- might need to be id instead
+        end
+
+        if decurse[class] then CastSpellByName(decurse[class]) end
+
+        if  target ~= nil then
+            TargetUnitByName(target)  -- target by name?
+            target  = nil
         end
     end
 
@@ -340,9 +370,8 @@
             bu[i]:SetFrameLevel(0)
             bu[i]:Hide()
 
-            modSkin(bu[i], 17.5)
-            modSkinPadding(bu[i], 2)
-            modSkinColor(bu[i], .2, .2, .2)
+            modSkin(bu[i])
+            modSkinColor(bu[i], .7, .7, .7)
 
             bu[i].hp = CreateFrame('StatusBar', nil, bu[i])
             bu[i].hp:SetFrameLevel(0)
@@ -412,9 +441,8 @@
             bu[i].aura.icon:SetAllPoints()
             bu[i].aura.icon:SetAlpha(.7)
 
-            modSkin(bu[i].aura, 12.5)
-            modSkinPadding(bu[i].aura, 2)
-            modSkinColor(bu[i].aura, .2, .2, .2)
+            modSkin(bu[i].aura, 4)
+            modSkinColor(bu[i].aura, .7, .7, .7)
 
             bu[i].debuffs = {}
 
@@ -441,7 +469,11 @@
             bu[i]:SetScript('OnEvent',  function() debuffs(arg1) end)
             bu[i]:SetScript('OnClick',  function()
                 if  arg1 == 'RightButton' then
-                    ToggleTank(this.unit)
+                    --if  cursed[this.unit] then
+                        --Decurse(this.unit)
+                    --else
+                        ToggleTank(this.unit)
+                    --end
                 else
                     if  CursorHasItem() then
                         DropItemOnUnit(this.unit)

@@ -7,22 +7,24 @@
 
     for i = 0, 23 do                    -- AURA
         local bu = _G['BuffButton'..i]
+        local ic = _G['BuffButton'..i..'Icon']
         local du = _G['BuffButton'..i..'Duration']
         bu:SetNormalTexture''
-        modSkin(bu, 16)
-        modSkinPadding(bu, 2)
-        modSkinColor(bu, .2, .2, .2)
+        ic:SetTexCoord(.1, .9, .1, .9)
+        modSkin(bu, .25)
+        modSkinColor(bu, .7, .7, .7)
         du:ClearAllPoints() du:SetPoint('CENTER', bu, 'BOTTOM', 2, -9)
     end
 
     for i = 1, 2 do
         local bu = _G['TempEnchant'..i]
+        local ic = _G['TempEnchant'..i..'Icon']
         local bo = _G['TempEnchant'..i..'Border']
         local du = _G['TempEnchant'..i..'Duration']
         bu:SetNormalTexture''
+        ic:SetTexCoord(.1, .9, .1, .9)
         bo:SetTexture''
-        modSkin(bu, 16)
-        modSkinPadding(bu, 2)
+        modSkin(bu, 1)
         modSkinColor(bu, 1, 0, 1)
         du:SetJustifyH'LEFT'
         du:ClearAllPoints() du:SetPoint('CENTER', bu, 'BOTTOM', 2, -9)
@@ -32,9 +34,10 @@
         orig.BuffButton_Update()
         local name = this:GetName()
         local d = _G[name..'Border']
-        if d then
+        if  d then
             local r, g, b = d:GetVertexColor()
-            modSkinColor(this, r*.7, g*.7, b*.7)
+            modSkinColor(this, r*1.5, g*1.5, b*1.5)
+            d:SetAlpha(0)
         end
     end
 

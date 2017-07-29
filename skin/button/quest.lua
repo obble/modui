@@ -6,9 +6,8 @@
         if bu then
             local f = CreateFrame('Frame', nil, bu)
             f:SetAllPoints(ic)
-            modSkin(f, 18)
-            modSkinPadding(f, 2)
-            modSkinColor(f, .2, .2, .2)
+            modSkin(f, 1)
+            modSkinColor(f, .7, .7, .7)
         end
     end
 
@@ -18,9 +17,8 @@
         if bu then
             local f = CreateFrame('Frame', nil, bu)
             f:SetAllPoints(ic)
-            modSkin(f, 18)
-            modSkinPadding(f, 2)
-            modSkinColor(f, .2, .2, .2)
+            modSkin(f, 1)
+            modSkinColor(f, .7, .7, .7)
         end
     end
 
@@ -30,9 +28,8 @@
         if bu then
             local f = CreateFrame('Frame', nil, bu)
             f:SetAllPoints(ic)
-            modSkin(f, 18)
-            modSkinPadding(f, 2)
-            modSkinColor(f, .2, .2, .2)
+            modSkin(f, 1)
+            modSkinColor(f, .7, .7, .7)
         end
     end
 
@@ -42,9 +39,8 @@
         if bu then
             local f = CreateFrame('Frame', nil, bu)
             f:SetAllPoints(ic)
-            modSkin(f, 18)
-            modSkinPadding(f, 2)
-            modSkinColor(f, .2, .2, .2)
+            modSkin(f, 1)
+            modSkinColor(f, .7, .7, .7)
         end
     end
 
@@ -53,9 +49,8 @@
     if sk then
         local f = CreateFrame('Frame', nil, sk)
         f:SetAllPoints(ski)
-        modSkin(f, 18)
-        modSkinPadding(f, 2)
-        modSkinColor(f, .2, .2, .2)
+        modSkin(f, 1)
+        modSkinColor(f, .7, .7, .7)
     end
 
     local sp  = _G['QuestInfoRewardSpell']     -- SPELL POINT
@@ -63,9 +58,8 @@
     if sp then
     	local f = CreateFrame('Frame', nil, sp)
     	f:SetAllPoints(spi)
-        modSkin(f, 18)
-        modSkinPadding(f, 2)
-        modSkinColor(f, .2, .2, .2)
+        modSkin(f, 1)
+        modSkinColor(f, .7, .7, .7)
     end
 
     local t  = _G['QuestInfoTalentFrame']      -- TALENT POINT
@@ -73,9 +67,8 @@
     if t then
         local f = CreateFrame('Frame', nil, t)
         f:SetAllPoints(ti)
-        modSkin(f, 18)
-        modSkinPadding(f, 2)
-        modSkinColor(f, .2, .2, .2)
+        modSkin(f, 1)
+        modSkinColor(f, .7, .7, .7)
     end
 
     --

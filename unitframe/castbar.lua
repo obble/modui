@@ -9,9 +9,9 @@
     local parent = CreateFrame('Frame', 'modCastbarParent', UIParent)
     parent:SetWidth(142)
     parent:SetHeight(8)
-    parent:SetPoint('TOP', TargetFrame, 'BOTTOM', -38, -22)
-    parent:SetMovable(true)
-    parent:EnableMouse(true)
+    parent:SetPoint('TOP', TargetFrame, 'BOTTOM', -11, -28)
+    --parent:SetMovable(true)
+    --parent:EnableMouse(true)
     parent:RegisterForDrag'LeftButton'
     parent:SetBackdrop({bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
 							 insets = {left = -1, right = -1, top = -1, bottom = -1}})
@@ -49,13 +49,11 @@
     local ic = CreateFrame('Frame', nil, TargetFrame.cast)
     ic:SetAllPoints(TargetFrame.cast.icon)
 
-    modSkin(TargetFrame.cast, 12)
-    modSkinPadding(TargetFrame.cast, 2, 2, 2, 2, 2, 3, 2, 3)
-    modSkinColor(TargetFrame.cast, .2, .2, .2)
+    modSkin(TargetFrame.cast)
+    modSkinColor(TargetFrame.cast, .7, .7, .7)
 
-    modSkin(ic, 13.5)
-    modSkinPadding(ic, 3)
-    modSkinColor(ic, .2, .2, .2)
+    modSkin(ic, -1)
+    modSkinColor(ic, .7, .7, .7)
 
     local getTimerLeft = function(tEnd)
         local t = tEnd - GetTime()

@@ -8,7 +8,7 @@
     local db
 
     local highlight = function()
-        if modSkinned(this) then
+        if  modSkinned(this) then
             for _, v in pairs({modui_optionsactionbar, modui_display, modui_status, modui_elements, modui_colour, modui_optionsmodraid}) do modSkinColor(v, .2, .2, .2) end
             modSkinColor(this, 1, .8, 0)
         end

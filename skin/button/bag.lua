@@ -2,24 +2,21 @@
 
     local orig = {}
 
-    modSkin(MainMenuBarBackpackButton, 22)
-    modSkinPadding(MainMenuBarBackpackButton, 2)
-    modSkinColor(MainMenuBarBackpackButton, .2, .2, .2)
+    modSkin(MainMenuBarBackpackButton, 1)
+    modSkinColor(MainMenuBarBackpackButton, .7, .7, .7)
 
     for i = 0, 3 do
         local bu = _G['CharacterBag'..i..'Slot']
-        modSkin(bu, 18)
-        modSkinPadding(bu, 2)
-        modSkinColor(bu, .2, .2, .2)
+        modSkin(bu, 1)
+        modSkinColor(bu, .7, .7, .7)
     end
 
     for i = 1,12 do                    -- BAG
         for k = 1, MAX_CONTAINER_ITEMS do
             local bu = _G['ContainerFrame'..i..'Item'..k]
             local cd = _G['ContainerFrame'..i..'Item'..k..'Cooldown']
-            modSkin(bu, 18)
-            modSkinPadding(bu, 2)
-            modSkinColor(bu, .2, .2, .2)
+            modSkin(bu, 1)
+            modSkinColor(bu, .7, .7, .7)
             cd:SetFrameLevel(bu:GetFrameLevel() + 1) cd:SetFrameStrata'HIGH'
         end
     end
@@ -32,7 +29,7 @@
             for i = 1, MAX_CONTAINER_ITEMS do
                 local bu = _G[name..'Item'..i]
                 local link = GetContainerItemLink(id, bu:GetID())
-                modSkinColor(bu, .2, .2, .2)
+                modSkinColor(bu, .7, .7, .7)
                 if bu and bu:IsShown() and link then
                     local _, _, istring         = string.find(link, '|H(.+)|h')
                     local n, _, q, _, _, type   = GetItemInfo(istring)

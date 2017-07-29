@@ -25,10 +25,15 @@
         v:Hide()
     end
 
-    MiniMapTrackingFrame:SetScale(.8)
     MiniMapTrackingFrame:SetFrameStrata'MEDIUM'
     MiniMapTrackingFrame:ClearAllPoints()
-    MiniMapTrackingFrame:SetPoint('BOTTOM', -3, -2)
+    MiniMapTrackingFrame:SetPoint('BOTTOM', -19, -19)
+    MiniMapTrackingFrame:SetScript('OnShow', function()
+        GameTimeFrame:ClearAllPoints() GameTimeFrame:SetPoint('BOTTOM', 33, 8)
+    end)
+    MiniMapTrackingFrame:SetScript('OnHide', function()
+        GameTimeFrame:ClearAllPoints() GameTimeFrame:SetPoint('BOTTOM', 12, 10)
+    end)
 
     MiniMapMailFrame:ClearAllPoints()
     MiniMapMailFrame:SetPoint('TOPRIGHT', 0, -10)
@@ -36,7 +41,7 @@
     MinimapZoneText:ClearAllPoints()
     MinimapZoneText:SetPoint('TOP', Minimap, 0, 17)
 
-    GameTimeFrame:SetScale(.7)
+    GameTimeFrame:SetScale(.76)
     GameTimeFrame:ClearAllPoints() GameTimeFrame:SetPoint('BOTTOM', 12, 10)
 
     --

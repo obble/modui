@@ -8,9 +8,8 @@
             _G['MultiBarBottomLeftButton'..i],
             _G['MultiBarBottomRightButton'..i],
             _G['BonusActionButton'..i],}) do
-            modSkin(v, 18)
-            modSkinPadding(v, 2)
-            modSkinColor(v, .2, .2, .2)
+            modSkin(v, 1)
+            modSkinColor(v, .7, .7, .7)
             v:GetPushedTexture():SetTexture''
             v:GetCheckedTexture():SetTexture''
         end
@@ -44,17 +43,15 @@
 
     for i = 1, 10 do
         local bu = _G['ShapeshiftButton'..i]
-        modSkin(bu, 16)
-        modSkinPadding(bu, 2)
-        modSkinColor(bu, .2, .2, .2)
+        modSkin(bu, 1)
+        modSkinColor(bu, .7, .7, .7)
         bu:GetNormalTexture():SetTexture''
         bu:GetPushedTexture():SetTexture''
         bu:GetCheckedTexture():SetTexture''
 
         local bu = _G['PetActionButton'..i]
-        modSkin(bu, 16)
-        modSkinPadding(bu, 2)
-        modSkinColor(bu, .2, .2, .2)
+        modSkin(bu, 1)
+        modSkinColor(bu, .7, .7, .7)
         bu:GetNormalTexture():SetTexture''
         bu:GetPushedTexture():SetTexture''
         bu:GetCheckedTexture():SetTexture''
@@ -67,15 +64,14 @@
     end
 
     local bu = modmenu
-    modSkin(bu, 18)
-    modSkinPadding(bu, 4)
-    modSkinColor(bu, .2, .2, .2)
+    modSkin(bu, 1)
+    modSkinColor(bu, .7, .7, .7)
 
     bu:SetScript('OnEnter', function()
         if not _G['modui_options']:IsShown() then modSkinColor(bu, 1, 175/255, 155/255) end
     end)
     bu:SetScript('OnLeave', function()
-        if not _G['modui_options']:IsShown() then modSkinColor(bu, .2, .2, .2) end
+        if not _G['modui_options']:IsShown() then modSkinColor(bu, .7, .7, .7) end
     end)
 
     --

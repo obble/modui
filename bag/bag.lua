@@ -83,7 +83,7 @@
 			bu:SetFrameStrata'HIGH'
 			bu:SetFrameLevel(6)
 			bu:ClearAllPoints()
-			bu:SetPoint('TOPLEFT', frame, col*(ButtonSize + ButtonSpacing) + 7, -1*row*(ButtonSize + ButtonSpacing) - 88)
+			bu:SetPoint('TOPLEFT', frame, col*(ButtonSize + ButtonSpacing) + 7, -1*row*(ButtonSize + ButtonSpacing) - 58)
 
 				-- bg art
 			if not bu.bg then
@@ -101,7 +101,7 @@
 			end
 		end
 
-		frame:SetHeight((row + (col == 0 and 0 or 1))*(ButtonSize + ButtonSpacing) + 110)
+		frame:SetHeight((row + (col == 0 and 0 or 1))*(ButtonSize + ButtonSpacing) + 66)
 		frame:SetWidth(columns*ButtonSize + ButtonSpacing*(columns - 1) - 2)
 		col, row = 0, 0
 	end
@@ -116,19 +116,18 @@
 
 	bagContainer.freespace = CreateFrame('StatusBar', 'modbag_inventory_space', bagContainer)
 	bagContainer.freespace:SetStatusBarTexture(TEXTURE)
-	bagContainer.freespace:SetHeight(8)
-	bagContainer.freespace:SetPoint('TOPLEFT', 8, -74)
-	bagContainer.freespace:SetPoint('TOPRIGHT', -10, -74)
+	bagContainer.freespace:SetHeight(3)
+	bagContainer.freespace:SetPoint('TOPLEFT', 58, -42)
+	bagContainer.freespace:SetPoint('TOPRIGHT', -12, -42)
 	bagContainer.freespace:SetBackdrop(BACKDROP)
 	bagContainer.freespace:SetBackdropColor(0, 0, 0)
 	bagContainer.freespace:SetMinMaxValues(0, 1)
 	bagContainer.freespace:SetValue(0)
-	modSkin(bagContainer.freespace, 12)
-    modSkinPadding(bagContainer.freespace, 2, 2, 2, 2, 2, 3, 2, 3)
-    modSkinColor(bagContainer.freespace, .2, .2, .2)
+	modSkin(bagContainer.freespace, -2)
+    modSkinColor(bagContainer.freespace, .7, .7, .7)
 
 	bagContainer.freespace.title = bagContainer.freespace:CreateFontString(nil, 'OVERLAY', 'GameFontHighlightSmall')
-	bagContainer.freespace.title:SetPoint('BOTTOMLEFT', bagContainer.freespace, 'TOPLEFT', 2, 4)
+	bagContainer.freespace.title:SetPoint('BOTTOMLEFT', bagContainer.freespace, 'TOPLEFT', 0, 4)
 	bagContainer.freespace.title:SetText'Free Space:'
 
 	bagContainer:SetClampedToScreen(true)
@@ -178,15 +177,21 @@
 	local money = ContainerFrame1MoneyFrame
 	money:SetParent(Container)
 	money:ClearAllPoints()
-	money:SetPoint('BOTTOMRIGHT', Container, -9, 5)
+	money:SetPoint('TOPLEFT', Container, 62, -7)
 	money:SetFrameStrata'DIALOG'
 	money:SetFrameLevel(4)
+	money:SetScale(.9)
 	BankFrameMoneyFrame:Hide()
 
 		-- KEYRING
+	KeyRingButton:SetWidth(39)
+	KeyRingButton:SetHeight(18)
 	KeyRingButton:SetParent(bagContainer)
-	KeyRingButton:ClearAllPoints() KeyRingButton:SetPoint('TOPRIGHT', bagContainer, -10, -25)
+	KeyRingButton:ClearAllPoints() KeyRingButton:SetPoint('TOPRIGHT', bagContainer, -28, -2)
 	KeyRingButton:SetFrameLevel(7)
+	KeyRingButton:GetNormalTexture():SetTexCoord(.61,0,0,0,.61,.59,0,.59)
+	KeyRingButton:GetPushedTexture():SetTexCoord(.61,0,0,0,.61,.59,0,.59)
+	KeyRingButton:SetHighlightTexture''
 
 
 		-- SET-UP BAG
@@ -252,7 +257,7 @@
 			bankContainer:SetHeight(cachedBankHeight)
 		end
 
-		if GetNumBankSlots() > 0 then
+		if  GetNumBankSlots() > 0 then
 			local bagHeight, bagWidth = bagContainer:GetHeight(), bagContainer:GetWidth()
 			local bankHeight, bankWidth = bankContainer:GetHeight(), bankContainer:GetWidth()
 

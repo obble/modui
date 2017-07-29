@@ -12,9 +12,8 @@
                 local bu = _G['TalentFrameTalent'..i]
                 local sl = _G['TalentFrameTalent'..i..'Slot']
                 local rb = _G['TalentFrameTalent'..i..'RankBorder']
-                modSkin(bu, 16)
-                modSkinPadding(bu, 2)
-                modSkinColor(bu, .2, .2, .2)
+                modSkin(bu, 1)
+                modSkinColor(bu, .7, .7, .7)
                 sl:SetAlpha(0)
                 rb:SetPoint('TOP', bu, 'BOTTOM', 0, 8)
             end
@@ -28,7 +27,7 @@
                     if  decimal_round(r, 1) ~= .5 then
                         modSkinColor(bu, r, g, b)
                     else
-                        modSkinColor(bu, .2, .2, .2)
+                        modSkinColor(bu, .7, .7, .7)
                     end
                 end
             end

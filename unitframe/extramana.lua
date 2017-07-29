@@ -14,7 +14,7 @@
     PlayerFrame.ExtraManaBar = CreateFrame('StatusBar', 'ExtraManaBar', PlayerFrame)
     PlayerFrame.ExtraManaBar:SetWidth(100)
     PlayerFrame.ExtraManaBar:SetHeight(10)
-    PlayerFrame.ExtraManaBar:SetPoint('TOP', PlayerFrame, 'BOTTOM', 50, 35)
+    PlayerFrame.ExtraManaBar:SetPoint('TOP', PlayerFrame, 'BOTTOM', 50, 37)
     PlayerFrame.ExtraManaBar:SetStatusBarTexture(TEXTURE)
     PlayerFrame.ExtraManaBar:SetStatusBarColor(ManaBarColor[0].r, ManaBarColor[0].g, ManaBarColor[0].b)
     PlayerFrame.ExtraManaBar:SetBackdrop(BACKDROP)
@@ -29,9 +29,8 @@
         PlayerFrame:Click(bu)
     end)
 
-    modSkin(PlayerFrame.ExtraManaBar, 12)
-    modSkinPadding(PlayerFrame.ExtraManaBar, 2, 2, 2, 2, 2, 2, 2, 2)
-    modSkinColor(PlayerFrame.ExtraManaBar, .2, .2, .2)
+    modSkin(PlayerFrame.ExtraManaBar, 1)
+    modSkinColor(PlayerFrame.ExtraManaBar, .7, .7, .7)
 
     local OnUpdate = function()
         DruidManaLib:MaxManaScript()

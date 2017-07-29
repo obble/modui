@@ -8,9 +8,8 @@
     	'Back', 'MainHand', 'SecondaryHand', 'Ranged', 'Tabard',}
     for i,v in pairs(items) do
         local bu =  _G['Character'..v..'Slot']
-        modSkin(bu, 18)
-        modSkinPadding(bu, 2)
-        modSkinColor(bu, .2, .2, .2)
+        modSkin(bu, 1)
+        modSkinColor(bu, .7, .7, .7)
         bu:SetNormalTexture''
     end
 
@@ -22,7 +21,7 @@
                 local r, g, b = GetItemQualityColor(q)
                 modSkinColor(bu, r, g, b)
             else
-                modSkinColor(bu, .2, .2, .2)
+                modSkinColor(bu, .7, .7, .7)
             end
         end
     end

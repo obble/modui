@@ -94,14 +94,6 @@
         table.insert(MODUI_COLOURELEMENTS_FOR_UI, v)
     end
 
-    ItemTextFrame.Material = ItemTextFrame:CreateTexture(nil, 'OVERLAY', nil, 7)
-    ItemTextFrame.Material:SetTexture[[Interface\AddOns\modui\dark\quest\QuestBG.tga]]
-    ItemTextFrame.Material:SetWidth(510)
-    ItemTextFrame.Material:SetHeight(525)
-    ItemTextFrame.Material:SetPoint('TOPLEFT', ItemTextFrame, 26, -80)
-    ItemTextFrame.Material:SetVertexColor(.7, .7, .7)
-
-
         -- HELP
     local a, b, c, d, e, f, g = HelpFrame:GetRegions()
     for _, v in pairs({a, b, c, d, e, f, g}) do
@@ -350,12 +342,14 @@
         end
         if IsAddOnLoaded'Postal' then                   -- POSTAL
             local bu = _G['PostalButton1'] or _G['PostalAttachment1']
-            bu:SetScript('OnShow', function()
-                if MailFrame.Material:IsShown() then MailFrame.Material:Hide() end
-            end)
-            bu:SetScript('OnHide', function()
-                if MailFrame:IsShown() then MailFrame.Material:Show() end
-            end)
+            if bu then
+                bu:SetScript('OnShow', function()
+                    if MailFrame.Material:IsShown() then MailFrame.Material:Hide() end
+                end)
+                bu:SetScript('OnHide', function()
+                    if MailFrame:IsShown() then MailFrame.Material:Show() end
+                end)
+            end
         end
         if IsAddOnLoaded'SW_Stats' then                 -- SWSTATS
             local _, a = SW_IconFrame_Button:GetRegions()

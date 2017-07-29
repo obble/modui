@@ -13,9 +13,8 @@
         for i, v in pairs(items) do
             local bu =  _G['Inspect'..v..'Slot']
             if bu then
-                modSkin(bu, 18)
-                modSkinPadding(bu, 2)
-                modSkinColor(bu, .2, .2, .2)
+                modSkin(bu, 1)
+                modSkinColor(bu, .7, .7, .7)
                 bu:SetNormalTexture''
             end
         end
@@ -25,7 +24,7 @@
         for i, v in pairs(items) do
             local bu =  _G['Inspect'..v..'Slot']
             local link = GetInventoryItemLink("target", i)
-            modSkinColor(bu, .2, .2, .2)
+            modSkinColor(bu, .7, .7, .7)
             if link then
                 local _, _, istring = string.find(link, '|H(.+)|h')
                 local _, _, q = GetItemInfo(istring)
@@ -33,7 +32,7 @@
                     local r, g, b = GetItemQualityColor(q)
                     modSkinColor(bu, r, g, b)
                 else
-                    modSkinColor(bu, .2, .2, .2)
+                    modSkinColor(bu, .7, .7, .7)
                 end
             end
         end

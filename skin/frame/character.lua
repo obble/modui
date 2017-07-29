@@ -13,9 +13,8 @@
     ranged:SetPoint('BOTTOMRIGHT', RangedAttackBackgroundBottom)
 
     for _, v in pairs ({stat, melee, ranged}) do
-        modSkin(v, 20)
-        modSkinPadding(v, 1)
-        modSkinColor(v, .2, .2, .2)
+        modSkin(v, 2.5)
+        modSkinColor(v, .7, .7, .7)
     end
 
     --

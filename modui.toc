@@ -71,6 +71,7 @@ skin\button\loot.lua
 skin\button\macro.lua
 skin\button\mail.lua
 skin\button\merchant.lua
+skin\button\micromenu.lua
 skin\button\party.lua
 skin\button\pd.lua
 skin\button\quest.lua
@@ -99,6 +100,8 @@ chat\event.lua
 chat\quest.lua
 
 combattext\ct.lua
+
+error\error.lua
 
 friends\friends.lua
 friends\guild.lua
@@ -138,5 +141,6 @@ unitframe\extramana.lua
 unitframe\move.lua
 unitframe\unit.lua
 unitframe\mobhealth.lua
+unitframe\mp5.lua
 unitframe\shards.lua
 unitframe\totems.lua

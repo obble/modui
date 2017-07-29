@@ -20,9 +20,8 @@
 	sw:SetBackdropColor(0, 0, 0, .8)
 	sw:Hide()
 
-	modSkin(sw, 18)
-	modSkinPadding(sw, 5)
-	modSkinColor(sw, .15, .15, .15)
+	modSkin(sw)
+	modSkinColor(sw, .7, .7, .7)
 
 	local t = sw:CreateFontString(nil, 'OVERLAY')
 	t:SetFontObject'GameFontNormalLarge'

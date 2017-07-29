@@ -43,9 +43,8 @@
     tooltip:SetOwner(WorldFrame, 'ANCHOR_NONE')
 
     for i, v in pairs({earth, fire, air, water}) do
-        modSkin(v, 16)
-        modSkinPadding(v, 2)
-        modSkinColor(v, .2, .2, .2)
+        modSkin(v, 1)
+        modSkinColor(v, .7, .7, .7)
 
         v.icon = v:CreateTexture(nil, 'ARTWORK')
         v.icon:SetAllPoints()

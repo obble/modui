@@ -5,18 +5,16 @@
     for i = 1, 28 do                    -- BANK
         local bu = _G['BankFrameItem'..i]
         if bu then
-            modSkin(bu, 22)
-            modSkinPadding(bu, 2)
-            modSkinColor(bu, .2, .2, .2)
+            modSkin(bu, 1)
+            modSkinColor(bu, .7, .7, .7)
         end
     end
 
     for i = 1, 7 do                     -- BANK BAG
         local bu = _G['BankFrameBag'..i]
         if bu then
-            modSkin(bu, 22)
-            modSkinPadding(bu, 2)
-            modSkinColor(bu, .2, .2, .2)
+            modSkin(bu, 1)
+            modSkinColor(bu, .7, .7, .7)
         end
     end
 
@@ -25,7 +23,7 @@
             local bu = _G['BankFrameItem'..i]
 		    local link = GetContainerItemLink(-1, i)
             if bu then
-            modSkinColor(bu, .2, .2, .2)
+            modSkinColor(bu, .7, .7, .7)
                 if link then
                     local _, _, istring = string.find(link, '|H(.+)|h')
                     local _, _, q = GetItemInfo(istring)

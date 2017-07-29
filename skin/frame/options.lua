@@ -10,34 +10,30 @@
         modui_elements,
         modui_elementscontainer,
     }) do
-        modSkin(v, 14.5)
-        modSkinPadding(v, -1, 0, -1, 0, -1, 2, -1, 2)
-        modSkinColor(v, .2, .2, .2)
+        modSkin(v, 3)
+        modSkinColor(v, .7, .7, .7)
     end
 
-    modSkin(modui_optionsCloseButton, 14.5)
-    modSkinPadding(modui_optionsCloseButton, -5)
-    modSkinColor(modui_optionsCloseButton, .2, .2, .2)
+    modSkin(modui_optionsCloseButton, 8)
+    modSkinColor(modui_optionsCloseButton, .7, .7, .7)
 
-    modSkin(modui_optionsraidframe, 17.5)
-    modSkinPadding(modui_optionsraidframe, 2)
-    modSkinColor(modui_optionsraidframe, .2, .2, .2)
+    modSkin(modui_optionsraidframe, 0)
+    modSkinColor(modui_optionsraidframe, .7, .7, .7)
+    modSkinDraw(modui_optionsraidframe, 'OVERLAY', 7)
 
     for i = 1, 60 do
         local bu = _G['modui_actionbutton'..i]
         if bu then
-            modSkin(bu, 7.5)
-            modSkinPadding(bu, 2)
-            modSkinColor(bu, .2, .2, .2)
+            modSkin(bu, -4)
+            modSkinColor(bu, .7, .7, .7)
         end
     end
 
     for i = 1, 2 do
         local bu = _G['modui_optionsaurabutton'..i]
         if bu then
-            modSkin(bu, 16)
-            modSkinPadding(bu, 3)
-            modSkinColor(bu, .2, .2, .2)
+            modSkin(bu, 1)
+            modSkinColor(bu, .7, .7, .7)
         end
     end
 

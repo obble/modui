@@ -105,9 +105,8 @@
         local f = CreateFrame('Button', 'TargetFrameBuff'..i, TargetFrame, 'TargetBuffButtonTemplate')
         f:SetID(i)
         f:Hide()
-        modSkin(f, 16)      -- first 6 are skinned in skin/button/target.lua
-        modSkinPadding(f, 2)
-        modSkinColor(f, .2, .2, .2)
+        modSkin(f, 1)      -- first 6 are skinned in skin/button/target.lua
+        modSkinColor(f, .7, .7, .7)
         if i == 6 then
             f:SetPoint('TOPLEFT', TargetFrameBuff1, 'BOTTOMLEFT', 0, -2)
         else

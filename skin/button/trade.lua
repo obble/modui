@@ -2,9 +2,8 @@
 
     local modI = function(bu)
         if not bu.skinned then
-            modSkin(bu, 18)
-            modSkinPadding(bu, 2)
-            modSkinColor(bu, .2, .2, .2)
+            modSkin(bu, 1)
+            modSkinColor(bu, .7, .7, .7)
             bu.skinned = true
         end
     end

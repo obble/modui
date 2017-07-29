@@ -6,10 +6,9 @@
         local n = 'PartyMemberFrame'..i
         for j = 1, 4 do
             local bu = _G[n..'Debuff'..j]
-            if bu then
-                modSkin(bu, 13.5)
-                modSkinPadding(bu, 2)
-                modSkinColor(bu, .2, .2, .2)
+            if  bu then
+                modSkin(bu, 6)
+                modSkinColor(bu, .7, .7, .7)
             end
         end
     end
@@ -17,9 +16,8 @@
     for i = 1, 3 do
         local bu = _G['PetFrameDebuff'..i]
         if bu then
-            modSkin(bu, 13.5)
-            modSkinPadding(bu, 2)
-            modSkinColor(bu, .2, .2, .2)
+            modSkin(bu, 6)
+            modSkinColor(bu, .7, .7, .7)
             if i == 1 then bu:SetPoint('TOPLEFT', 48, -46) end
         end
     end

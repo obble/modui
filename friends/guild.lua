@@ -11,7 +11,7 @@
             local text = FriendsFrame.playerStatusFrame and _G['GuildFrameButton'..i..'Class'] or _G['GuildFrameGuildStatusButton'..i..'Class']
             if  class then
                 local colour = RAID_CLASS_COLORS[strupper(class)]
-                if  colour then
+                if  colour and text then
                     if online then
                         text:SetTextColor(colour.r, colour.g, colour.b)
                     else

@@ -27,8 +27,8 @@
             end
         end
         if not f.skinned then
-            modSkin(f, 18)
-            modSkinColor(f, .2, .2, .2)
+            modSkin(f, 1)
+            modSkinColor(f, .7, .7, .7)
             f:SetBackdrop(BACKDROP)
             f:SetBackdropColor(0, 0, 0, .8)
             f.textstring:SetFont(STANDARD_TEXT_FONT, 13)

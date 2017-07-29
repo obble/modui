@@ -19,7 +19,6 @@
             end
             TargetFrame.r, TargetFrame.g, TargetFrame.b = GameTooltip_UnitColor(TargetFrame.unit)
             GameTooltipTextLeft1:SetTextColor(TargetFrame.r, TargetFrame.g, TargetFrame.b)
-            GameTooltip:AddLine' '
         end
         GameTooltip:Show()
     end
@@ -37,16 +36,23 @@
     parent:SetBackdrop({bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
 							 insets = {left = -1, right = -1, top = -1, bottom = -1}})
 
-    GameTooltipStatusBar:SetHeight(5)
     GameTooltipStatusBar:SetStatusBarTexture(sb)
-    GameTooltipStatusBar:SetBackdrop({  bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
-                                        insets = {left = -1, right = -1, top = -1, bottom = -1} })
-    GameTooltipStatusBar:SetBackdropColor(0, 0, 0, 1)
     GameTooltipStatusBar:ClearAllPoints()
-    GameTooltipStatusBar:SetPoint('LEFT', GameTooltipStatusBar:GetParent(), 10, 0)
-    GameTooltipStatusBar:SetPoint('RIGHT', GameTooltipStatusBar:GetParent(), -10, 0)
-    GameTooltipStatusBar:SetPoint('TOP', GameTooltipStatusBar:GetParent(), 'BOTTOM', 0, 17)
-    GameTooltipStatusBar:SetFrameLevel(GameTooltipStatusBar:GetFrameLevel() + 4)
+    GameTooltipStatusBar:SetPoint('TOPLEFT',   7, -7)
+    GameTooltipStatusBar:SetPoint('TOPRIGHT', -7, -7)
+    GameTooltipStatusBar:SetHeight(2)
+    GameTooltipStatusBar:SetFrameLevel(4)
+    GameTooltipStatusBar:SetBackdrop(
+        {bgFile = [[Interface\Buttons\WHITE8x8]],
+        insets = {
+            left     =  0,
+            right    =  0,
+            top      = -1,
+            bottom   = -2,
+            }
+        }
+    )
+    GameTooltipStatusBar:SetBackdropColor(0, 0, 0)
 
     GameTooltipHeaderText:SetFont(STANDARD_TEXT_FONT, 13)
     GameTooltipHeaderText:SetShadowOffset(.7, -.7)
@@ -152,18 +158,6 @@
             local name, r, g, b = AddTarget()
             GameTooltip:AddLine('|cfffec500Target:|r '..name, r, g, b)
         end
-
-        if GameTooltipStatusBar:IsShown() and GameTooltipStatusBar:GetValue() > 0
-        and (not string.find(GameTooltip:GetParent():GetName(), 'PlayerFrame')
-         or  not string.find(GameTooltip:GetParent():GetName(), 'TargetFrame')
-         or  not string.find(GameTooltip:GetParent():GetName(), 'PartyFrame')
-         or  not string.find(GameTooltip:GetParent():GetName(), 'PetFrame')
-         or  not string.find(GameTooltip:GetParent():GetName(), 'RaidFrame')) then
-            GameTooltip:AddLine' '
-        else
-            GameTooltipStatusBar:Hide()
-        end
-
 
         if  colour then
             local r, g, b = GameTooltip_UnitColor'mouseover'

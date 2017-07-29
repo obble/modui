@@ -8,10 +8,9 @@
 
             _G['TradeSkillDetailHeaderLeft']:Hide()
 
-            if bu then
-                modSkin(bu, 16)
-                modSkinPadding(bu, 2)
-                modSkinColor(bu, .2, .2, .2)
+            if  bu then
+                modSkin(bu)
+                modSkinColor(bu, .7, .7, .7)
             end
 
             for i = 1, MAX_TRADE_SKILL_REAGENTS do
@@ -26,9 +25,8 @@
 				        ri.f:SetPoint('TOPLEFT', ri)
 				        ri.f:SetPoint('BOTTOMRIGHT', ri)
                         ri.f:EnableMouse(false)
-                        modSkin(ri.f, 16)
-                        modSkinPadding(ri.f, 2)
-                        modSkinColor(ri.f, .2, .2, .2)
+                        modSkin(ri.f)
+                        modSkinColor(ri.f, .7, .7, .7)
 			        end
 
                     ri:SetParent(ri.f)
@@ -46,9 +44,8 @@
             _G['CraftDetailHeaderLeft']:Hide()
 
             if bu then
-                modSkin(bu, 16)
-                modSkinPadding(bu, 2)
-                modSkinColor(bu, .2, .2, .2)
+                modSkin(bu, 1)
+                modSkinColor(bu, .7, .7, .7)
             end
 
             for i = 1, MAX_CRAFT_REAGENTS do
@@ -63,9 +60,8 @@
 				        ri.f:SetPoint('TOPLEFT', ri)
 				        ri.f:SetPoint('BOTTOMRIGHT', ri)
                         ri.f:EnableMouse(false)
-                        modSkin(ri.f, 16)
-                        modSkinPadding(ri.f, 2)
-                        modSkinColor(ri.f, .2, .2, .2)
+                        modSkin(ri.f, 11)
+                        modSkinColor(ri.f, .7, .7, .7)
 			        end
 
                     ri:SetParent(ri.f)

@@ -8,9 +8,8 @@
                 local bu = _G['MacroButton'..i]
                 local ic = _G['MacroButton'..i..'Icon']
                 local _, slot = bu:GetRegions()
-                modSkin(bu, 18)
-                modSkinPadding(bu, 3)
-                modSkinColor(bu, .2, .2, .2)
+                modSkin(bu)
+                modSkinColor(bu, .7, .7, .7)
                 ic:SetTexCoord(.1, .9, .1, .9)
                 slot:SetWidth(60) slot:SetHeight(60)
             end
@@ -18,11 +17,10 @@
             local bu = _G['MacroFrameSelectedMacroButton']
             local ic = _G['MacroFrameSelectedMacroButtonIcon']
             local bg = _G['MacroFrameSelectedMacroBackground']
-            if bu then
+            if  bu then
                 local _, slot = bu:GetRegions()
-                modSkin(bu, 18)
-                modSkinPadding(bu, 3)
-                modSkinColor(bu, .2, .2, .2)
+                modSkin(bu, -.5)
+                modSkinColor(bu, .7, .7, .7)
                 ic:SetTexCoord(.1, .9, .1, .9)
                 slot:SetWidth(60) slot:SetHeight(60)
                 bg:SetAlpha(0)
@@ -33,9 +31,8 @@
                 local ic = _G['MacroPopupButton'..i..'Icon']
                 if bu then
                     local _, slot = bu:GetRegions()
-                    modSkin(bu, 18)
-                    modSkinPadding(bu, 3)
-                    modSkinColor(bu, .2, .2, .2)
+                    modSkin(bu, -.5)
+                    modSkinColor(bu, .7, .7, .7)
                     ic:SetTexCoord(.1, .9, .1, .9)
                     slot:SetWidth(60) slot:SetHeight(60)
                     bg:SetAlpha(0)

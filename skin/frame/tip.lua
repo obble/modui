@@ -18,12 +18,13 @@
                 DropDownList3MenuBackdrop,
                 ChatMenu,
                 EmoteMenu,
-                LanguageMenu, }
+                LanguageMenu,
+                TutorialFrame
+            }
 
     for i, v in pairs (f) do
-        modSkin(v, 18)
-        modSkinPadding(v, -1)
-        modSkinColor(v, .15, .15, .15)
+        modSkin(v, 4)
+        modSkinColor(v, .8, .8, .8)
     end
 
     --

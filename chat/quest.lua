@@ -13,9 +13,8 @@
     tip:SetScript('OnDragStart', function() tip:StartMoving() end)
     tip:SetScript('OnDragStop',  function() tip:StopMovingOrSizing() ValidateFramePosition(tip) end)
 
-    modSkin(tip, 18)
-    modSkinPadding(tip, -1)
-    modSkinColor(tip, .15, .15, .15)
+    modSkin(tip, 4)
+    modSkinColor(tip, .7, .7, .7)
 
     local x = CreateFrame('Button', 'QuestTipCloseButton', tip)
     x:SetWidth(32) x:SetHeight(32)

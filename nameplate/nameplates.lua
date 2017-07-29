@@ -88,8 +88,8 @@
         level:SetJustifyH'LEFT'
 
         plate.bg = plate:CreateTexture(nil, 'BACKGROUND')
-        plate.bg:SetPoint('TOPLEFT', plate, 4, -20)
-        plate.bg:SetPoint('BOTTOMRIGHT', plate, -4, 4)
+        plate.bg:SetPoint('TOPLEFT', health.new, -1, 1)
+        plate.bg:SetPoint('BOTTOMRIGHT', health.new, 1, -1)
         plate.bg:SetTexture[[Interface\Tooltips\UI-Tooltip-Background]]
         plate.bg:SetVertexColor(0, 0, 0, 1)
 
@@ -99,7 +99,7 @@
         plate.cast:SetBackdrop(BACKDROP)
         plate.cast:SetBackdropColor(0, 0, 0)
         plate.cast:SetHeight(8)
-        plate.cast:SetPoint('LEFT', plate, 20, 0)
+        plate.cast:SetPoint('LEFT', plate, 4, 0)
         plate.cast:SetPoint('RIGHT', plate, -4, 0)
         plate.cast:SetPoint('TOP', health, 'BOTTOM', 0, -8)
 
@@ -116,17 +116,18 @@
         plate.cast.timer:SetPoint('RIGHT', plate.cast)
 
         plate.cast.icon = plate.cast:CreateTexture(nil, 'OVERLAY', nil, 7)
-        plate.cast.icon:SetWidth(16) plate.cast.icon:SetHeight(14)
-        plate.cast.icon:SetPoint('RIGHT', plate.cast, 'LEFT', -5, 0)
+        plate.cast.icon:SetWidth(28) plate.cast.icon:SetHeight(28)
+        plate.cast.icon:SetPoint('BOTTOMRIGHT', plate.cast, 'BOTTOMLEFT', -10, 1)
         plate.cast.icon:SetTexture[[Interface\Icons\Spell_nature_purge]]
         plate.cast.icon:SetTexCoord(.1, .9, .1, .9)
 
-        plate.cast.border = plate.cast:CreateTexture(nil, 'OVERLAY')
-        plate.cast.border:SetTexture[[Interface\AddOns\modui\statusbar\texture\Nameplate-Castbar.blp]]
-        plate.cast.border:SetHeight(32)
-        plate.cast.border:SetPoint('TOPLEFT', plate, 'BOTTOMLEFT', 0, 8)
-        plate.cast.border:SetPoint('TOPRIGHT', plate, 'BOTTOMRIGHT', 0, 9)
-        plate.cast.border:SetVertexColor(.2, .2, .2)
+        local bu = CreateFrame('Frame', nil, plate.cast)
+        bu:SetAllPoints(plate.cast.icon)
+
+        modSkin(plate.cast)
+        modSkinColor(plate.cast, .7, .7, .7)
+        modSkin(bu)
+        modSkinColor(bu, .7, .7, .7)
 
         plate.heal = plate:CreateFontString(nil, 'OVERLAY')
         plate.heal:SetTextColor(0, .6, 0, .6)
@@ -139,9 +140,8 @@
             plate.buffs[i]:SetPoint('BOTTOMLEFT', plate, 'TOPLEFT', (i - 1)*32 + (i - 1)*2 + 5, -8)
             plate.buffs[i]:Hide()
 
-            modSkin(plate.buffs[i], 14.5)
-            modSkinPadding(plate.buffs[i], 3)
-            modSkinColor(plate.buffs[i], .2, .2, .2)
+            modSkin(plate.buffs[i])
+            modSkinColor(plate.buffs[i], .9, .9, .9)
 
             plate.buffs[i].icon = plate.buffs[i]:CreateTexture(nil, 'ARTWORK')
             plate.buffs[i].icon:SetAllPoints()
@@ -158,9 +158,8 @@
         plate.totem:SetHeight(22)
         plate.totem:SetPoint('BOTTOM', plate)
 
-        modSkin(plate.totem, 14.5)
-        modSkinPadding(plate.totem, 3)
-        modSkinColor(plate.totem, .2, .2, .2)
+        modSkin(plate.totem, 5)
+        modSkinColor(plate.totem, .7, .7, .7)
 
         plate.totem.icon = plate.totem:CreateTexture(nil, 'ARTWORK')
         plate.totem.icon:SetAllPoints()
@@ -356,13 +355,14 @@
             name:SetJustifyH'RIGHT'
 
             for _, v in pairs({plate:GetRegions()}) do
-                if  v:GetObjectType() == 'Texture'
-                and not
-                    (v:GetTexture() == [[Interface\TargetingFrame\UI-RaidTargetingIcons]]
-                    or
-                    string.find(tostring(v:GetTexture()), 'HighLevel'))
-                then
-                    v:SetAlpha(1)
+                if  v:GetObjectType() == 'Texture' then
+                    if not (v:GetTexture() == [[Interface\TargetingFrame\UI-RaidTargetingIcons]] or string.find(tostring(v:GetTexture()), 'HighLevel')) then
+                        v:SetAlpha(1)
+                    end
+                    if string.find(tostring(v:GetTexture()), 'HighLevel') then
+                        v:ClearAllPoints()
+                        v:SetPoint('LEFT', health, 'RIGHT', 10, 0)
+                    end
                 end
             end
 
