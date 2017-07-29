@@ -26,7 +26,7 @@
 
     local highlight = function()
         if modSkinned(modui_optionsactionbar) then
-            for _, v in pairs({modui_optionsactionbar, modui_display, modui_status, modui_elements, modui_colour, modui_optionsmodraid}) do modSkinColor(v, .2, .2, .2) end
+            for _, v in pairs({modui_optionsactionbar, modui_display, modui_status, modui_elements, modui_colour, modui_optionsmodraid}) do modSkinColor(v, .7, .7, .7) end
         end
     end
 
@@ -35,7 +35,7 @@
     end)
 
     menu:SetScript('OnShow', function() if modmenu:IsShown() then modSkinColor(modmenu, 1, .4, 0) end end)
-    menu:SetScript('OnHide', function() if modmenu:IsShown() then modSkinColor(modmenu, .2, .2, .2) end end)
+    menu:SetScript('OnHide', function() if modmenu:IsShown() then modSkinColor(modmenu, .7, .7, .7) end end)
 
 
     menu.x = CreateFrame('Button', 'modui_optionsCloseButton', menu, 'UIPanelCloseButton')

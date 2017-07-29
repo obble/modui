@@ -337,6 +337,8 @@
             CastingBarText:SetJustifyH'LEFT'
 
             CastingBarFrame.Icon:SetPoint('RIGHT', CastingBarFrame, 'LEFT', -10, 1)
+            CastingBarFrame.Icon:SetWidth(21)
+            CastingBarFrame.Icon:SetHeight(21)
             modSkinShow(CastingBarFrame)
         else
             SetCVar('modPlayerCastbar', 0)
@@ -357,6 +359,8 @@
             CastingBarText:SetJustifyH'CENTER'
 
             CastingBarFrame.Icon:SetPoint('RIGHT', CastingBarFrame, 'LEFT', -10, 2.5)
+            CastingBarFrame.Icon:SetWidth(25)
+            CastingBarFrame.Icon:SetHeight(25)
             modSkinHide(CastingBarFrame)
         end
     end)

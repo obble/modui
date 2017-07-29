@@ -137,13 +137,10 @@
 
     f:RegisterEvent'VARIABLES_LOADED' f:RegisterEvent'ADDON_LOADED'
     f:SetScript('OnEvent', function()
-        if  MODUI_COLOUR_FOR_UI == nil then
-            MODUI_COLOUR_FOR_UI = {}
-        end
-        if not MODUI_COLOUR_FOR_UI or not MODUI_COLOUR_FOR_UI.colour then
+        if not MODUI_COLOUR_FOR_UI.colour then
             MODUI_COLOUR_FOR_UI.colour = MODUI_UICOLOR_DEFAULT
         end
-        if not MODUI_PREVCOLOUR_FOR_UI or MODUI_PREVCOLOUR_FOR_UI.colour then
+        if not MODUI_PREVCOLOUR_FOR_UI.colour then
             MODUI_PREVCOLOUR_FOR_UI.colour = MODUI_UICOLOR_DEFAULT
         end
         for _, v in pairs(MODUI_COLOURELEMENTS_FOR_UI) do

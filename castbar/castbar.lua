@@ -19,25 +19,25 @@
     CastingBarFrame:SetStatusBarTexture(TEXTURE)
 
     CastingBarFrame.Icon = CreateFrame('Frame', nil, CastingBarFrame)
-    CastingBarFrame.Icon:SetWidth(26)
-    CastingBarFrame.Icon:SetHeight(26)
-    CastingBarFrame.Icon:SetPoint('RIGHT', CastingBarFrame, 'LEFT', -12, 2)
+    CastingBarFrame.Icon:SetWidth(25)
+    CastingBarFrame.Icon:SetHeight(25)
+    CastingBarFrame.Icon:SetPoint('RIGHT', CastingBarFrame, 'LEFT', -10, 2.5)
 
     CastingBarFrame.Icon.Texture = CastingBarFrame.Icon:CreateTexture(nil, 'ARTWORK')
     CastingBarFrame.Icon.Texture:SetAllPoints()
     CastingBarFrame.Icon.Texture:SetTexCoord(.1, .9, .1, .9)
 
-    modSkin(CastingBarFrame, 4)
+    modSkin(CastingBarFrame)
     modSkinColor(CastingBarFrame, .7, .7, .7)
     modSkinHide(CastingBarFrame)
 
     modSkin(CastingBarFrame.Icon)
     modSkinColor(CastingBarFrame.Icon, .7, .7, .7)
 
-    CastingBarText:SetFont(STANDARD_TEXT_FONT, 14, 'OUTLINE')
+    CastingBarText:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
     CastingBarText:SetShadowOffset(0, 0)
     CastingBarText:ClearAllPoints()
-    CastingBarText:SetPoint('CENTER', 0, -1)
+    CastingBarText:SetPoint('TOP', 0, 5)
 
     local PlayerCastingBarFrame = function()
         CastingBarFrame:ClearAllPoints()
@@ -59,6 +59,8 @@
         CastingBarText:SetJustifyH'LEFT'
 
         CastingBarFrame.Icon:SetPoint('RIGHT', CastingBarFrame, 'LEFT', -10, 1)
+        CastingBarFrame.Icon:SetWidth(21)
+        CastingBarFrame.Icon:SetHeight(21)
 
         modSkinShow(CastingBarFrame)
     end

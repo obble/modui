@@ -10,8 +10,8 @@
     parent:SetWidth(142)
     parent:SetHeight(8)
     parent:SetPoint('TOP', TargetFrame, 'BOTTOM', -11, -28)
-    --parent:SetMovable(true)
-    --parent:EnableMouse(true)
+    parent:SetMovable(true)
+    parent:EnableMouse(true)
     parent:RegisterForDrag'LeftButton'
     parent:SetBackdrop({bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
 							 insets = {left = -1, right = -1, top = -1, bottom = -1}})
@@ -29,9 +29,8 @@
 
     TargetFrame.cast.text = TargetFrame.cast:CreateFontString(nil, 'OVERLAY')
     TargetFrame.cast.text:SetTextColor(1, 1, 1)
-    TargetFrame.cast.text:SetFont(STANDARD_TEXT_FONT, 12)
-    TargetFrame.cast.text:SetShadowOffset(1, -1)
-    TargetFrame.cast.text:SetShadowColor(0, 0, 0)
+    TargetFrame.cast.text:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
+    TargetFrame.cast.text:SetShadowOffset(0, 0)
     TargetFrame.cast.text:SetPoint('TOPLEFT', TargetFrame.cast, 'BOTTOMLEFT', 2, -5)
 
     TargetFrame.cast.timer = TargetFrame.cast:CreateFontString(nil, 'OVERLAY')
