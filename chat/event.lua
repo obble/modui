@@ -177,11 +177,6 @@
        if tonumber(GetCVar'modChatFormat') == 1 then
            t = gsub(t, '%[(%d+)%. .+%].+(|Hplayer.+)', '%1 %2')               -- WORLD CHANNELS '1'
            t = gsub(t, 'Guild Message of the Day:', 'GMOTD —')                -- MOTD
-           if  ts == 1 then                                                   -- TIMESTAMP
-               local d = date'%I.%M'..string.lower(date'%p')
-               d = gsub(d, '0*(%d+)', '%1', 1)
-               t = string.format('|cff'..colour..'%s|r %s', d, t)
-           end
            for i, v in pairs(chatevents) do                                   -- CHAT EVENTS
                for k, j in pairs(v) do
                    if string.find(t, k)then
@@ -189,6 +184,11 @@
                        t = gsub(t, k, j)
                    end
                end
+           end
+           if  ts == 1 then                                                   -- TIMESTAMP
+               local d = date'%I.%M'..string.lower(date'%p')
+               d = gsub(d, '0*(%d+)', '%1', 1)
+               t = string.format('|cff'..colour..'%s|r %s', d, t)
            end
        end
        for i = 1, tlength(URL_PATTERNS) do                                -- URL

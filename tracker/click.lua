@@ -21,7 +21,7 @@
     function QuestWatch_Update()
         orig.QuestWatch_Update()
         q = {}
-        local wi    = 1
+        local wi = 1
         if tonumber(GetCVar'modQuestWatch') == 1 then
             for i = 1, GetNumQuestWatches() do
                 local qi  = GetQuestIndexForWatch(i)
@@ -30,8 +30,9 @@
                     local num   = GetNumQuestLeaderBoards(qi)
                     if  num > 0 then
                         local title = _G['QuestWatchLine'..wi]
-                        wi = wi + 1
                         if  q[t] then
+                            print(t)
+                            wi = wi + 1
                             --  title is already in our objective tracker and is being duplicated!!
                             title:Hide()
                             for j = 1, num do

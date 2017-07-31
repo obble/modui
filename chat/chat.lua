@@ -143,7 +143,8 @@
          else
              bu:Show()
              bu:SetAlpha(1)
-             if fl:IsShown() then modSkinColor(bu, 0, .6, 1) else modSkinColor(bu, .2, .2, .2) end
+             if fl:IsShown() then modSkinColor(bu, 0, 1, 0) else modSkinColor(bu, .7, .7, .7) end
+             fl:SetAlpha(0)
          end
      end
 

@@ -42,7 +42,7 @@
     			else
     				count:Hide()
     			end
-                modSkinColor(bu, colour.r*.7, colour.g*.7, colour.b*.7)
+                modSkinColor(bu, colour.r*1.5, colour.g*1.5, colour.b*1.5)
                 border:Hide()
     			bu:Show()
     			numDebuff = numDebuff + 1
@@ -139,7 +139,8 @@
     	end
     end
 
-    orig.TargetDebuffButton_Update = TargetDebuffButton_Update
+    orig.TargetDebuffButton_Update      = TargetDebuffButton_Update
+    orig.TargetofTarget_Update    = TargetofTarget_Update
 
     local AddAllTargetBuffs = function()
         local cv  = _G['modui_vars'].db['modAuraOrientation']
@@ -212,6 +213,37 @@
                 TargetFrameBuff1:ClearAllPoints()
                 TargetFrameBuff1:SetPoint('BOTTOMLEFT', _G['TargetFrameDebuff'..anchor(d)], 'TOPLEFT', 2, 5)
             end
+        end
+    end
+
+    function TargetofTarget_Update()
+        orig.TargetofTarget_Update()
+        --if event == 'UNIT_AURA' then
+            for i = 1, 4 do
+                local n = 'TargetofTargetFrame'..i
+                for j = 1, 4 do
+                    local f = n..'Debuff'..j
+                    local d  = _G[f..'Border']
+                    if  d then
+                        local r, g, b = d:GetVertexColor()
+                        modSkinColor(_G[f], r*1.5, g*1.5, b*1.5)
+                        d:SetAlpha(0)
+                    end
+                end
+            end
+        --end
+    end
+
+    for i = 2, 4 do
+        local bu    = _G['TargetofTargetFrameDebuff'..i]
+        local bu1   = _G['TargetofTargetFrameDebuff1']
+        bu:ClearAllPoints()
+        if      i == 2 then
+            bu:SetPoint('LEFT', bu1, 'RIGHT', 4, 0)
+        elseif  i == 3 then
+            bu:SetPoint('TOPLEFT', bu1, 'BOTTOMLEFT', 0, -4)
+        else
+            bu:SetPoint('LEFT',  _G['TargetofTargetFrameDebuff3'], 'RIGHT', 4, 0)
         end
     end
 

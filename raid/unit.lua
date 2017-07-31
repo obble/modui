@@ -17,11 +17,14 @@
     }
 
     local decurse = {
-        ['MAGE']    = 'Remove Curse',
+        ['MAGE']    = 'Remove Lesser Curse',
+        ['DRUID']   = 'Abolish Poison',
         ['DRUID']   = 'Remove Curse',
-        ['DRUID']   = 'Remove Poison',
-        ['PRIEST']  = 'Dispel',
-        ['SHAMAN']  = 'Cleanse',
+        ['PALADIN'] = 'Cleanse',
+        ['PRIEST']  = 'Abolish Disease',
+        ['PRIEST']  = 'Dispel Magic',
+        ['SHAMAN']  = 'Cleanse Toxins',
+        ['SHAMAN']  = 'Cleane Spirit',
     }
 
     local showdebuffs = false                   -- TOGGLE DEBUFF ICONS

@@ -7,7 +7,7 @@
         for j = 1, 4 do
             local bu = _G[n..'Debuff'..j]
             if  bu then
-                modSkin(bu, 6)
+                modSkin(bu)
                 modSkinColor(bu, .7, .7, .7)
             end
         end
@@ -35,7 +35,7 @@
                     local d  = _G[f..'Border']
                     if d then
                         local r, g, b = d:GetVertexColor()
-                        modSkinColor(_G[f], r*.7, g*.7, b*.7)
+                        modSkinColor(_G[f], r*1.5, g*1.5, b*1.5)
                         d:SetAlpha(0)
                     end
                 end

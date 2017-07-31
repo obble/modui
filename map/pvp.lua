@@ -10,9 +10,8 @@
         bu:SetPoint('TOPLEFT', BattlefieldMinimap2, -2, 0)
         bu:SetPoint('BOTTOMRIGHT', BattlefieldMinimap11, 0, 20)
 
-        modSkin(bu, 16)
-        modSkinPadding(bu, 2)
-        modSkinColor(bu, .2, .2, .2)
+        modSkin(bu)
+        modSkinColor(bu, .7, .7, .7)
 
         for _, v in pairs ({
             BattlefieldMinimap1, BattlefieldMinimap5, BattlefieldMinimap9,
